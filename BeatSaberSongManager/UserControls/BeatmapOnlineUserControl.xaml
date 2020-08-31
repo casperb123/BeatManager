@@ -33,7 +33,6 @@
                          Width="30"
                          Height="30"
                          Margin="0,0,2.5,0"
-                         IsChecked="True"
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
                 <iconPacks:PackIconFontAwesome Kind="SearchSolid"
                                                HorizontalAlignment="Center"
@@ -44,7 +43,8 @@
                          Width="30"
                          Height="30"
                          Margin="2.5,0,2.5,0"
-                         Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                         Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
+                         Checked="RadioButtonHot_Checked">
                 <iconPacks:PackIconFontAwesome Kind="FireSolid"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center" />
@@ -112,5 +112,95 @@
                                                VerticalAlignment="Center" />
             </Button>
         </Grid>
+
+        <DataGrid x:Name="dataGridMaps"
+                  ItemsSource="{Binding Path=BeatSaverMaps.docs}"
+                  Grid.Row="2"
+                  Grid.ColumnSpan="2"
+                  Margin="0,10,0,0"
+                  AutoGenerateColumns="False"
+                  SelectionMode="Single"
+                  CanUserAddRows="False"
+                  CanUserSortColumns="False"
+                  CanUserDeleteRows="False"
+                  CanUserReorderColumns="False"
+                  CanUserResizeRows="False"
+                  CanUserResizeColumns="False"
+                  VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Disabled">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Cover">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Border Width="30"
+                                        Height="30"
+                                        CornerRadius="100">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="{Binding Path=realCoverURL, Mode=OneWay}" />
+
+                                        <!--<Image Source="{Binding Path=realCoverURL, Mode=OneWay}"
+                                           Width="30"
+                                           Height="30" />-->
+
+                                    </Border.Background>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Song name"
+                                    Width="1*"
+                                    Binding="{Binding Path=name}" />
+                <DataGridTextColumn Header="Mapper"
+                                    Binding="{Binding Path=uploader.username}" />
+                <!--<DataGridTextColumn Header="Difficulties"
+                                    Binding="{Binding Path=}" />-->
+                <DataGridTextColumn Header="Downloads"
+                                    Binding="{Binding Path=stats.downloads}" />
+                <DataGridTemplateColumn Header="Actions">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Button Tag="{Binding Path=_id}"
+                                        Click="Map_Download">
+                                    <iconPacks:PackIconFontAwesome Kind="DownloadSolid"
+                                                                   HorizontalAlignment="Center"
+                                                                   VerticalAlignment="Center" />
+                                </Button>
+                                <Button Tag="{Binding Path=_id}"
+                                        Grid.Column="1"
+                                        Click="Map_Details">
+                                    <iconPacks:PackIconFontAwesome Kind="ArrowRightSolid"
+                                                                   HorizontalAlignment="Center"
+                                                                   VerticalAlignment="Center" />
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Rectangle x:Name="rectangleLoading"
+                   Grid.Row="2"
+                   Grid.ColumnSpan="2"
+                   Margin="0,10,0,0">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="Black"
+                                 Opacity=".5" />
+            </Rectangle.Fill>
+        </Rectangle>
+        <mah:ProgressRing x:Name="progressRingLoading"
+                          Foreground="{DynamicResource MahApps.Brushes.AccentBase}"
+                          IsActive="True"
+                          Grid.Row="2"
+                          Grid.ColumnSpan="2"
+                          Margin="0,10,0,0" />
     </Grid>
 </UserControl>

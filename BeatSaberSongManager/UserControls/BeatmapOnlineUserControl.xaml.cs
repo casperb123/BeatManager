@@ -1,5 +1,6 @@
 ﻿using BeatSaberSongManager.ViewModels;
 using BeatSaverApi;
+using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,10 +24,10 @@ namespace BeatSaberSongManager.UserControls
     {
         public BeatMapOnlineUserControlViewModel ViewModel;
 
-        public BeatmapOnlineUserControl()
+        public BeatmapOnlineUserControl(MainWindow mainWindow)
         {
             InitializeComponent();
-            ViewModel = new BeatMapOnlineUserControlViewModel();
+            ViewModel = new BeatMapOnlineUserControlViewModel(mainWindow);
             DataContext = ViewModel;
         }
 
@@ -40,10 +41,54 @@ namespace BeatSaberSongManager.UserControls
             string songId = ((Button)sender).Tag.ToString();
         }
 
+        private void RadioButtonSearch_Checked(object sender, RoutedEventArgs e)
+        {
+            ViewModel.BeatSaverMaps = null;
+        }
+
         private void RadioButtonHot_Checked(object sender, RoutedEventArgs e)
         {
-
             ViewModel.GetBeatSaverMaps(MapSort.Hot);
+        }
+
+        private void RadioButtonRating_Checked(object sender, RoutedEventArgs e)
+        {
+            ViewModel.GetBeatSaverMaps(MapSort.Rating);
+        }
+
+        private void RadioButtonLatest_Checked(object sender, RoutedEventArgs e)
+        {
+            ViewModel.GetBeatSaverMaps(MapSort.Latest);
+        }
+
+        private void RadioButtonDownloads_Checked(object sender, RoutedEventArgs e)
+        {
+            ViewModel.GetBeatSaverMaps(MapSort.Downloads);
+        }
+
+        private void RadioButtonPlays_Checked(object sender, RoutedEventArgs e)
+        {
+            ViewModel.GetBeatSaverMaps(MapSort.Plays);
+        }
+
+        private void DataGridMaps_TargetUpdated(object sender, DataTransferEventArgs e)
+        {
+            ViewModel.MainWindow.rectangleLoading.Visibility = Visibility.Hidden;
+            ViewModel.MainWindow.progressRingLoading.Visibility = Visibility.Hidden;
+            ViewModel.MainWindow.progressRingLoading.IsActive = false;
+        }
+
+        private async void ButtonSearch_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(textBoxSearch.Text))
+            {
+                await ViewModel.MainWindow.ShowMessageAsync("Beat Saver search", "The search query can't be null or empty");
+                return;
+            }
+            if (!radioButtonSearch.IsChecked.Value)
+                radioButtonSearch.IsChecked = true;
+
+            ViewModel.GetBeatSaverMaps(textBoxSearch.Text);
         }
     }
 }

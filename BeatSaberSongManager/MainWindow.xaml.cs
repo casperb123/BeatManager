@@ -29,7 +29,7 @@ namespace BeatSaberSongManager
         {
             InitializeComponent();
             localUserControl = new BeatmapLocalUserControl();
-            onlineUserControl = new BeatmapOnlineUserControl();
+            onlineUserControl = new BeatmapOnlineUserControl(this);
 
             buttonLocal.IsChecked = true;
         }

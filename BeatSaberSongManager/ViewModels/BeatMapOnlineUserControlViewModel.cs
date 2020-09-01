@@ -1,15 +1,21 @@
-﻿using BeatSaverApi;
+﻿using BeatSaberSongManager.UserControls;
+using BeatSaverApi;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Threading;
 
 namespace BeatSaberSongManager.ViewModels
 {
     public class BeatMapOnlineUserControlViewModel : INotifyPropertyChanged
     {
         private BeatSaverMaps beatSaverMaps;
+        public readonly MainWindow MainWindow;
 
         public readonly BeatSaver BeatSaverApi;
         public BeatSaverMaps BeatSaverMaps
@@ -17,16 +23,14 @@ namespace BeatSaberSongManager.ViewModels
             get { return beatSaverMaps; }
             set
             {
-                if (value is null)
-                    throw new NullReferenceException("The value can't be null");
-
                 beatSaverMaps = value;
                 OnPropertyChanged(nameof(BeatSaverMaps));
             }
         }
 
-        public BeatMapOnlineUserControlViewModel()
+        public BeatMapOnlineUserControlViewModel(MainWindow mainWindow)
         {
+            MainWindow = mainWindow;
             BeatSaverApi = new BeatSaver();
         }
 
@@ -40,15 +44,22 @@ namespace BeatSaberSongManager.ViewModels
 
         public void GetBeatSaverMaps(MapSort mapSort, int page = 0)
         {
-            Task.Run(async () =>
-            {
-                BeatSaverMaps = await BeatSaverApi.GetBeatSaverMaps(mapSort, page);
-            });
+            MainWindow.progressRingLoading.IsActive = true;
+            MainWindow.rectangleLoading.Visibility = Visibility.Visible;
+            MainWindow.progressRingLoading.Visibility = Visibility.Visible;
+
+            Thread thread = new Thread(async () => BeatSaverMaps = await BeatSaverApi.GetBeatSaverMaps(mapSort, page));
+            thread.Start();
         }
 
-        //public async Task GetBeatSaverMaps(MapSort mapSort, int page = 0)
-        //{
-        //    BeatSaverMaps = await BeatSaverApi.GetBeatSaverMaps(mapSort, page);
-        //}
+        public void GetBeatSaverMaps(string query, int page = 0)
+        {
+            MainWindow.progressRingLoading.IsActive = true;
+            MainWindow.rectangleLoading.Visibility = Visibility.Visible;
+            MainWindow.progressRingLoading.Visibility = Visibility.Visible;
+
+            Thread thread = new Thread(async () => BeatSaverMaps = await BeatSaverApi.GetBeatSaverMaps(query, page));
+            thread.Start();
+        }
     }
 }

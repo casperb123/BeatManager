@@ -4,11 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:BeatSaberSongManager.UserControls"
+             xmlns:converters="clr-namespace:BeatSaberSongManager.Converters"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
+    <UserControl.Resources>
+        <converters:ImageConverter x:Key="ImageConverter" />
+        <converters:BooleanToVisiblityConverter x:Key="BooleanToVisibilityConverter" />
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
@@ -33,7 +38,9 @@
                          Width="30"
                          Height="30"
                          Margin="0,0,2.5,0"
-                         Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                         ToolTip="Search"
+                         Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
+                         Checked="RadioButtonSearch_Checked">
                 <iconPacks:PackIconFontAwesome Kind="SearchSolid"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center" />
@@ -43,6 +50,7 @@
                          Width="30"
                          Height="30"
                          Margin="2.5,0,2.5,0"
+                         ToolTip="Hot"
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonHot_Checked">
                 <iconPacks:PackIconFontAwesome Kind="FireSolid"
@@ -54,7 +62,9 @@
                          Width="30"
                          Height="30"
                          Margin="2.5,0,2.5,0"
-                         Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                         ToolTip="Rating"
+                         Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
+                         Checked="RadioButtonRating_Checked">
                 <iconPacks:PackIconFontAwesome Kind="StarSolid"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center" />
@@ -64,7 +74,9 @@
                          Width="30"
                          Height="30"
                          Margin="2.5,0,2.5,0"
-                         Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                         ToolTip="Latest"
+                         Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
+                         Checked="RadioButtonLatest_Checked">
                 <iconPacks:PackIconFontAwesome Kind="ExclamationSolid"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center" />
@@ -74,7 +86,9 @@
                          Width="30"
                          Height="30"
                          Margin="2.5,0,2.5,0"
-                         Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                         ToolTip="Downloads"
+                         Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
+                         Checked="RadioButtonDownloads_Checked">
                 <iconPacks:PackIconFontAwesome Kind="DownloadSolid"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center" />
@@ -84,7 +98,9 @@
                          Width="30"
                          Height="30"
                          Margin="2.5,0,0,0"
-                         Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
+                         ToolTip="Plays"
+                         Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
+                         Checked="RadioButtonPlays_Checked">
                 <iconPacks:PackIconFontAwesome Kind="PlaySolid"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center" />
@@ -106,7 +122,8 @@
                      mah:TextBoxHelper.ClearTextButton="True" />
             <Button x:Name="buttonSearch"
                     Grid.Column="1"
-                    Width="40">
+                    Width="40"
+                    Click="ButtonSearch_Click">
                 <iconPacks:PackIconFontAwesome Kind="SearchSolid"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center" />
@@ -114,7 +131,7 @@
         </Grid>
 
         <DataGrid x:Name="dataGridMaps"
-                  ItemsSource="{Binding Path=BeatSaverMaps.docs}"
+                  ItemsSource="{Binding Path=BeatSaverMaps.docs, NotifyOnTargetUpdated=True}"
                   Grid.Row="2"
                   Grid.ColumnSpan="2"
                   Margin="0,10,0,0"
@@ -127,37 +144,138 @@
                   CanUserResizeRows="False"
                   CanUserResizeColumns="False"
                   VerticalScrollBarVisibility="Auto"
-                  HorizontalScrollBarVisibility="Disabled">
+                  HorizontalScrollBarVisibility="Disabled"
+                  VirtualizingPanel.IsVirtualizing="False"
+                  TargetUpdated="DataGridMaps_TargetUpdated">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Cover">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Grid>
-                                <Border Width="30"
-                                        Height="30"
+                                <Border Width="25"
+                                        Height="25"
                                         CornerRadius="100">
                                     <Border.Background>
-                                        <ImageBrush ImageSource="{Binding Path=realCoverURL, Mode=OneWay}" />
-
-                                        <!--<Image Source="{Binding Path=realCoverURL, Mode=OneWay}"
-                                           Width="30"
-                                           Height="30" />-->
-
+                                        <ImageBrush ImageSource="{Binding Path=realCoverURL, Mode=OneWay, IsAsync=True, Converter={StaticResource ImageConverter}}" />
                                     </Border.Background>
                                 </Border>
                             </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Artist"
+                                    Width=".3*"
+                                    Binding="{Binding Path=metadata.songAuthorName, IsAsync=True, FallbackValue=...}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock"
+                               BasedOn="{StaticResource MahApps.Styles.TextBlock}">
+                            <Setter Property="TextTrimming"
+                                    Value="CharacterEllipsis" />
+                            <Setter Property="Margin"
+                                    Value="10,0,0,0" />
+                            <Setter Property="ToolTip"
+                                    Value="{Binding Path=metadata.songAuthorName, IsAsync=True}" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
                 <DataGridTextColumn Header="Song name"
                                     Width="1*"
-                                    Binding="{Binding Path=name}" />
+                                    Binding="{Binding Path=name, IsAsync=True, FallbackValue=...}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock"
+                               BasedOn="{StaticResource MahApps.Styles.TextBlock}">
+                            <Setter Property="TextTrimming"
+                                    Value="CharacterEllipsis" />
+                            <Setter Property="Margin"
+                                    Value="10,0,0,0" />
+                            <Setter Property="ToolTip"
+                                    Value="{Binding Path=name, IsAsync=True}" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
                 <DataGridTextColumn Header="Mapper"
-                                    Binding="{Binding Path=uploader.username}" />
-                <!--<DataGridTextColumn Header="Difficulties"
-                                    Binding="{Binding Path=}" />-->
+                                    Width=".3*"
+                                    Binding="{Binding Path=uploader.username, IsAsync=True, FallbackValue=...}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock"
+                               BasedOn="{StaticResource MahApps.Styles.TextBlock}">
+                            <Setter Property="TextTrimming"
+                                    Value="CharacterEllipsis" />
+                            <Setter Property="Margin"
+                                    Value="10,0,0,0" />
+                            <Setter Property="ToolTip"
+                                    Value="{Binding Path=uploader.username, IsAsync=True}" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Header="Difficulties">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="20,0,0,0">
+                                <Border Width="25"
+                                        Height="25"
+                                        CornerRadius="100"
+                                        Background="LimeGreen"
+                                        Margin="-10,0,0,0"
+                                        ToolTip="Easy"
+                                        ToolTipService.InitialShowDelay="0"
+                                        ToolTipService.BetweenShowDelay="0"
+                                        Visibility="{Binding Path=metadata.difficulties.easy, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                <Border Width="25"
+                                        Height="25"
+                                        CornerRadius="100"
+                                        Background="RoyalBlue"
+                                        Margin="-10,0,0,0"
+                                        ToolTip="Normal"
+                                        ToolTipService.InitialShowDelay="0"
+                                        ToolTipService.BetweenShowDelay="0"
+                                        Visibility="{Binding Path=metadata.difficulties.normal, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                <Border Width="25"
+                                        Height="25"
+                                        CornerRadius="100"
+                                        Background="Orange"
+                                        Margin="-10,0,0,0"
+                                        ToolTip="Hard"
+                                        ToolTipService.InitialShowDelay="0"
+                                        ToolTipService.BetweenShowDelay="0"
+                                        Visibility="{Binding Path=metadata.difficulties.hard, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                <Border Width="25"
+                                        Height="25"
+                                        CornerRadius="100"
+                                        Background="Red"
+                                        Margin="-10,0,0,0"
+                                        ToolTip="Expert"
+                                        ToolTipService.InitialShowDelay="0"
+                                        ToolTipService.BetweenShowDelay="0"
+                                        Visibility="{Binding Path=metadata.difficulties.expert, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                <Border Width="25"
+                                        Height="25"
+                                        CornerRadius="100"
+                                        Background="Purple"
+                                        Margin="-10,0,0,0"
+                                        ToolTip="Expert+"
+                                        ToolTipService.InitialShowDelay="0"
+                                        ToolTipService.BetweenShowDelay="0"
+                                        Visibility="{Binding Path=metadata.difficulties.expertPlus, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Downloads"
-                                    Binding="{Binding Path=stats.downloads}" />
+                                    Binding="{Binding Path=stats.downloads, IsAsync=True, FallbackValue=...}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock"
+                               BasedOn="{StaticResource MahApps.Styles.TextBlock}">
+                            <Setter Property="TextTrimming"
+                                    Value="CharacterEllipsis" />
+                            <Setter Property="Margin"
+                                    Value="10,0,0,0" />
+                            <Setter Property="ToolTip"
+                                    Value="{Binding Path=stats.downloads, IsAsync=True}" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
                 <DataGridTemplateColumn Header="Actions">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -168,6 +286,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Button Tag="{Binding Path=_id}"
+                                        ToolTip="Download/Delete song"
                                         Click="Map_Download">
                                     <iconPacks:PackIconFontAwesome Kind="DownloadSolid"
                                                                    HorizontalAlignment="Center"
@@ -175,6 +294,7 @@
                                 </Button>
                                 <Button Tag="{Binding Path=_id}"
                                         Grid.Column="1"
+                                        ToolTip="Song details"
                                         Click="Map_Details">
                                     <iconPacks:PackIconFontAwesome Kind="ArrowRightSolid"
                                                                    HorizontalAlignment="Center"
@@ -188,9 +308,10 @@
         </DataGrid>
 
         <Rectangle x:Name="rectangleLoading"
-                   Grid.Row="2"
                    Grid.ColumnSpan="2"
-                   Margin="0,10,0,0">
+                   Grid.RowSpan="3"
+                   Margin="0,10,0,0"
+                   Visibility="Hidden">
             <Rectangle.Fill>
                 <SolidColorBrush Color="Black"
                                  Opacity=".5" />
@@ -198,9 +319,10 @@
         </Rectangle>
         <mah:ProgressRing x:Name="progressRingLoading"
                           Foreground="{DynamicResource MahApps.Brushes.AccentBase}"
-                          IsActive="True"
-                          Grid.Row="2"
+                          IsActive="False"
+                          Visibility="Hidden"
                           Grid.ColumnSpan="2"
+                          Grid.RowSpan="3"
                           Margin="0,10,0,0" />
     </Grid>
 </UserControl>

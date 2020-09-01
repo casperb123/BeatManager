@@ -8,8 +8,8 @@
                  xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                  mc:Ignorable="d"
                  Title="Beat Saber Song Manager"
-                 Height="450"
-                 Width="800">
+                 Height="487"
+                 Width="880">
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
@@ -63,5 +63,18 @@
         <UserControl x:Name="userControlMain"
                      Grid.Column="1"
                      Margin="30,0,0,0" />
+
+        <Rectangle x:Name="rectangleLoading"
+                   Grid.ColumnSpan="2"
+                   Visibility="Hidden">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="{DynamicResource MahApps.Colors.ThemeBackground}"
+                                 Opacity=".5" />
+            </Rectangle.Fill>
+        </Rectangle>
+        <mah:ProgressRing x:Name="progressRingLoading"
+                          Grid.ColumnSpan="2"
+                          Visibility="Hidden"
+                          IsActive="False" />
     </Grid>
 </mah:MetroWindow>

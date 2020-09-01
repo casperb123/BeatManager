@@ -164,7 +164,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Artist"
-                                    Width=".3*"
+                                    Width=".35*"
                                     Binding="{Binding Path=metadata.songAuthorName, IsAsync=True, FallbackValue=...}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock"
@@ -194,8 +194,8 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="Mapper"
-                                    Width=".3*"
-                                    Binding="{Binding Path=uploader.username, IsAsync=True, FallbackValue=...}">
+                                    Width=".35*"
+                                    Binding="{Binding Path=metadata.levelAuthorName, IsAsync=True, FallbackValue=...}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock"
                                BasedOn="{StaticResource MahApps.Styles.TextBlock}">
@@ -204,7 +204,7 @@
                             <Setter Property="Margin"
                                     Value="10,0,0,0" />
                             <Setter Property="ToolTip"
-                                    Value="{Binding Path=uploader.username, IsAsync=True}" />
+                                    Value="{Binding Path=metadata.levelAuthorName, IsAsync=True}" />
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>

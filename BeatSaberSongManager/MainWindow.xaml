@@ -8,8 +8,8 @@
                  xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                  mc:Ignorable="d"
                  Title="Beat Saber Song Manager"
-                 Height="487"
-                 Width="880">
+                 Height="533"
+                 Width="915">
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />

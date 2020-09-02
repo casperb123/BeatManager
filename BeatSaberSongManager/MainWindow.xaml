@@ -9,7 +9,9 @@
                  mc:Ignorable="d"
                  Title="Beat Saber Song Manager"
                  Height="605"
+                 MinHeight="550"
                  Width="915"
+                 MinWidth="915"
                  Closing="MetroWindow_Closing">
     <Grid Margin="5">
         <Grid.ColumnDefinitions>

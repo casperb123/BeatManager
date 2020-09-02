@@ -14,6 +14,7 @@
         <converters:ImageConverter x:Key="ImageConverter" />
         <converters:BooleanToVisiblityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
@@ -144,7 +145,7 @@
         </Grid>
 
         <DataGrid x:Name="dataGridMaps"
-                  ItemsSource="{Binding Path=BeatSaverMaps.docs, NotifyOnTargetUpdated=True}"
+                  ItemsSource="{Binding Path=BeatSaverMaps.docs, NotifyOnTargetUpdated=True, IsAsync=True}"
                   Grid.Row="2"
                   Grid.ColumnSpan="2"
                   Margin="0,10,0,0"
@@ -169,7 +170,7 @@
                                         Height="25"
                                         CornerRadius="100">
                                     <Border.Background>
-                                        <ImageBrush ImageSource="{Binding Path=realCoverURL, Mode=OneWay, IsAsync=True, Converter={StaticResource ImageConverter}}" />
+                                        <ImageBrush ImageSource="{Binding Path=realCoverURL, Mode=OneWay, IsAsync=True}" />
                                     </Border.Background>
                                 </Border>
                             </Grid>

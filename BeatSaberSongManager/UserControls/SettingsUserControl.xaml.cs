@@ -43,7 +43,7 @@ namespace BeatSaberSongManager.UserControls
 
         private void ButtonSongsPathBrowse_Click(object sender, RoutedEventArgs e)
         {
-            viewModel.SetSongsPath(false, false);
+            viewModel.SetSongsPath(false, true);
         }
     }
 }

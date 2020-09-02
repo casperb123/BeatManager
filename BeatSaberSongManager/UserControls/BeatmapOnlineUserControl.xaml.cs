@@ -27,7 +27,7 @@ namespace BeatSaberSongManager.UserControls
         public BeatmapOnlineUserControl(MainWindow mainWindow)
         {
             InitializeComponent();
-            ViewModel = new BeatMapOnlineUserControlViewModel(mainWindow);
+            ViewModel = new BeatMapOnlineUserControlViewModel(mainWindow, this);
             DataContext = ViewModel;
         }
 
@@ -43,31 +43,37 @@ namespace BeatSaberSongManager.UserControls
 
         private void RadioButtonSearch_Checked(object sender, RoutedEventArgs e)
         {
+            ViewModel.CurrentMapSort = MapSort.Search;
             ViewModel.BeatSaverMaps = null;
         }
 
         private void RadioButtonHot_Checked(object sender, RoutedEventArgs e)
         {
+            ViewModel.CurrentMapSort = MapSort.Hot;
             ViewModel.GetBeatSaverMaps(MapSort.Hot);
         }
 
         private void RadioButtonRating_Checked(object sender, RoutedEventArgs e)
         {
+            ViewModel.CurrentMapSort = MapSort.Rating;
             ViewModel.GetBeatSaverMaps(MapSort.Rating);
         }
 
         private void RadioButtonLatest_Checked(object sender, RoutedEventArgs e)
         {
+            ViewModel.CurrentMapSort = MapSort.Latest;
             ViewModel.GetBeatSaverMaps(MapSort.Latest);
         }
 
         private void RadioButtonDownloads_Checked(object sender, RoutedEventArgs e)
         {
+            ViewModel.CurrentMapSort = MapSort.Downloads;
             ViewModel.GetBeatSaverMaps(MapSort.Downloads);
         }
 
         private void RadioButtonPlays_Checked(object sender, RoutedEventArgs e)
         {
+            ViewModel.CurrentMapSort = MapSort.Plays;
             ViewModel.GetBeatSaverMaps(MapSort.Plays);
         }
 
@@ -76,6 +82,7 @@ namespace BeatSaberSongManager.UserControls
             ViewModel.MainWindow.rectangleLoading.Visibility = Visibility.Hidden;
             ViewModel.MainWindow.progressRingLoading.Visibility = Visibility.Hidden;
             ViewModel.MainWindow.progressRingLoading.IsActive = false;
+            ViewModel.UpdatePageButtons();
         }
 
         private async void ButtonSearch_Click(object sender, RoutedEventArgs e)
@@ -89,6 +96,38 @@ namespace BeatSaberSongManager.UserControls
                 radioButtonSearch.IsChecked = true;
 
             ViewModel.GetBeatSaverMaps(textBoxSearch.Text);
+        }
+
+        private void buttonFirstPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.CurrentMapSort == MapSort.Search)
+                ViewModel.FirstPage(textBoxSearch.Text);
+            else
+                ViewModel.FirstPage();
+        }
+
+        private void buttonPreviousPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.CurrentMapSort == MapSort.Search)
+                ViewModel.PreviousPage(textBoxSearch.Text);
+            else
+                ViewModel.PreviousPage();
+        }
+
+        private void buttonNextPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.CurrentMapSort == MapSort.Search)
+                ViewModel.NextPage(textBoxSearch.Text);
+            else
+                ViewModel.NextPage();
+        }
+
+        private void buttonLastPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.CurrentMapSort == MapSort.Search)
+                ViewModel.LastPage(textBoxSearch.Text);
+            else
+                ViewModel.LastPage();
         }
     }
 }

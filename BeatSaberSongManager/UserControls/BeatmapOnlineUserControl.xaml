@@ -23,6 +23,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="1*" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
         <Label Content="Beatmap Online"
@@ -165,6 +166,7 @@
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Artist"
                                     Width=".35*"
+                                    IsReadOnly="True"
                                     Binding="{Binding Path=metadata.songAuthorName, IsAsync=True, FallbackValue=...}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock"
@@ -180,6 +182,7 @@
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="Song name"
                                     Width="1*"
+                                    IsReadOnly="True"
                                     Binding="{Binding Path=name, IsAsync=True, FallbackValue=...}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock"
@@ -195,6 +198,7 @@
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="Mapper"
                                     Width=".35*"
+                                    IsReadOnly="True"
                                     Binding="{Binding Path=metadata.levelAuthorName, IsAsync=True, FallbackValue=...}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock"
@@ -208,7 +212,8 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTemplateColumn Header="Difficulties">
+                <DataGridTemplateColumn Header="Difficulties"
+                                        IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal"
@@ -263,6 +268,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Downloads"
+                                    IsReadOnly="True"
                                     Binding="{Binding Path=stats.downloads, IsAsync=True, FallbackValue=...}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock"
@@ -276,7 +282,8 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTemplateColumn Header="Actions">
+                <DataGridTemplateColumn Header="Actions"
+                                        IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Grid>
@@ -307,22 +314,77 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Rectangle x:Name="rectangleLoading"
-                   Grid.ColumnSpan="2"
-                   Grid.RowSpan="3"
-                   Margin="0,10,0,0"
-                   Visibility="Hidden">
-            <Rectangle.Fill>
-                <SolidColorBrush Color="Black"
-                                 Opacity=".5" />
-            </Rectangle.Fill>
-        </Rectangle>
-        <mah:ProgressRing x:Name="progressRingLoading"
-                          Foreground="{DynamicResource MahApps.Brushes.AccentBase}"
-                          IsActive="False"
-                          Visibility="Hidden"
-                          Grid.ColumnSpan="2"
-                          Grid.RowSpan="3"
-                          Margin="0,10,0,0" />
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Grid.Row="3"
+                    Grid.ColumnSpan="2">
+            <Label VerticalContentAlignment="Center">
+                <Label.Content>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}Page {0} of {1}">
+                                <Binding Path="BeatSaverMaps.currentPageReal"
+                                         FallbackValue="0" />
+                                <Binding Path="BeatSaverMaps.lastPageReal"
+                                         FallbackValue="0" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </Label.Content>
+            </Label>
+
+            <Button x:Name="buttonFirstPage"
+                    Width="35"
+                    Height="35"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    ToolTip="First page"
+                    IsEnabled="False"
+                    Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                    Click="buttonFirstPage_Click">
+                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleLeftSolid"
+                                               Width="25"
+                                               Height="25" />
+            </Button>
+            <Button x:Name="buttonPreviousPage"
+                    Width="35"
+                    Height="35"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    ToolTip="Previous page"
+                    IsEnabled="False"
+                    Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                    Click="buttonPreviousPage_Click">
+                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleLeftRegular"
+                                               Width="25"
+                                               Height="25" />
+            </Button>
+            <Button x:Name="buttonNextPage"
+                    Width="35"
+                    Height="35"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    ToolTip="Next page"
+                    IsEnabled="False"
+                    Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                    Click="buttonNextPage_Click">
+                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleRightRegular"
+                                               Width="25"
+                                               Height="25" />
+            </Button>
+            <Button x:Name="buttonLastPage"
+                    Width="35"
+                    Height="35"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    ToolTip="Last page"
+                    IsEnabled="False"
+                    Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                    Click="buttonLastPage_Click">
+                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleRightSolid"
+                                               Width="25"
+                                               Height="25" />
+            </Button>
+        </StackPanel>
     </Grid>
 </UserControl>

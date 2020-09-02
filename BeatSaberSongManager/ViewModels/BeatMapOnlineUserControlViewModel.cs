@@ -14,7 +14,10 @@ namespace BeatSaberSongManager.ViewModels
 {
     public class BeatMapOnlineUserControlViewModel : INotifyPropertyChanged
     {
+        private readonly BeatmapOnlineUserControl userControl;
         private BeatSaverMaps beatSaverMaps;
+
+        public MapSort CurrentMapSort;
         public readonly MainWindow MainWindow;
 
         public readonly BeatSaver BeatSaverApi;
@@ -28,9 +31,10 @@ namespace BeatSaberSongManager.ViewModels
             }
         }
 
-        public BeatMapOnlineUserControlViewModel(MainWindow mainWindow)
+        public BeatMapOnlineUserControlViewModel(MainWindow mainWindow, BeatmapOnlineUserControl userControl)
         {
             MainWindow = mainWindow;
+            this.userControl = userControl;
             BeatSaverApi = new BeatSaver();
         }
 
@@ -60,6 +64,62 @@ namespace BeatSaberSongManager.ViewModels
 
             Thread thread = new Thread(async () => BeatSaverMaps = await BeatSaverApi.GetBeatSaverMaps(query, page));
             thread.Start();
+        }
+
+        public void UpdatePageButtons()
+        {
+            if (BeatSaverMaps != null && BeatSaverMaps.prevPage.HasValue)
+            {
+                userControl.buttonFirstPage.IsEnabled = true;
+                userControl.buttonPreviousPage.IsEnabled = true;
+            }
+            else
+            {
+                userControl.buttonFirstPage.IsEnabled = false;
+                userControl.buttonPreviousPage.IsEnabled = false;
+            }
+            if (BeatSaverMaps != null && BeatSaverMaps.nextPage.HasValue)
+            {
+                userControl.buttonLastPage.IsEnabled = true;
+                userControl.buttonNextPage.IsEnabled = true;
+            }
+            else
+            {
+                userControl.buttonLastPage.IsEnabled = false;
+                userControl.buttonNextPage.IsEnabled = false;
+            }
+        }
+
+        public void NextPage(string query = null)
+        {
+            if (query is null)
+                GetBeatSaverMaps(CurrentMapSort, BeatSaverMaps.nextPage.Value);
+            else
+                GetBeatSaverMaps(query, BeatSaverMaps.nextPage.Value);
+        }
+
+        public void PreviousPage(string query = null)
+        {
+            if (query is null)
+                GetBeatSaverMaps(CurrentMapSort, BeatSaverMaps.prevPage.Value);
+            else
+                GetBeatSaverMaps(query, BeatSaverMaps.prevPage.Value);
+        }
+
+        public void FirstPage(string query = null)
+        {
+            if (query is null)
+                GetBeatSaverMaps(CurrentMapSort, 0);
+            else
+                GetBeatSaverMaps(query, 0);
+        }
+
+        public void LastPage(string query = null)
+        {
+            if (query is null)
+                GetBeatSaverMaps(CurrentMapSort, BeatSaverMaps.lastPage);
+            else
+                GetBeatSaverMaps(query, BeatSaverMaps.lastPage);
         }
     }
 }

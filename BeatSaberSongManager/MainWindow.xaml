@@ -8,8 +8,9 @@
                  xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                  mc:Ignorable="d"
                  Title="Beat Saber Song Manager"
-                 Height="533"
-                 Width="915">
+                 Height="605"
+                 Width="915"
+                 Closing="MetroWindow_Closing">
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
@@ -17,13 +18,13 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel>
-            <RadioButton x:Name="buttonLocal"
+            <RadioButton x:Name="radioButtonLocal"
                          Width="40"
                          Height="40"
                          Margin="0,0,0,5"
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          GroupName="NavigationButtons"
-                         Checked="ButtonLocal_Checked">
+                         Checked="RadioButtonLocal_Checked">
                 <iconPacks:PackIconFontAwesome Kind="LaptopSolid"
                                                Width="20"
                                                Height="20"
@@ -31,12 +32,12 @@
                                                VerticalAlignment="Center" />
             </RadioButton>
 
-            <RadioButton x:Name="buttonOnline"
+            <RadioButton x:Name="radioButtonOnline"
                          Width="40"
                          Height="40"
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          GroupName="NavigationButtons"
-                         Checked="ButtonOnline_Checked">
+                         Checked="RadioButtonOnline_Checked">
                 <iconPacks:PackIconFontAwesome Kind="GlobeSolid"
                                                Width="20"
                                                Height="20"
@@ -46,12 +47,12 @@
         </StackPanel>
 
         <StackPanel VerticalAlignment="Bottom">
-            <RadioButton x:Name="buttonSettings"
+            <RadioButton x:Name="radioButtonSettings"
                          Width="40"
                          Height="40"
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          GroupName="NavigationButtons"
-                         Checked="ButtonSettings_Checked">
+                         Checked="RadioButtonSettings_Checked">
                 <iconPacks:PackIconMaterialDesign Kind="Settings"
                                                   Width="20"
                                                   Height="20"

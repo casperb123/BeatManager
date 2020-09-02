@@ -22,7 +22,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="1*" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
@@ -40,6 +40,8 @@
                          Height="30"
                          Margin="0,0,2.5,0"
                          ToolTip="Search"
+                         ToolTipService.BetweenShowDelay="0"
+                         ToolTipService.InitialShowDelay="0"
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonSearch_Checked">
                 <iconPacks:PackIconFontAwesome Kind="SearchSolid"
@@ -52,6 +54,8 @@
                          Height="30"
                          Margin="2.5,0,2.5,0"
                          ToolTip="Hot"
+                         ToolTipService.BetweenShowDelay="0"
+                         ToolTipService.InitialShowDelay="0"
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonHot_Checked">
                 <iconPacks:PackIconFontAwesome Kind="FireSolid"
@@ -64,6 +68,8 @@
                          Height="30"
                          Margin="2.5,0,2.5,0"
                          ToolTip="Rating"
+                         ToolTipService.BetweenShowDelay="0"
+                         ToolTipService.InitialShowDelay="0"
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonRating_Checked">
                 <iconPacks:PackIconFontAwesome Kind="StarSolid"
@@ -76,6 +82,8 @@
                          Height="30"
                          Margin="2.5,0,2.5,0"
                          ToolTip="Latest"
+                         ToolTipService.BetweenShowDelay="0"
+                         ToolTipService.InitialShowDelay="0"
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonLatest_Checked">
                 <iconPacks:PackIconFontAwesome Kind="ExclamationSolid"
@@ -88,6 +96,8 @@
                          Height="30"
                          Margin="2.5,0,2.5,0"
                          ToolTip="Downloads"
+                         ToolTipService.BetweenShowDelay="0"
+                         ToolTipService.InitialShowDelay="0"
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonDownloads_Checked">
                 <iconPacks:PackIconFontAwesome Kind="DownloadSolid"
@@ -100,6 +110,8 @@
                          Height="30"
                          Margin="2.5,0,0,0"
                          ToolTip="Plays"
+                         ToolTipService.BetweenShowDelay="0"
+                         ToolTipService.InitialShowDelay="0"
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonPlays_Checked">
                 <iconPacks:PackIconFontAwesome Kind="PlaySolid"
@@ -177,6 +189,10 @@
                                     Value="10,0,0,0" />
                             <Setter Property="ToolTip"
                                     Value="{Binding Path=metadata.songAuthorName, IsAsync=True}" />
+                            <Setter Property="ToolTipService.BetweenShowDelay"
+                                    Value="0" />
+                            <Setter Property="ToolTipService.InitialShowDelay"
+                                    Value="0" />
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
@@ -193,6 +209,10 @@
                                     Value="10,0,0,0" />
                             <Setter Property="ToolTip"
                                     Value="{Binding Path=name, IsAsync=True}" />
+                            <Setter Property="ToolTipService.BetweenShowDelay"
+                                    Value="0" />
+                            <Setter Property="ToolTipService.InitialShowDelay"
+                                    Value="0" />
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
@@ -209,6 +229,10 @@
                                     Value="10,0,0,0" />
                             <Setter Property="ToolTip"
                                     Value="{Binding Path=metadata.levelAuthorName, IsAsync=True}" />
+                            <Setter Property="ToolTipService.BetweenShowDelay"
+                                    Value="0" />
+                            <Setter Property="ToolTipService.InitialShowDelay"
+                                    Value="0" />
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
@@ -279,6 +303,10 @@
                                     Value="10,0,0,0" />
                             <Setter Property="ToolTip"
                                     Value="{Binding Path=stats.downloads, IsAsync=True}" />
+                            <Setter Property="ToolTipService.BetweenShowDelay"
+                                    Value="0" />
+                            <Setter Property="ToolTipService.InitialShowDelay"
+                                    Value="0" />
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
@@ -292,20 +320,35 @@
                                     <ColumnDefinition Width="1*" />
                                 </Grid.ColumnDefinitions>
 
-                                <Button Tag="{Binding Path=_id}"
+                                <Button Tag="{Binding Path=key}"
                                         ToolTip="Download/Delete song"
+                                        ToolTipService.BetweenShowDelay="0"
+                                        ToolTipService.InitialShowDelay="0"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                                        Width="30"
+                                        Height="30"
                                         Click="Map_Download">
-                                    <iconPacks:PackIconFontAwesome Kind="DownloadSolid"
-                                                                   HorizontalAlignment="Center"
-                                                                   VerticalAlignment="Center" />
+                                    <iconPacks:PackIconMaterial Kind="DownloadCircle"
+                                                                Width="20"
+                                                                Height="20" />
                                 </Button>
-                                <Button Tag="{Binding Path=_id}"
+                                <Button Tag="{Binding Path=key}"
                                         Grid.Column="1"
                                         ToolTip="Song details"
+                                        ToolTipService.BetweenShowDelay="0"
+                                        ToolTipService.InitialShowDelay="0"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                                        Width="25"
+                                        Height="25"
+                                        IsEnabled="False"
                                         Click="Map_Details">
                                     <iconPacks:PackIconFontAwesome Kind="ArrowRightSolid"
-                                                                   HorizontalAlignment="Center"
-                                                                   VerticalAlignment="Center" />
+                                                                   Width="15"
+                                                                   Height="15" />
                                 </Button>
                             </Grid>
                         </DataTemplate>
@@ -339,6 +382,8 @@
                     Background="Transparent"
                     BorderThickness="0"
                     ToolTip="First page"
+                    ToolTipService.BetweenShowDelay="0"
+                    ToolTipService.InitialShowDelay="0"
                     IsEnabled="False"
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="buttonFirstPage_Click">
@@ -352,6 +397,8 @@
                     Background="Transparent"
                     BorderThickness="0"
                     ToolTip="Previous page"
+                    ToolTipService.BetweenShowDelay="0"
+                    ToolTipService.InitialShowDelay="0"
                     IsEnabled="False"
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="buttonPreviousPage_Click">
@@ -365,6 +412,8 @@
                     Background="Transparent"
                     BorderThickness="0"
                     ToolTip="Next page"
+                    ToolTipService.BetweenShowDelay="0"
+                    ToolTipService.InitialShowDelay="0"
                     IsEnabled="False"
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="buttonNextPage_Click">
@@ -378,6 +427,8 @@
                     Background="Transparent"
                     BorderThickness="0"
                     ToolTip="Last page"
+                    ToolTipService.BetweenShowDelay="0"
+                    ToolTipService.InitialShowDelay="0"
                     IsEnabled="False"
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="buttonLastPage_Click">

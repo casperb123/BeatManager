@@ -9,10 +9,12 @@
   <ItemGroup>
     <PackageReference Include="MahApps.Metro" Version="2.2.0" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.4.0" />
+    <PackageReference Include="Ookii.Dialogs.Wpf" Version="1.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\BeatSaverApi\BeatSaverApi\BeatSaverApi.csproj" />
+    <ProjectReference Include="..\BeatSaberSongManager.Entities\BeatSaberSongManager.Entities.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,7 @@
 ﻿using BeatSaberSongManager.ViewModels;
 using BeatSaverApi;
 using MahApps.Metro.Controls.Dialogs;
+using MahApps.Metro.IconPacks;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -33,7 +34,9 @@ namespace BeatSaberSongManager.UserControls
 
         private void Map_Download(object sender, RoutedEventArgs e)
         {
-            string sondId = ((Button)sender).Tag.ToString();
+            Button button = sender as Button;
+            PackIconMaterial icon = button.Content as PackIconMaterial;
+            string sondId = button.Tag.ToString();
         }
 
         private void Map_Details(object sender, RoutedEventArgs e)

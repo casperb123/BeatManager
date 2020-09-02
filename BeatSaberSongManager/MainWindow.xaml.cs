@@ -1,4 +1,5 @@
-﻿using BeatSaberSongManager.UserControls;
+﻿using BeatSaberSongManager.Entities;
+using BeatSaberSongManager.UserControls;
 using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
@@ -24,29 +25,36 @@ namespace BeatSaberSongManager
     {
         private readonly BeatmapLocalUserControl localUserControl;
         private readonly BeatmapOnlineUserControl onlineUserControl;
+        private readonly SettingsUserControl settingsUserControl;
 
         public MainWindow()
         {
             InitializeComponent();
             localUserControl = new BeatmapLocalUserControl();
             onlineUserControl = new BeatmapOnlineUserControl(this);
+            settingsUserControl = new SettingsUserControl(this);
 
-            buttonLocal.IsChecked = true;
+            radioButtonLocal.IsChecked = true;
         }
 
-        private void ButtonLocal_Checked(object sender, RoutedEventArgs e)
+        private void RadioButtonLocal_Checked(object sender, RoutedEventArgs e)
         {
             userControlMain.Content = localUserControl;
         }
 
-        private void ButtonOnline_Checked(object sender, RoutedEventArgs e)
+        private void RadioButtonOnline_Checked(object sender, RoutedEventArgs e)
         {
             userControlMain.Content = onlineUserControl;
         }
 
-        private void ButtonSettings_Checked(object sender, RoutedEventArgs e)
+        private void RadioButtonSettings_Checked(object sender, RoutedEventArgs e)
         {
+            userControlMain.Content = settingsUserControl;
+        }
 
+        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Settings.CurrentSettings.Save();
         }
     }
 }

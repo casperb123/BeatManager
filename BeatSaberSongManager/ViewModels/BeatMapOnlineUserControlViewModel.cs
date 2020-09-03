@@ -133,7 +133,9 @@ namespace BeatSaberSongManager.ViewModels
         {
             Doc song = BeatSaverMaps.docs.FirstOrDefault(x => x.key == key);
             currentlyDownloading = song;
-            BeatSaverApi.DownloadSong(song);
+
+            Thread thread = new Thread(async () => await BeatSaverApi.DownloadSong(song));
+            thread.Start();
         }
 
         public void DeleteSong(string key)

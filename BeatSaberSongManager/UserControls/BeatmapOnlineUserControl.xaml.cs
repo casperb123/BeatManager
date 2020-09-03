@@ -1,9 +1,13 @@
-﻿using BeatSaberSongManager.ViewModels;
+﻿using BeatSaberSongManager.Entities;
+using BeatSaberSongManager.ViewModels;
 using BeatSaverApi;
 using MahApps.Metro.Controls.Dialogs;
 using MahApps.Metro.IconPacks;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -32,16 +36,31 @@ namespace BeatSaberSongManager.UserControls
             DataContext = ViewModel;
         }
 
+        private void WebClient_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void WebClient_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         private void Map_Download(object sender, RoutedEventArgs e)
         {
-            Button button = sender as Button;
-            PackIconMaterial icon = button.Content as PackIconMaterial;
-            string sondId = button.Tag.ToString();
+            string songKey = ((Button)sender).Tag.ToString();
+            ViewModel.DownloadSong(songKey);
+        }
+
+        private void Map_Delete(object sender, RoutedEventArgs e)
+        {
+            string songKey = ((Button)sender).Tag.ToString();
+            ViewModel.DeleteSong(songKey);
         }
 
         private void Map_Details(object sender, RoutedEventArgs e)
         {
-            string songId = ((Button)sender).Tag.ToString();
+            string songKey = ((Button)sender).Tag.ToString();
         }
 
         private void RadioButtonSearch_Checked(object sender, RoutedEventArgs e)

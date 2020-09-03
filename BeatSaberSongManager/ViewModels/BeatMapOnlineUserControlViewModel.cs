@@ -1,14 +1,13 @@
-﻿using BeatSaberSongManager.UserControls;
+﻿using BeatSaberSongManager.Entities;
+using BeatSaberSongManager.UserControls;
 using BeatSaverApi;
-using System;
-using System.Collections.Generic;
+using BeatSaverApi.Events;
+using MahApps.Metro.IconPacks;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Threading;
 
 namespace BeatSaberSongManager.ViewModels
 {
@@ -16,11 +15,12 @@ namespace BeatSaberSongManager.ViewModels
     {
         private readonly BeatmapOnlineUserControl userControl;
         private BeatSaverMaps beatSaverMaps;
+        private Doc currentlyDownloading;
 
         public MapSort CurrentMapSort;
         public readonly MainWindow MainWindow;
-
         public readonly BeatSaver BeatSaverApi;
+
         public BeatSaverMaps BeatSaverMaps
         {
             get { return beatSaverMaps; }
@@ -35,7 +35,14 @@ namespace BeatSaberSongManager.ViewModels
         {
             MainWindow = mainWindow;
             this.userControl = userControl;
-            BeatSaverApi = new BeatSaver();
+
+            BeatSaverApi = new BeatSaver(Settings.CurrentSettings.SongsPath);
+            BeatSaverApi.DownloadCompleted += BeatSaverApi_DownloadCompleted;
+        }
+
+        private void BeatSaverApi_DownloadCompleted(object sender, DownloadCompletedEventArgs e)
+        {
+            e.Song.isDownloaded = true;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -120,6 +127,19 @@ namespace BeatSaberSongManager.ViewModels
                 GetBeatSaverMaps(CurrentMapSort, BeatSaverMaps.lastPage);
             else
                 GetBeatSaverMaps(query, BeatSaverMaps.lastPage);
+        }
+
+        public void DownloadSong(string key)
+        {
+            Doc song = BeatSaverMaps.docs.FirstOrDefault(x => x.key == key);
+            currentlyDownloading = song;
+            BeatSaverApi.DownloadSong(song);
+        }
+
+        public void DeleteSong(string key)
+        {
+            Doc song = BeatSaverMaps.docs.FirstOrDefault(x => x.key == key);
+            BeatSaverApi.DeleteSong(song);
         }
     }
 }

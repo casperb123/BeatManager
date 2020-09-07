@@ -131,13 +131,11 @@
 
             <TextBox x:Name="textBoxSearch"
                      mah:TextBoxHelper.Watermark="Search by name, description or uploader"
-                     mah:TextBoxHelper.UseFloatingWatermark="True"
-                     Height="40"
                      VerticalContentAlignment="Center"
                      mah:TextBoxHelper.ClearTextButton="True" />
             <Button x:Name="buttonSearch"
                     Grid.Column="1"
-                    Width="40"
+                    Width="35"
                     Click="ButtonSearch_Click">
                 <iconPacks:PackIconFontAwesome Kind="SearchSolid"
                                                HorizontalAlignment="Center"

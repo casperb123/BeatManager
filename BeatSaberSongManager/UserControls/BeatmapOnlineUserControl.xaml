@@ -47,8 +47,8 @@
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonSearch_Checked">
                 <iconPacks:PackIconFontAwesome Kind="SearchSolid"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center" />
+                                               Width="15"
+                                               Height="15" />
             </RadioButton>
 
             <RadioButton x:Name="radioButtonHot"
@@ -61,8 +61,8 @@
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonHot_Checked">
                 <iconPacks:PackIconFontAwesome Kind="FireSolid"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center" />
+                                               Width="15"
+                                               Height="15" />
             </RadioButton>
 
             <RadioButton x:Name="radioButtonRating"
@@ -75,8 +75,8 @@
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonRating_Checked">
                 <iconPacks:PackIconFontAwesome Kind="StarSolid"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center" />
+                                               Width="15"
+                                               Height="15" />
             </RadioButton>
 
             <RadioButton x:Name="radioButtonLatest"
@@ -89,8 +89,8 @@
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonLatest_Checked">
                 <iconPacks:PackIconFontAwesome Kind="ExclamationSolid"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center" />
+                                               Width="15"
+                                               Height="15" />
             </RadioButton>
 
             <RadioButton x:Name="radioButtonDownloads"
@@ -103,8 +103,8 @@
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonDownloads_Checked">
                 <iconPacks:PackIconFontAwesome Kind="DownloadSolid"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center" />
+                                               Width="15"
+                                               Height="15" />
             </RadioButton>
 
             <RadioButton x:Name="radioButtonPlays"
@@ -117,8 +117,8 @@
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonPlays_Checked">
                 <iconPacks:PackIconFontAwesome Kind="PlaySolid"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center" />
+                                               Width="15"
+                                               Height="15" />
             </RadioButton>
         </StackPanel>
 

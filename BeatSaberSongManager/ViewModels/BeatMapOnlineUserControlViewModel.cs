@@ -37,12 +37,6 @@ namespace BeatSaberSongManager.ViewModels
             this.userControl = userControl;
 
             BeatSaverApi = new BeatSaver(Settings.CurrentSettings.SongsPath);
-            BeatSaverApi.DownloadCompleted += BeatSaverApi_DownloadCompleted;
-        }
-
-        private void BeatSaverApi_DownloadCompleted(object sender, DownloadCompletedEventArgs e)
-        {
-            e.Song.isDownloaded = true;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -134,8 +128,7 @@ namespace BeatSaberSongManager.ViewModels
             Doc song = BeatSaverMaps.docs.FirstOrDefault(x => x.key == key);
             currentlyDownloading = song;
 
-            Thread thread = new Thread(async () => await BeatSaverApi.DownloadSong(song));
-            thread.Start();
+            BeatSaverApi.DownloadSong(song).ConfigureAwait(false);
         }
 
         public void DeleteSong(string key)

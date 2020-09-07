@@ -34,6 +34,8 @@ namespace BeatSaberSongManager.UserControls
             InitializeComponent();
             ViewModel = new BeatMapOnlineUserControlViewModel(mainWindow, this);
             DataContext = ViewModel;
+
+            dataGridMaps.SelectionChanged += (s, e) => dataGridMaps.UnselectAll();
         }
 
         private void WebClient_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)

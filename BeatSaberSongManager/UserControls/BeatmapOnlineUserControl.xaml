@@ -15,7 +15,7 @@
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
         <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
     </UserControl.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
@@ -322,39 +322,48 @@
                                     <ColumnDefinition Width="1*" />
                                 </Grid.ColumnDefinitions>
 
-                                <Button Tag="{Binding Path=key}"
-                                        ToolTip="Download song"
-                                        ToolTipService.BetweenShowDelay="0"
-                                        ToolTipService.InitialShowDelay="0"
-                                        Background="Transparent"
-                                        BorderThickness="0"
-                                        Style="{DynamicResource MahApps.Styles.Button.Circle}"
-                                        Width="30"
-                                        Height="30"
-                                        Visibility="{Binding Path=isDownloaded, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
-                                        IsEnabled="{Binding Path=isDownloaded, Converter={StaticResource InverseBooleanConverter}}"
-                                        Click="Map_Download">
-                                    <iconPacks:PackIconMaterial Kind="DownloadCircle"
-                                                                Width="20"
-                                                                Height="20" />
-                                </Button>
-                                <Button Tag="{Binding Path=key}"
-                                        ToolTip="Delete song"
-                                        ToolTipService.BetweenShowDelay="0"
-                                        ToolTipService.InitialShowDelay="0"
-                                        Background="Transparent"
-                                        BorderThickness="0"
-                                        Style="{DynamicResource MahApps.Styles.Button.Circle}"
-                                        Width="30"
-                                        Height="30"
-                                        Visibility="{Binding Path=isDownloaded, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                        IsEnabled="{Binding Path=isDownloaded}"
-                                        Click="Map_Delete">
-                                    <iconPacks:PackIconMaterial Kind="DeleteCircle"
-                                                                Width="20"
-                                                                Height="20" />
-                                </Button>
-                                
+                                <Grid Visibility="{Binding Path=IsDownloading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+                                    <Button Tag="{Binding Path=key}"
+                                            ToolTip="Download song"
+                                            ToolTipService.BetweenShowDelay="0"
+                                            ToolTipService.InitialShowDelay="0"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                                            Width="30"
+                                            Height="30"
+                                            Visibility="{Binding Path=IsDownloaded, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+                                            IsEnabled="{Binding Path=IsDownloaded, Converter={StaticResource InverseBooleanConverter}}"
+                                            Click="Map_Download">
+                                        <iconPacks:PackIconMaterial Kind="DownloadCircle"
+                                                                    Width="20"
+                                                                    Height="20" />
+                                    </Button>
+                                    <Button Tag="{Binding Path=key}"
+                                            ToolTip="Delete song"
+                                            ToolTipService.BetweenShowDelay="0"
+                                            ToolTipService.InitialShowDelay="0"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                                            Width="30"
+                                            Height="30"
+                                            Visibility="{Binding Path=IsDownloaded, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                            IsEnabled="{Binding Path=IsDownloaded}"
+                                            Click="Map_Delete">
+                                        <iconPacks:PackIconMaterial Kind="DeleteCircle"
+                                                                    Width="20"
+                                                                    Height="20" />
+                                    </Button>
+                                </Grid>
+                                <Grid Width="30"
+                                      Height="30">
+                                    <mah:ProgressRing Width="20"
+                                                      Height="20"
+                                                      IsActive="{Binding Path=IsDownloading}"
+                                                      IsEnabled="{Binding Path=IsDownloading}" />
+                                </Grid>
+
                                 <Button Tag="{Binding Path=key}"
                                         Grid.Column="1"
                                         ToolTip="Song details"

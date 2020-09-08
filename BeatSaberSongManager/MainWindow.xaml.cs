@@ -76,10 +76,5 @@ namespace BeatSaberSongManager
         {
             Settings.CurrentSettings.Save();
         }
-
-        private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            radioButtonLocal.IsChecked = true;
-        }
     }
 }

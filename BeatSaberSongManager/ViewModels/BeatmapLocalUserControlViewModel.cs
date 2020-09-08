@@ -15,6 +15,9 @@ namespace BeatSaberSongManager.ViewModels
 {
     public class BeatmapLocalUserControlViewModel : INotifyPropertyChanged
     {
+        [DllImport("wininet.dll")]
+        private extern static bool InternetGetConnectedState(out int description, int reservedValue);
+
         private LocalBeatMaps localBeatmaps;
         private readonly BeatmapLocalUserControl userControl;
         private readonly BeatSaver beatSaverApi;
@@ -45,13 +48,18 @@ namespace BeatSaberSongManager.ViewModels
             beatSaverApi = new BeatSaver(Settings.CurrentSettings.SongsPath);
         }
 
+        public bool IsConnectedToInternet()
+        {
+            return InternetGetConnectedState(out _, 0);
+        }
+
         public void GetBeatmaps()
         {
             MainWindow.progressRingLoading.IsActive = true;
             MainWindow.rectangleLoading.Visibility = Visibility.Visible;
             MainWindow.progressRingLoading.Visibility = Visibility.Visible;
 
-            _ = Task.Run(async () => LocalBeatmaps = await beatSaverApi.GetLocalBeatmaps(Settings.CurrentSettings.SongsPath));
+            _ = Task.Run(async () => LocalBeatmaps = await beatSaverApi.GetLocalBeatmaps(Settings.CurrentSettings.SongsPath, loadDownloads: IsConnectedToInternet()));
         }
     }
 }

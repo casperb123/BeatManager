@@ -144,7 +144,7 @@
         </Grid>
 
         <DataGrid x:Name="dataGridMaps"
-                  ItemsSource="{Binding Path=BeatSaverMaps.docs, NotifyOnTargetUpdated=True, IsAsync=True}"
+                  ItemsSource="{Binding Path=OnlineBeatmaps.Maps, NotifyOnTargetUpdated=True, IsAsync=True}"
                   Grid.Row="2"
                   Grid.ColumnSpan="2"
                   Margin="0,10,0,0"
@@ -169,7 +169,7 @@
                                         Height="25"
                                         CornerRadius="100">
                                     <Border.Background>
-                                        <ImageBrush ImageSource="{Binding Path=realCoverURL, Mode=OneWay, IsAsync=True}" />
+                                        <ImageBrush ImageSource="{Binding Path=RealCoverURL, Mode=OneWay, IsAsync=True}" />
                                     </Border.Background>
                                 </Border>
                             </Grid>
@@ -179,7 +179,7 @@
                 <DataGridTextColumn Header="Artist"
                                     Width=".35*"
                                     IsReadOnly="True"
-                                    Binding="{Binding Path=metadata.songAuthorName, IsAsync=True, FallbackValue=...}">
+                                    Binding="{Binding Path=Metadata.SongAuthorName, IsAsync=True, FallbackValue=...}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock"
                                BasedOn="{StaticResource MahApps.Styles.TextBlock}">
@@ -188,7 +188,7 @@
                             <Setter Property="Margin"
                                     Value="10,0,0,0" />
                             <Setter Property="ToolTip"
-                                    Value="{Binding Path=metadata.songAuthorName, IsAsync=True}" />
+                                    Value="{Binding Path=Metadata.SongAuthorName, IsAsync=True}" />
                             <Setter Property="ToolTipService.BetweenShowDelay"
                                     Value="0" />
                             <Setter Property="ToolTipService.InitialShowDelay"
@@ -199,7 +199,7 @@
                 <DataGridTextColumn Header="Song name"
                                     Width="1*"
                                     IsReadOnly="True"
-                                    Binding="{Binding Path=name, IsAsync=True, FallbackValue=...}">
+                                    Binding="{Binding Path=Name, IsAsync=True, FallbackValue=...}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock"
                                BasedOn="{StaticResource MahApps.Styles.TextBlock}">
@@ -208,7 +208,7 @@
                             <Setter Property="Margin"
                                     Value="10,0,0,0" />
                             <Setter Property="ToolTip"
-                                    Value="{Binding Path=name, IsAsync=True}" />
+                                    Value="{Binding Path=Name, IsAsync=True}" />
                             <Setter Property="ToolTipService.BetweenShowDelay"
                                     Value="0" />
                             <Setter Property="ToolTipService.InitialShowDelay"
@@ -219,7 +219,7 @@
                 <DataGridTextColumn Header="Mapper"
                                     Width=".35*"
                                     IsReadOnly="True"
-                                    Binding="{Binding Path=metadata.levelAuthorName, IsAsync=True, FallbackValue=...}">
+                                    Binding="{Binding Path=Metadata.LevelAuthorName, IsAsync=True, FallbackValue=...}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock"
                                BasedOn="{StaticResource MahApps.Styles.TextBlock}">
@@ -228,7 +228,7 @@
                             <Setter Property="Margin"
                                     Value="10,0,0,0" />
                             <Setter Property="ToolTip"
-                                    Value="{Binding Path=metadata.levelAuthorName, IsAsync=True}" />
+                                    Value="{Binding Path=Metadata.LevelAuthorName, IsAsync=True}" />
                             <Setter Property="ToolTipService.BetweenShowDelay"
                                     Value="0" />
                             <Setter Property="ToolTipService.InitialShowDelay"
@@ -250,7 +250,7 @@
                                         ToolTip="Easy"
                                         ToolTipService.InitialShowDelay="0"
                                         ToolTipService.BetweenShowDelay="0"
-                                        Visibility="{Binding Path=metadata.difficulties.easy, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        Visibility="{Binding Path=Metadata.Difficulties.Easy, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                 <Border Width="25"
                                         Height="25"
                                         CornerRadius="100"
@@ -259,7 +259,7 @@
                                         ToolTip="Normal"
                                         ToolTipService.InitialShowDelay="0"
                                         ToolTipService.BetweenShowDelay="0"
-                                        Visibility="{Binding Path=metadata.difficulties.normal, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        Visibility="{Binding Path=Metadata.Difficulties.Normal, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                 <Border Width="25"
                                         Height="25"
                                         CornerRadius="100"
@@ -268,7 +268,7 @@
                                         ToolTip="Hard"
                                         ToolTipService.InitialShowDelay="0"
                                         ToolTipService.BetweenShowDelay="0"
-                                        Visibility="{Binding Path=metadata.difficulties.hard, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        Visibility="{Binding Path=Metadata.Difficulties.Hard, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                 <Border Width="25"
                                         Height="25"
                                         CornerRadius="100"
@@ -277,7 +277,7 @@
                                         ToolTip="Expert"
                                         ToolTipService.InitialShowDelay="0"
                                         ToolTipService.BetweenShowDelay="0"
-                                        Visibility="{Binding Path=metadata.difficulties.expert, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        Visibility="{Binding Path=Metadata.Difficulties.Expert, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                 <Border Width="25"
                                         Height="25"
                                         CornerRadius="100"
@@ -286,14 +286,14 @@
                                         ToolTip="Expert+"
                                         ToolTipService.InitialShowDelay="0"
                                         ToolTipService.BetweenShowDelay="0"
-                                        Visibility="{Binding Path=metadata.difficulties.expertPlus, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        Visibility="{Binding Path=Metadata.Difficulties.ExpertPlus, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Downloads"
                                     IsReadOnly="True"
-                                    Binding="{Binding Path=stats.downloads, IsAsync=True, FallbackValue=...}">
+                                    Binding="{Binding Path=Stats.Downloads, IsAsync=True, FallbackValue=...}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock"
                                BasedOn="{StaticResource MahApps.Styles.TextBlock}">
@@ -302,7 +302,7 @@
                             <Setter Property="Margin"
                                     Value="10,0,0,0" />
                             <Setter Property="ToolTip"
-                                    Value="{Binding Path=stats.downloads, IsAsync=True}" />
+                                    Value="{Binding Path=Stats.Downloads, IsAsync=True}" />
                             <Setter Property="ToolTipService.BetweenShowDelay"
                                     Value="0" />
                             <Setter Property="ToolTipService.InitialShowDelay"
@@ -321,7 +321,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Grid Visibility="{Binding Path=IsDownloading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
-                                    <Button Tag="{Binding Path=key}"
+                                    <Button Tag="{Binding Path=Key}"
                                             ToolTip="Download song"
                                             ToolTipService.BetweenShowDelay="0"
                                             ToolTipService.InitialShowDelay="0"
@@ -337,7 +337,7 @@
                                                                     Width="20"
                                                                     Height="20" />
                                     </Button>
-                                    <Button Tag="{Binding Path=key}"
+                                    <Button Tag="{Binding Path=Key}"
                                             ToolTip="Delete song"
                                             ToolTipService.BetweenShowDelay="0"
                                             ToolTipService.InitialShowDelay="0"
@@ -362,7 +362,7 @@
                                                       IsEnabled="{Binding Path=IsDownloading}" />
                                 </Grid>
 
-                                <Button Tag="{Binding Path=key}"
+                                <Button Tag="{Binding Path=Key}"
                                         Grid.Column="1"
                                         ToolTip="Song details"
                                         ToolTipService.BetweenShowDelay="0"
@@ -394,9 +394,9 @@
                     <TextBlock>
                         <TextBlock.Text>
                             <MultiBinding StringFormat="{}Page {0} of {1}">
-                                <Binding Path="BeatSaverMaps.currentPageReal"
+                                <Binding Path="OnlineBeatmaps.CurrentPageReal"
                                          FallbackValue="0" />
-                                <Binding Path="BeatSaverMaps.lastPageReal"
+                                <Binding Path="OnlineBeatmaps.LastPageReal"
                                          FallbackValue="0" />
                             </MultiBinding>
                         </TextBlock.Text>
@@ -414,7 +414,7 @@
                     ToolTipService.InitialShowDelay="0"
                     IsEnabled="False"
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
-                    Click="buttonFirstPage_Click">
+                    Click="ButtonFirstPage_Click">
                 <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleLeftSolid"
                                                Width="25"
                                                Height="25" />
@@ -429,7 +429,7 @@
                     ToolTipService.InitialShowDelay="0"
                     IsEnabled="False"
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
-                    Click="buttonPreviousPage_Click">
+                    Click="ButtonPreviousPage_Click">
                 <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleLeftRegular"
                                                Width="25"
                                                Height="25" />
@@ -444,7 +444,7 @@
                     ToolTipService.InitialShowDelay="0"
                     IsEnabled="False"
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
-                    Click="buttonNextPage_Click">
+                    Click="ButtonNextPage_Click">
                 <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleRightRegular"
                                                Width="25"
                                                Height="25" />
@@ -459,7 +459,7 @@
                     ToolTipService.InitialShowDelay="0"
                     IsEnabled="False"
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
-                    Click="buttonLastPage_Click">
+                    Click="ButtonLastPage_Click">
                 <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleRightSolid"
                                                Width="25"
                                                Height="25" />

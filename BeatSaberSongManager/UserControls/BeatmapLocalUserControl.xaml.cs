@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BeatSaberSongManager.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -18,9 +19,51 @@ namespace BeatSaberSongManager.UserControls
     /// </summary>
     public partial class BeatmapLocalUserControl : UserControl
     {
-        public BeatmapLocalUserControl()
+        public BeatmapLocalUserControlViewModel ViewModel;
+
+        public BeatmapLocalUserControl(MainWindow mainWindow)
         {
             InitializeComponent();
+            ViewModel = new BeatmapLocalUserControlViewModel(this, mainWindow);
+            DataContext = ViewModel;
+        }
+
+        private void DataGridMaps_TargetUpdated(object sender, DataTransferEventArgs e)
+        {
+            ViewModel.MainWindow.rectangleLoading.Visibility = Visibility.Hidden;
+            ViewModel.MainWindow.progressRingLoading.Visibility = Visibility.Hidden;
+            ViewModel.MainWindow.progressRingLoading.IsActive = false;
+            //ViewModel.UpdatePageButtons();
+        }
+
+        private void Map_Delete(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Map_Details(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonFirstPage_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonPreviousPage_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonNextPage_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonLastPage_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

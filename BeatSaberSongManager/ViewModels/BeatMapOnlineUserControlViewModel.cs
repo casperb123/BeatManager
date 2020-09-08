@@ -1,12 +1,10 @@
 ﻿using BeatSaberSongManager.Entities;
 using BeatSaberSongManager.UserControls;
 using BeatSaverApi;
-using BeatSaverApi.Events;
-using MahApps.Metro.IconPacks;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace BeatSaberSongManager.ViewModels
@@ -14,20 +12,19 @@ namespace BeatSaberSongManager.ViewModels
     public class BeatMapOnlineUserControlViewModel : INotifyPropertyChanged
     {
         private readonly BeatmapOnlineUserControl userControl;
-        private BeatSaverMaps beatSaverMaps;
-        private Doc currentlyDownloading;
+        private OnlineBeatMaps onlineBeatmaps;
 
         public MapSort CurrentMapSort;
         public readonly MainWindow MainWindow;
         public readonly BeatSaver BeatSaverApi;
 
-        public BeatSaverMaps BeatSaverMaps
+        public OnlineBeatMaps OnlineBeatmaps
         {
-            get { return beatSaverMaps; }
+            get { return onlineBeatmaps; }
             set
             {
-                beatSaverMaps = value;
-                OnPropertyChanged(nameof(BeatSaverMaps));
+                onlineBeatmaps = value;
+                OnPropertyChanged(nameof(OnlineBeatmaps));
             }
         }
 
@@ -37,39 +34,47 @@ namespace BeatSaberSongManager.ViewModels
             this.userControl = userControl;
 
             BeatSaverApi = new BeatSaver(Settings.CurrentSettings.SongsPath);
+            BeatSaverApi.DownloadCompleted += (s, e) => UpdatePageButtons();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void OnPropertyChanged(string prop)
+        private void OnPropertyChanged(string prop)
         {
             if (!string.IsNullOrWhiteSpace(prop))
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
-        public void GetBeatSaverMaps(MapSort mapSort, int page = 0)
+        public void GetBeatmaps(MapSort mapSort, int page = 0)
         {
             MainWindow.progressRingLoading.IsActive = true;
             MainWindow.rectangleLoading.Visibility = Visibility.Visible;
             MainWindow.progressRingLoading.Visibility = Visibility.Visible;
 
-            Thread thread = new Thread(async () => BeatSaverMaps = await BeatSaverApi.GetBeatSaverMaps(mapSort, page));
-            thread.Start();
+            _ = Task.Run(async () => OnlineBeatmaps = await BeatSaverApi.GetOnlineBeatmaps(mapSort, page));
         }
 
-        public void GetBeatSaverMaps(string query, int page = 0)
+        public void GetBeatmaps(string query, int page = 0)
         {
             MainWindow.progressRingLoading.IsActive = true;
             MainWindow.rectangleLoading.Visibility = Visibility.Visible;
             MainWindow.progressRingLoading.Visibility = Visibility.Visible;
 
-            Thread thread = new Thread(async () => BeatSaverMaps = await BeatSaverApi.GetBeatSaverMaps(query, page));
-            thread.Start();
+            _ = Task.Run(async () => OnlineBeatmaps = await BeatSaverApi.GetOnlineBeatmaps(query, page));
         }
 
         public void UpdatePageButtons()
         {
-            if (BeatSaverMaps != null && BeatSaverMaps.prevPage.HasValue)
+            if (OnlineBeatmaps is null || OnlineBeatmaps.Maps.Any(x => x.IsDownloading))
+            {
+                userControl.buttonFirstPage.IsEnabled = false;
+                userControl.buttonPreviousPage.IsEnabled = false;
+                userControl.buttonLastPage.IsEnabled = false;
+                userControl.buttonNextPage.IsEnabled = false;
+                return;
+            }
+
+            if (OnlineBeatmaps != null && OnlineBeatmaps.PrevPage.HasValue)
             {
                 userControl.buttonFirstPage.IsEnabled = true;
                 userControl.buttonPreviousPage.IsEnabled = true;
@@ -79,7 +84,7 @@ namespace BeatSaberSongManager.ViewModels
                 userControl.buttonFirstPage.IsEnabled = false;
                 userControl.buttonPreviousPage.IsEnabled = false;
             }
-            if (BeatSaverMaps != null && BeatSaverMaps.nextPage.HasValue)
+            if (OnlineBeatmaps != null && OnlineBeatmaps.NextPage.HasValue)
             {
                 userControl.buttonLastPage.IsEnabled = true;
                 userControl.buttonNextPage.IsEnabled = true;
@@ -94,46 +99,44 @@ namespace BeatSaberSongManager.ViewModels
         public void NextPage(string query = null)
         {
             if (query is null)
-                GetBeatSaverMaps(CurrentMapSort, BeatSaverMaps.nextPage.Value);
+                GetBeatmaps(CurrentMapSort, OnlineBeatmaps.NextPage.Value);
             else
-                GetBeatSaverMaps(query, BeatSaverMaps.nextPage.Value);
+                GetBeatmaps(query, OnlineBeatmaps.NextPage.Value);
         }
 
         public void PreviousPage(string query = null)
         {
             if (query is null)
-                GetBeatSaverMaps(CurrentMapSort, BeatSaverMaps.prevPage.Value);
+                GetBeatmaps(CurrentMapSort, OnlineBeatmaps.PrevPage.Value);
             else
-                GetBeatSaverMaps(query, BeatSaverMaps.prevPage.Value);
+                GetBeatmaps(query, OnlineBeatmaps.PrevPage.Value);
         }
 
         public void FirstPage(string query = null)
         {
             if (query is null)
-                GetBeatSaverMaps(CurrentMapSort, 0);
+                GetBeatmaps(CurrentMapSort, 0);
             else
-                GetBeatSaverMaps(query, 0);
+                GetBeatmaps(query, 0);
         }
 
         public void LastPage(string query = null)
         {
             if (query is null)
-                GetBeatSaverMaps(CurrentMapSort, BeatSaverMaps.lastPage);
+                GetBeatmaps(CurrentMapSort, OnlineBeatmaps.LastPage);
             else
-                GetBeatSaverMaps(query, BeatSaverMaps.lastPage);
+                GetBeatmaps(query, OnlineBeatmaps.LastPage);
         }
 
         public void DownloadSong(string key)
         {
-            Doc song = BeatSaverMaps.docs.FirstOrDefault(x => x.key == key);
-            currentlyDownloading = song;
-
+            OnlineBeatMap song = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
             BeatSaverApi.DownloadSong(song).ConfigureAwait(false);
         }
 
         public void DeleteSong(string key)
         {
-            Doc song = BeatSaverMaps.docs.FirstOrDefault(x => x.key == key);
+            OnlineBeatMap song = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
             BeatSaverApi.DeleteSong(song);
         }
     }

@@ -1,6 +1,8 @@
 ﻿using BeatSaberSongManager.Entities;
 using BeatSaberSongManager.UserControls;
+using BeatSaberSongManager.ViewModels;
 using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,14 +25,17 @@ namespace BeatSaberSongManager
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        private readonly MainWindowViewModel viewModel;
         private readonly BeatmapLocalUserControl localUserControl;
         private readonly BeatmapOnlineUserControl onlineUserControl;
         private readonly SettingsUserControl settingsUserControl;
+        private bool loadLocalBeatmaps = true;
 
         public MainWindow()
         {
             InitializeComponent();
-            localUserControl = new BeatmapLocalUserControl();
+            viewModel = new MainWindowViewModel();
+            localUserControl = new BeatmapLocalUserControl(this);
             onlineUserControl = new BeatmapOnlineUserControl(this);
             settingsUserControl = new SettingsUserControl(this);
 
@@ -40,10 +45,27 @@ namespace BeatSaberSongManager
         private void RadioButtonLocal_Checked(object sender, RoutedEventArgs e)
         {
             userControlMain.Content = localUserControl;
+            if (loadLocalBeatmaps)
+                localUserControl.ViewModel.GetBeatmaps();
         }
 
-        private void RadioButtonOnline_Checked(object sender, RoutedEventArgs e)
+        private async void RadioButtonOnline_Checked(object sender, RoutedEventArgs e)
         {
+            if (!viewModel.IsConnectedToInternet())
+            {
+                await this.ShowMessageAsync("No internet connection", "You don't have access to the internet");
+                if (userControlMain.Content == localUserControl)
+                {
+                    loadLocalBeatmaps = false;
+                    radioButtonLocal.IsChecked = true;
+                    loadLocalBeatmaps = true;
+                }
+                else
+                    radioButtonSettings.IsChecked = true;
+
+                return;
+            }
+
             userControlMain.Content = onlineUserControl;
         }
 

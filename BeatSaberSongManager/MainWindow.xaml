@@ -12,7 +12,8 @@
                  MinHeight="605"
                  Width="915"
                  MinWidth="915"
-                 Closing="MetroWindow_Closing">
+                 Closing="MetroWindow_Closing"
+                 Loaded="MetroWindow_Loaded">
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />

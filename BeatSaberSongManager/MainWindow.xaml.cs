@@ -38,8 +38,6 @@ namespace BeatSaberSongManager
             localUserControl = new BeatmapLocalUserControl(this);
             onlineUserControl = new BeatmapOnlineUserControl(this);
             settingsUserControl = new SettingsUserControl(this);
-
-            radioButtonLocal.IsChecked = true;
         }
 
         private void RadioButtonLocal_Checked(object sender, RoutedEventArgs e)
@@ -77,6 +75,11 @@ namespace BeatSaberSongManager
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Settings.CurrentSettings.Save();
+        }
+
+        private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            radioButtonLocal.IsChecked = true;
         }
     }
 }

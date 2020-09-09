@@ -1,14 +1,17 @@
 ﻿using BeatSaberSongManager.ViewModels;
-using MaterialDesignColors;
-using MaterialDesignThemes.Wpf;
+using ControlzEx.Theming;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
-using Color = System.Windows.Media.Color;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 namespace BeatSaberSongManager.UserControls
 {
@@ -24,17 +27,10 @@ namespace BeatSaberSongManager.UserControls
             InitializeComponent();
             viewModel = new SettingsUserControlViewModel(mainWindow);
             DataContext = viewModel;
-            IEnumerable<PrimaryColor> primaryColors = Enum.GetValues(typeof(PrimaryColor)).Cast<PrimaryColor>();
-            string[] themes = new string[]
-            {
-                "Light",
-                "Dark"
-            };
 
-            comboBoxTheme.ItemsSource = themes;
-            comboBoxColor.ItemsSource = primaryColors;
-
-            viewModel.ChangeTheme(comboBoxTheme.SelectedItem.ToString(), (PrimaryColor)comboBoxColor.SelectedItem);
+            comboBoxTheme.ItemsSource = ThemeManager.Current.BaseColors;
+            comboBoxColor.ItemsSource = ThemeManager.Current.ColorSchemes;
+            viewModel.ChangeTheme(comboBoxTheme.SelectedItem.ToString(), comboBoxColor.SelectedItem.ToString());
         }
 
         private void ComboBoxThemeSettings_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -42,7 +38,7 @@ namespace BeatSaberSongManager.UserControls
             if (!IsLoaded)
                 return;
 
-            viewModel.ChangeTheme(comboBoxTheme.SelectedItem.ToString(), (PrimaryColor)comboBoxColor.SelectedItem);
+            viewModel.ChangeTheme(comboBoxTheme.SelectedItem.ToString(), comboBoxColor.SelectedItem.ToString());
         }
 
         private void ButtonSongsPathBrowse_Click(object sender, RoutedEventArgs e)

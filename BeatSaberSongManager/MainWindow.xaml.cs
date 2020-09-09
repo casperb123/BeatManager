@@ -2,6 +2,8 @@
 using BeatSaberSongManager.UserControls;
 using BeatSaberSongManager.ViewModels;
 using BeatSaverApi.Entities;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,7 +25,7 @@ namespace BeatSaberSongManager
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         private readonly MainWindowViewModel viewModel;
         private readonly BeatmapLocalUserControl localUserControl;
@@ -47,7 +49,7 @@ namespace BeatSaberSongManager
                 localUserControl.ViewModel.GetBeatmaps();
         }
 
-        private void RadioButtonOnline_Checked(object sender, RoutedEventArgs e)
+        private async void RadioButtonOnline_Checked(object sender, RoutedEventArgs e)
         {
 
             if (viewModel.CanConnectToBeatSaver())
@@ -68,7 +70,7 @@ namespace BeatSaberSongManager
             }
             else
             {
-                //await this.ShowMessageAsync("Can't connect to BeatSaver", "Either you don't have any internet connection or BeatSaver is currently offline");
+                await this.ShowMessageAsync("Can't connect to BeatSaver", "Either you don't have any internet connection or BeatSaver is currently offline");
                 if (userControlMain.Content == localUserControl)
                 {
                     loadLocalBeatmaps = false;

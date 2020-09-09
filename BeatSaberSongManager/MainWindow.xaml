@@ -1,18 +1,18 @@
-﻿<Window x:Class="BeatSaberSongManager.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d"
-        Title="Beat Saber Song Manager"
-        Height="730"
-        MinHeight="730"
-        Width="1080"
-        MinWidth="1080"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        Background="{DynamicResource MaterialDesignPaper}"
-        Closing="Window_Closing">
+﻿<mah:MetroWindow x:Class="BeatSaberSongManager.MainWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:local="clr-namespace:BeatSaberSongManager"
+                 xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                 xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                 mc:Ignorable="d"
+                 Title="Beat Saber Song Manager"
+                 Height="605"
+                 MinHeight="605"
+                 Width="915"
+                 MinWidth="915"
+                 Closing="MetroWindow_Closing">
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
@@ -27,12 +27,14 @@
                          ToolTip="Local Beatmaps"
                          ToolTipService.BetweenShowDelay="0"
                          ToolTipService.InitialShowDelay="0"
-                         Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
+                         Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          GroupName="NavigationButtons"
                          Checked="RadioButtonLocal_Checked">
-                <material:PackIcon Kind="Computer"
-                                   Width="25"
-                                   Height="25" />
+                <iconPacks:PackIconFontAwesome Kind="LaptopSolid"
+                                               Width="20"
+                                               Height="20"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center" />
             </RadioButton>
 
             <RadioButton x:Name="radioButtonOnline"
@@ -41,12 +43,14 @@
                          ToolTip="Online Beatmaps"
                          ToolTipService.BetweenShowDelay="0"
                          ToolTipService.InitialShowDelay="0"
-                         Style="{DynamicResource MaterialDesignFlatPrimaryToggleButton}"
+                         Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          GroupName="NavigationButtons"
                          Checked="RadioButtonOnline_Checked">
-                <material:PackIcon Kind="Globe"
-                                   Width="25"
-                                   Height="25" />
+                <iconPacks:PackIconFontAwesome Kind="GlobeSolid"
+                                               Width="20"
+                                               Height="20"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center" />
             </RadioButton>
         </StackPanel>
 
@@ -57,12 +61,14 @@
                          ToolTip="Settings"
                          ToolTipService.BetweenShowDelay="0"
                          ToolTipService.InitialShowDelay="0"
-                         Style="{DynamicResource MaterialDesignFlatPrimaryToggleButton}"
+                         Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          GroupName="NavigationButtons"
                          Checked="RadioButtonSettings_Checked">
-                <material:PackIcon Kind="Settings"
-                                   Width="25"
-                                   Height="25" />
+                <iconPacks:PackIconMaterialDesign Kind="Settings"
+                                                  Width="20"
+                                                  Height="20"
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center" />
             </RadioButton>
         </StackPanel>
 
@@ -74,14 +80,14 @@
                    Grid.Column="1"
                    Visibility="Hidden"
                    Margin="30,0,0,0">
-            <!--<Rectangle.Fill>
+            <Rectangle.Fill>
                 <SolidColorBrush Color="{DynamicResource MahApps.Colors.ThemeBackground}"
                                  Opacity=".8" />
-            </Rectangle.Fill>-->
+            </Rectangle.Fill>
         </Rectangle>
-        <!--<mah:ProgressRing x:Name="progressRingLoading"
+        <mah:ProgressRing x:Name="progressRingLoading"
                           Grid.ColumnSpan="2"
                           Visibility="Hidden"
-                          IsActive="False" />-->
+                          IsActive="False" />
     </Grid>
-</Window>
+</mah:MetroWindow>

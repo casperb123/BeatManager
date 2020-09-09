@@ -2,6 +2,7 @@
 using BeatSaberSongManager.UserControls;
 using BeatSaverApi;
 using BeatSaverApi.Entities;
+using MahApps.Metro.Controls.Dialogs;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -70,9 +71,9 @@ namespace BeatSaberSongManager.ViewModels
 
         public void GetBeatmaps(int page = 0)
         {
-            //MainWindow.progressRingLoading.IsActive = true;
+            MainWindow.progressRingLoading.IsActive = true;
             MainWindow.rectangleLoading.Visibility = Visibility.Visible;
-            //MainWindow.progressRingLoading.Visibility = Visibility.Visible;
+            MainWindow.progressRingLoading.Visibility = Visibility.Visible;
 
             _ = Task.Run(async () => LocalBeatmaps = await beatSaverApi.GetLocalBeatmaps(Settings.CurrentSettings.SongsPath, page, CanConnectToBeatSaver()));
         }

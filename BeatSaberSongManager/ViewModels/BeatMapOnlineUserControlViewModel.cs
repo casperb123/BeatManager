@@ -48,18 +48,18 @@ namespace BeatSaberSongManager.ViewModels
 
         public void GetBeatmaps(MapSort mapSort, int page = 0)
         {
-            //MainWindow.progressRingLoading.IsActive = true;
+            MainWindow.progressRingLoading.IsActive = true;
             MainWindow.rectangleLoading.Visibility = Visibility.Visible;
-            //MainWindow.progressRingLoading.Visibility = Visibility.Visible;
+            MainWindow.progressRingLoading.Visibility = Visibility.Visible;
 
             _ = Task.Run(async () => OnlineBeatmaps = await BeatSaverApi.GetOnlineBeatmaps(mapSort, page));
         }
 
         public void GetBeatmaps(string query, int page = 0)
         {
-            //MainWindow.progressRingLoading.IsActive = true;
+            MainWindow.progressRingLoading.IsActive = true;
             MainWindow.rectangleLoading.Visibility = Visibility.Visible;
-            //MainWindow.progressRingLoading.Visibility = Visibility.Visible;
+            MainWindow.progressRingLoading.Visibility = Visibility.Visible;
 
             _ = Task.Run(async () => OnlineBeatmaps = await BeatSaverApi.GetOnlineBeatmaps(query, page));
         }

@@ -3,8 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:BeatSaberSongManager.UserControls"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:converters="clr-namespace:BeatSaberSongManager.Converters"
-             xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
@@ -64,9 +66,12 @@
                                     IsReadOnly="True"
                                     Binding="{Binding Path=SongAuthorName, IsAsync=True, FallbackValue=...}">
                     <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
+                        <Style TargetType="TextBlock"
+                               BasedOn="{StaticResource MahApps.Styles.TextBlock}">
                             <Setter Property="TextTrimming"
                                     Value="CharacterEllipsis" />
+                            <Setter Property="Margin"
+                                    Value="10,0,0,0" />
                             <Setter Property="ToolTip"
                                     Value="{Binding Path=SongAuthorName, IsAsync=True}" />
                             <Setter Property="ToolTipService.BetweenShowDelay"
@@ -81,9 +86,12 @@
                                     IsReadOnly="True"
                                     Binding="{Binding Path=SongName, IsAsync=True, FallbackValue=...}">
                     <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
+                        <Style TargetType="TextBlock"
+                               BasedOn="{StaticResource MahApps.Styles.TextBlock}">
                             <Setter Property="TextTrimming"
                                     Value="CharacterEllipsis" />
+                            <Setter Property="Margin"
+                                    Value="10,0,0,0" />
                             <Setter Property="ToolTip"
                                     Value="{Binding Path=SongName, IsAsync=True}" />
                             <Setter Property="ToolTipService.BetweenShowDelay"
@@ -98,9 +106,12 @@
                                     IsReadOnly="True"
                                     Binding="{Binding Path=LevelAuthorName, IsAsync=True, FallbackValue=...}">
                     <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
+                        <Style TargetType="TextBlock"
+                               BasedOn="{StaticResource MahApps.Styles.TextBlock}">
                             <Setter Property="TextTrimming"
                                     Value="CharacterEllipsis" />
+                            <Setter Property="Margin"
+                                    Value="10,0,0,0" />
                             <Setter Property="ToolTip"
                                     Value="{Binding Path=LevelAuthorName, IsAsync=True}" />
                             <Setter Property="ToolTipService.BetweenShowDelay"
@@ -115,7 +126,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal"
-                                        Margin="10,0,0,0">
+                                        Margin="20,0,0,0">
                                 <Border Width="25"
                                         Height="25"
                                         CornerRadius="100"
@@ -169,9 +180,12 @@
                                     IsReadOnly="True"
                                     Binding="{Binding Path=Downloads, IsAsync=True, FallbackValue=..., TargetNullValue=...}">
                     <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
+                        <Style TargetType="TextBlock"
+                               BasedOn="{StaticResource MahApps.Styles.TextBlock}">
                             <Setter Property="TextTrimming"
                                     Value="CharacterEllipsis" />
+                            <Setter Property="Margin"
+                                    Value="10,0,0,0" />
                             <Setter Property="ToolTip"
                                     Value="{Binding Path=Downloads, IsAsync=True}" />
                             <Setter Property="ToolTipService.BetweenShowDelay"
@@ -195,14 +209,15 @@
                                         ToolTip="Delete song"
                                         ToolTipService.BetweenShowDelay="0"
                                         ToolTipService.InitialShowDelay="0"
-                                        Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                         Width="30"
                                         Height="30"
-                                        Margin="0,0,2.5,0"
                                         Click="Map_Delete">
-                                    <material:PackIcon Kind="Delete"
-                                                       Width="20"
-                                                       Height="20" />
+                                    <iconPacks:PackIconMaterial Kind="DeleteCircle"
+                                                                Width="20"
+                                                                Height="20" />
                                 </Button>
 
                                 <Button Tag="{Binding Path=Key}"
@@ -210,15 +225,16 @@
                                         ToolTip="Song details"
                                         ToolTipService.BetweenShowDelay="0"
                                         ToolTipService.InitialShowDelay="0"
-                                        Style="{DynamicResource MaterialDesignFloatingActionButton}"
-                                        Width="30"
-                                        Height="30"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                                        Width="25"
+                                        Height="25"
                                         IsEnabled="False"
-                                        Margin="2.5,0,0,0"
                                         Click="Map_Details">
-                                    <material:PackIcon Kind="ArrowRight"
-                                                       Width="20"
-                                                       Height="20" />
+                                    <iconPacks:PackIconFontAwesome Kind="ArrowRightSolid"
+                                                                   Width="15"
+                                                                   Height="15" />
                                 </Button>
                             </Grid>
                         </DataTemplate>
@@ -247,60 +263,64 @@
             </Label>
 
             <Button x:Name="buttonFirstPage"
-                    Width="30"
-                    Height="30"
+                    Width="35"
+                    Height="35"
+                    Background="Transparent"
+                    BorderThickness="0"
                     ToolTip="First page"
                     ToolTipService.BetweenShowDelay="0"
                     ToolTipService.InitialShowDelay="0"
                     IsEnabled="False"
-                    Margin="0,0,2.5,0"
-                    Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                    Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="ButtonFirstPage_Click">
-                <material:PackIcon Kind="ArrowLeftBold"
-                                   Width="20"
-                                   Height="20" />
+                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleLeftSolid"
+                                               Width="25"
+                                               Height="25" />
             </Button>
             <Button x:Name="buttonPreviousPage"
-                    Width="30"
-                    Height="30"
+                    Width="35"
+                    Height="35"
+                    Background="Transparent"
+                    BorderThickness="0"
                     ToolTip="Previous page"
                     ToolTipService.BetweenShowDelay="0"
                     ToolTipService.InitialShowDelay="0"
                     IsEnabled="False"
-                    Margin="2.5,0,2.5,0"
-                    Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                    Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="ButtonPreviousPage_Click">
-                <material:PackIcon Kind="ArrowLeft"
-                                   Width="20"
-                                   Height="20" />
+                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleLeftRegular"
+                                               Width="25"
+                                               Height="25" />
             </Button>
             <Button x:Name="buttonNextPage"
-                    Width="30"
-                    Height="30"
+                    Width="35"
+                    Height="35"
+                    Background="Transparent"
+                    BorderThickness="0"
                     ToolTip="Next page"
                     ToolTipService.BetweenShowDelay="0"
                     ToolTipService.InitialShowDelay="0"
                     IsEnabled="False"
-                    Margin="2.5,0,2.5,0"
-                    Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                    Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="ButtonNextPage_Click">
-                <material:PackIcon Kind="ArrowRight"
-                                   Width="20"
-                                   Height="20" />
+                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleRightRegular"
+                                               Width="25"
+                                               Height="25" />
             </Button>
             <Button x:Name="buttonLastPage"
-                    Width="30"
-                    Height="30"
+                    Width="35"
+                    Height="35"
+                    Background="Transparent"
+                    BorderThickness="0"
                     ToolTip="Last page"
                     ToolTipService.BetweenShowDelay="0"
                     ToolTipService.InitialShowDelay="0"
                     IsEnabled="False"
-                    Margin="2.5,0,0,0"
-                    Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                    Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="ButtonLastPage_Click">
-                <material:PackIcon Kind="ArrowRightBold"
-                                   Width="20"
-                                   Height="20" />
+                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleRightSolid"
+                                               Width="25"
+                                               Height="25" />
             </Button>
         </StackPanel>
     </Grid>

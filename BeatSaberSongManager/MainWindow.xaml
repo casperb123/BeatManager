@@ -24,6 +24,9 @@
                          Width="40"
                          Height="40"
                          Margin="0,0,0,5"
+                         ToolTip="Local Beatmaps"
+                         ToolTipService.BetweenShowDelay="0"
+                         ToolTipService.InitialShowDelay="0"
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          GroupName="NavigationButtons"
                          Checked="RadioButtonLocal_Checked">
@@ -37,6 +40,9 @@
             <RadioButton x:Name="radioButtonOnline"
                          Width="40"
                          Height="40"
+                         ToolTip="Online Beatmaps"
+                         ToolTipService.BetweenShowDelay="0"
+                         ToolTipService.InitialShowDelay="0"
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          GroupName="NavigationButtons"
                          Checked="RadioButtonOnline_Checked">
@@ -52,6 +58,9 @@
             <RadioButton x:Name="radioButtonSettings"
                          Width="40"
                          Height="40"
+                         ToolTip="Settings"
+                         ToolTipService.BetweenShowDelay="0"
+                         ToolTipService.InitialShowDelay="0"
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          GroupName="NavigationButtons"
                          Checked="RadioButtonSettings_Checked">

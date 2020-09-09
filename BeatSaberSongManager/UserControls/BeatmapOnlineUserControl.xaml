@@ -3,10 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:BeatSaberSongManager.UserControls"
              xmlns:converters="clr-namespace:BeatSaberSongManager.Converters"
-             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
@@ -44,11 +42,11 @@
                          ToolTip="Search"
                          ToolTipService.BetweenShowDelay="0"
                          ToolTipService.InitialShowDelay="0"
-                         Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
+                         Style="{DynamicResource MaterialDesignFlatPrimaryToggleButton}"
                          Checked="RadioButtonSearch_Checked">
-                <iconPacks:PackIconFontAwesome Kind="SearchSolid"
-                                               Width="15"
-                                               Height="15" />
+                <material:PackIcon Kind="Search"
+                                   Width="15"
+                                   Height="15" />
             </RadioButton>
 
             <RadioButton x:Name="radioButtonHot"
@@ -58,11 +56,11 @@
                          ToolTip="Hot"
                          ToolTipService.BetweenShowDelay="0"
                          ToolTipService.InitialShowDelay="0"
-                         Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
+                         Style="{DynamicResource MaterialDesignFlatPrimaryToggleButton}"
                          Checked="RadioButtonHot_Checked">
-                <iconPacks:PackIconFontAwesome Kind="FireSolid"
-                                               Width="15"
-                                               Height="15" />
+                <material:PackIcon Kind="Fire"
+                                   Width="15"
+                                   Height="15" />
             </RadioButton>
 
             <RadioButton x:Name="radioButtonRating"
@@ -72,11 +70,11 @@
                          ToolTip="Rating"
                          ToolTipService.BetweenShowDelay="0"
                          ToolTipService.InitialShowDelay="0"
-                         Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
+                         Style="{DynamicResource MaterialDesignFlatPrimaryToggleButton}"
                          Checked="RadioButtonRating_Checked">
-                <iconPacks:PackIconFontAwesome Kind="StarSolid"
-                                               Width="15"
-                                               Height="15" />
+                <material:PackIcon Kind="Star"
+                                   Width="15"
+                                   Height="15" />
             </RadioButton>
 
             <RadioButton x:Name="radioButtonLatest"
@@ -86,11 +84,11 @@
                          ToolTip="Latest"
                          ToolTipService.BetweenShowDelay="0"
                          ToolTipService.InitialShowDelay="0"
-                         Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
+                         Style="{DynamicResource MaterialDesignFlatPrimaryToggleButton}"
                          Checked="RadioButtonLatest_Checked">
-                <iconPacks:PackIconFontAwesome Kind="ExclamationSolid"
-                                               Width="15"
-                                               Height="15" />
+                <material:PackIcon Kind="Exclamation"
+                                   Width="15"
+                                   Height="15" />
             </RadioButton>
 
             <RadioButton x:Name="radioButtonDownloads"
@@ -100,11 +98,11 @@
                          ToolTip="Downloads"
                          ToolTipService.BetweenShowDelay="0"
                          ToolTipService.InitialShowDelay="0"
-                         Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
+                         Style="{DynamicResource MaterialDesignFlatPrimaryToggleButton}"
                          Checked="RadioButtonDownloads_Checked">
-                <iconPacks:PackIconFontAwesome Kind="DownloadSolid"
-                                               Width="15"
-                                               Height="15" />
+                <material:PackIcon Kind="Download"
+                                   Width="15"
+                                   Height="15" />
             </RadioButton>
 
             <RadioButton x:Name="radioButtonPlays"
@@ -114,11 +112,11 @@
                          ToolTip="Plays"
                          ToolTipService.BetweenShowDelay="0"
                          ToolTipService.InitialShowDelay="0"
-                         Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
+                         Style="{DynamicResource MaterialDesignFlatPrimaryToggleButton}"
                          Checked="RadioButtonPlays_Checked">
-                <iconPacks:PackIconFontAwesome Kind="PlaySolid"
-                                               Width="15"
-                                               Height="15" />
+                <material:PackIcon Kind="Play"
+                                   Width="15"
+                                   Height="15" />
             </RadioButton>
         </StackPanel>
 
@@ -129,17 +127,13 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox x:Name="textBoxSearch"
-                     mah:TextBoxHelper.Watermark="Search by name, description or uploader"
-                     VerticalContentAlignment="Center"
-                     mah:TextBoxHelper.ClearTextButton="True" />
+            <TextBox x:Name="textBoxSearch" />
             <Button x:Name="buttonSearch"
                     Grid.Column="1"
-                    Width="35"
                     Click="ButtonSearch_Click">
-                <iconPacks:PackIconFontAwesome Kind="SearchSolid"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center" />
+                <material:PackIcon Kind="Search"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" />
             </Button>
         </Grid>
 
@@ -181,8 +175,7 @@
                                     IsReadOnly="True"
                                     Binding="{Binding Path=Metadata.SongAuthorName, IsAsync=True, FallbackValue=...}">
                     <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock"
-                               BasedOn="{StaticResource MahApps.Styles.TextBlock}">
+                        <Style TargetType="TextBlock">
                             <Setter Property="TextTrimming"
                                     Value="CharacterEllipsis" />
                             <Setter Property="Margin"
@@ -201,8 +194,7 @@
                                     IsReadOnly="True"
                                     Binding="{Binding Path=Name, IsAsync=True, FallbackValue=...}">
                     <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock"
-                               BasedOn="{StaticResource MahApps.Styles.TextBlock}">
+                        <Style TargetType="TextBlock">
                             <Setter Property="TextTrimming"
                                     Value="CharacterEllipsis" />
                             <Setter Property="Margin"
@@ -221,8 +213,7 @@
                                     IsReadOnly="True"
                                     Binding="{Binding Path=Metadata.LevelAuthorName, IsAsync=True, FallbackValue=...}">
                     <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock"
-                               BasedOn="{StaticResource MahApps.Styles.TextBlock}">
+                        <Style TargetType="TextBlock">
                             <Setter Property="TextTrimming"
                                     Value="CharacterEllipsis" />
                             <Setter Property="Margin"
@@ -295,8 +286,7 @@
                                     IsReadOnly="True"
                                     Binding="{Binding Path=Stats.Downloads, IsAsync=True, FallbackValue=...}">
                     <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock"
-                               BasedOn="{StaticResource MahApps.Styles.TextBlock}">
+                        <Style TargetType="TextBlock">
                             <Setter Property="TextTrimming"
                                     Value="CharacterEllipsis" />
                             <Setter Property="Margin"
@@ -325,58 +315,52 @@
                                             ToolTip="Download song"
                                             ToolTipService.BetweenShowDelay="0"
                                             ToolTipService.InitialShowDelay="0"
-                                            Background="Transparent"
-                                            BorderThickness="0"
-                                            Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                                            Style="{DynamicResource MaterialDesignFloatingActionButton}"
                                             Width="30"
                                             Height="30"
                                             Visibility="{Binding Path=IsDownloaded, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
                                             IsEnabled="{Binding Path=IsDownloaded, Converter={StaticResource InverseBooleanConverter}}"
                                             Click="Map_Download">
-                                        <iconPacks:PackIconMaterial Kind="DownloadCircle"
-                                                                    Width="20"
-                                                                    Height="20" />
+                                        <material:PackIcon Kind="DownloadCircle"
+                                                           Width="20"
+                                                           Height="20" />
                                     </Button>
                                     <Button Tag="{Binding Path=Key}"
                                             ToolTip="Delete song"
                                             ToolTipService.BetweenShowDelay="0"
                                             ToolTipService.InitialShowDelay="0"
-                                            Background="Transparent"
-                                            BorderThickness="0"
-                                            Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                                            Style="{DynamicResource MaterialDesignFloatingActionButton}"
                                             Width="30"
                                             Height="30"
                                             Visibility="{Binding Path=IsDownloaded, Converter={StaticResource BooleanToVisibilityConverter}}"
                                             IsEnabled="{Binding Path=IsDownloaded}"
                                             Click="Map_Delete">
-                                        <iconPacks:PackIconMaterial Kind="DeleteCircle"
-                                                                    Width="20"
-                                                                    Height="20" />
+                                        <material:PackIcon Kind="DeleteCircle"
+                                                           Width="20"
+                                                           Height="20" />
                                     </Button>
                                 </Grid>
-                                <Grid Width="30"
+                                <!--<Grid Width="30"
                                       Height="30">
                                     <mah:ProgressRing Width="20"
                                                       Height="20"
                                                       IsActive="{Binding Path=IsDownloading}"
                                                       IsEnabled="{Binding Path=IsDownloading}" />
-                                </Grid>
+                                </Grid>-->
 
                                 <Button Tag="{Binding Path=Key}"
                                         Grid.Column="1"
                                         ToolTip="Song details"
                                         ToolTipService.BetweenShowDelay="0"
                                         ToolTipService.InitialShowDelay="0"
-                                        Background="Transparent"
-                                        BorderThickness="0"
-                                        Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                                        Style="{DynamicResource MaterialDesignFloatingActionButton}"
                                         Width="25"
                                         Height="25"
                                         IsEnabled="False"
                                         Click="Map_Details">
-                                    <iconPacks:PackIconFontAwesome Kind="ArrowRightSolid"
-                                                                   Width="15"
-                                                                   Height="15" />
+                                    <material:PackIcon Kind="ArrowRight"
+                                                       Width="15"
+                                                       Height="15" />
                                 </Button>
                             </Grid>
                         </DataTemplate>
@@ -407,62 +391,54 @@
             <Button x:Name="buttonFirstPage"
                     Width="35"
                     Height="35"
-                    Background="Transparent"
-                    BorderThickness="0"
                     ToolTip="First page"
                     ToolTipService.BetweenShowDelay="0"
                     ToolTipService.InitialShowDelay="0"
                     IsEnabled="False"
-                    Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                    Style="{DynamicResource MaterialDesignFloatingActionButton}"
                     Click="ButtonFirstPage_Click">
-                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleLeftSolid"
-                                               Width="25"
-                                               Height="25" />
+                <material:PackIcon Kind="ArrowLeftBold"
+                                   Width="25"
+                                   Height="25" />
             </Button>
             <Button x:Name="buttonPreviousPage"
                     Width="35"
                     Height="35"
-                    Background="Transparent"
-                    BorderThickness="0"
                     ToolTip="Previous page"
                     ToolTipService.BetweenShowDelay="0"
                     ToolTipService.InitialShowDelay="0"
                     IsEnabled="False"
-                    Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                    Style="{DynamicResource MaterialDesignFloatingActionButton}"
                     Click="ButtonPreviousPage_Click">
-                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleLeftRegular"
-                                               Width="25"
-                                               Height="25" />
+                <material:PackIcon Kind="ArrowLeft"
+                                   Width="25"
+                                   Height="25" />
             </Button>
             <Button x:Name="buttonNextPage"
                     Width="35"
                     Height="35"
-                    Background="Transparent"
-                    BorderThickness="0"
                     ToolTip="Next page"
                     ToolTipService.BetweenShowDelay="0"
                     ToolTipService.InitialShowDelay="0"
                     IsEnabled="False"
-                    Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                    Style="{DynamicResource MaterialDesignFloatingActionButton}"
                     Click="ButtonNextPage_Click">
-                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleRightRegular"
-                                               Width="25"
-                                               Height="25" />
+                <material:PackIcon Kind="ArrowRight"
+                                   Width="25"
+                                   Height="25" />
             </Button>
             <Button x:Name="buttonLastPage"
                     Width="35"
                     Height="35"
-                    Background="Transparent"
-                    BorderThickness="0"
                     ToolTip="Last page"
                     ToolTipService.BetweenShowDelay="0"
                     ToolTipService.InitialShowDelay="0"
                     IsEnabled="False"
-                    Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                    Style="{DynamicResource MaterialDesignFloatingActionButton}"
                     Click="ButtonLastPage_Click">
-                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleRightSolid"
-                                               Width="25"
-                                               Height="25" />
+                <material:PackIcon Kind="ArrowRightBold"
+                                   Width="25"
+                                   Height="25" />
             </Button>
         </StackPanel>
     </Grid>

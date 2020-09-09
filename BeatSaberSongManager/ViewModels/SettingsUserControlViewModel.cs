@@ -1,6 +1,4 @@
 ﻿using BeatSaberSongManager.Entities;
-using ControlzEx.Theming;
-using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -32,17 +30,17 @@ namespace BeatSaberSongManager.ViewModels
             {
                 if (Directory.Exists(defaultSongsPath))
                 {
-                    MessageDialogResult result = await mainWindow.ShowMessageAsync("No songs path specified", "Would you like to use the default path to download songs or would you like to pick one yourself?\n\n" +
-                                                                                                              "Click Ok to use the default path\n" +
-                                                                                                              "Click Cancel to pick one yourself", MessageDialogStyle.AffirmativeAndNegative);
+                    //MessageDialogResult result = await mainWindow.ShowMessageAsync("No songs path specified", "Would you like to use the default path to download songs or would you like to pick one yourself?\n\n" +
+                    //                                                                                          "Click Ok to use the default path\n" +
+                    //                                                                                          "Click Cancel to pick one yourself", MessageDialogStyle.AffirmativeAndNegative);
 
-                    if (result == MessageDialogResult.Affirmative)
-                    {
+                    //if (result == MessageDialogResult.Affirmative)
+                    //{
                         Settings.CurrentSettings.SongsPath = defaultSongsPath;
                         Settings.CurrentSettings.Save();
-                    }
-                    else
-                        SetSongsPath(true, true);
+                    //}
+                    //else
+                    //    SetSongsPath(true, true);
                 }
                 else
                     SetSongsPath(false, true);
@@ -68,7 +66,7 @@ namespace BeatSaberSongManager.ViewModels
 
         public void ChangeTheme(string theme, string color)
         {
-            ThemeManager.Current.ChangeTheme(Application.Current, $"{theme}.{color}");
+            //ThemeManager.Current.ChangeTheme(Application.Current, $"{theme}.{color}");
         }
     }
 }

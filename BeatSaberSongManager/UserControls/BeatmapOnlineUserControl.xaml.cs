@@ -2,8 +2,6 @@
 using BeatSaberSongManager.ViewModels;
 using BeatSaverApi;
 using BeatSaverApi.Entities;
-using MahApps.Metro.Controls.Dialogs;
-using MahApps.Metro.IconPacks;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -106,8 +104,8 @@ namespace BeatSaberSongManager.UserControls
         private void DataGridMaps_TargetUpdated(object sender, DataTransferEventArgs e)
         {
             ViewModel.MainWindow.rectangleLoading.Visibility = Visibility.Hidden;
-            ViewModel.MainWindow.progressRingLoading.Visibility = Visibility.Hidden;
-            ViewModel.MainWindow.progressRingLoading.IsActive = false;
+            //ViewModel.MainWindow.progressRingLoading.Visibility = Visibility.Hidden;
+            //ViewModel.MainWindow.progressRingLoading.IsActive = false;
             ViewModel.UpdatePageButtons();
         }
 
@@ -115,7 +113,7 @@ namespace BeatSaberSongManager.UserControls
         {
             if (string.IsNullOrWhiteSpace(textBoxSearch.Text))
             {
-                await ViewModel.MainWindow.ShowMessageAsync("Beat Saver search", "The search query can't be null or empty");
+                //await ViewModel.MainWindow.ShowMessageAsync("Beat Saver search", "The search query can't be null or empty");
                 return;
             }
             if (!radioButtonSearch.IsChecked.Value)

@@ -1,5 +1,4 @@
 ﻿using BeatSaberSongManager.ViewModels;
-using ControlzEx.Theming;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -28,9 +27,9 @@ namespace BeatSaberSongManager.UserControls
             viewModel = new SettingsUserControlViewModel(mainWindow);
             DataContext = viewModel;
 
-            comboBoxTheme.ItemsSource = ThemeManager.Current.BaseColors;
-            comboBoxColor.ItemsSource = ThemeManager.Current.ColorSchemes;
-            viewModel.ChangeTheme(comboBoxTheme.SelectedItem.ToString(), comboBoxColor.SelectedItem.ToString());
+            //comboBoxTheme.ItemsSource = ThemeManager.Current.BaseColors;
+            //comboBoxColor.ItemsSource = ThemeManager.Current.ColorSchemes;
+            //viewModel.ChangeTheme(comboBoxTheme.SelectedItem.ToString(), comboBoxColor.SelectedItem.ToString());
         }
 
         private void ComboBoxThemeSettings_SelectionChanged(object sender, SelectionChangedEventArgs e)

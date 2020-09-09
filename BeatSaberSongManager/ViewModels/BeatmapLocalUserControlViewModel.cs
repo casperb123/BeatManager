@@ -2,12 +2,14 @@
 using BeatSaberSongManager.UserControls;
 using BeatSaverApi;
 using BeatSaverApi.Entities;
+using MahApps.Metro.Controls.Dialogs;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -50,9 +52,21 @@ namespace BeatSaberSongManager.ViewModels
             beatSaverApi = new BeatSaver(Settings.CurrentSettings.SongsPath);
         }
 
-        public bool IsConnectedToInternet()
+        public bool CanConnectToBeatSaver()
         {
-            return InternetGetConnectedState(out _, 0);
+            try
+            {
+                Ping ping = new Ping();
+                string host = "https://beatsaver.com";
+                byte[] buffer = new byte[32];
+                int timeout = 2000;
+                PingReply reply = ping.Send(host, timeout, buffer);
+                return reply.Status == IPStatus.Success;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public void GetBeatmaps(int page = 0)
@@ -61,7 +75,7 @@ namespace BeatSaberSongManager.ViewModels
             MainWindow.rectangleLoading.Visibility = Visibility.Visible;
             MainWindow.progressRingLoading.Visibility = Visibility.Visible;
 
-            _ = Task.Run(async () => LocalBeatmaps = await beatSaverApi.GetLocalBeatmaps(Settings.CurrentSettings.SongsPath, page, IsConnectedToInternet()));
+            _ = Task.Run(async () => LocalBeatmaps = await beatSaverApi.GetLocalBeatmaps(Settings.CurrentSettings.SongsPath, page, CanConnectToBeatSaver()));
         }
 
         public void UpdatePageButtons()

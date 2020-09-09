@@ -51,7 +51,7 @@ namespace BeatSaberSongManager
         private async void RadioButtonOnline_Checked(object sender, RoutedEventArgs e)
         {
 
-            if (viewModel.IsConnectedToInternet())
+            if (viewModel.CanConnectToBeatSaver())
             {
                 if (localUserControl.ViewModel.SongDeleted)
                 {
@@ -69,15 +69,17 @@ namespace BeatSaberSongManager
             }
             else
             {
-                await this.ShowMessageAsync("No internet connection", "You don't have access to the internet");
+                await this.ShowMessageAsync("Can't connect to BeatSaver", "Either you don't have any internet connection or BeatSaver is currently offline");
                 if (userControlMain.Content == localUserControl)
                 {
                     loadLocalBeatmaps = false;
                     radioButtonLocal.IsChecked = true;
                     loadLocalBeatmaps = true;
                 }
-                else
+                else if (userControlMain.Content == settingsUserControl)
                     radioButtonSettings.IsChecked = true;
+                else
+                    radioButtonOnline.IsChecked = false;
 
                 return;
             }

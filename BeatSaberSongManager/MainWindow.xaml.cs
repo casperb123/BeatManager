@@ -93,7 +93,7 @@ namespace BeatSaberSongManager
             userControlMain.Content = settingsUserControl;
         }
 
-        private void Window_Closing(object sender, CancelEventArgs e)
+        private void MetroWindow_Closing(object sender, CancelEventArgs e)
         {
             Settings.CurrentSettings.Save();
         }

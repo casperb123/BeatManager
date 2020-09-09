@@ -229,7 +229,8 @@
 
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Right"
-                    Grid.Row="2">
+                    Grid.Row="2"
+                    Margin="0,5,0,0">
             <Label VerticalContentAlignment="Center">
                 <Label.Content>
                     <TextBlock>

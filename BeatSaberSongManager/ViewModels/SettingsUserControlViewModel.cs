@@ -1,10 +1,13 @@
 ﻿using BeatSaberSongManager.Entities;
+using MaterialDesignColors;
+using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows;
+using System.Windows.Media;
 
 namespace BeatSaberSongManager.ViewModels
 {
@@ -64,9 +67,17 @@ namespace BeatSaberSongManager.ViewModels
                 Settings.CurrentSettings.Save();
         }
 
-        public void ChangeTheme(string theme, string color)
+        public void ChangeTheme(string themeName, PrimaryColor primaryColor)
         {
-            //ThemeManager.Current.ChangeTheme(Application.Current, $"{theme}.{color}");
+            PaletteHelper paletteHelper = new PaletteHelper();
+            ITheme theme = paletteHelper.GetTheme();
+            IBaseTheme baseTheme = themeName == "Dark" ? Theme.Dark : Theme.Light;
+            Color color = SwatchHelper.Lookup[(MaterialDesignColor)primaryColor];
+
+            theme.SetBaseTheme(baseTheme);
+            theme.SetPrimaryColor(color);
+
+            paletteHelper.SetTheme(theme);
         }
     }
 }

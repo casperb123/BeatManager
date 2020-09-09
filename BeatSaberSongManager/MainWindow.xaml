@@ -6,13 +6,13 @@
         xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="Beat Saber Song Manager"
-        Height="605"
-        MinHeight="605"
-        Width="915"
-        MinWidth="915"
+        Height="730"
+        MinHeight="730"
+        Width="1080"
+        MinWidth="1080"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
-        Closing="MetroWindow_Closing">
+        Closing="Window_Closing">
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
@@ -27,7 +27,7 @@
                          ToolTip="Local Beatmaps"
                          ToolTipService.BetweenShowDelay="0"
                          ToolTipService.InitialShowDelay="0"
-                         Style="{StaticResource MaterialDesignFloatingActionButton}"
+                         Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
                          GroupName="NavigationButtons"
                          Checked="RadioButtonLocal_Checked">
                 <material:PackIcon Kind="Computer"
@@ -41,7 +41,7 @@
                          ToolTip="Online Beatmaps"
                          ToolTipService.BetweenShowDelay="0"
                          ToolTipService.InitialShowDelay="0"
-                         Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                         Style="{DynamicResource MaterialDesignFlatPrimaryToggleButton}"
                          GroupName="NavigationButtons"
                          Checked="RadioButtonOnline_Checked">
                 <material:PackIcon Kind="Globe"
@@ -57,7 +57,7 @@
                          ToolTip="Settings"
                          ToolTipService.BetweenShowDelay="0"
                          ToolTipService.InitialShowDelay="0"
-                         Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                         Style="{DynamicResource MaterialDesignFlatPrimaryToggleButton}"
                          GroupName="NavigationButtons"
                          Checked="RadioButtonSettings_Checked">
                 <material:PackIcon Kind="Settings"

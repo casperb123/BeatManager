@@ -53,13 +53,14 @@
                       SelectedIndex="{Binding Path=Theme, Source={x:Static entities:Settings.CurrentSettings}}"
                       SelectionChanged="ComboBoxThemeSettings_SelectionChanged" />
 
-            <Label Content="Color"
+            <Label Content="Primary Color"
                    VerticalContentAlignment="Center"
                    Grid.Row="2"
                    Margin="0,0,5,0" />
             <ComboBox x:Name="comboBoxColor"
                       Grid.Row="2"
                       Grid.Column="1"
+                      Margin="0,0,0,5"
                       SelectedIndex="{Binding Path=Color, Source={x:Static entities:Settings.CurrentSettings}}"
                       SelectionChanged="ComboBoxThemeSettings_SelectionChanged" />
         </Grid>

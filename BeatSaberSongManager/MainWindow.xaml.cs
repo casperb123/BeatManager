@@ -4,6 +4,7 @@ using BeatSaberSongManager.ViewModels;
 using BeatSaverApi.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -90,7 +91,7 @@ namespace BeatSaberSongManager
             userControlMain.Content = settingsUserControl;
         }
 
-        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Window_Closing(object sender, CancelEventArgs e)
         {
             Settings.CurrentSettings.Save();
         }

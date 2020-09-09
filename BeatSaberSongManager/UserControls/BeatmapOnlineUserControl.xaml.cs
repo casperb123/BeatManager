@@ -1,6 +1,7 @@
 ﻿using BeatSaberSongManager.Entities;
 using BeatSaberSongManager.ViewModels;
 using BeatSaverApi;
+using BeatSaverApi.Entities;
 using MahApps.Metro.Controls.Dialogs;
 using MahApps.Metro.IconPacks;
 using System;

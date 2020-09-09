@@ -1,6 +1,7 @@
 ﻿using BeatSaberSongManager.Entities;
 using BeatSaberSongManager.UserControls;
 using BeatSaverApi;
+using BeatSaverApi.Entities;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading;
@@ -12,13 +13,13 @@ namespace BeatSaberSongManager.ViewModels
     public class BeatMapOnlineUserControlViewModel : INotifyPropertyChanged
     {
         private readonly BeatmapOnlineUserControl userControl;
-        private OnlineBeatMaps onlineBeatmaps;
+        private OnlineBeatmaps onlineBeatmaps;
 
         public MapSort CurrentMapSort;
         public readonly MainWindow MainWindow;
         public readonly BeatSaver BeatSaverApi;
 
-        public OnlineBeatMaps OnlineBeatmaps
+        public OnlineBeatmaps OnlineBeatmaps
         {
             get { return onlineBeatmaps; }
             set
@@ -130,13 +131,13 @@ namespace BeatSaberSongManager.ViewModels
 
         public void DownloadSong(string key)
         {
-            OnlineBeatMap song = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
+            OnlineBeatmap song = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
             BeatSaverApi.DownloadSong(song).ConfigureAwait(false);
         }
 
         public void DeleteSong(string key)
         {
-            OnlineBeatMap song = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
+            OnlineBeatmap song = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
             BeatSaverApi.DeleteSong(song);
         }
     }

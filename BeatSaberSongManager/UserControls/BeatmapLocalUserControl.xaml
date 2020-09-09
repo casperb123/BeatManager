@@ -14,6 +14,7 @@
         <converters:BooleanToVisiblityConverter x:Key="BooleanToVisibilityConverter" />
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
         <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
+        <converters:ImageSourceToBitmapConverter x:Key="ImageSourceToBitmapConverter" />
     </UserControl.Resources>
 
     <Grid>
@@ -53,7 +54,7 @@
                                         Height="25"
                                         CornerRadius="100">
                                     <Border.Background>
-                                        <ImageBrush ImageSource="{Binding Path=CoverImagePath, Mode=OneWay, IsAsync=True}" />
+                                        <ImageBrush ImageSource="{Binding Path=CoverImagePath, Mode=OneWay, IsAsync=True, Converter={StaticResource ImageSourceToBitmapConverter}}" />
                                     </Border.Background>
                                 </Border>
                             </Grid>

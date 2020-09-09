@@ -1,6 +1,7 @@
 ﻿using BeatSaberSongManager.Entities;
 using BeatSaberSongManager.UserControls;
 using BeatSaberSongManager.ViewModels;
+using BeatSaverApi.Entities;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System;
@@ -49,7 +50,24 @@ namespace BeatSaberSongManager
 
         private async void RadioButtonOnline_Checked(object sender, RoutedEventArgs e)
         {
-            if (!viewModel.IsConnectedToInternet())
+
+            if (viewModel.IsConnectedToInternet())
+            {
+                if (localUserControl.ViewModel.SongDeleted)
+                {
+                    if (onlineUserControl.ViewModel.OnlineBeatmaps != null)
+                    {
+                        MapSort mapSort = onlineUserControl.ViewModel.CurrentMapSort;
+                        if (mapSort == MapSort.Search)
+                            onlineUserControl.ViewModel.GetBeatmaps(onlineUserControl.textBoxSearch.Text, onlineUserControl.ViewModel.OnlineBeatmaps.CurrentPage);
+                        else
+                            onlineUserControl.ViewModel.GetBeatmaps(mapSort, onlineUserControl.ViewModel.OnlineBeatmaps.CurrentPage);
+                    }
+
+                    localUserControl.ViewModel.SongDeleted = false;
+                }
+            }
+            else
             {
                 await this.ShowMessageAsync("No internet connection", "You don't have access to the internet");
                 if (userControlMain.Content == localUserControl)

@@ -33,12 +33,13 @@ namespace BeatSaberSongManager.UserControls
             ViewModel.MainWindow.rectangleLoading.Visibility = Visibility.Hidden;
             ViewModel.MainWindow.progressRingLoading.Visibility = Visibility.Hidden;
             ViewModel.MainWindow.progressRingLoading.IsActive = false;
-            //ViewModel.UpdatePageButtons();
+            ViewModel.UpdatePageButtons();
         }
 
         private void Map_Delete(object sender, RoutedEventArgs e)
         {
-
+            string key = ((Button)sender).Tag.ToString();
+            ViewModel.DeleteSong(key);
         }
 
         private void Map_Details(object sender, RoutedEventArgs e)
@@ -48,22 +49,22 @@ namespace BeatSaberSongManager.UserControls
 
         private void ButtonFirstPage_Click(object sender, RoutedEventArgs e)
         {
-
+            ViewModel.FirstPage();
         }
 
         private void ButtonPreviousPage_Click(object sender, RoutedEventArgs e)
         {
-
+            ViewModel.PreviousPage();
         }
 
         private void ButtonNextPage_Click(object sender, RoutedEventArgs e)
         {
-
+            ViewModel.NextPage();
         }
 
         private void ButtonLastPage_Click(object sender, RoutedEventArgs e)
         {
-
+            ViewModel.LastPage();
         }
     }
 }

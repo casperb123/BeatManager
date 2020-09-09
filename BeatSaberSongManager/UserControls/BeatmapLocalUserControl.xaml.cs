@@ -26,6 +26,8 @@ namespace BeatSaberSongManager.UserControls
             InitializeComponent();
             ViewModel = new BeatmapLocalUserControlViewModel(this, mainWindow);
             DataContext = ViewModel;
+
+            dataGridMaps.SelectionChanged += (s, e) => dataGridMaps.UnselectAll();
         }
 
         private void DataGridMaps_TargetUpdated(object sender, DataTransferEventArgs e)

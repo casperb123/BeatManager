@@ -179,8 +179,18 @@
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Artist"
                                     Width=".35*"
-                                    IsReadOnly="True"
-                                    Binding="{Binding Path=Metadata.SongAuthorName, IsAsync=True, FallbackValue=...}">
+                                    IsReadOnly="True">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0} {1}"
+                                      FallbackValue="..."
+                                      TargetNullValue="...">
+                            <Binding Path="SongAuthorName"
+                                     IsAsync="True" />
+                            <Binding Path="SongSubName"
+                                     IsAsync="True" />
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                    
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock"
                                BasedOn="{StaticResource MahApps.Styles.TextBlock}">

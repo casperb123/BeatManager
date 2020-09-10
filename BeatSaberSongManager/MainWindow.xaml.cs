@@ -43,10 +43,13 @@ namespace BeatSaberSongManager
         private void RadioButtonLocal_Checked(object sender, RoutedEventArgs e)
         {
             userControlMain.Content = localUserControl;
-            if (!localBeatmapsLoaded || onlineUserControl.ViewModel.SongDownloaded)
+            if (!localBeatmapsLoaded ||
+                onlineUserControl.ViewModel.SongDownloaded ||
+                settingsUserControl.ViewModel.SongsPathChanged)
             {
                 localBeatmapsLoaded = true;
                 onlineUserControl.ViewModel.SongDownloaded = false;
+                settingsUserControl.ViewModel.SongsPathChanged = false;
                 localUserControl.ViewModel.GetBeatmaps();
             }
         }

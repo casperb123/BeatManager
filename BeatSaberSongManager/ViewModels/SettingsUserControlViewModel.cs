@@ -18,6 +18,8 @@ namespace BeatSaberSongManager.ViewModels
         private readonly string copyPath;
         private readonly string[] originalPaths;
 
+        public bool SongsPathChanged = false;
+
         public SettingsUserControlViewModel(MainWindow mainWindow)
         {
             this.mainWindow = mainWindow;
@@ -53,7 +55,10 @@ namespace BeatSaberSongManager.ViewModels
             };
 
             if (dialog.ShowDialog().GetValueOrDefault())
+            {
                 Settings.CurrentSettings.SongsPath = dialog.SelectedPath;
+                SongsPathChanged = true;
+            }
         }
 
         public void DetectPath(bool copy, bool browse = true)
@@ -61,7 +66,10 @@ namespace BeatSaberSongManager.ViewModels
             if (copy)
             {
                 if (Directory.Exists(copyPath))
+                {
                     Settings.CurrentSettings.SongsPath = copyPath;
+                    SongsPathChanged = true;
+                }
                 else if (browse)
                     BrowsePath();
             }
@@ -78,7 +86,10 @@ namespace BeatSaberSongManager.ViewModels
                 }
 
                 if (originalPath != null)
+                {
                     Settings.CurrentSettings.SongsPath = originalPath;
+                    SongsPathChanged = true;
+                }
                 else if (browse)
                     BrowsePath();
             }

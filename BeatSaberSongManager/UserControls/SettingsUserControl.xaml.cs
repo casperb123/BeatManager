@@ -21,17 +21,17 @@ namespace BeatSaberSongManager.UserControls
     /// </summary>
     public partial class SettingsUserControl : UserControl
     {
-        private readonly SettingsUserControlViewModel viewModel;
+        public readonly SettingsUserControlViewModel ViewModel;
 
         public SettingsUserControl(MainWindow mainWindow)
         {
             InitializeComponent();
-            viewModel = new SettingsUserControlViewModel(mainWindow);
-            DataContext = viewModel;
+            ViewModel = new SettingsUserControlViewModel(mainWindow);
+            DataContext = ViewModel;
 
             comboBoxTheme.ItemsSource = ThemeManager.Current.BaseColors;
             comboBoxColor.ItemsSource = ThemeManager.Current.ColorSchemes;
-            viewModel.ChangeTheme(comboBoxTheme.SelectedItem.ToString(), comboBoxColor.SelectedItem.ToString());
+            ViewModel.ChangeTheme(comboBoxTheme.SelectedItem.ToString(), comboBoxColor.SelectedItem.ToString());
         }
 
         private void ComboBoxThemeSettings_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -39,17 +39,17 @@ namespace BeatSaberSongManager.UserControls
             if (!IsLoaded)
                 return;
 
-            viewModel.ChangeTheme(comboBoxTheme.SelectedItem.ToString(), comboBoxColor.SelectedItem.ToString());
+            ViewModel.ChangeTheme(comboBoxTheme.SelectedItem.ToString(), comboBoxColor.SelectedItem.ToString());
         }
 
         private void ButtonBrowsePath_Click(object sender, RoutedEventArgs e)
         {
-            viewModel.BrowsePath();
+            ViewModel.BrowsePath();
         }
 
         private void ButtonDetectPath_Click(object sender, RoutedEventArgs e)
         {
-            viewModel.DetectPath(Settings.CurrentSettings.BeatSaberCopy, false);
+            ViewModel.DetectPath(Settings.CurrentSettings.BeatSaberCopy, false);
         }
 
         private void ToggleSwitchVersion_Toggled(object sender, RoutedEventArgs e)
@@ -57,7 +57,7 @@ namespace BeatSaberSongManager.UserControls
             if (!IsLoaded)
                 return;
 
-            viewModel.DetectPath(Settings.CurrentSettings.BeatSaberCopy);
+            ViewModel.DetectPath(Settings.CurrentSettings.BeatSaberCopy);
         }
     }
 }

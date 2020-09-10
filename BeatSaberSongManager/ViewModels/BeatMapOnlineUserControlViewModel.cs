@@ -2,6 +2,7 @@
 using BeatSaberSongManager.UserControls;
 using BeatSaverApi;
 using BeatSaverApi.Entities;
+using BeatSaverApi.Events;
 using MahApps.Metro.Controls.Dialogs;
 using System.ComponentModel;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace BeatSaberSongManager.ViewModels
         public MapSort CurrentMapSort;
         public readonly MainWindow MainWindow;
         public readonly BeatSaver BeatSaverApi;
+        public bool SongDownloaded;
 
         public OnlineBeatmaps OnlineBeatmaps
         {
@@ -36,7 +38,15 @@ namespace BeatSaberSongManager.ViewModels
             this.userControl = userControl;
 
             BeatSaverApi = new BeatSaver(Settings.CurrentSettings.SongsPath);
-            BeatSaverApi.DownloadCompleted += (s, e) => UpdatePageButtons();
+            BeatSaverApi.DownloadCompleted += BeatSaverApi_DownloadCompleted;
+        }
+
+        private void BeatSaverApi_DownloadCompleted(object sender, DownloadCompletedEventArgs e)
+        {
+            if (!OnlineBeatmaps.Maps.Any(x => x.IsDownloading))
+                MainWindow.radioButtonLocal.IsEnabled = true;
+
+            UpdatePageButtons();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -177,8 +187,10 @@ namespace BeatSaberSongManager.ViewModels
 
         public void DownloadSong(string key)
         {
+            MainWindow.radioButtonLocal.IsEnabled = false;
             OnlineBeatmap song = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
             BeatSaverApi.DownloadSong(song).ConfigureAwait(false);
+            SongDownloaded = true;
         }
 
         public void DeleteSong(string key)

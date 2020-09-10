@@ -39,16 +39,6 @@ namespace BeatSaberSongManager.UserControls
             dataGridMaps.SelectionChanged += (s, e) => dataGridMaps.UnselectAll();
         }
 
-        private void WebClient_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void WebClient_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         private void Map_Download(object sender, RoutedEventArgs e)
         {
             string songKey = ((Button)sender).Tag.ToString();

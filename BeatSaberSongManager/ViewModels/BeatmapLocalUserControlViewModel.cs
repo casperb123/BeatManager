@@ -123,6 +123,7 @@ namespace BeatSaberSongManager.ViewModels
             beatSaverApi.DeleteSong(song);
             LocalBeatmaps.Maps.Remove(song);
             SongDeleted = true;
+            LocalBeatmaps = beatSaverApi.RefreshPages(LocalBeatmaps);
         }
 
         public void DeleteSongs(List<LocalBeatmap> songs)
@@ -130,6 +131,7 @@ namespace BeatSaberSongManager.ViewModels
             beatSaverApi.DeleteSongs(songs);
             songs.ForEach(x => LocalBeatmaps.Maps.Remove(x));
             SongDeleted = true;
+            LocalBeatmaps = beatSaverApi.RefreshPages(LocalBeatmaps);
         }
     }
 }

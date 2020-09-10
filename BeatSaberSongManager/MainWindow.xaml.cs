@@ -30,7 +30,7 @@ namespace BeatSaberSongManager
         private readonly BeatmapLocalUserControl localUserControl;
         private readonly BeatmapOnlineUserControl onlineUserControl;
         private readonly SettingsUserControl settingsUserControl;
-        private bool loadLocalBeatmaps = true;
+        private bool localBeatmapsLoaded = false;
 
         public MainWindow()
         {
@@ -43,8 +43,12 @@ namespace BeatSaberSongManager
         private void RadioButtonLocal_Checked(object sender, RoutedEventArgs e)
         {
             userControlMain.Content = localUserControl;
-            if (loadLocalBeatmaps)
+            if (!localBeatmapsLoaded || onlineUserControl.ViewModel.SongDownloaded)
+            {
+                localBeatmapsLoaded = true;
+                onlineUserControl.ViewModel.SongDownloaded = false;
                 localUserControl.ViewModel.GetBeatmaps();
+            }
         }
 
         private void RadioButtonOnline_Checked(object sender, RoutedEventArgs e)

@@ -88,5 +88,12 @@ namespace BeatSaberSongManager.UserControls
             else
                 menuItemDataGridDelete.IsEnabled = true;
         }
+
+        private void DataGridMaps_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            LocalBeatmap localBeatmap = (LocalBeatmap)e.Row.Item;
+            if (localBeatmap.Page != ViewModel.LocalBeatmaps.CurrentPage)
+                e.Row.Visibility = Visibility.Collapsed;
+        }
     }
 }

@@ -2,17 +2,9 @@
 using BeatSaberSongManager.UserControls;
 using BeatSaverApi;
 using BeatSaverApi.Entities;
-using MahApps.Metro.Controls.Dialogs;
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.NetworkInformation;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -20,9 +12,6 @@ namespace BeatSaberSongManager.ViewModels
 {
     public class BeatmapLocalUserControlViewModel : INotifyPropertyChanged
     {
-        [DllImport("wininet.dll")]
-        private extern static bool InternetGetConnectedState(out int description, int reservedValue);
-
         private LocalBeatmaps localBeatmaps;
         private readonly BeatmapLocalUserControl userControl;
         private readonly BeatSaver beatSaverApi;
@@ -66,13 +55,13 @@ namespace BeatSaberSongManager.ViewModels
             SelectedSongs = new List<LocalBeatmap>();
         }
 
-        public void GetBeatmaps(int page = 0)
+        public void GetBeatmaps()
         {
             MainWindow.progressRingLoading.IsActive = true;
             MainWindow.rectangleLoading.Visibility = Visibility.Visible;
             MainWindow.progressRingLoading.Visibility = Visibility.Visible;
 
-            _ = Task.Run(async () => LocalBeatmaps = await beatSaverApi.GetLocalBeatmaps(Settings.CurrentSettings.SongsPath, page));
+            _ = Task.Run(async () => LocalBeatmaps = await beatSaverApi.GetLocalBeatmaps(Settings.CurrentSettings.SongsPath));
         }
 
         public void UpdatePageButtons()
@@ -110,36 +99,36 @@ namespace BeatSaberSongManager.ViewModels
 
         public void NextPage()
         {
-            GetBeatmaps(LocalBeatmaps.NextPage.Value);
+            LocalBeatmaps = beatSaverApi.LocalNextPage(LocalBeatmaps);
         }
 
         public void PreviousPage()
         {
-            GetBeatmaps(LocalBeatmaps.PrevPage.Value);
+            LocalBeatmaps = beatSaverApi.LocalPreviousPage(LocalBeatmaps);
         }
 
         public void FirstPage()
         {
-            GetBeatmaps(0);
+            LocalBeatmaps = beatSaverApi.LocalFirstPage(LocalBeatmaps);
         }
 
         public void LastPage()
         {
-            GetBeatmaps(LocalBeatmaps.LastPage);
+            LocalBeatmaps = beatSaverApi.LocalLastPage(LocalBeatmaps);
         }
 
         public void DeleteSong(string key)
         {
             LocalBeatmap song = LocalBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
             beatSaverApi.DeleteSong(song);
-            GetBeatmaps(localBeatmaps.CurrentPage);
+            LocalBeatmaps.Maps.Remove(song);
             SongDeleted = true;
         }
 
-        public void DeleteSongs(ICollection<LocalBeatmap> songs)
+        public void DeleteSongs(List<LocalBeatmap> songs)
         {
             beatSaverApi.DeleteSongs(songs);
-            GetBeatmaps(localBeatmaps.CurrentPage);
+            songs.ForEach(x => LocalBeatmaps.Maps.Remove(x));
             SongDeleted = true;
         }
     }

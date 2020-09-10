@@ -27,7 +27,6 @@ namespace BeatSaberSongManager
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private readonly MainWindowViewModel viewModel;
         private readonly BeatmapLocalUserControl localUserControl;
         private readonly BeatmapOnlineUserControl onlineUserControl;
         private readonly SettingsUserControl settingsUserControl;
@@ -36,7 +35,6 @@ namespace BeatSaberSongManager
         public MainWindow()
         {
             InitializeComponent();
-            viewModel = new MainWindowViewModel();
             localUserControl = new BeatmapLocalUserControl(this);
             onlineUserControl = new BeatmapOnlineUserControl(this);
             settingsUserControl = new SettingsUserControl(this);
@@ -49,40 +47,21 @@ namespace BeatSaberSongManager
                 localUserControl.ViewModel.GetBeatmaps();
         }
 
-        private async void RadioButtonOnline_Checked(object sender, RoutedEventArgs e)
+        private void RadioButtonOnline_Checked(object sender, RoutedEventArgs e)
         {
 
-            if (viewModel.CanConnectToBeatSaver())
+            if (localUserControl.ViewModel.SongDeleted)
             {
-                if (localUserControl.ViewModel.SongDeleted)
+                if (onlineUserControl.ViewModel.OnlineBeatmaps != null)
                 {
-                    if (onlineUserControl.ViewModel.OnlineBeatmaps != null)
-                    {
-                        MapSort mapSort = onlineUserControl.ViewModel.CurrentMapSort;
-                        if (mapSort == MapSort.Search)
-                            onlineUserControl.ViewModel.GetBeatmaps(onlineUserControl.textBoxSearch.Text, onlineUserControl.ViewModel.OnlineBeatmaps.CurrentPage);
-                        else
-                            onlineUserControl.ViewModel.GetBeatmaps(mapSort, onlineUserControl.ViewModel.OnlineBeatmaps.CurrentPage);
-                    }
-
-                    localUserControl.ViewModel.SongDeleted = false;
+                    MapSort mapSort = onlineUserControl.ViewModel.CurrentMapSort;
+                    if (mapSort == MapSort.Search)
+                        onlineUserControl.ViewModel.GetBeatmaps(onlineUserControl.textBoxSearch.Text, onlineUserControl.ViewModel.OnlineBeatmaps.CurrentPage);
+                    else
+                        onlineUserControl.ViewModel.GetBeatmaps(mapSort, onlineUserControl.ViewModel.OnlineBeatmaps.CurrentPage);
                 }
-            }
-            else
-            {
-                await this.ShowMessageAsync("Can't connect to BeatSaver", "Either you don't have any internet connection or BeatSaver is currently offline");
-                if (userControlMain.Content == localUserControl)
-                {
-                    loadLocalBeatmaps = false;
-                    radioButtonLocal.IsChecked = true;
-                    loadLocalBeatmaps = true;
-                }
-                else if (userControlMain.Content == settingsUserControl)
-                    radioButtonSettings.IsChecked = true;
-                else
-                    radioButtonOnline.IsChecked = false;
 
-                return;
+                localUserControl.ViewModel.SongDeleted = false;
             }
 
             userControlMain.Content = onlineUserControl;

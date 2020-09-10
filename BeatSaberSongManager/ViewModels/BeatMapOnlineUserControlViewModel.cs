@@ -2,6 +2,7 @@
 using BeatSaberSongManager.UserControls;
 using BeatSaverApi;
 using BeatSaverApi.Entities;
+using MahApps.Metro.Controls.Dialogs;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading;
@@ -52,7 +53,23 @@ namespace BeatSaberSongManager.ViewModels
             MainWindow.rectangleLoading.Visibility = Visibility.Visible;
             MainWindow.progressRingLoading.Visibility = Visibility.Visible;
 
-            _ = Task.Run(async () => OnlineBeatmaps = await BeatSaverApi.GetOnlineBeatmaps(mapSort, page));
+            _ = Task.Run(async () =>
+            {
+                OnlineBeatmaps = await BeatSaverApi.GetOnlineBeatmaps(mapSort, page);
+                if (OnlineBeatmaps is null)
+                {
+                    await MainWindow.Dispatcher.Invoke(async () =>
+                    {
+                        await MainWindow.ShowMessageAsync("Can't connect to BeatSaver", "Either you don't have any internet connection or BeatSaver is currently offline");
+                        userControl.radioButtonSearch.IsChecked = false;
+                        userControl.radioButtonHot.IsChecked = false;
+                        userControl.radioButtonRating.IsChecked = false;
+                        userControl.radioButtonLatest.IsChecked = false;
+                        userControl.radioButtonDownloads.IsChecked = false;
+                        userControl.radioButtonPlays.IsChecked = false;
+                    });
+                }
+            });
         }
 
         public void GetBeatmaps(string query, int page = 0)
@@ -61,7 +78,23 @@ namespace BeatSaberSongManager.ViewModels
             MainWindow.rectangleLoading.Visibility = Visibility.Visible;
             MainWindow.progressRingLoading.Visibility = Visibility.Visible;
 
-            _ = Task.Run(async () => OnlineBeatmaps = await BeatSaverApi.GetOnlineBeatmaps(query, page));
+            _ = Task.Run(async () =>
+            {
+                OnlineBeatmaps = await BeatSaverApi.GetOnlineBeatmaps(query, page);
+                if (OnlineBeatmaps is null)
+                {
+                    await MainWindow.Dispatcher.Invoke(async () =>
+                    {
+                        await MainWindow.ShowMessageAsync("Can't connect to BeatSaver", "Either you don't have any internet connection or BeatSaver is currently offline");
+                        userControl.radioButtonSearch.IsChecked = false;
+                        userControl.radioButtonHot.IsChecked = false;
+                        userControl.radioButtonRating.IsChecked = false;
+                        userControl.radioButtonLatest.IsChecked = false;
+                        userControl.radioButtonDownloads.IsChecked = false;
+                        userControl.radioButtonPlays.IsChecked = false;
+                    });
+                }
+            });
         }
 
         public void UpdatePageButtons()

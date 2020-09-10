@@ -83,18 +83,8 @@
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Artist"
                                     Width=".35*"
-                                    IsReadOnly="True">
-                    <DataGridTextColumn.Binding>
-                        <MultiBinding StringFormat="{}{0} {1}"
-                                      FallbackValue="..."
-                                      TargetNullValue="...">
-                            <Binding Path="SongAuthorName"
-                                     IsAsync="True" />
-                            <Binding Path="SongSubName"
-                                     IsAsync="True" />
-                        </MultiBinding>
-                    </DataGridTextColumn.Binding>
-                    
+                                    IsReadOnly="True"
+                                    Binding="{Binding Path=SongAuthorName, IsAsync=True, FallbackValue=..., TargetNullValue=...}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock"
                                BasedOn="{StaticResource MahApps.Styles.TextBlock}">
@@ -113,8 +103,18 @@
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="Song name"
                                     Width="1*"
-                                    IsReadOnly="True"
-                                    Binding="{Binding Path=SongName, IsAsync=True, FallbackValue=..., TargetNullValue=...}">
+                                    IsReadOnly="True">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0} {1}"
+                                      FallbackValue="..."
+                                      TargetNullValue="...">
+                            <Binding Path="SongName"
+                                     IsAsync="True" />
+                            <Binding Path="SongSubName"
+                                     IsAsync="True" />
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                    
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock"
                                BasedOn="{StaticResource MahApps.Styles.TextBlock}">

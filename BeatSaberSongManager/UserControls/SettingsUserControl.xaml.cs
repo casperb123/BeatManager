@@ -1,4 +1,5 @@
-﻿using BeatSaberSongManager.ViewModels;
+﻿using BeatSaberSongManager.Entities;
+using BeatSaberSongManager.ViewModels;
 using ControlzEx.Theming;
 using System;
 using System.Collections.Generic;
@@ -41,9 +42,22 @@ namespace BeatSaberSongManager.UserControls
             viewModel.ChangeTheme(comboBoxTheme.SelectedItem.ToString(), comboBoxColor.SelectedItem.ToString());
         }
 
-        private void ButtonSongsPathBrowse_Click(object sender, RoutedEventArgs e)
+        private void ButtonBrowsePath_Click(object sender, RoutedEventArgs e)
         {
-            viewModel.SetSongsPath(false, true);
+            viewModel.BrowsePath();
+        }
+
+        private void ButtonDetectPath_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.DetectPath(Settings.CurrentSettings.BeatSaberCopy, false);
+        }
+
+        private void ToggleSwitchVersion_Toggled(object sender, RoutedEventArgs e)
+        {
+            if (!IsLoaded)
+                return;
+
+            viewModel.DetectPath(Settings.CurrentSettings.BeatSaberCopy);
         }
     }
 }

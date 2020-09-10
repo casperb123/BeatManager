@@ -22,47 +22,68 @@
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="400" />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
+
+            <Label Content="Beat Saber Version"
+                   VerticalContentAlignment="Center"
+                   Margin="0,0,5,0" />
+            <mah:ToggleSwitch x:Name="toggleSwitchVersion"
+                              OnContent="Copy"
+                              OffContent="Original"
+                              Grid.Column="1"
+                              IsOn="{Binding Path=BeatSaberCopy, Source={x:Static entities:Settings.CurrentSettings}}"
+                              Toggled="ToggleSwitchVersion_Toggled" />
 
             <Label Content="Songs Path"
                    VerticalContentAlignment="Center"
+                   Grid.Row="1"
                    Margin="0,0,5,0" />
             <TextBox x:Name="textBoxSongsPath"
                      Text="{Binding Path=SongsPath, Source={x:Static entities:Settings.CurrentSettings}}"
+                     Grid.Row="1"
                      Grid.Column="1"
-                     Margin="0,0,0,5" />
-            <Button x:Name="buttonSongsPathBrowse"
-                    Content="Browse"
-                    Grid.Column="2"
-                    Margin="5,0,0,5"
-                    Click="ButtonSongsPathBrowse_Click" />
+                     Margin="0,2.5,0,2.5" />
+            <StackPanel Orientation="Horizontal"
+                        Grid.Column="2"
+                        Grid.Row="1"
+                        Margin="0,2.5">
+                <Button x:Name="buttonBrowsePath"
+                        Content="Browse"
+                        Margin="5,0,2.5,0"
+                        Click="ButtonBrowsePath_Click" />
+                <Button x:Name="buttonDetectPath"
+                        Content="Detect Path"
+                        Margin="2.5,0,0,0"
+                        Click="ButtonDetectPath_Click" />
+            </StackPanel>
 
             <Label Content="Theme"
                    VerticalContentAlignment="Center"
-                   Grid.Row="1"
+                   Grid.Row="2"
                    Margin="0,0,5,0" />
             <ComboBox x:Name="comboBoxTheme"
-                      Grid.Row="1"
+                      Grid.Row="2"
                       Grid.Column="1"
-                      Margin="0,0,0,5"
+                      Margin="0,2.5,0,2.5"
                       SelectedIndex="{Binding Path=Theme, Source={x:Static entities:Settings.CurrentSettings}}"
                       SelectionChanged="ComboBoxThemeSettings_SelectionChanged" />
 
-            <Label Content="Primary Color"
+            <Label Content="Color"
                    VerticalContentAlignment="Center"
-                   Grid.Row="2"
+                   Grid.Row="3"
                    Margin="0,0,5,0" />
             <ComboBox x:Name="comboBoxColor"
-                      Grid.Row="2"
+                      Grid.Row="3"
                       Grid.Column="1"
-                      Margin="0,0,0,5"
+                      Margin="0,2.5,0,0"
                       SelectedIndex="{Binding Path=Color, Source={x:Static entities:Settings.CurrentSettings}}"
                       SelectionChanged="ComboBoxThemeSettings_SelectionChanged" />
         </Grid>

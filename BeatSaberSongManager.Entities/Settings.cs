@@ -14,9 +14,20 @@ namespace BeatSaberSongManager.Entities
         private string songsPath;
         private int theme;
         private int color;
+        private bool beatSaberCopy;
 
         public static Settings CurrentSettings;
         public static string SettingsFilePath;
+
+        public bool BeatSaberCopy
+        {
+            get { return beatSaberCopy; }
+            set
+            {
+                beatSaberCopy = value;
+                OnPropertyChanged(nameof(BeatSaberCopy));
+            }
+        }
 
         public int Color
         {
@@ -59,6 +70,8 @@ namespace BeatSaberSongManager.Entities
         public Settings()
         {
             Theme = 1;
+            Color = 1;
+            BeatSaberCopy = true;
         }
 
         private void OnPropertyChanged(string prop)

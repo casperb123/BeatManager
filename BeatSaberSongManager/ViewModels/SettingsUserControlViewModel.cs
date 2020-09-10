@@ -4,7 +4,9 @@ using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows;
 
@@ -13,43 +15,36 @@ namespace BeatSaberSongManager.ViewModels
     public class SettingsUserControlViewModel
     {
         private MainWindow mainWindow;
-        private readonly string defaultSongsPath;
+        private readonly string copyPath;
+        private readonly string[] originalPaths;
 
         public SettingsUserControlViewModel(MainWindow mainWindow)
         {
             this.mainWindow = mainWindow;
 
             string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            defaultSongsPath = $@"{documentsPath}\BeatSaber\Beat Saber_Data\CustomLevels";
+            string programFilesPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            string programFiles86Path = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+
+            copyPath = $@"{documentsPath}\BeatSaber\Beat Saber_Data\CustomLevels";
+            originalPaths = new string[]
+            {
+                $@"{programFilesPath}\Steam\steamapps\common\Beat Saber\Beat Saber_Data\CustomLevels",
+                $@"{programFiles86Path}\Steam\steamapps\common\Beat Saber\Beat Saber_Data\CustomLevels",
+                @"D:\Steam\steamapps\common\Beat Saber\Beat Saber_Data\CustomLevels"
+            };
 
             CheckSongsPath();
         }
 
-        private async void CheckSongsPath()
+        private void CheckSongsPath()
         {
             if (string.IsNullOrWhiteSpace(Settings.CurrentSettings.SongsPath) ||
                 !Directory.Exists(Path.GetDirectoryName(Settings.CurrentSettings.SongsPath)))
-            {
-                if (Directory.Exists(defaultSongsPath))
-                {
-                    MessageDialogResult result = await mainWindow.ShowMessageAsync("No songs path specified", "Would you like to use the default path to download songs or would you like to pick one yourself?\n\n" +
-                                                                                                              "Click Ok to use the default path\n" +
-                                                                                                              "Click Cancel to pick one yourself", MessageDialogStyle.AffirmativeAndNegative);
-
-                    if (result == MessageDialogResult.Affirmative)
-                    {
-                        Settings.CurrentSettings.SongsPath = defaultSongsPath;
-                        Settings.CurrentSettings.Save();
-                    }
-                    else
-                        SetSongsPath(true, true);
-                }
-                else
-                    SetSongsPath(false, true);
-            }
+                DetectPath(Settings.CurrentSettings.BeatSaberCopy);
         }
 
-        public void SetSongsPath(bool useDefault, bool saveSettings)
+        public void BrowsePath()
         {
             Ookii.Dialogs.Wpf.VistaFolderBrowserDialog dialog = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog
             {
@@ -59,11 +54,34 @@ namespace BeatSaberSongManager.ViewModels
 
             if (dialog.ShowDialog().GetValueOrDefault())
                 Settings.CurrentSettings.SongsPath = dialog.SelectedPath;
-            else if (useDefault)
-                Settings.CurrentSettings.SongsPath = defaultSongsPath;
+        }
 
-            if (saveSettings)
-                Settings.CurrentSettings.Save();
+        public void DetectPath(bool copy, bool browse = true)
+        {
+            if (copy)
+            {
+                if (Directory.Exists(copyPath))
+                    Settings.CurrentSettings.SongsPath = copyPath;
+                else if (browse)
+                    BrowsePath();
+            }
+            else
+            {
+                string originalPath = null;
+                foreach (string path in originalPaths)
+                {
+                    if (Directory.Exists(path))
+                    {
+                        originalPath = path;
+                        break;
+                    }
+                }
+
+                if (originalPath != null)
+                    Settings.CurrentSettings.SongsPath = originalPath;
+                else if (browse)
+                    BrowsePath();
+            }
         }
 
         public void ChangeTheme(string theme, string color)

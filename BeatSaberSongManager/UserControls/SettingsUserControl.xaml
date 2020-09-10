@@ -50,6 +50,7 @@
                      Text="{Binding Path=SongsPath, Source={x:Static entities:Settings.CurrentSettings}}"
                      Grid.Row="1"
                      Grid.Column="1"
+                     IsReadOnly="True"
                      Margin="0,2.5,0,2.5" />
             <StackPanel Orientation="Horizontal"
                         Grid.Column="2"

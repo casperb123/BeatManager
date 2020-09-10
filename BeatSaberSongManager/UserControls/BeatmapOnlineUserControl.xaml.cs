@@ -113,15 +113,13 @@ namespace BeatSaberSongManager.UserControls
 
         private async void ButtonSearch_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(textBoxSearch.Text))
-            {
-                await ViewModel.MainWindow.ShowMessageAsync("Beat Saver search", "The search query can't be null or empty");
-                return;
-            }
-            if (!radioButtonSearch.IsChecked.Value)
-                radioButtonSearch.IsChecked = true;
+            await ViewModel.Search(textBoxSearch.Text);
+        }
 
-            ViewModel.GetBeatmaps(textBoxSearch.Text);
+        private async void TextBoxSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                await ViewModel.Search(textBoxSearch.Text);
         }
 
         private void ButtonFirstPage_Click(object sender, RoutedEventArgs e)

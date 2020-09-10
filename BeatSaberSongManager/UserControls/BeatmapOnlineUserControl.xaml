@@ -132,7 +132,8 @@
             <TextBox x:Name="textBoxSearch"
                      mah:TextBoxHelper.Watermark="Search by name, description or uploader"
                      VerticalContentAlignment="Center"
-                     mah:TextBoxHelper.ClearTextButton="True" />
+                     mah:TextBoxHelper.ClearTextButton="True"
+                     KeyDown="TextBoxSearch_KeyDown" />
             <Button x:Name="buttonSearch"
                     Grid.Column="1"
                     Width="35"

@@ -97,6 +97,19 @@ namespace BeatSaberSongManager.ViewModels
             });
         }
 
+        public async Task Search(string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                await MainWindow.ShowMessageAsync("Beat Saver search", "The search query can't be null or empty");
+                return;
+            }
+            if (!userControl.radioButtonSearch.IsChecked.Value)
+                userControl.radioButtonSearch.IsChecked = true;
+
+            GetBeatmaps(query);
+        }
+
         public void UpdatePageButtons()
         {
             if (OnlineBeatmaps is null || OnlineBeatmaps.Maps.Any(x => x.IsDownloading))

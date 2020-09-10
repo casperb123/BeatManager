@@ -6,6 +6,7 @@ using MahApps.Metro.Controls.Dialogs;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace BeatSaberSongManager.ViewModels
         private LocalBeatmaps localBeatmaps;
         private readonly BeatmapLocalUserControl userControl;
         private readonly BeatSaver beatSaverApi;
+        private int selectedSongsCount;
 
         public readonly MainWindow MainWindow;
         public bool SongDeleted;
@@ -35,6 +37,16 @@ namespace BeatSaberSongManager.ViewModels
             {
                 localBeatmaps = value;
                 OnPropertyChanged(nameof(LocalBeatmaps));
+            }
+        }
+        public List<LocalBeatmap> SelectedSongs { get; set; }
+        public int SelectedSongsCount
+        {
+            get { return selectedSongsCount; }
+            set
+            {
+                selectedSongsCount = value;
+                OnPropertyChanged(nameof(SelectedSongsCount));
             }
         }
 
@@ -51,6 +63,7 @@ namespace BeatSaberSongManager.ViewModels
             this.userControl = userControl;
             MainWindow = mainWindow;
             beatSaverApi = new BeatSaver(Settings.CurrentSettings.SongsPath);
+            SelectedSongs = new List<LocalBeatmap>();
         }
 
         public void GetBeatmaps(int page = 0)
@@ -119,6 +132,13 @@ namespace BeatSaberSongManager.ViewModels
         {
             LocalBeatmap song = LocalBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
             beatSaverApi.DeleteSong(song);
+            GetBeatmaps(localBeatmaps.CurrentPage);
+            SongDeleted = true;
+        }
+
+        public void DeleteSongs(ICollection<LocalBeatmap> songs)
+        {
+            beatSaverApi.DeleteSongs(songs);
             GetBeatmaps(localBeatmaps.CurrentPage);
             SongDeleted = true;
         }

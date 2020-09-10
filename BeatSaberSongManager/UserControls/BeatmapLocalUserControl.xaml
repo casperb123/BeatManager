@@ -34,7 +34,7 @@
                   Grid.Row="1"
                   Margin="0,10,0,0"
                   AutoGenerateColumns="False"
-                  SelectionMode="Single"
+                  SelectionMode="Extended"
                   CanUserAddRows="False"
                   CanUserSortColumns="False"
                   CanUserDeleteRows="False"
@@ -44,7 +44,26 @@
                   VerticalScrollBarVisibility="Auto"
                   HorizontalScrollBarVisibility="Disabled"
                   VirtualizingPanel.IsVirtualizing="False"
-                  TargetUpdated="DataGridMaps_TargetUpdated">
+                  TargetUpdated="DataGridMaps_TargetUpdated"
+                  SelectionChanged="DataGridMaps_SelectionChanged">
+            <DataGrid.ContextMenu>
+                <ContextMenu x:Name="dataGridMapsContextMenu"
+                             Opened="DataGridMapsContextMenu_Opened">
+                    <MenuItem x:Name="menuItemDataGridDelete"
+                              Click="MenuItemDataGridDelete_Click">
+                        <MenuItem.Header>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="Delete {0} songs">
+                                        <Binding Path="SelectedSongsCount" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </MenuItem.Header>
+                    </MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Cover">
                     <DataGridTemplateColumn.CellTemplate>

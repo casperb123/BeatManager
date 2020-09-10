@@ -1,4 +1,5 @@
 ﻿using BeatSaberSongManager.ViewModels;
+using BeatSaverApi.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -26,8 +27,6 @@ namespace BeatSaberSongManager.UserControls
             InitializeComponent();
             ViewModel = new BeatmapLocalUserControlViewModel(this, mainWindow);
             DataContext = ViewModel;
-
-            dataGridMaps.SelectionChanged += (s, e) => dataGridMaps.UnselectAll();
         }
 
         private void DataGridMaps_TargetUpdated(object sender, DataTransferEventArgs e)
@@ -49,6 +48,11 @@ namespace BeatSaberSongManager.UserControls
 
         }
 
+        private void MenuItemDataGridDelete_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.DeleteSongs(ViewModel.SelectedSongs);
+        }
+
         private void ButtonFirstPage_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.FirstPage();
@@ -67,6 +71,22 @@ namespace BeatSaberSongManager.UserControls
         private void ButtonLastPage_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.LastPage();
+        }
+
+        private void DataGridMaps_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ViewModel.SelectedSongs.Clear();
+            ViewModel.SelectedSongsCount = dataGridMaps.SelectedItems.Count;
+            foreach (LocalBeatmap song in dataGridMaps.SelectedItems)
+                ViewModel.SelectedSongs.Add(song);
+        }
+
+        private void DataGridMapsContextMenu_Opened(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.SelectedSongs.Count == 0)
+                menuItemDataGridDelete.IsEnabled = false;
+            else
+                menuItemDataGridDelete.IsEnabled = true;
         }
     }
 }

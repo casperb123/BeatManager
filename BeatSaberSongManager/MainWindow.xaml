@@ -10,8 +10,8 @@
                  Title="Beat Saber Song Manager"
                  Height="580"
                  MinHeight="580"
-                 Width="925"
-                 MinWidth="925"
+                 Width="955"
+                 MinWidth="955"
                  Closing="MetroWindow_Closing">
     <Grid>
         <Grid.ColumnDefinitions>

@@ -36,14 +36,7 @@ namespace BeatSaberSongManager.ViewModels
                 @"D:\Steam\steamapps\common\Beat Saber\Beat Saber_Data\CustomLevels"
             };
 
-            CheckSongsPath();
-        }
-
-        private void CheckSongsPath()
-        {
-            if (string.IsNullOrWhiteSpace(Settings.CurrentSettings.SongsPath) ||
-                !Directory.Exists(Path.GetDirectoryName(Settings.CurrentSettings.SongsPath)))
-                DetectPath(Settings.CurrentSettings.BeatSaberCopy);
+            DetectPath(Settings.CurrentSettings.BeatSaberCopy);
         }
 
         public void BrowsePath()
@@ -61,7 +54,7 @@ namespace BeatSaberSongManager.ViewModels
             }
         }
 
-        public void DetectPath(bool copy, bool browse = true)
+        public void DetectPath(bool copy)
         {
             if (copy)
             {
@@ -70,7 +63,7 @@ namespace BeatSaberSongManager.ViewModels
                     Settings.CurrentSettings.SongsPath = copyPath;
                     SongsPathChanged = true;
                 }
-                else if (browse)
+                else
                     BrowsePath();
             }
             else
@@ -90,7 +83,7 @@ namespace BeatSaberSongManager.ViewModels
                     Settings.CurrentSettings.SongsPath = originalPath;
                     SongsPathChanged = true;
                 }
-                else if (browse)
+                else
                     BrowsePath();
             }
         }

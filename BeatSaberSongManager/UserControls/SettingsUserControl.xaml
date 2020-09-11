@@ -52,19 +52,12 @@
                      Grid.Column="1"
                      IsReadOnly="True"
                      Margin="0,2.5,0,2.5" />
-            <StackPanel Orientation="Horizontal"
-                        Grid.Column="2"
-                        Grid.Row="1"
-                        Margin="0,2.5">
-                <Button x:Name="buttonBrowsePath"
-                        Content="Browse"
-                        Margin="5,0,2.5,0"
-                        Click="ButtonBrowsePath_Click" />
-                <Button x:Name="buttonDetectPath"
-                        Content="Detect Path"
-                        Margin="2.5,0,0,0"
-                        Click="ButtonDetectPath_Click" />
-            </StackPanel>
+            <Button x:Name="buttonDetectPath"
+                    Content="Detect Path"
+                    Grid.Column="2"
+                    Grid.Row="1"
+                    Margin="5,2.5,0,2.5"
+                    Click="ButtonDetectPath_Click" />
 
             <Label Content="Theme"
                    VerticalContentAlignment="Center"

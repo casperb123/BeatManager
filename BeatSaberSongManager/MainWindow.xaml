@@ -8,8 +8,8 @@
                  xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                  mc:Ignorable="d"
                  Title="Beat Saber Song Manager"
-                 Height="605"
-                 MinHeight="605"
+                 Height="550"
+                 MinHeight="550"
                  Width="915"
                  MinWidth="915"
                  Closing="MetroWindow_Closing">

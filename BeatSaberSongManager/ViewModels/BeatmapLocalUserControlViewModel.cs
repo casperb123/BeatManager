@@ -99,22 +99,22 @@ namespace BeatSaberSongManager.ViewModels
 
         public void NextPage()
         {
-            LocalBeatmaps = beatSaverApi.LocalNextPage(LocalBeatmaps);
+            LocalBeatmaps = beatSaverApi.ChangeLocalPage(LocalBeatmaps, LocalBeatmaps.NextPage.Value);
         }
 
         public void PreviousPage()
         {
-            LocalBeatmaps = beatSaverApi.LocalPreviousPage(LocalBeatmaps);
+            LocalBeatmaps = beatSaverApi.ChangeLocalPage(LocalBeatmaps, LocalBeatmaps.PrevPage.Value);
         }
 
         public void FirstPage()
         {
-            LocalBeatmaps = beatSaverApi.LocalFirstPage(LocalBeatmaps);
+            LocalBeatmaps = beatSaverApi.ChangeLocalPage(LocalBeatmaps, 0);
         }
 
         public void LastPage()
         {
-            LocalBeatmaps = beatSaverApi.LocalLastPage(LocalBeatmaps);
+            LocalBeatmaps = beatSaverApi.ChangeLocalPage(LocalBeatmaps, LocalBeatmaps.LastPage);
         }
 
         public void DeleteSong(string key)
@@ -123,7 +123,7 @@ namespace BeatSaberSongManager.ViewModels
             beatSaverApi.DeleteSong(song);
             LocalBeatmaps.Maps.Remove(song);
             SongDeleted = true;
-            LocalBeatmaps = beatSaverApi.RefreshPages(LocalBeatmaps);
+            LocalBeatmaps = beatSaverApi.RefreshLocalPages(LocalBeatmaps);
         }
 
         public void DeleteSongs(List<LocalBeatmap> songs)
@@ -131,7 +131,7 @@ namespace BeatSaberSongManager.ViewModels
             beatSaverApi.DeleteSongs(songs);
             songs.ForEach(x => LocalBeatmaps.Maps.Remove(x));
             SongDeleted = true;
-            LocalBeatmaps = beatSaverApi.RefreshPages(LocalBeatmaps);
+            LocalBeatmaps = beatSaverApi.RefreshLocalPages(LocalBeatmaps);
         }
     }
 }

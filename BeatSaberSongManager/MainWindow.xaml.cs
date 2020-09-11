@@ -81,7 +81,7 @@ namespace BeatSaberSongManager
 
         private async void MetroWindow_Closing(object sender, CancelEventArgs e)
         {
-            if (onlineUserControl.ViewModel.OnlineBeatmaps.Maps.Any(x => x.IsDownloading))
+            if (onlineUserControl.ViewModel.OnlineBeatmaps != null && onlineUserControl.ViewModel.OnlineBeatmaps.Maps.Any(x => x.IsDownloading))
             {
                 e.Cancel = true;
                 await this.ShowMessageAsync("Song(s) downloading", "You can't close the application while a song is downloading");

@@ -69,7 +69,6 @@ namespace BeatSaberSongManager.Entities
 
         public Settings()
         {
-            Theme = 1;
             Color = 1;
             BeatSaberCopy = true;
         }

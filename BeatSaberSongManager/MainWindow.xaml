@@ -10,8 +10,8 @@
                  Title="Beat Saber Song Manager"
                  Height="580"
                  MinHeight="580"
-                 Width="915"
-                 MinWidth="915"
+                 Width="925"
+                 MinWidth="925"
                  Closing="MetroWindow_Closing">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -25,7 +25,7 @@
                                  Opacity=".2"/>
             </Grid.Background>
             
-            <StackPanel Margin="10,10,10,0">
+            <StackPanel Margin="10">
                 <RadioButton x:Name="radioButtonLocal"
                          Width="40"
                          Height="40"
@@ -61,7 +61,7 @@
             </StackPanel>
 
             <StackPanel VerticalAlignment="Bottom"
-                        Margin="10,0,10,10">
+                        Margin="10">
                 <RadioButton x:Name="radioButtonSettings"
                          Width="40"
                          Height="40"

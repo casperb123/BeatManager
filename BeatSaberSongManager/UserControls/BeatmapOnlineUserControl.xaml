@@ -17,28 +17,27 @@
     </UserControl.Resources>
 
     <Grid>
-        <Grid Margin="30,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="1*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-            </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
 
-            <Label Content="Beatmap Online"
+        <Label Content="Beatmap Online"
                    FontSize="40"
                    Grid.ColumnSpan="2"
                    Margin="0,0,0,20" />
 
-            <StackPanel Grid.Row="1"
+        <StackPanel Grid.Row="1"
                         Margin="0,0,20,0"
                         VerticalAlignment="Center"
                         Orientation="Horizontal">
-                <RadioButton x:Name="radioButtonSearch"
+            <RadioButton x:Name="radioButtonSearch"
                              Width="30"
                              Height="30"
                              Margin="0,0,2.5,0"
@@ -47,12 +46,12 @@
                              ToolTipService.InitialShowDelay="0"
                              Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                              Checked="RadioButtonSearch_Checked">
-                    <iconPacks:PackIconFontAwesome Kind="SearchSolid"
+                <iconPacks:PackIconFontAwesome Kind="SearchSolid"
                                                    Width="15"
                                                    Height="15" />
-                </RadioButton>
+            </RadioButton>
 
-                <RadioButton x:Name="radioButtonHot"
+            <RadioButton x:Name="radioButtonHot"
                              Width="30"
                              Height="30"
                              Margin="2.5,0,2.5,0"
@@ -61,12 +60,12 @@
                              ToolTipService.InitialShowDelay="0"
                              Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                              Checked="RadioButtonHot_Checked">
-                    <iconPacks:PackIconFontAwesome Kind="FireSolid"
+                <iconPacks:PackIconFontAwesome Kind="FireSolid"
                                                    Width="15"
                                                    Height="15" />
-                </RadioButton>
+            </RadioButton>
 
-                <RadioButton x:Name="radioButtonRating"
+            <RadioButton x:Name="radioButtonRating"
                              Width="30"
                              Height="30"
                              Margin="2.5,0,2.5,0"
@@ -75,12 +74,12 @@
                              ToolTipService.InitialShowDelay="0"
                              Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                              Checked="RadioButtonRating_Checked">
-                    <iconPacks:PackIconFontAwesome Kind="StarSolid"
+                <iconPacks:PackIconFontAwesome Kind="StarSolid"
                                                    Width="15"
                                                    Height="15" />
-                </RadioButton>
+            </RadioButton>
 
-                <RadioButton x:Name="radioButtonLatest"
+            <RadioButton x:Name="radioButtonLatest"
                              Width="30"
                              Height="30"
                              Margin="2.5,0,2.5,0"
@@ -89,12 +88,12 @@
                              ToolTipService.InitialShowDelay="0"
                              Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                              Checked="RadioButtonLatest_Checked">
-                    <iconPacks:PackIconFontAwesome Kind="ExclamationSolid"
+                <iconPacks:PackIconFontAwesome Kind="ExclamationSolid"
                                                    Width="15"
                                                    Height="15" />
-                </RadioButton>
+            </RadioButton>
 
-                <RadioButton x:Name="radioButtonDownloads"
+            <RadioButton x:Name="radioButtonDownloads"
                              Width="30"
                              Height="30"
                              Margin="2.5,0,2.5,0"
@@ -103,12 +102,12 @@
                              ToolTipService.InitialShowDelay="0"
                              Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                              Checked="RadioButtonDownloads_Checked">
-                    <iconPacks:PackIconFontAwesome Kind="DownloadSolid"
+                <iconPacks:PackIconFontAwesome Kind="DownloadSolid"
                                                    Width="15"
                                                    Height="15" />
-                </RadioButton>
+            </RadioButton>
 
-                <RadioButton x:Name="radioButtonPlays"
+            <RadioButton x:Name="radioButtonPlays"
                              Width="30"
                              Height="30"
                              Margin="2.5,0,0,0"
@@ -117,35 +116,35 @@
                              ToolTipService.InitialShowDelay="0"
                              Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                              Checked="RadioButtonPlays_Checked">
-                    <iconPacks:PackIconFontAwesome Kind="PlaySolid"
+                <iconPacks:PackIconFontAwesome Kind="PlaySolid"
                                                    Width="15"
                                                    Height="15" />
-                </RadioButton>
-            </StackPanel>
+            </RadioButton>
+        </StackPanel>
 
-            <Grid Grid.Column="1"
+        <Grid Grid.Column="1"
                   Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
 
-                <TextBox x:Name="textBoxSearch"
+            <TextBox x:Name="textBoxSearch"
                          mah:TextBoxHelper.Watermark="Search by name, description or uploader"
                          VerticalContentAlignment="Center"
                          mah:TextBoxHelper.ClearTextButton="True"
                          KeyDown="TextBoxSearch_KeyDown" />
-                <Button x:Name="buttonSearch"
+            <Button x:Name="buttonSearch"
                         Grid.Column="1"
                         Width="35"
                         Click="ButtonSearch_Click">
-                    <iconPacks:PackIconFontAwesome Kind="SearchSolid"
+                <iconPacks:PackIconFontAwesome Kind="SearchSolid"
                                                    HorizontalAlignment="Center"
                                                    VerticalAlignment="Center" />
-                </Button>
-            </Grid>
+            </Button>
+        </Grid>
 
-            <DataGrid x:Name="dataGridMaps"
+        <DataGrid x:Name="dataGridMaps"
                       ItemsSource="{Binding Path=OnlineBeatmaps.Maps, NotifyOnTargetUpdated=True, IsAsync=True}"
                       Grid.Row="2"
                       Grid.ColumnSpan="2"
@@ -162,99 +161,99 @@
                       HorizontalScrollBarVisibility="Disabled"
                       VirtualizingPanel.IsVirtualizing="False"
                       TargetUpdated="DataGridMaps_TargetUpdated">
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Cover">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Border Width="25"
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Cover">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Border Width="25"
                                             Height="25"
                                             CornerRadius="100">
-                                        <Border.Background>
-                                            <ImageBrush ImageSource="{Binding Path=RealCoverURL, Mode=OneWay, IsAsync=True}" />
-                                        </Border.Background>
-                                    </Border>
-                                </Grid>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Artist"
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="{Binding Path=RealCoverURL, Mode=OneWay, IsAsync=True}" />
+                                    </Border.Background>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Artist"
                                         Width=".35*"
                                         IsReadOnly="True"
                                         Binding="{Binding Path=Metadata.SongAuthorName, IsAsync=True, FallbackValue=..., TargetNullValue=...}">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock"
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock"
                                    BasedOn="{StaticResource MahApps.Styles.TextBlock}">
-                                <Setter Property="TextTrimming"
+                            <Setter Property="TextTrimming"
                                         Value="CharacterEllipsis" />
-                                <Setter Property="Margin"
+                            <Setter Property="Margin"
                                         Value="10,0,0,0" />
-                                <Setter Property="ToolTip"
+                            <Setter Property="ToolTip"
                                         Value="{Binding Path=Metadata.SongAuthorName, IsAsync=True}" />
-                                <Setter Property="ToolTipService.BetweenShowDelay"
+                            <Setter Property="ToolTipService.BetweenShowDelay"
                                         Value="0" />
-                                <Setter Property="ToolTipService.InitialShowDelay"
+                            <Setter Property="ToolTipService.InitialShowDelay"
                                         Value="0" />
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="Song name"
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Song name"
                                         Width="1*"
                                         IsReadOnly="True">
-                        <DataGridTextColumn.Binding>
-                            <MultiBinding StringFormat="{}{0} {1}"
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0} {1}"
                                           FallbackValue="..."
                                           TargetNullValue="...">
-                                <Binding Path="Metadata.SongName"
+                            <Binding Path="Metadata.SongName"
                                          IsAsync="True" />
-                                <Binding Path="Metadata.SongSubName"
+                            <Binding Path="Metadata.SongSubName"
                                          IsAsync="True" />
-                            </MultiBinding>
-                        </DataGridTextColumn.Binding>
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
 
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock"
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock"
                                    BasedOn="{StaticResource MahApps.Styles.TextBlock}">
-                                <Setter Property="TextTrimming"
+                            <Setter Property="TextTrimming"
                                         Value="CharacterEllipsis" />
-                                <Setter Property="Margin"
+                            <Setter Property="Margin"
                                         Value="10,0,0,0" />
-                                <Setter Property="ToolTip"
+                            <Setter Property="ToolTip"
                                         Value="{Binding Path=Name, IsAsync=True}" />
-                                <Setter Property="ToolTipService.BetweenShowDelay"
+                            <Setter Property="ToolTipService.BetweenShowDelay"
                                         Value="0" />
-                                <Setter Property="ToolTipService.InitialShowDelay"
+                            <Setter Property="ToolTipService.InitialShowDelay"
                                         Value="0" />
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="Mapper"
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Mapper"
                                         Width=".35*"
                                         IsReadOnly="True"
                                         Binding="{Binding Path=Metadata.LevelAuthorName, IsAsync=True, FallbackValue=...}">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock"
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock"
                                    BasedOn="{StaticResource MahApps.Styles.TextBlock}">
-                                <Setter Property="TextTrimming"
+                            <Setter Property="TextTrimming"
                                         Value="CharacterEllipsis" />
-                                <Setter Property="Margin"
+                            <Setter Property="Margin"
                                         Value="10,0,0,0" />
-                                <Setter Property="ToolTip"
+                            <Setter Property="ToolTip"
                                         Value="{Binding Path=Metadata.LevelAuthorName, IsAsync=True}" />
-                                <Setter Property="ToolTipService.BetweenShowDelay"
+                            <Setter Property="ToolTipService.BetweenShowDelay"
                                         Value="0" />
-                                <Setter Property="ToolTipService.InitialShowDelay"
+                            <Setter Property="ToolTipService.InitialShowDelay"
                                         Value="0" />
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTemplateColumn Header="Difficulties"
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Header="Difficulties"
                                             IsReadOnly="True">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal"
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal"
                                             Margin="20,0,0,0">
-                                    <Border Width="25"
+                                <Border Width="25"
                                             Height="25"
                                             CornerRadius="100"
                                             Background="LimeGreen"
@@ -263,7 +262,7 @@
                                             ToolTipService.InitialShowDelay="0"
                                             ToolTipService.BetweenShowDelay="0"
                                             Visibility="{Binding Path=Metadata.Difficulties.Easy, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                    <Border Width="25"
+                                <Border Width="25"
                                             Height="25"
                                             CornerRadius="100"
                                             Background="RoyalBlue"
@@ -272,7 +271,7 @@
                                             ToolTipService.InitialShowDelay="0"
                                             ToolTipService.BetweenShowDelay="0"
                                             Visibility="{Binding Path=Metadata.Difficulties.Normal, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                    <Border Width="25"
+                                <Border Width="25"
                                             Height="25"
                                             CornerRadius="100"
                                             Background="Orange"
@@ -281,7 +280,7 @@
                                             ToolTipService.InitialShowDelay="0"
                                             ToolTipService.BetweenShowDelay="0"
                                             Visibility="{Binding Path=Metadata.Difficulties.Hard, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                    <Border Width="25"
+                                <Border Width="25"
                                             Height="25"
                                             CornerRadius="100"
                                             Background="Red"
@@ -290,7 +289,7 @@
                                             ToolTipService.InitialShowDelay="0"
                                             ToolTipService.BetweenShowDelay="0"
                                             Visibility="{Binding Path=Metadata.Difficulties.Expert, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                    <Border Width="25"
+                                <Border Width="25"
                                             Height="25"
                                             CornerRadius="100"
                                             Background="Purple"
@@ -299,41 +298,41 @@
                                             ToolTipService.InitialShowDelay="0"
                                             ToolTipService.BetweenShowDelay="0"
                                             Visibility="{Binding Path=Metadata.Difficulties.ExpertPlus, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Downloads"
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Downloads"
                                         IsReadOnly="True"
                                         Binding="{Binding Path=Stats.Downloads, IsAsync=True, FallbackValue=...}">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock"
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock"
                                    BasedOn="{StaticResource MahApps.Styles.TextBlock}">
-                                <Setter Property="TextTrimming"
+                            <Setter Property="TextTrimming"
                                         Value="CharacterEllipsis" />
-                                <Setter Property="Margin"
+                            <Setter Property="Margin"
                                         Value="10,0,0,0" />
-                                <Setter Property="ToolTip"
+                            <Setter Property="ToolTip"
                                         Value="{Binding Path=Stats.Downloads, IsAsync=True}" />
-                                <Setter Property="ToolTipService.BetweenShowDelay"
+                            <Setter Property="ToolTipService.BetweenShowDelay"
                                         Value="0" />
-                                <Setter Property="ToolTipService.InitialShowDelay"
+                            <Setter Property="ToolTipService.InitialShowDelay"
                                         Value="0" />
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTemplateColumn Header="Actions"
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Header="Actions"
                                             IsReadOnly="True">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="1*" />
-                                        <ColumnDefinition Width="1*" />
-                                    </Grid.ColumnDefinitions>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
 
-                                    <Grid Visibility="{Binding Path=IsDownloading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
-                                        <Button Tag="{Binding Path=Key}"
+                                <Grid Visibility="{Binding Path=IsDownloading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+                                    <Button Tag="{Binding Path=Key}"
                                                 ToolTip="Download song"
                                                 ToolTipService.BetweenShowDelay="0"
                                                 ToolTipService.InitialShowDelay="0"
@@ -345,11 +344,11 @@
                                                 Visibility="{Binding Path=IsDownloaded, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
                                                 IsEnabled="{Binding Path=IsDownloaded, Converter={StaticResource InverseBooleanConverter}}"
                                                 Click="Map_Download">
-                                            <iconPacks:PackIconMaterial Kind="DownloadCircle"
+                                        <iconPacks:PackIconMaterial Kind="DownloadCircle"
                                                                         Width="20"
                                                                         Height="20" />
-                                        </Button>
-                                        <Button Tag="{Binding Path=Key}"
+                                    </Button>
+                                    <Button Tag="{Binding Path=Key}"
                                                 ToolTip="Delete song"
                                                 ToolTipService.BetweenShowDelay="0"
                                                 ToolTipService.InitialShowDelay="0"
@@ -361,20 +360,20 @@
                                                 Visibility="{Binding Path=IsDownloaded, Converter={StaticResource BooleanToVisibilityConverter}}"
                                                 IsEnabled="{Binding Path=IsDownloaded}"
                                                 Click="Map_Delete">
-                                            <iconPacks:PackIconMaterial Kind="DeleteCircle"
+                                        <iconPacks:PackIconMaterial Kind="DeleteCircle"
                                                                         Width="20"
                                                                         Height="20" />
-                                        </Button>
-                                    </Grid>
-                                    <Grid Width="30"
+                                    </Button>
+                                </Grid>
+                                <Grid Width="30"
                                           Height="30">
-                                        <mah:ProgressRing Width="20"
+                                    <mah:ProgressRing Width="20"
                                                           Height="20"
                                                           IsActive="{Binding Path=IsDownloading}"
                                                           IsEnabled="{Binding Path=IsDownloading}" />
-                                    </Grid>
+                                </Grid>
 
-                                    <Button Tag="{Binding Path=Key}"
+                                <Button Tag="{Binding Path=Key}"
                                             Grid.Column="1"
                                             ToolTip="Song details"
                                             ToolTipService.BetweenShowDelay="0"
@@ -386,37 +385,37 @@
                                             Height="25"
                                             IsEnabled="False"
                                             Click="Map_Details">
-                                        <iconPacks:PackIconFontAwesome Kind="ArrowRightSolid"
+                                    <iconPacks:PackIconFontAwesome Kind="ArrowRightSolid"
                                                                        Width="15"
                                                                        Height="15" />
-                                    </Button>
-                                </Grid>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
 
-            <StackPanel Orientation="Horizontal"
+        <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right"
                         Grid.Row="3"
                         Grid.ColumnSpan="2">
-                <Label VerticalContentAlignment="Center">
-                    <Label.Content>
-                        <TextBlock>
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="{}Page {0} of {1}">
-                                    <Binding Path="OnlineBeatmaps.CurrentPageReal"
+            <Label VerticalContentAlignment="Center">
+                <Label.Content>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}Page {0} of {1}">
+                                <Binding Path="OnlineBeatmaps.CurrentPageReal"
                                              FallbackValue="0" />
-                                    <Binding Path="OnlineBeatmaps.LastPageReal"
+                                <Binding Path="OnlineBeatmaps.LastPageReal"
                                              FallbackValue="0" />
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
-                    </Label.Content>
-                </Label>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </Label.Content>
+            </Label>
 
-                <Button x:Name="buttonFirstPage"
+            <Button x:Name="buttonFirstPage"
                         Width="35"
                         Height="35"
                         Background="Transparent"
@@ -427,11 +426,11 @@
                         IsEnabled="False"
                         Style="{DynamicResource MahApps.Styles.Button.Circle}"
                         Click="ButtonFirstPage_Click">
-                    <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleLeftSolid"
+                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleLeftSolid"
                                                    Width="25"
                                                    Height="25" />
-                </Button>
-                <Button x:Name="buttonPreviousPage"
+            </Button>
+            <Button x:Name="buttonPreviousPage"
                         Width="35"
                         Height="35"
                         Background="Transparent"
@@ -442,11 +441,11 @@
                         IsEnabled="False"
                         Style="{DynamicResource MahApps.Styles.Button.Circle}"
                         Click="ButtonPreviousPage_Click">
-                    <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleLeftRegular"
+                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleLeftRegular"
                                                    Width="25"
                                                    Height="25" />
-                </Button>
-                <Button x:Name="buttonNextPage"
+            </Button>
+            <Button x:Name="buttonNextPage"
                         Width="35"
                         Height="35"
                         Background="Transparent"
@@ -457,11 +456,11 @@
                         IsEnabled="False"
                         Style="{DynamicResource MahApps.Styles.Button.Circle}"
                         Click="ButtonNextPage_Click">
-                    <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleRightRegular"
+                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleRightRegular"
                                                    Width="25"
                                                    Height="25" />
-                </Button>
-                <Button x:Name="buttonLastPage"
+            </Button>
+            <Button x:Name="buttonLastPage"
                         Width="35"
                         Height="35"
                         Background="Transparent"
@@ -472,22 +471,10 @@
                         IsEnabled="False"
                         Style="{DynamicResource MahApps.Styles.Button.Circle}"
                         Click="ButtonLastPage_Click">
-                    <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleRightSolid"
+                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleRightSolid"
                                                    Width="25"
                                                    Height="25" />
-                </Button>
-            </StackPanel>
-        </Grid>
-
-        <Rectangle x:Name="rectangleLoading"
-                   Visibility="Hidden">
-            <Rectangle.Fill>
-                <SolidColorBrush Color="{DynamicResource MahApps.Colors.ThemeBackground}"
-                                 Opacity=".8" />
-            </Rectangle.Fill>
-        </Rectangle>
-        <mah:ProgressRing x:Name="progressRingLoading"
-                          Visibility="Hidden"
-                          IsActive="False" />
+            </Button>
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -56,7 +56,6 @@ namespace BeatSaberSongManager
 
         private void RadioButtonOnline_Checked(object sender, RoutedEventArgs e)
         {
-
             if (localUserControl.ViewModel.SongDeleted)
             {
                 if (onlineUserControl.ViewModel.OnlineBeatmaps != null)

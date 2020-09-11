@@ -18,19 +18,18 @@
     </UserControl.Resources>
 
     <Grid>
-        <Grid Margin="30,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-            </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
 
-            <Label Content="Beatmap Local"
+        <Label Content="Beatmap Local"
                    FontSize="40"
                    Grid.ColumnSpan="2"
                    Margin="0,0,0,20" />
 
-            <DataGrid x:Name="dataGridMaps"
+        <DataGrid x:Name="dataGridMaps"
                       ItemsSource="{Binding Path=LocalBeatmaps.Maps, NotifyOnTargetUpdated=True, IsAsync=True}"
                       Grid.Row="1"
                       Margin="0,10,0,0"
@@ -48,117 +47,117 @@
                       TargetUpdated="DataGridMaps_TargetUpdated"
                       SelectionChanged="DataGridMaps_SelectionChanged"
                       LoadingRow="DataGridMaps_LoadingRow">
-                <DataGrid.ContextMenu>
-                    <ContextMenu x:Name="dataGridMapsContextMenu"
+            <DataGrid.ContextMenu>
+                <ContextMenu x:Name="dataGridMapsContextMenu"
                                  Opened="DataGridMapsContextMenu_Opened">
-                        <MenuItem x:Name="menuItemDataGridDelete"
+                    <MenuItem x:Name="menuItemDataGridDelete"
                                   Click="MenuItemDataGridDelete_Click">
-                            <MenuItem.Header>
-                                <TextBlock>
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="Delete {0} songs">
-                                            <Binding Path="SelectedSongsCount" />
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-                            </MenuItem.Header>
-                        </MenuItem>
-                    </ContextMenu>
-                </DataGrid.ContextMenu>
+                        <MenuItem.Header>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="Delete {0} songs">
+                                        <Binding Path="SelectedSongsCount" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </MenuItem.Header>
+                    </MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
 
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Cover">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Border Width="25"
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Cover">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Border Width="25"
                                             Height="25"
                                             CornerRadius="100">
-                                        <Border.Background>
-                                            <ImageBrush ImageSource="{Binding Path=CoverImagePath, Mode=OneWay, IsAsync=True, Converter={StaticResource ImageSourceToBitmapConverter}}" />
-                                        </Border.Background>
-                                    </Border>
-                                </Grid>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Artist"
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="{Binding Path=CoverImagePath, Mode=OneWay, IsAsync=True, Converter={StaticResource ImageSourceToBitmapConverter}}" />
+                                    </Border.Background>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Artist"
                                         Width=".35*"
                                         IsReadOnly="True"
                                         Binding="{Binding Path=SongAuthorName, IsAsync=True, FallbackValue=..., TargetNullValue=...}">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock"
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock"
                                    BasedOn="{StaticResource MahApps.Styles.TextBlock}">
-                                <Setter Property="TextTrimming"
+                            <Setter Property="TextTrimming"
                                         Value="CharacterEllipsis" />
-                                <Setter Property="Margin"
+                            <Setter Property="Margin"
                                         Value="10,0,0,0" />
-                                <Setter Property="ToolTip"
+                            <Setter Property="ToolTip"
                                         Value="{Binding Path=SongAuthorName, IsAsync=True}" />
-                                <Setter Property="ToolTipService.BetweenShowDelay"
+                            <Setter Property="ToolTipService.BetweenShowDelay"
                                         Value="0" />
-                                <Setter Property="ToolTipService.InitialShowDelay"
+                            <Setter Property="ToolTipService.InitialShowDelay"
                                         Value="0" />
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="Song name"
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Song name"
                                         Width="1*"
                                         IsReadOnly="True">
-                        <DataGridTextColumn.Binding>
-                            <MultiBinding StringFormat="{}{0} {1}"
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0} {1}"
                                           FallbackValue="..."
                                           TargetNullValue="...">
-                                <Binding Path="SongName"
+                            <Binding Path="SongName"
                                          IsAsync="True" />
-                                <Binding Path="SongSubName"
+                            <Binding Path="SongSubName"
                                          IsAsync="True" />
-                            </MultiBinding>
-                        </DataGridTextColumn.Binding>
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
 
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock"
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock"
                                    BasedOn="{StaticResource MahApps.Styles.TextBlock}">
-                                <Setter Property="TextTrimming"
+                            <Setter Property="TextTrimming"
                                         Value="CharacterEllipsis" />
-                                <Setter Property="Margin"
+                            <Setter Property="Margin"
                                         Value="10,0,0,0" />
-                                <Setter Property="ToolTip"
+                            <Setter Property="ToolTip"
                                         Value="{Binding Path=SongName, IsAsync=True, FallbackValue=..., TargetNullValue=...}" />
-                                <Setter Property="ToolTipService.BetweenShowDelay"
+                            <Setter Property="ToolTipService.BetweenShowDelay"
                                         Value="0" />
-                                <Setter Property="ToolTipService.InitialShowDelay"
+                            <Setter Property="ToolTipService.InitialShowDelay"
                                         Value="0" />
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="Mapper"
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Mapper"
                                         Width=".35*"
                                         IsReadOnly="True"
                                         Binding="{Binding Path=LevelAuthorName, IsAsync=True, FallbackValue=..., TargetNullValue=...}">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock"
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock"
                                    BasedOn="{StaticResource MahApps.Styles.TextBlock}">
-                                <Setter Property="TextTrimming"
+                            <Setter Property="TextTrimming"
                                         Value="CharacterEllipsis" />
-                                <Setter Property="Margin"
+                            <Setter Property="Margin"
                                         Value="10,0,0,0" />
-                                <Setter Property="ToolTip"
+                            <Setter Property="ToolTip"
                                         Value="{Binding Path=LevelAuthorName, IsAsync=True, FallbackValue=..., TargetNullValue=...}" />
-                                <Setter Property="ToolTipService.BetweenShowDelay"
+                            <Setter Property="ToolTipService.BetweenShowDelay"
                                         Value="0" />
-                                <Setter Property="ToolTipService.InitialShowDelay"
+                            <Setter Property="ToolTipService.InitialShowDelay"
                                         Value="0" />
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTemplateColumn Header="Difficulties"
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Header="Difficulties"
                                             IsReadOnly="True">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal"
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal"
                                             Margin="20,0,0,0">
-                                    <Border Width="25"
+                                <Border Width="25"
                                             Height="25"
                                             CornerRadius="100"
                                             Background="LimeGreen"
@@ -167,7 +166,7 @@
                                             ToolTipService.InitialShowDelay="0"
                                             ToolTipService.BetweenShowDelay="0"
                                             Visibility="{Binding Path=Easy, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                    <Border Width="25"
+                                <Border Width="25"
                                             Height="25"
                                             CornerRadius="100"
                                             Background="RoyalBlue"
@@ -176,7 +175,7 @@
                                             ToolTipService.InitialShowDelay="0"
                                             ToolTipService.BetweenShowDelay="0"
                                             Visibility="{Binding Path=Normal, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                    <Border Width="25"
+                                <Border Width="25"
                                             Height="25"
                                             CornerRadius="100"
                                             Background="Orange"
@@ -185,7 +184,7 @@
                                             ToolTipService.InitialShowDelay="0"
                                             ToolTipService.BetweenShowDelay="0"
                                             Visibility="{Binding Path=Hard, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                    <Border Width="25"
+                                <Border Width="25"
                                             Height="25"
                                             CornerRadius="100"
                                             Background="Red"
@@ -194,7 +193,7 @@
                                             ToolTipService.InitialShowDelay="0"
                                             ToolTipService.BetweenShowDelay="0"
                                             Visibility="{Binding Path=Expert, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                    <Border Width="25"
+                                <Border Width="25"
                                             Height="25"
                                             CornerRadius="100"
                                             Background="Purple"
@@ -203,40 +202,40 @@
                                             ToolTipService.InitialShowDelay="0"
                                             ToolTipService.BetweenShowDelay="0"
                                             Visibility="{Binding Path=ExpertPlus, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Downloads"
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Downloads"
                                         IsReadOnly="True"
                                         Binding="{Binding Path=Downloads, IsAsync=True, FallbackValue=..., TargetNullValue=...}">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock"
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock"
                                    BasedOn="{StaticResource MahApps.Styles.TextBlock}">
-                                <Setter Property="TextTrimming"
+                            <Setter Property="TextTrimming"
                                         Value="CharacterEllipsis" />
-                                <Setter Property="Margin"
+                            <Setter Property="Margin"
                                         Value="10,0,0,0" />
-                                <Setter Property="ToolTip"
+                            <Setter Property="ToolTip"
                                         Value="{Binding Path=Downloads, IsAsync=True}" />
-                                <Setter Property="ToolTipService.BetweenShowDelay"
+                            <Setter Property="ToolTipService.BetweenShowDelay"
                                         Value="0" />
-                                <Setter Property="ToolTipService.InitialShowDelay"
+                            <Setter Property="ToolTipService.InitialShowDelay"
                                         Value="0" />
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTemplateColumn Header="Actions"
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Header="Actions"
                                             IsReadOnly="True">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="1*" />
-                                        <ColumnDefinition Width="1*" />
-                                    </Grid.ColumnDefinitions>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
 
-                                    <Button Tag="{Binding Path=Key}"
+                                <Button Tag="{Binding Path=Key}"
                                             ToolTip="Delete song"
                                             ToolTipService.BetweenShowDelay="0"
                                             ToolTipService.InitialShowDelay="0"
@@ -246,12 +245,12 @@
                                             Width="30"
                                             Height="30"
                                             Click="Map_Delete">
-                                        <iconPacks:PackIconMaterial Kind="DeleteCircle"
+                                    <iconPacks:PackIconMaterial Kind="DeleteCircle"
                                                                     Width="20"
                                                                     Height="20" />
-                                    </Button>
+                                </Button>
 
-                                    <Button Tag="{Binding Path=Key}"
+                                <Button Tag="{Binding Path=Key}"
                                             Grid.Column="1"
                                             ToolTip="Song details"
                                             ToolTipService.BetweenShowDelay="0"
@@ -263,37 +262,37 @@
                                             Height="25"
                                             IsEnabled="False"
                                             Click="Map_Details">
-                                        <iconPacks:PackIconFontAwesome Kind="ArrowRightSolid"
+                                    <iconPacks:PackIconFontAwesome Kind="ArrowRightSolid"
                                                                        Width="15"
                                                                        Height="15" />
-                                    </Button>
-                                </Grid>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
 
-            <StackPanel Orientation="Horizontal"
+        <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right"
                         Grid.Row="2"
                         Margin="0,5,0,0">
-                <Label VerticalContentAlignment="Center">
-                    <Label.Content>
-                        <TextBlock>
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="{}Page {0} of {1}">
-                                    <Binding Path="LocalBeatmaps.CurrentPageReal"
+            <Label VerticalContentAlignment="Center">
+                <Label.Content>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}Page {0} of {1}">
+                                <Binding Path="LocalBeatmaps.CurrentPageReal"
                                              FallbackValue="0" />
-                                    <Binding Path="LocalBeatmaps.LastPageReal"
+                                <Binding Path="LocalBeatmaps.LastPageReal"
                                              FallbackValue="0" />
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
-                    </Label.Content>
-                </Label>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </Label.Content>
+            </Label>
 
-                <Button x:Name="buttonFirstPage"
+            <Button x:Name="buttonFirstPage"
                         Width="35"
                         Height="35"
                         Background="Transparent"
@@ -304,11 +303,11 @@
                         IsEnabled="False"
                         Style="{DynamicResource MahApps.Styles.Button.Circle}"
                         Click="ButtonFirstPage_Click">
-                    <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleLeftSolid"
+                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleLeftSolid"
                                                    Width="25"
                                                    Height="25" />
-                </Button>
-                <Button x:Name="buttonPreviousPage"
+            </Button>
+            <Button x:Name="buttonPreviousPage"
                         Width="35"
                         Height="35"
                         Background="Transparent"
@@ -319,11 +318,11 @@
                         IsEnabled="False"
                         Style="{DynamicResource MahApps.Styles.Button.Circle}"
                         Click="ButtonPreviousPage_Click">
-                    <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleLeftRegular"
+                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleLeftRegular"
                                                    Width="25"
                                                    Height="25" />
-                </Button>
-                <Button x:Name="buttonNextPage"
+            </Button>
+            <Button x:Name="buttonNextPage"
                         Width="35"
                         Height="35"
                         Background="Transparent"
@@ -334,11 +333,11 @@
                         IsEnabled="False"
                         Style="{DynamicResource MahApps.Styles.Button.Circle}"
                         Click="ButtonNextPage_Click">
-                    <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleRightRegular"
+                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleRightRegular"
                                                    Width="25"
                                                    Height="25" />
-                </Button>
-                <Button x:Name="buttonLastPage"
+            </Button>
+            <Button x:Name="buttonLastPage"
                         Width="35"
                         Height="35"
                         Background="Transparent"
@@ -349,22 +348,10 @@
                         IsEnabled="False"
                         Style="{DynamicResource MahApps.Styles.Button.Circle}"
                         Click="ButtonLastPage_Click">
-                    <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleRightSolid"
+                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleRightSolid"
                                                    Width="25"
                                                    Height="25" />
-                </Button>
-            </StackPanel>
-        </Grid>
-
-        <Rectangle x:Name="rectangleLoading"
-                   Visibility="Hidden">
-            <Rectangle.Fill>
-                <SolidColorBrush Color="{DynamicResource MahApps.Colors.ThemeBackground}"
-                                 Opacity=".8" />
-            </Rectangle.Fill>
-        </Rectangle>
-        <mah:ProgressRing x:Name="progressRingLoading"
-                          Visibility="Hidden"
-                          IsActive="False" />
+            </Button>
+        </StackPanel>
     </Grid>
 </UserControl>

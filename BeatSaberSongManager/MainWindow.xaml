@@ -73,21 +73,6 @@
         </StackPanel>
 
         <UserControl x:Name="userControlMain"
-                     Grid.Column="1"
-                     Margin="30,0,0,0" />
-
-        <Rectangle x:Name="rectangleLoading"
-                   Grid.Column="1"
-                   Visibility="Hidden"
-                   Margin="30,0,0,0">
-            <Rectangle.Fill>
-                <SolidColorBrush Color="{DynamicResource MahApps.Colors.ThemeBackground}"
-                                 Opacity=".8" />
-            </Rectangle.Fill>
-        </Rectangle>
-        <mah:ProgressRing x:Name="progressRingLoading"
-                          Grid.ColumnSpan="2"
-                          Visibility="Hidden"
-                          IsActive="False" />
+                     Grid.Column="1" />
     </Grid>
 </mah:MetroWindow>

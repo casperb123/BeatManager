@@ -79,9 +79,15 @@ namespace BeatSaberSongManager
             userControlMain.Content = settingsUserControl;
         }
 
-        private void MetroWindow_Closing(object sender, CancelEventArgs e)
+        private async void MetroWindow_Closing(object sender, CancelEventArgs e)
         {
-            Settings.CurrentSettings.Save();
+            if (onlineUserControl.ViewModel.OnlineBeatmaps.Maps.Any(x => x.IsDownloading))
+            {
+                e.Cancel = true;
+                await this.ShowMessageAsync("Song(s) downloading", "You can't close the application while a song is downloading");
+            }
+            else
+                Settings.CurrentSettings.Save();
         }
     }
 }

@@ -44,7 +44,10 @@ namespace BeatSaberSongManager.ViewModels
         private void BeatSaverApi_DownloadCompleted(object sender, DownloadCompletedEventArgs e)
         {
             if (!OnlineBeatmaps.Maps.Any(x => x.IsDownloading))
+            {
                 MainWindow.radioButtonLocal.IsEnabled = true;
+                MainWindow.radioButtonSettings.IsEnabled = true;
+            }
 
             UpdatePageButtons();
         }
@@ -188,6 +191,7 @@ namespace BeatSaberSongManager.ViewModels
         public void DownloadSong(string key)
         {
             MainWindow.radioButtonLocal.IsEnabled = false;
+            MainWindow.radioButtonSettings.IsEnabled = false;
             OnlineBeatmap song = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
             BeatSaverApi.DownloadSong(song).ConfigureAwait(false);
             SongDownloaded = true;

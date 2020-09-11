@@ -13,14 +13,20 @@
                  Width="915"
                  MinWidth="915"
                  Closing="MetroWindow_Closing">
-    <Grid Margin="5">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel>
-            <RadioButton x:Name="radioButtonLocal"
+        <Grid>
+            <Grid.Background>
+                <SolidColorBrush Color="Black"
+                                 Opacity=".2"/>
+            </Grid.Background>
+            
+            <StackPanel Margin="10,10,10,0">
+                <RadioButton x:Name="radioButtonLocal"
                          Width="40"
                          Height="40"
                          Margin="0,0,0,5"
@@ -30,14 +36,14 @@
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          GroupName="NavigationButtons"
                          Checked="RadioButtonLocal_Checked">
-                <iconPacks:PackIconFontAwesome Kind="LaptopSolid"
+                    <iconPacks:PackIconFontAwesome Kind="LaptopSolid"
                                                Width="20"
                                                Height="20"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center" />
-            </RadioButton>
+                </RadioButton>
 
-            <RadioButton x:Name="radioButtonOnline"
+                <RadioButton x:Name="radioButtonOnline"
                          Width="40"
                          Height="40"
                          ToolTip="Online Beatmaps"
@@ -46,16 +52,17 @@
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          GroupName="NavigationButtons"
                          Checked="RadioButtonOnline_Checked">
-                <iconPacks:PackIconFontAwesome Kind="GlobeSolid"
+                    <iconPacks:PackIconFontAwesome Kind="GlobeSolid"
                                                Width="20"
                                                Height="20"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center" />
-            </RadioButton>
-        </StackPanel>
+                </RadioButton>
+            </StackPanel>
 
-        <StackPanel VerticalAlignment="Bottom">
-            <RadioButton x:Name="radioButtonSettings"
+            <StackPanel VerticalAlignment="Bottom"
+                        Margin="10,0,10,10">
+                <RadioButton x:Name="radioButtonSettings"
                          Width="40"
                          Height="40"
                          ToolTip="Settings"
@@ -64,15 +71,17 @@
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          GroupName="NavigationButtons"
                          Checked="RadioButtonSettings_Checked">
-                <iconPacks:PackIconMaterialDesign Kind="Settings"
+                    <iconPacks:PackIconMaterialDesign Kind="Settings"
                                                   Width="20"
                                                   Height="20"
                                                   HorizontalAlignment="Center"
                                                   VerticalAlignment="Center" />
-            </RadioButton>
-        </StackPanel>
+                </RadioButton>
+            </StackPanel>
+        </Grid>
 
         <UserControl x:Name="userControlMain"
-                     Grid.Column="1" />
+                     Grid.Column="1"
+                     Margin="5"/>
     </Grid>
 </mah:MetroWindow>

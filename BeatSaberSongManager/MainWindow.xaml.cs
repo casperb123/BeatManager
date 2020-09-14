@@ -50,7 +50,10 @@ namespace BeatSaberSongManager
                 localBeatmapsLoaded = true;
                 onlineUserControl.ViewModel.SongDownloaded = false;
                 settingsUserControl.ViewModel.SongsPathChanged = false;
-                localUserControl.ViewModel.GetBeatmaps();
+                if (localUserControl.ViewModel.LocalBeatmaps is null)
+                    localUserControl.ViewModel.GetBeatmaps();
+                else
+                    localUserControl.ViewModel.GetBeatmaps(localUserControl.ViewModel.LocalBeatmaps);
             }
         }
 

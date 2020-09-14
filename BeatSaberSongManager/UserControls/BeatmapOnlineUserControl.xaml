@@ -145,7 +145,7 @@
         </Grid>
 
         <DataGrid x:Name="dataGridMaps"
-                      ItemsSource="{Binding Path=OnlineBeatmaps.Maps, NotifyOnTargetUpdated=True, IsAsync=True}"
+                      ItemsSource="{Binding Path=OnlineBeatmaps.Maps, NotifyOnTargetUpdated=True}"
                       Grid.Row="2"
                       Grid.ColumnSpan="2"
                       Margin="0,10,0,0"

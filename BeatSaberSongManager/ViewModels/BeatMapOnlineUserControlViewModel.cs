@@ -20,7 +20,7 @@ namespace BeatSaberSongManager.ViewModels
         public MapSort CurrentMapSort;
         public readonly MainWindow MainWindow;
         public readonly BeatSaver BeatSaverApi;
-        public bool SongDownloaded;
+        public bool SongChanged;
 
         public OnlineBeatmaps OnlineBeatmaps
         {
@@ -194,13 +194,16 @@ namespace BeatSaberSongManager.ViewModels
             MainWindow.radioButtonSettings.IsEnabled = false;
             OnlineBeatmap song = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
             BeatSaverApi.DownloadSong(song).ConfigureAwait(false);
-            SongDownloaded = true;
+            SongChanged = true;
         }
 
         public void DeleteSong(string key)
         {
-            OnlineBeatmap song = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
-            BeatSaverApi.DeleteSong(song);
+            OnlineBeatmap onlineBeatmap = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
+            LocalBeatmap localBeatmap = MainWindow.LocalUserControl.ViewModel.LocalBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
+            MainWindow.LocalUserControl.ViewModel.LocalBeatmaps.Maps.Remove(localBeatmap);
+            BeatSaverApi.DeleteSong(onlineBeatmap);
+            SongChanged = true;
         }
     }
 }

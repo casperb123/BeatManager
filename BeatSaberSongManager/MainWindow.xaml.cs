@@ -27,63 +27,63 @@ namespace BeatSaberSongManager
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private readonly BeatmapLocalUserControl localUserControl;
-        private readonly BeatmapOnlineUserControl onlineUserControl;
-        private readonly SettingsUserControl settingsUserControl;
+        public readonly BeatmapLocalUserControl LocalUserControl;
+        public readonly BeatmapOnlineUserControl OnlineUserControl;
+        public readonly SettingsUserControl SettingsUserControl;
         private bool localBeatmapsLoaded = false;
 
         public MainWindow()
         {
             InitializeComponent();
-            localUserControl = new BeatmapLocalUserControl(this);
-            onlineUserControl = new BeatmapOnlineUserControl(this);
-            settingsUserControl = new SettingsUserControl(this);
+            LocalUserControl = new BeatmapLocalUserControl(this);
+            OnlineUserControl = new BeatmapOnlineUserControl(this);
+            SettingsUserControl = new SettingsUserControl(this);
         }
 
         private void RadioButtonLocal_Checked(object sender, RoutedEventArgs e)
         {
-            userControlMain.Content = localUserControl;
+            userControlMain.Content = LocalUserControl;
             if (!localBeatmapsLoaded ||
-                onlineUserControl.ViewModel.SongDownloaded ||
-                settingsUserControl.ViewModel.SongsPathChanged)
+                OnlineUserControl.ViewModel.SongChanged ||
+                SettingsUserControl.ViewModel.SongsPathChanged)
             {
                 localBeatmapsLoaded = true;
-                onlineUserControl.ViewModel.SongDownloaded = false;
-                settingsUserControl.ViewModel.SongsPathChanged = false;
-                if (localUserControl.ViewModel.LocalBeatmaps is null)
-                    localUserControl.ViewModel.GetBeatmaps();
+                OnlineUserControl.ViewModel.SongChanged = false;
+                SettingsUserControl.ViewModel.SongsPathChanged = false;
+                if (LocalUserControl.ViewModel.LocalBeatmaps is null)
+                    LocalUserControl.ViewModel.GetBeatmaps();
                 else
-                    localUserControl.ViewModel.GetBeatmaps(localUserControl.ViewModel.LocalBeatmaps);
+                    LocalUserControl.ViewModel.GetBeatmaps(LocalUserControl.ViewModel.LocalBeatmaps);
             }
         }
 
         private void RadioButtonOnline_Checked(object sender, RoutedEventArgs e)
         {
-            if (localUserControl.ViewModel.SongDeleted)
+            if (LocalUserControl.ViewModel.SongDeleted)
             {
-                if (onlineUserControl.ViewModel.OnlineBeatmaps != null)
+                if (OnlineUserControl.ViewModel.OnlineBeatmaps != null)
                 {
-                    MapSort mapSort = onlineUserControl.ViewModel.CurrentMapSort;
+                    MapSort mapSort = OnlineUserControl.ViewModel.CurrentMapSort;
                     if (mapSort == MapSort.Search)
-                        onlineUserControl.ViewModel.GetBeatmaps(onlineUserControl.textBoxSearch.Text, onlineUserControl.ViewModel.OnlineBeatmaps.CurrentPage);
+                        OnlineUserControl.ViewModel.GetBeatmaps(OnlineUserControl.textBoxSearch.Text, OnlineUserControl.ViewModel.OnlineBeatmaps.CurrentPage);
                     else
-                        onlineUserControl.ViewModel.GetBeatmaps(mapSort, onlineUserControl.ViewModel.OnlineBeatmaps.CurrentPage);
+                        OnlineUserControl.ViewModel.GetBeatmaps(mapSort, OnlineUserControl.ViewModel.OnlineBeatmaps.CurrentPage);
                 }
 
-                localUserControl.ViewModel.SongDeleted = false;
+                LocalUserControl.ViewModel.SongDeleted = false;
             }
 
-            userControlMain.Content = onlineUserControl;
+            userControlMain.Content = OnlineUserControl;
         }
 
         private void RadioButtonSettings_Checked(object sender, RoutedEventArgs e)
         {
-            userControlMain.Content = settingsUserControl;
+            userControlMain.Content = SettingsUserControl;
         }
 
         private async void MetroWindow_Closing(object sender, CancelEventArgs e)
         {
-            if (onlineUserControl.ViewModel.OnlineBeatmaps != null && onlineUserControl.ViewModel.OnlineBeatmaps.Maps.Any(x => x.IsDownloading))
+            if (OnlineUserControl.ViewModel.OnlineBeatmaps != null && OnlineUserControl.ViewModel.OnlineBeatmaps.Maps.Any(x => x.IsDownloading))
             {
                 e.Cancel = true;
                 await this.ShowMessageAsync("Song(s) downloading", "You can't close the application while a song is downloading");

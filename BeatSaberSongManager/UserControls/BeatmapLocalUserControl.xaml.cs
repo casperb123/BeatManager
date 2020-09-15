@@ -2,6 +2,7 @@
 using BeatSaverApi.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -45,7 +46,7 @@ namespace BeatSaberSongManager.UserControls
 
         private void Map_Details(object sender, RoutedEventArgs e)
         {
-
+            string key = ((Button)sender).Tag.ToString();
         }
 
         private void MenuItemDataGridDelete_Click(object sender, RoutedEventArgs e)

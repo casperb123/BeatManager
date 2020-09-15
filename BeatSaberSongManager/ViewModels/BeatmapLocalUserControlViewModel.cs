@@ -128,10 +128,16 @@ namespace BeatSaberSongManager.ViewModels
 
         public void DeleteSong(string key)
         {
-            LocalBeatmap song = LocalBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
-            beatSaverApi.DeleteSong(song);
-            LocalBeatmaps.Maps.Remove(song);
-            SongDeleted = true;
+            LocalBeatmap localBeatmap = LocalBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
+            OnlineBeatmap onlineBeatmap = MainWindow.OnlineUserControl.ViewModel.OnlineBeatmaps?.Maps.FirstOrDefault(x => x.Key == key);
+
+            beatSaverApi.DeleteSong(localBeatmap);
+            LocalBeatmaps.Maps.Remove(localBeatmap);
+            if (onlineBeatmap is null)
+                SongDeleted = true;
+            else
+                onlineBeatmap.IsDownloaded = false;
+
             LocalBeatmaps = beatSaverApi.RefreshLocalPages(LocalBeatmaps);
         }
 
@@ -139,7 +145,19 @@ namespace BeatSaberSongManager.ViewModels
         {
             beatSaverApi.DeleteSongs(songs);
             songs.ForEach(x => LocalBeatmaps.Maps.Remove(x));
-            SongDeleted = true;
+            List<OnlineBeatmap> onlineBeatmaps = new List<OnlineBeatmap>();
+            foreach (LocalBeatmap localBeatmap in songs)
+            {
+                OnlineBeatmap onlineBeatmap = MainWindow.OnlineUserControl.ViewModel.OnlineBeatmaps?.Maps.FirstOrDefault(x => x.Key == localBeatmap.Key);
+                if (onlineBeatmap != null)
+                    onlineBeatmaps.Add(onlineBeatmap);
+            }
+
+            if (onlineBeatmaps.Count == songs.Count)
+                onlineBeatmaps.ForEach(x => x.IsDownloaded = false);
+            else
+                SongDeleted = true;
+
             LocalBeatmaps = beatSaverApi.RefreshLocalPages(LocalBeatmaps);
         }
     }

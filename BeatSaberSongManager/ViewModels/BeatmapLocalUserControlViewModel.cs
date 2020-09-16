@@ -160,5 +160,12 @@ namespace BeatSaberSongManager.ViewModels
 
             LocalBeatmaps = beatSaverApi.RefreshLocalPages(LocalBeatmaps);
         }
+
+        public void BeatmapDetails(string key)
+        {
+            LocalBeatmap beatmap = LocalBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
+            MainWindow.LocalDetailsUserControl.ViewModel.Beatmap = beatmap;
+            MainWindow.userControlMain.Content = MainWindow.LocalDetailsUserControl;
+        }
     }
 }

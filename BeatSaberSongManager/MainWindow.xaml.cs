@@ -30,6 +30,7 @@ namespace BeatSaberSongManager
         public readonly BeatmapLocalUserControl LocalUserControl;
         public readonly BeatmapOnlineUserControl OnlineUserControl;
         public readonly SettingsUserControl SettingsUserControl;
+        public readonly BeatmapLocalDetailsUserControl LocalDetailsUserControl;
         private bool localBeatmapsLoaded = false;
 
         public MainWindow()
@@ -38,6 +39,7 @@ namespace BeatSaberSongManager
             LocalUserControl = new BeatmapLocalUserControl(this);
             OnlineUserControl = new BeatmapOnlineUserControl(this);
             SettingsUserControl = new SettingsUserControl(this);
+            LocalDetailsUserControl = new BeatmapLocalDetailsUserControl(this);
         }
 
         private void RadioButtonLocal_Checked(object sender, RoutedEventArgs e)

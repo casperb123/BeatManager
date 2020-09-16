@@ -39,7 +39,7 @@ namespace BeatSaberSongManager.ViewModels
             DetectPath(Settings.CurrentSettings.BeatSaberCopy);
         }
 
-        public void BrowsePath(bool saveSettings = false)
+        public void BrowsePath()
         {
             Ookii.Dialogs.Wpf.VistaFolderBrowserDialog dialog = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog
             {
@@ -57,6 +57,8 @@ namespace BeatSaberSongManager.ViewModels
         public void DetectPath(bool copy)
         {
             bool songsPathNull = Settings.CurrentSettings.SongsPath == null;
+            if (!songsPathNull)
+                return;
 
             if (copy)
             {
@@ -68,7 +70,7 @@ namespace BeatSaberSongManager.ViewModels
                         Settings.CurrentSettings.Save();
                 }
                 else
-                    BrowsePath(songsPathNull);
+                    BrowsePath();
             }
             else
             {
@@ -90,7 +92,7 @@ namespace BeatSaberSongManager.ViewModels
                         Settings.CurrentSettings.Save();
                 }
                 else
-                    BrowsePath(songsPathNull);
+                    BrowsePath();
             }
         }
 

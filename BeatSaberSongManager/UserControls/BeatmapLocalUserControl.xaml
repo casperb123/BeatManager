@@ -26,7 +26,7 @@
         </Grid.RowDefinitions>
 
         <Label Content="Beatmap Local"
-               FontSize="40"
+               FontSize="45"
                Grid.ColumnSpan="2"
                Margin="0,0,0,20" />
 
@@ -102,36 +102,31 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Song name"
-                                    Width="1*"
-                                    IsReadOnly="True">
-                    <DataGridTextColumn.Binding>
-                        <MultiBinding StringFormat="{}{0} {1}"
-                                      FallbackValue="..."
-                                      TargetNullValue="...">
-                            <Binding Path="SongName"
-                                     IsAsync="True" />
-                            <Binding Path="SongSubName"
-                                     IsAsync="True" />
-                        </MultiBinding>
-                    </DataGridTextColumn.Binding>
+                <DataGridTemplateColumn Header="Song Name">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="10,0,0,0">
+                                <StackPanel.ToolTip>
+                                    <TextBlock>
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0} {1}">
+                                                <Binding Path="SongName" />
+                                                <Binding Path="SongSubName" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </StackPanel.ToolTip>
 
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock"
-                               BasedOn="{StaticResource MahApps.Styles.TextBlock}">
-                            <Setter Property="TextTrimming"
-                                    Value="CharacterEllipsis" />
-                            <Setter Property="Margin"
-                                    Value="10,0,0,0" />
-                            <Setter Property="ToolTip"
-                                    Value="{Binding Path=SongName, IsAsync=True, FallbackValue=..., TargetNullValue=...}" />
-                            <Setter Property="ToolTipService.BetweenShowDelay"
-                                    Value="0" />
-                            <Setter Property="ToolTipService.InitialShowDelay"
-                                    Value="0" />
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
+                                <TextBlock Text="{Binding Path=SongName}"
+                                           Margin="0,0,2.5,0" />
+                                <TextBlock Text="{Binding Path=SongSubName}"
+                                           Foreground="#a3a3a3"
+                                           Margin="2.5,0,0,0" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Mapper"
                                     Width=".35*"
                                     IsReadOnly="True"
@@ -207,25 +202,25 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <!--<DataGridTextColumn Header="Downloads"
-                                        IsReadOnly="True"
-                                        Binding="{Binding Path=Downloads, IsAsync=True, FallbackValue=..., TargetNullValue=...}">
+                <DataGridTextColumn Header="Downloads"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Path=OnlineBeatmap.Stats.Downloads, IsAsync=True, FallbackValue=..., TargetNullValue=...}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock"
-                                   BasedOn="{StaticResource MahApps.Styles.TextBlock}">
+                               BasedOn="{StaticResource MahApps.Styles.TextBlock}">
                             <Setter Property="TextTrimming"
-                                        Value="CharacterEllipsis" />
+                                    Value="CharacterEllipsis" />
                             <Setter Property="Margin"
-                                        Value="10,0,0,0" />
+                                    Value="10,0,0,0" />
                             <Setter Property="ToolTip"
-                                        Value="{Binding Path=Downloads, IsAsync=True}" />
+                                    Value="{Binding Path=OnlineBeatmap.Stats.Downloads, IsAsync=True}" />
                             <Setter Property="ToolTipService.BetweenShowDelay"
-                                        Value="0" />
+                                    Value="0" />
                             <Setter Property="ToolTipService.InitialShowDelay"
-                                        Value="0" />
+                                    Value="0" />
                         </Style>
                     </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>-->
+                </DataGridTextColumn>
                 <DataGridTemplateColumn Header="Actions"
                                         IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>

@@ -47,6 +47,7 @@ namespace BeatSaberSongManager.UserControls
         private void Map_Details(object sender, RoutedEventArgs e)
         {
             string key = ((Button)sender).Tag.ToString();
+            ViewModel.BeatmapDetails(key);
         }
 
         private void MenuItemDataGridDelete_Click(object sender, RoutedEventArgs e)

@@ -42,17 +42,22 @@ namespace BeatSaberSongManager.UserControls
             ViewModel.ChangeTheme(comboBoxTheme.SelectedItem.ToString(), comboBoxColor.SelectedItem.ToString());
         }
 
-        private void ButtonDetectPath_Click(object sender, RoutedEventArgs e)
-        {
-            ViewModel.DetectPath(Settings.CurrentSettings.BeatSaberCopy);
-        }
-
         private void ToggleSwitchVersion_Toggled(object sender, RoutedEventArgs e)
         {
             if (!IsLoaded)
                 return;
 
             ViewModel.DetectPath(Settings.CurrentSettings.BeatSaberCopy);
+        }
+
+        private void ButtonDetectPath_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.DetectPath(Settings.CurrentSettings.BeatSaberCopy);
+        }
+
+        private void ButtonBrowsePath_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.BrowsePath();
         }
     }
 }

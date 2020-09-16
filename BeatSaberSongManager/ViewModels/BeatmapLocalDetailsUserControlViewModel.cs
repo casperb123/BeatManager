@@ -1,8 +1,10 @@
-﻿using BeatSaverApi.Entities;
+﻿using BeatSaberSongManager.UserControls;
+using BeatSaverApi.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace BeatSaberSongManager.ViewModels
 {

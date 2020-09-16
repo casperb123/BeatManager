@@ -14,6 +14,7 @@
         <converters:BooleanToVisiblityConverter x:Key="BooleanToVisibilityConverter" />
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
         <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
+        <converters:AddCommasConverter x:Key="AddCommasConverter" />
     </UserControl.Resources>
 
     <Grid>
@@ -304,7 +305,7 @@
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Downloads"
                                     IsReadOnly="True"
-                                    Binding="{Binding Path=Stats.Downloads, IsAsync=True, FallbackValue=...}">
+                                    Binding="{Binding Path=Stats.Downloads, Converter={StaticResource AddCommasConverter}, IsAsync=True, FallbackValue=...}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock"
                                BasedOn="{StaticResource MahApps.Styles.TextBlock}">
@@ -313,7 +314,7 @@
                             <Setter Property="Margin"
                                     Value="10,0,0,0" />
                             <Setter Property="ToolTip"
-                                    Value="{Binding Path=Stats.Downloads, IsAsync=True}" />
+                                    Value="{Binding Path=Stats.Downloads, Converter={StaticResource AddCommasConverter}, IsAsync=True}" />
                             <Setter Property="ToolTipService.BetweenShowDelay"
                                     Value="0" />
                             <Setter Property="ToolTipService.InitialShowDelay"

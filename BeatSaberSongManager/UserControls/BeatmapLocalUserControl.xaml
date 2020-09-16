@@ -16,6 +16,7 @@
         <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
         <converters:ImageSourceToBitmapConverter x:Key="ImageSourceToBitmapConverter" />
         <converters:NullToBooleanConverter x:Key="NullToBooleanConverter" />
+        <converters:AddCommasConverter x:Key="AddCommasConverter" />
     </UserControl.Resources>
 
     <Grid>
@@ -205,7 +206,7 @@
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Downloads"
                                     IsReadOnly="True"
-                                    Binding="{Binding Path=OnlineBeatmap.Stats.Downloads, IsAsync=True, FallbackValue=..., TargetNullValue=...}">
+                                    Binding="{Binding Path=OnlineBeatmap.Stats.Downloads, Converter={StaticResource AddCommasConverter}, IsAsync=True, FallbackValue=..., TargetNullValue=...}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock"
                                BasedOn="{StaticResource MahApps.Styles.TextBlock}">
@@ -214,7 +215,7 @@
                             <Setter Property="Margin"
                                     Value="10,0,0,0" />
                             <Setter Property="ToolTip"
-                                    Value="{Binding Path=OnlineBeatmap.Stats.Downloads, IsAsync=True}" />
+                                    Value="{Binding Path=OnlineBeatmap.Stats.Downloads, Converter={StaticResource AddCommasConverter}, IsAsync=True}" />
                             <Setter Property="ToolTipService.BetweenShowDelay"
                                     Value="0" />
                             <Setter Property="ToolTipService.InitialShowDelay"

@@ -11,9 +11,9 @@
     <UserControl.Resources>
         <converters:ImageSourceToBitmapConverter x:Key="ImageSourceToBitmapConverter" />
         <converters:BooleanToVisiblityConverter x:Key="BooleanToVisibilityConverter" />
-        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
         <converters:DateTimeConverter x:Key="DateTimeConverter" />
         <converters:FloatToPercentageConverter x:Key="FloatToPercentageConverter" />
+        <converters:AddCommasConverter x:Key="AddCommasConverter" />
     </UserControl.Resources>
 
     <StackPanel>
@@ -323,7 +323,7 @@
                            FontSize="15"
                            HorizontalContentAlignment="Right"
                            Grid.Row="1" />
-                    <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.Downloads}"
+                    <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.Downloads, Converter={StaticResource AddCommasConverter}}"
                            FontSize="15"
                            Grid.Column="1"
                            Grid.Row="1"
@@ -333,7 +333,7 @@
                            FontSize="15"
                            HorizontalContentAlignment="Right"
                            Grid.Row="2" />
-                    <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.Plays}"
+                    <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.Plays, Converter={StaticResource AddCommasConverter}}"
                            FontSize="15"
                            Grid.Column="1"
                            Grid.Row="2"
@@ -343,7 +343,7 @@
                            FontSize="15"
                            HorizontalContentAlignment="Right"
                            Grid.Row="3" />
-                    <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.UpVotes}"
+                    <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.UpVotes, Converter={StaticResource AddCommasConverter}}"
                            FontSize="15"
                            Grid.Column="1"
                            Grid.Row="3"
@@ -353,7 +353,7 @@
                            FontSize="15"
                            HorizontalContentAlignment="Right"
                            Grid.Row="4" />
-                    <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.DownVotes}"
+                    <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.DownVotes, Converter={StaticResource AddCommasConverter}}"
                            FontSize="15"
                            Grid.Column="1"
                            Grid.Row="4"

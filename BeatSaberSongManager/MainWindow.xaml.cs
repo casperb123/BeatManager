@@ -93,5 +93,11 @@ namespace BeatSaberSongManager
             else
                 Settings.CurrentSettings.Save();
         }
+
+        private void RadioButtonLocal_Click(object sender, RoutedEventArgs e)
+        {
+            if (userControlMain.Content == LocalDetailsUserControl)
+                userControlMain.Content = LocalUserControl;
+        }
     }
 }

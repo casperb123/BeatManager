@@ -102,7 +102,8 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTemplateColumn Header="Song Name">
+                <DataGridTemplateColumn Header="Song Name"
+                                        Width="1*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal"
@@ -118,9 +119,9 @@
                                     </TextBlock>
                                 </StackPanel.ToolTip>
 
-                                <TextBlock Text="{Binding Path=SongName}"
+                                <TextBlock Text="{Binding Path=SongName, IsAsync=True, FallbackValue=...}"
                                            Margin="0,0,2.5,0" />
-                                <TextBlock Text="{Binding Path=SongSubName}"
+                                <TextBlock Text="{Binding Path=SongSubName, IsAsync=True, FallbackValue=...}"
                                            Foreground="#a3a3a3"
                                            Margin="2.5,0,0,0" />
                             </StackPanel>

@@ -35,7 +35,6 @@
                              ToolTipService.InitialShowDelay="0"
                              Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                              GroupName="NavigationButtons"
-                             Checked="RadioButtonLocal_Checked"
                              Click="RadioButtonLocal_Click">
                     <iconPacks:PackIconFontAwesome Kind="LaptopSolid"
                                                    Width="20"

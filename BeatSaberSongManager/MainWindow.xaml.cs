@@ -32,6 +32,7 @@ namespace BeatSaberSongManager
         public readonly SettingsUserControl SettingsUserControl;
         public readonly BeatmapLocalDetailsUserControl LocalDetailsUserControl;
         private bool localBeatmapsLoaded = false;
+        private object lastUserControl;
 
         public MainWindow()
         {
@@ -42,20 +43,29 @@ namespace BeatSaberSongManager
             LocalDetailsUserControl = new BeatmapLocalDetailsUserControl(this);
         }
 
-        private void RadioButtonLocal_Checked(object sender, RoutedEventArgs e)
+        private void RadioButtonLocal_Click(object sender, RoutedEventArgs e)
         {
-            userControlMain.Content = LocalUserControl;
-            if (!localBeatmapsLoaded ||
-                OnlineUserControl.ViewModel.SongChanged ||
-                SettingsUserControl.ViewModel.SongsPathChanged)
+            if (lastUserControl is BeatmapLocalDetailsUserControl)
             {
-                localBeatmapsLoaded = true;
-                OnlineUserControl.ViewModel.SongChanged = false;
-                SettingsUserControl.ViewModel.SongsPathChanged = false;
-                if (LocalUserControl.ViewModel.LocalBeatmaps is null)
-                    LocalUserControl.ViewModel.GetBeatmaps();
-                else
-                    LocalUserControl.ViewModel.GetBeatmaps(LocalUserControl.ViewModel.LocalBeatmaps);
+                lastUserControl = userControlMain.Content;
+                userControlMain.Content = LocalDetailsUserControl;
+            }
+            else
+            {
+                lastUserControl = userControlMain.Content;
+                userControlMain.Content = LocalUserControl;
+                if (!localBeatmapsLoaded ||
+                    OnlineUserControl.ViewModel.SongChanged ||
+                    SettingsUserControl.ViewModel.SongsPathChanged)
+                {
+                    localBeatmapsLoaded = true;
+                    OnlineUserControl.ViewModel.SongChanged = false;
+                    SettingsUserControl.ViewModel.SongsPathChanged = false;
+                    if (LocalUserControl.ViewModel.LocalBeatmaps is null)
+                        LocalUserControl.ViewModel.GetBeatmaps();
+                    else
+                        LocalUserControl.ViewModel.GetBeatmaps(LocalUserControl.ViewModel.LocalBeatmaps);
+                }
             }
         }
 
@@ -75,11 +85,13 @@ namespace BeatSaberSongManager
                 LocalUserControl.ViewModel.SongDeleted = false;
             }
 
+            lastUserControl = userControlMain.Content;
             userControlMain.Content = OnlineUserControl;
         }
 
         private void RadioButtonSettings_Checked(object sender, RoutedEventArgs e)
         {
+            lastUserControl = userControlMain.Content;
             userControlMain.Content = SettingsUserControl;
         }
 
@@ -92,12 +104,6 @@ namespace BeatSaberSongManager
             }
             else
                 Settings.CurrentSettings.Save();
-        }
-
-        private void RadioButtonLocal_Click(object sender, RoutedEventArgs e)
-        {
-            if (userControlMain.Content == LocalDetailsUserControl)
-                userControlMain.Content = LocalUserControl;
         }
     }
 }

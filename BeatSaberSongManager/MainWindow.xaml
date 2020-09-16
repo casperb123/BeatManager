@@ -85,7 +85,8 @@
                       VerticalScrollBarVisibility="Auto"
                       Grid.Column="1">
             <UserControl x:Name="userControlMain"
-                         Margin="30,5" />
+                         Margin="30,5"
+                         MaxWidth="1700" />
         </ScrollViewer>
 
         <Rectangle x:Name="rectangleLoading"

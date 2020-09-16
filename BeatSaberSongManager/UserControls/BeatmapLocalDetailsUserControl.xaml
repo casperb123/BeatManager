@@ -373,7 +373,8 @@
                          BorderThickness="0"
                          IsReadOnly="True"
                          FontSize="15"
-                         HorizontalAlignment="Left" />
+                         HorizontalAlignment="Left"
+                         TextWrapping="Wrap" />
             </GroupBox>
         </Grid>
     </StackPanel>

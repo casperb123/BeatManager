@@ -46,7 +46,7 @@
             </Grid.RowDefinitions>
 
             <StackPanel Orientation="Horizontal"
-                        Margin="0,0,0,20">
+                        Margin="0,0,0,30">
                 <Image x:Name="imageCover"
                        Width="200"
                        Height="200"
@@ -140,7 +140,7 @@
 
             <StackPanel Orientation="Horizontal"
                         Grid.Row="1"
-                        Margin="0,0,0,20">
+                        Margin="0,0,0,25">
                 <Button x:Name="buttonDeleteBeatmap"
                         Background="Transparent"
                         BorderThickness="0"
@@ -149,8 +149,9 @@
                         Height="35"
                         ToolTip="Delete the beatmap"
                         ToolTipService.BetweenShowDelay="0"
-                        ToolTipService.InitialShowDelay="0">
-                    <icons:PackIconMaterial Kind="Delete"
+                        ToolTipService.InitialShowDelay="0"
+                        Margin="0,0,2.5,0">
+                    <icons:PackIconMaterial Kind="DeleteForever"
                                             Width="20"
                                             Height="20" />
                 </Button>
@@ -162,7 +163,8 @@
                         Height="35"
                         ToolTip="Refresh the data"
                         ToolTipService.BetweenShowDelay="0"
-                        ToolTipService.InitialShowDelay="0">
+                        ToolTipService.InitialShowDelay="0"
+                        Margin="2.5,0,2.5,0">
                     <icons:PackIconMaterial Kind="Refresh"
                                             Width="20"
                                             Height="20" />
@@ -175,7 +177,8 @@
                         Height="35"
                         ToolTip="Open folder"
                         ToolTipService.BetweenShowDelay="0"
-                        ToolTipService.InitialShowDelay="0">
+                        ToolTipService.InitialShowDelay="0"
+                        Margin="2.5,0,2.5,0">
                     <icons:PackIconMaterial Kind="Folder"
                                             Width="20"
                                             Height="20" />
@@ -188,7 +191,8 @@
                         Height="35"
                         ToolTip="Preview beatmap"
                         ToolTipService.BetweenShowDelay="0"
-                        ToolTipService.InitialShowDelay="0">
+                        ToolTipService.InitialShowDelay="0"
+                        Margin="2.5,0,2.5,0">
                     <icons:PackIconMaterial Kind="Eye"
                                             Width="20"
                                             Height="20" />
@@ -201,7 +205,8 @@
                         Height="35"
                         ToolTip="Open on beatsaver"
                         ToolTipService.BetweenShowDelay="0"
-                        ToolTipService.InitialShowDelay="0">
+                        ToolTipService.InitialShowDelay="0"
+                        Margin="2.5,0,0,0">
                     <icons:PackIconMaterial Kind="Link"
                                             Width="20"
                                             Height="20" />
@@ -209,7 +214,7 @@
             </StackPanel>
 
             <Grid Grid.Row="2"
-                  Margin="0,0,0,20">
+                  Margin="0,0,0,30">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="1*" />

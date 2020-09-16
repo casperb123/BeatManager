@@ -128,7 +128,7 @@
                                 ToolTipService.InitialShowDelay="0"
                                 ToolTipService.BetweenShowDelay="0"
                                 Margin="4,0,0,0"
-                                Visibility="{Binding Path=Beatmap.ExpertPLus, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                Visibility="{Binding Path=Beatmap.ExpertPlus, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <Label Content="Expert+"
                                    Foreground="White"
                                    FontSize="15"

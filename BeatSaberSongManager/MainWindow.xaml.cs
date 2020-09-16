@@ -52,7 +52,11 @@ namespace BeatSaberSongManager
             }
             else
             {
-                lastUserControl = userControlMain.Content;
+                if (userControlMain.Content == LocalDetailsUserControl)
+                    lastUserControl = null;
+                else
+                    lastUserControl = userControlMain.Content;
+
                 userControlMain.Content = LocalUserControl;
                 if (!localBeatmapsLoaded ||
                     OnlineUserControl.ViewModel.SongChanged ||

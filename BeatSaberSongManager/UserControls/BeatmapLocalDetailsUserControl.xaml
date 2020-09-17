@@ -407,7 +407,7 @@
                         <st:StackPanel Orientation="Horizontal"
                                        MarginBetweenChildren="10">
                             <st:AutoGrid Columns="auto,1*"
-                                         Rows="auto,auto,auto"
+                                         Rows="auto,auto,auto,auto"
                                          ChildMargin="5,0"
                                          st:StackPanel.Fill="Fill">
                                 <Label Content="Duration"
@@ -427,17 +427,17 @@
                                        HorizontalContentAlignment="Right" />
                                 <Label Content="{Binding Path=BeatmapDetail.NotesCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}"
                                        FontSize="15" />
-                            </st:AutoGrid>
-                            <st:AutoGrid Columns="auto,1*"
-                                         Rows="auto,auto,auto"
-                                         ChildMargin="5,0"
-                                         st:StackPanel.Fill="Fill">
+
                                 <Label Content="Obstacles"
                                        FontSize="15"
                                        HorizontalContentAlignment="Right" />
                                 <Label Content="{Binding Path=BeatmapDetail.ObstaclesCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}"
                                        FontSize="15" />
-
+                            </st:AutoGrid>
+                            <st:AutoGrid Columns="auto,1*"
+                                         Rows="auto,auto"
+                                         ChildMargin="5,0"
+                                         st:StackPanel.Fill="Fill">
                                 <Label Content="Notes Movement Speed"
                                        FontSize="15"
                                        HorizontalContentAlignment="Right" />

@@ -15,6 +15,212 @@
         <converters:DateTimeConverter x:Key="DateTimeConverter" />
         <converters:FloatToPercentageConverter x:Key="FloatToPercentageConverter" />
         <converters:AddCommasConverter x:Key="AddCommasConverter" />
+
+        <Style x:Key="ToggleButtonDifficultyEasy"
+               TargetType="{x:Type ToggleButton}"
+               BasedOn="{StaticResource  MahApps.Styles.ToggleButton.Flat}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                Background="{TemplateBinding Background}"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter Content="{TemplateBinding Content}"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsChecked"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#3cb371" />
+                </Trigger>
+                <Trigger Property="IsChecked"
+                         Value="False">
+                    <Setter Property="Background"
+                            Value="#4D3cb371" />
+                    <Setter Property="Foreground"
+                            Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                </Trigger>
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#3cb371" />
+                </Trigger>
+                <Trigger Property="IsPressed"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#48c17e" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ToggleButtonDifficultyNormal"
+               TargetType="{x:Type RadioButton}"
+               BasedOn="{StaticResource  MahApps.Styles.ToggleButton.Flat}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                Background="{TemplateBinding Background}"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter Content="{TemplateBinding Content}"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsChecked"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#59b0f4" />
+                </Trigger>
+                <Trigger Property="IsChecked"
+                         Value="False">
+                    <Setter Property="Background"
+                            Value="#4D59b0f4" />
+                    <Setter Property="Foreground"
+                            Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                </Trigger>
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#59b0f4" />
+                </Trigger>
+                <Trigger Property="IsPressed"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#69b7f5" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ToggleButtonDifficultyHard"
+               TargetType="{x:Type RadioButton}"
+               BasedOn="{StaticResource  MahApps.Styles.ToggleButton.Flat}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                Background="{TemplateBinding Background}"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter Content="{TemplateBinding Content}"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsChecked"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#ff6347" />
+                </Trigger>
+                <Trigger Property="IsChecked"
+                         Value="False">
+                    <Setter Property="Background"
+                            Value="#4Dff6347" />
+                    <Setter Property="Foreground"
+                            Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                </Trigger>
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#ff6347" />
+                </Trigger>
+                <Trigger Property="IsPressed"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#ff7259" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ToggleButtonDifficultyExpert"
+               TargetType="{x:Type RadioButton}"
+               BasedOn="{StaticResource  MahApps.Styles.ToggleButton.Flat}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                Background="{TemplateBinding Background}"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter Content="{TemplateBinding Content}"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsChecked"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#bf2a42" />
+                </Trigger>
+                <Trigger Property="IsChecked"
+                         Value="False">
+                    <Setter Property="Background"
+                            Value="#4Dbf2a42" />
+                    <Setter Property="Foreground"
+                            Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                </Trigger>
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#bf2a42" />
+                </Trigger>
+                <Trigger Property="IsPressed"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#d2324c" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ToggleButtonDifficultyExpertPlus"
+               TargetType="{x:Type RadioButton}"
+               BasedOn="{StaticResource  MahApps.Styles.ToggleButton.Flat}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                Background="{TemplateBinding Background}"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter Content="{TemplateBinding Content}"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsChecked"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#8f48db" />
+                </Trigger>
+                <Trigger Property="IsChecked"
+                         Value="False">
+                    <Setter Property="Background"
+                            Value="#4D8f48db" />
+                    <Setter Property="Foreground"
+                            Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                </Trigger>
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#8f48db" />
+                </Trigger>
+                <Trigger Property="IsPressed"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#9a5ade" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
 
     <ScrollViewer x:Name="scrollViewer"
@@ -80,7 +286,7 @@
                         <StackPanel Orientation="Horizontal"
                                     Grid.Row="2">
                             <Border CornerRadius="15"
-                                    Background="LimeGreen"
+                                    Background="#3cb371"
                                     ToolTip="Easy"
                                     ToolTipService.InitialShowDelay="0"
                                     ToolTipService.BetweenShowDelay="0"
@@ -92,7 +298,7 @@
                                        Margin="5,0" />
                             </Border>
                             <Border CornerRadius="15"
-                                    Background="RoyalBlue"
+                                    Background="#59b0f4"
                                     ToolTip="Normal"
                                     ToolTipService.InitialShowDelay="0"
                                     ToolTipService.BetweenShowDelay="0"
@@ -104,7 +310,7 @@
                                        Margin="5,0" />
                             </Border>
                             <Border CornerRadius="15"
-                                    Background="Orange"
+                                    Background="Tomato"
                                     ToolTip="Hard"
                                     ToolTipService.InitialShowDelay="0"
                                     ToolTipService.BetweenShowDelay="0"
@@ -116,7 +322,7 @@
                                        Margin="5,0" />
                             </Border>
                             <Border CornerRadius="15"
-                                    Background="Red"
+                                    Background="#bf2a42"
                                     ToolTip="Expert"
                                     ToolTipService.InitialShowDelay="0"
                                     ToolTipService.BetweenShowDelay="0"
@@ -128,7 +334,7 @@
                                        Margin="5,0" />
                             </Border>
                             <Border CornerRadius="15"
-                                    Background="Purple"
+                                    Background="#8f48db"
                                     ToolTip="Expert+"
                                     ToolTipService.InitialShowDelay="0"
                                     ToolTipService.BetweenShowDelay="0"

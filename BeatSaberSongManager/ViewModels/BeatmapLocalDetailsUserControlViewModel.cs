@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
+using System.Windows.Media;
 
 namespace BeatSaberSongManager.ViewModels
 {
@@ -92,11 +93,12 @@ namespace BeatSaberSongManager.ViewModels
             foreach (LocalBeatmapDetail beatmapDetail in BeatmapDetails.BeatmapDetails)
             {
                 RadioButton radioButton = XamlReader.Parse(XamlWriter.Save(userControl.radioButtonDifficultyTemplate)) as RadioButton;
+                radioButton.Style = userControl.Resources[$"ToggleButtonDifficulty{beatmapDetail.DifficultyBeatmap.Difficulty}"] as Style;
 
-                if (beatmapDetail.Difficulty.Difficulty == "ExpertPlus")
+                if (beatmapDetail.DifficultyBeatmap.Difficulty == "ExpertPlus")
                     radioButton.Content = "Expert+";
                 else
-                    radioButton.Content = beatmapDetail.Difficulty.Difficulty;
+                    radioButton.Content = beatmapDetail.DifficultyBeatmap.Difficulty;
 
                 radioButton.Visibility = Visibility.Visible;
                 radioButton.Checked += (s, e) => BeatmapDetail = beatmapDetail;

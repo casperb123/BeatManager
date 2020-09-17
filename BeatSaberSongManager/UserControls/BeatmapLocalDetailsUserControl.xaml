@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:converters="clr-namespace:BeatSaberSongManager.Converters"
+             xmlns:st="http://schemas.spicytaco.io/"
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="1088">
@@ -39,6 +40,7 @@
 
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
@@ -372,7 +374,8 @@
             </Grid>
 
             <GroupBox Header="Description"
-                      Grid.Row="3">
+                      Grid.Row="3"
+                      Margin="0,0,0,10">
                 <TextBox Text="{Binding Path=Beatmap.OnlineBeatmap.Description}"
                          Background="{x:Null}"
                          BorderThickness="0"
@@ -380,6 +383,96 @@
                          FontSize="15"
                          HorizontalAlignment="Left"
                          TextWrapping="Wrap" />
+            </GroupBox>
+
+            <GroupBox Header="Difficulties"
+                      Grid.Row="4">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <st:StackPanel x:Name="stackPanelSets"
+                                   Orientation="Horizontal">
+                        <RadioButton x:Name="radioButtonDifficultySet"
+                                     Content="Set"
+                                     st:StackPanel.Fill="Fill"
+                                     HorizontalContentAlignment="Center"
+                                     Visibility="Collapsed"
+                                     Style="{DynamicResource MahApps.Styles.ToggleButton.Flat}" />
+                    </st:StackPanel>
+                    <st:StackPanel x:Name="stackPanelDifficulties"
+                                   Orientation="Horizontal"
+                                   Grid.Row="1">
+                        <RadioButton Content="Easy"
+                                     st:StackPanel.Fill="Fill"
+                                     HorizontalContentAlignment="Center"
+                                     Style="{DynamicResource MahApps.Styles.ToggleButton.Flat}"
+                                     Visibility="{Binding Path=Beatmap.Easy, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <RadioButton Content="Normal"
+                                     st:StackPanel.Fill="Fill"
+                                     HorizontalContentAlignment="Center"
+                                     Style="{DynamicResource MahApps.Styles.ToggleButton.Flat}"
+                                     Visibility="{Binding Path=Beatmap.Normal, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <RadioButton Content="Hard"
+                                     st:StackPanel.Fill="Fill"
+                                     HorizontalContentAlignment="Center"
+                                     Style="{DynamicResource MahApps.Styles.ToggleButton.Flat}"
+                                     Visibility="{Binding Path=Beatmap.Hard, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <RadioButton Content="Expert"
+                                     st:StackPanel.Fill="Fill"
+                                     HorizontalContentAlignment="Center"
+                                     Style="{DynamicResource MahApps.Styles.ToggleButton.Flat}"
+                                     Visibility="{Binding Path=Beatmap.Expert, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <RadioButton Content="Expert+"
+                                     st:StackPanel.Fill="Fill"
+                                     HorizontalContentAlignment="Center"
+                                     Style="{DynamicResource MahApps.Styles.ToggleButton.Flat}"
+                                     Visibility="{Binding Path=Beatmap.ExpertPlus, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    </st:StackPanel>
+
+                    <st:StackPanel Grid.Row="2"
+                                   Orientation="Horizontal"
+                                   MarginBetweenChildren="10">
+                        <st:AutoGrid Columns="auto,1*"
+                                     Rows="auto,auto,auto"
+                                     ChildMargin="5,0">
+                            <Label Content="Duration"
+                                   FontSize="15" />
+                            <Label Content="{Binding Path=BeatmapDetail.Duration, Mode=OneWay, Converter={StaticResource AddCommasConverter}}"
+                                   FontSize="15" />
+
+                            <Label Content="Bombs"
+                                   FontSize="15" />
+                            <Label Content="{Binding Path=BeatmapDetail.BomsCount, Mode=OneWay}"
+                                   FontSize="15" />
+
+                            <Label Content="Notes"
+                                   FontSize="15" />
+                            <Label Content="{Binding Path=BeatmapDetail.NotesCount, Mode=OneWay}" />
+                        </st:AutoGrid>
+                        <st:AutoGrid Columns="auto,1*"
+                                     Rows="auto,auto,auto"
+                                     ChildMargin="5,0">
+                            <Label Content="Obstacles"
+                                   FontSize="15" />
+                            <Label Content="{Binding Path=BeatmapDetail.ObstaclesCount, Mode=OneWay}"
+                                   FontSize="15" />
+
+                            <Label Content="Notes Movement Speed"
+                                   FontSize="15" />
+                            <Label Content="{Binding Path=Difficulty.NoteJumpMovementSpeed, Converter={StaticResource AddCommasConverter}}"
+                                   FontSize="15" />
+
+                            <Label Content="Notes Start Offset"
+                                   FontSize="15" />
+                            <Label Content="{Binding Path=Difficulty.NoteJumpStartBeatOffset, Converter={StaticResource AddCommasConverter}}"
+                                   FontSize="15" />
+                        </st:AutoGrid>
+                    </st:StackPanel>
+                </Grid>
             </GroupBox>
         </Grid>
     </StackPanel>

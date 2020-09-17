@@ -24,7 +24,7 @@ namespace BeatSaberSongManager.UserControls
         public BeatmapLocalDetailsUserControl(MainWindow mainWindow)
         {
             InitializeComponent();
-            ViewModel = new BeatmapLocalDetailsUserControlViewModel(mainWindow);
+            ViewModel = new BeatmapLocalDetailsUserControlViewModel(this, mainWindow);
             DataContext = ViewModel;
         }
 

@@ -37,7 +37,7 @@ namespace BeatSaberSongManager.ViewModels
             MainWindow = mainWindow;
             this.userControl = userControl;
 
-            BeatSaverApi = new BeatSaver(Settings.CurrentSettings.SongsPath);
+            BeatSaverApi = new BeatSaver(Settings.CurrentSettings.CustomLevelsPath);
             BeatSaverApi.DownloadCompleted += BeatSaverApi_DownloadCompleted;
         }
 
@@ -68,7 +68,7 @@ namespace BeatSaberSongManager.ViewModels
 
             _ = Task.Run(async () =>
             {
-                OnlineBeatmaps = await BeatSaverApi.GetOnlineBeatmaps(mapSort, page);
+                OnlineBeatmaps = await App.BeatSaverApi.GetOnlineBeatmaps(mapSort, page);
                 if (OnlineBeatmaps is null)
                 {
                     await MainWindow.Dispatcher.Invoke(async () =>
@@ -93,7 +93,7 @@ namespace BeatSaberSongManager.ViewModels
 
             _ = Task.Run(async () =>
             {
-                OnlineBeatmaps = await BeatSaverApi.GetOnlineBeatmaps(query, page);
+                OnlineBeatmaps = await App.BeatSaverApi.GetOnlineBeatmaps(query, page);
                 if (OnlineBeatmaps is null)
                 {
                     await MainWindow.Dispatcher.Invoke(async () =>

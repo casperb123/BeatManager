@@ -11,6 +11,7 @@ namespace BeatSaberSongManager.Entities
 {
     public class Settings : INotifyPropertyChanged
     {
+        private string customLevelsPath;
         private string songsPath;
         private int theme;
         private int color;
@@ -62,7 +63,21 @@ namespace BeatSaberSongManager.Entities
             {
                 songsPath = value;
                 OnPropertyChanged(nameof(SongsPath));
+
+                string dataPath = $@"{value}\Beat Saber_Data";
+                string customLevelsPath = $@"{dataPath}\CustomLevels";
+
+                if (!Directory.Exists(dataPath))
+                    Directory.CreateDirectory(dataPath);
+                if (!Directory.Exists(customLevelsPath))
+                    Directory.CreateDirectory(customLevelsPath);
             }
+        }
+
+        [JsonIgnore]
+        public string CustomLevelsPath
+        {
+            get { return $@"{SongsPath}\Beat Saber_Data\CustomLevels"; }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

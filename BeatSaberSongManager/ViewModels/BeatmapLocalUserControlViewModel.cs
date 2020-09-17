@@ -52,7 +52,7 @@ namespace BeatSaberSongManager.ViewModels
         {
             this.userControl = userControl;
             MainWindow = mainWindow;
-            beatSaverApi = new BeatSaver(Settings.CurrentSettings.SongsPath);
+            beatSaverApi = new BeatSaver(Settings.CurrentSettings.CustomLevelsPath);
             SelectedSongs = new List<LocalBeatmap>();
         }
 
@@ -62,7 +62,7 @@ namespace BeatSaberSongManager.ViewModels
             MainWindow.rectangleLoading.Visibility = Visibility.Visible;
             MainWindow.progressRingLoading.Visibility = Visibility.Visible;
 
-            _ = Task.Run(async () => LocalBeatmaps = await beatSaverApi.GetLocalBeatmaps(Settings.CurrentSettings.SongsPath));
+            _ = Task.Run(async () => LocalBeatmaps = await App.BeatSaverApi.GetLocalBeatmaps());
         }
 
         public void GetBeatmaps(LocalBeatmaps localBeatmaps)
@@ -71,7 +71,7 @@ namespace BeatSaberSongManager.ViewModels
             MainWindow.rectangleLoading.Visibility = Visibility.Visible;
             MainWindow.progressRingLoading.Visibility = Visibility.Visible;
 
-            _ = Task.Run(async () => LocalBeatmaps = await beatSaverApi.GetLocalBeatmaps(Settings.CurrentSettings.SongsPath, localBeatmaps));
+            _ = Task.Run(async () => LocalBeatmaps = await App.BeatSaverApi.GetLocalBeatmaps(localBeatmaps));
         }
 
         public void UpdatePageButtons()

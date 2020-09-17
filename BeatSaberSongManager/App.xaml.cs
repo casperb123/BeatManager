@@ -1,4 +1,5 @@
 ﻿using BeatSaberSongManager.Entities;
+using BeatSaverApi;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -15,6 +16,8 @@ namespace BeatSaberSongManager
     /// </summary>
     public partial class App : Application
     {
+        public static BeatSaver BeatSaverApi;
+
         protected override void OnStartup(StartupEventArgs e)
         {
             string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -26,6 +29,7 @@ namespace BeatSaberSongManager
                 Directory.CreateDirectory(settingsPath);
 
             Settings.CurrentSettings = Settings.GetSettings();
+            BeatSaverApi = new BeatSaver(Settings.CurrentSettings.CustomLevelsPath);
             base.OnStartup(e);
         }
     }

@@ -2,6 +2,7 @@
 using ControlzEx.Theming;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Win32;
+using Ookii.Dialogs.Wpf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,12 +26,12 @@ namespace BeatSaberSongManager.ViewModels
             string programFilesPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
             string programFiles86Path = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
 
-            copyPath = $@"{documentsPath}\BeatSaber\Beat Saber_Data\CustomLevels";
+            copyPath = $@"{documentsPath}\BeatSaber";
             originalPaths = new string[]
             {
-                $@"{programFilesPath}\Steam\steamapps\common\Beat Saber\Beat Saber_Data\CustomLevels",
-                $@"{programFiles86Path}\Steam\steamapps\common\Beat Saber\Beat Saber_Data\CustomLevels",
-                @"D:\Steam\steamapps\common\Beat Saber\Beat Saber_Data\CustomLevels"
+                $@"{programFilesPath}\Steam\steamapps\common\Beat Saber",
+                $@"{programFiles86Path}\Steam\steamapps\common\Beat Saber",
+                @"D:\Steam\steamapps\common\Beat Saber"
             };
 
             DetectPath(Settings.CurrentSettings.BeatSaberCopy);
@@ -38,15 +39,16 @@ namespace BeatSaberSongManager.ViewModels
 
         public void BrowsePath()
         {
-            Ookii.Dialogs.Wpf.VistaFolderBrowserDialog dialog = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog
+            VistaFolderBrowserDialog dialog = new VistaFolderBrowserDialog
             {
                 UseDescriptionForTitle = true,
-                Description = "Select a folder for the songs"
+                Description = "Select a folder for the beatmaps"
             };
 
             if (dialog.ShowDialog().GetValueOrDefault())
             {
                 Settings.CurrentSettings.SongsPath = dialog.SelectedPath;
+                App.BeatSaverApi.SongsPath = Settings.CurrentSettings.CustomLevelsPath;
                 SongsPathChanged = true;
             }
         }
@@ -62,6 +64,7 @@ namespace BeatSaberSongManager.ViewModels
                 if (Directory.Exists(copyPath))
                 {
                     Settings.CurrentSettings.SongsPath = copyPath;
+                    App.BeatSaverApi.SongsPath = Settings.CurrentSettings.CustomLevelsPath;
                     SongsPathChanged = true;
                     if (songsPathNull)
                         Settings.CurrentSettings.Save();
@@ -84,6 +87,7 @@ namespace BeatSaberSongManager.ViewModels
                 if (originalPath != null)
                 {
                     Settings.CurrentSettings.SongsPath = originalPath;
+                    App.BeatSaverApi.SongsPath = Settings.CurrentSettings.CustomLevelsPath;
                     SongsPathChanged = true;
                     if (songsPathNull)
                         Settings.CurrentSettings.Save();

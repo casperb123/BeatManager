@@ -200,8 +200,8 @@ namespace BeatSaberSongManager.ViewModels
         public void DeleteSong(string key)
         {
             OnlineBeatmap onlineBeatmap = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
-            LocalBeatmap localBeatmap = MainWindow.LocalUserControl.ViewModel.LocalBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
-            MainWindow.LocalUserControl.ViewModel.LocalBeatmaps.Maps.Remove(localBeatmap);
+            LocalBeatmap localBeatmap = MainWindow.ViewModel.LocalUserControl.ViewModel.LocalBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
+            MainWindow.ViewModel.LocalUserControl.ViewModel.LocalBeatmaps.Maps.Remove(localBeatmap);
             BeatSaverApi.DeleteSong(onlineBeatmap);
             SongChanged = true;
         }

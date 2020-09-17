@@ -80,14 +80,12 @@
             </StackPanel>
         </Grid>
 
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                      VerticalScrollBarVisibility="Hidden"
-                      Grid.Column="1">
-            <mah:TransitioningContentControl x:Name="transitionControl"
-                                             MaxWidth="1700"
-                                             Margin="30,5"
-                                             Transition="Left" />
-        </ScrollViewer>
+        <mah:TransitioningContentControl x:Name="transitionControl"
+                                         MaxWidth="1700"
+                                         Grid.Column="1"
+                                         Transition="Left"
+                                         RestartTransitionOnContentChange="True"
+                                         TransitionCompleted="TransitionControl_TransitionCompleted" />
 
         <Rectangle x:Name="rectangleLoading"
                    Grid.ColumnSpan="2"

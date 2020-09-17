@@ -130,7 +130,7 @@ namespace BeatSaberSongManager.ViewModels
         public void DeleteSong(string key)
         {
             LocalBeatmap localBeatmap = LocalBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
-            OnlineBeatmap onlineBeatmap = MainWindow.OnlineUserControl.ViewModel.OnlineBeatmaps?.Maps.FirstOrDefault(x => x.Key == key);
+            OnlineBeatmap onlineBeatmap = MainWindow.ViewModel.OnlineUserControl.ViewModel.OnlineBeatmaps?.Maps.FirstOrDefault(x => x.Key == key);
 
             beatSaverApi.DeleteSong(localBeatmap);
             LocalBeatmaps.Maps.Remove(localBeatmap);
@@ -149,7 +149,7 @@ namespace BeatSaberSongManager.ViewModels
             List<OnlineBeatmap> onlineBeatmaps = new List<OnlineBeatmap>();
             foreach (LocalBeatmap localBeatmap in songs)
             {
-                OnlineBeatmap onlineBeatmap = MainWindow.OnlineUserControl.ViewModel.OnlineBeatmaps?.Maps.FirstOrDefault(x => x.Key == localBeatmap.Key);
+                OnlineBeatmap onlineBeatmap = MainWindow.ViewModel.OnlineUserControl.ViewModel.OnlineBeatmaps?.Maps.FirstOrDefault(x => x.Key == localBeatmap.Key);
                 if (onlineBeatmap != null)
                     onlineBeatmaps.Add(onlineBeatmap);
             }
@@ -164,11 +164,11 @@ namespace BeatSaberSongManager.ViewModels
 
         public void BeatmapDetails(string key)
         {
-            MainWindow.ShowLocalDetails = true;
+            MainWindow.ViewModel.ShowLocalDetails = true;
             LocalBeatmap beatmap = LocalBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
-            MainWindow.LocalDetailsUserControl.ViewModel.Beatmap = beatmap;
-            MainWindow.transitionControl.Content = MainWindow.LocalDetailsUserControl;
-            MainWindow.LocalUserControl.dataGridMaps.UnselectAll();
+            MainWindow.ViewModel.LocalDetailsUserControl.ViewModel.Beatmap = beatmap;
+            MainWindow.transitionControl.Content = MainWindow.ViewModel.LocalDetailsUserControl;
+            MainWindow.ViewModel.LocalUserControl.dataGridMaps.UnselectAll();
         }
     }
 }

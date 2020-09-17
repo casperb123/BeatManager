@@ -68,8 +68,8 @@ namespace BeatSaberSongManager.ViewModels
 
         public void Back()
         {
-            mainWindow.ShowLocalDetails = false;
-            mainWindow.transitionControl.Content = mainWindow.LocalUserControl;
+            mainWindow.ViewModel.ShowLocalDetails = false;
+            mainWindow.transitionControl.Content = mainWindow.ViewModel.LocalUserControl;
         }
 
         private void CreateDifficultySets()
@@ -78,7 +78,7 @@ namespace BeatSaberSongManager.ViewModels
 
             foreach (LocalBeatmapDetails beatmapDetails in Beatmap.Details)
             {
-                RadioButton radioButton = XamlReader.Parse(XamlWriter.Save(userControl.radioButtonDifficultySet)) as RadioButton;
+                RadioButton radioButton = XamlReader.Parse(XamlWriter.Save(userControl.radioButtonDifficultyTemplate)) as RadioButton;
 
                 radioButton.Content = beatmapDetails.CharacteristicName;
                 radioButton.Visibility = Visibility.Visible;
@@ -96,7 +96,7 @@ namespace BeatSaberSongManager.ViewModels
 
             foreach (LocalBeatmapDetail beatmapDetail in BeatmapDetails.BeatmapDetails)
             {
-                RadioButton radioButton = XamlReader.Parse(XamlWriter.Save(userControl.radioButtonDiffculty)) as RadioButton;
+                RadioButton radioButton = XamlReader.Parse(XamlWriter.Save(userControl.radioButtonDifficultyTemplate)) as RadioButton;
 
                 if (beatmapDetail.Difficulty.Difficulty == "ExpertPlus")
                     radioButton.Content = "Expert+";

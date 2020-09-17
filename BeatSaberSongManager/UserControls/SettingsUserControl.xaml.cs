@@ -23,10 +23,10 @@ namespace BeatSaberSongManager.UserControls
     {
         public readonly SettingsUserControlViewModel ViewModel;
 
-        public SettingsUserControl(MainWindow mainWindow)
+        public SettingsUserControl()
         {
             InitializeComponent();
-            ViewModel = new SettingsUserControlViewModel(mainWindow);
+            ViewModel = new SettingsUserControlViewModel();
             DataContext = ViewModel;
 
             comboBoxTheme.ItemsSource = ThemeManager.Current.BaseColors;
@@ -47,7 +47,7 @@ namespace BeatSaberSongManager.UserControls
             if (!IsLoaded)
                 return;
 
-            ViewModel.DetectPath(Settings.CurrentSettings.BeatSaberCopy);
+            ViewModel.DetectPath(Settings.CurrentSettings.BeatSaberCopy, true);
         }
 
         private void ButtonDetectPath_Click(object sender, RoutedEventArgs e)

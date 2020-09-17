@@ -14,16 +14,13 @@ namespace BeatSaberSongManager.ViewModels
 {
     public class SettingsUserControlViewModel
     {
-        private MainWindow mainWindow;
         private readonly string copyPath;
         private readonly string[] originalPaths;
 
         public bool SongsPathChanged = false;
 
-        public SettingsUserControlViewModel(MainWindow mainWindow)
+        public SettingsUserControlViewModel()
         {
-            this.mainWindow = mainWindow;
-
             string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             string programFilesPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
             string programFiles86Path = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
@@ -54,10 +51,10 @@ namespace BeatSaberSongManager.ViewModels
             }
         }
 
-        public void DetectPath(bool copy)
+        public void DetectPath(bool copy, bool forceChangePath = false)
         {
             bool songsPathNull = Settings.CurrentSettings.SongsPath == null;
-            if (!songsPathNull)
+            if (!songsPathNull && !forceChangePath)
                 return;
 
             if (copy)

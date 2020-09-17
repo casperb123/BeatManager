@@ -32,43 +32,42 @@ namespace BeatSaberSongManager
         public readonly SettingsUserControl SettingsUserControl;
         public readonly BeatmapLocalDetailsUserControl LocalDetailsUserControl;
         private bool localBeatmapsLoaded = false;
-        private object lastLocalPage;
+
+        public bool ShowLocalDetails;
 
         public MainWindow()
         {
             InitializeComponent();
             LocalUserControl = new BeatmapLocalUserControl(this);
             OnlineUserControl = new BeatmapOnlineUserControl(this);
-            SettingsUserControl = new SettingsUserControl(this);
+            SettingsUserControl = new SettingsUserControl();
             LocalDetailsUserControl = new BeatmapLocalDetailsUserControl(this);
         }
 
         private void RadioButtonLocal_Click(object sender, RoutedEventArgs e)
         {
-            if (lastLocalPage is BeatmapLocalDetailsUserControl)
-            {
-                lastLocalPage = transitionControl.Content;
+            if (transitionControl.Content == LocalDetailsUserControl)
+                ShowLocalDetails = false;
+
+            if (ShowLocalDetails && !SettingsUserControl.ViewModel.SongsPathChanged)
                 transitionControl.Content = LocalDetailsUserControl;
-            }
             else
             {
-                if (transitionControl.Content == LocalDetailsUserControl)
-                    lastLocalPage = null;
-                else
-                    lastLocalPage = transitionControl.Content;
-
                 transitionControl.Content = LocalUserControl;
+
                 if (!localBeatmapsLoaded ||
                     OnlineUserControl.ViewModel.SongChanged ||
                     SettingsUserControl.ViewModel.SongsPathChanged)
                 {
                     localBeatmapsLoaded = true;
                     OnlineUserControl.ViewModel.SongChanged = false;
-                    SettingsUserControl.ViewModel.SongsPathChanged = false;
-                    if (LocalUserControl.ViewModel.LocalBeatmaps is null)
+
+                    if (LocalUserControl.ViewModel.LocalBeatmaps is null || SettingsUserControl.ViewModel.SongsPathChanged)
                         LocalUserControl.ViewModel.GetBeatmaps();
                     else
                         LocalUserControl.ViewModel.GetBeatmaps(LocalUserControl.ViewModel.LocalBeatmaps);
+
+                    SettingsUserControl.ViewModel.SongsPathChanged = false;
                 }
             }
         }

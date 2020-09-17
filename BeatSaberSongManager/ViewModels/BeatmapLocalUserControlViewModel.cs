@@ -19,6 +19,7 @@ namespace BeatSaberSongManager.ViewModels
 
         public readonly MainWindow MainWindow;
         public bool SongDeleted;
+
         public LocalBeatmaps LocalBeatmaps
         {
             get { return localBeatmaps; }
@@ -163,6 +164,7 @@ namespace BeatSaberSongManager.ViewModels
 
         public void BeatmapDetails(string key)
         {
+            MainWindow.ShowLocalDetails = true;
             LocalBeatmap beatmap = LocalBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
             MainWindow.LocalDetailsUserControl.ViewModel.Beatmap = beatmap;
             MainWindow.transitionControl.Content = MainWindow.LocalDetailsUserControl;

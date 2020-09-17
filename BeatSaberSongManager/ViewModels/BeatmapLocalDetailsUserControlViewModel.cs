@@ -3,6 +3,7 @@ using BeatSaverApi.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -16,18 +17,8 @@ namespace BeatSaberSongManager.ViewModels
         private readonly BeatmapLocalDetailsUserControl userControl;
         private readonly MainWindow mainWindow;
         private LocalBeatmap beatmap;
+        private LocalBeatmapDetails beatmapDetails;
         private LocalBeatmapDetail beatmapDetail;
-        private DifficultyBeatmap difficulty;
-
-        public DifficultyBeatmap Difficulty
-        {
-            get { return difficulty; }
-            set
-            {
-                difficulty = value;
-                OnPropertyChanged(nameof(Difficulty));
-            }
-        }
 
         public LocalBeatmapDetail BeatmapDetail
         {
@@ -39,6 +30,17 @@ namespace BeatSaberSongManager.ViewModels
             }
         }
 
+        public LocalBeatmapDetails BeatmapDetails
+        {
+            get { return beatmapDetails; }
+            set
+            {
+                beatmapDetails = value;
+                OnPropertyChanged(nameof(BeatmapDetails));
+                CreateDifficulties();
+            }
+        }
+
         public LocalBeatmap Beatmap
         {
             get { return beatmap; }
@@ -46,7 +48,7 @@ namespace BeatSaberSongManager.ViewModels
             {
                 beatmap = value;
                 OnPropertyChanged(nameof(Beatmap));
-                CreateDifficulties();
+                CreateDifficultySets();
             }
         }
 
@@ -66,21 +68,48 @@ namespace BeatSaberSongManager.ViewModels
 
         public void Back()
         {
+            mainWindow.ShowLocalDetails = false;
             mainWindow.transitionControl.Content = mainWindow.LocalUserControl;
+        }
+
+        private void CreateDifficultySets()
+        {
+            userControl.stackPanelSets.Children.Clear();
+
+            foreach (LocalBeatmapDetails beatmapDetails in Beatmap.Details)
+            {
+                RadioButton radioButton = XamlReader.Parse(XamlWriter.Save(userControl.radioButtonDifficultySet)) as RadioButton;
+
+                radioButton.Content = beatmapDetails.CharacteristicName;
+                radioButton.Visibility = Visibility.Visible;
+                radioButton.Checked += (s, e) => BeatmapDetails = beatmapDetails;
+
+                userControl.stackPanelSets.Children.Add(radioButton);
+            }
+
+            ((RadioButton)userControl.stackPanelSets.Children[0]).IsChecked = true;
         }
 
         private void CreateDifficulties()
         {
-            userControl.stackPanelSets.Children.Clear();
+            userControl.stackPanelDifficulties.Children.Clear();
 
-            foreach (DifficultyBeatmapSet difficultyBeatmapSet in Beatmap.DifficultyBeatmapSets)
+            foreach (LocalBeatmapDetail beatmapDetail in BeatmapDetails.BeatmapDetails)
             {
-                RadioButton radioButton = XamlReader.Parse(XamlWriter.Save(userControl.radioButtonDifficultySet)) as RadioButton;
+                RadioButton radioButton = XamlReader.Parse(XamlWriter.Save(userControl.radioButtonDiffculty)) as RadioButton;
 
-                radioButton.Content = difficultyBeatmapSet.BeatmapCharacteristicName;
+                if (beatmapDetail.Difficulty.Difficulty == "ExpertPlus")
+                    radioButton.Content = "Expert+";
+                else
+                    radioButton.Content = beatmapDetail.Difficulty.Difficulty;
+
                 radioButton.Visibility = Visibility.Visible;
-                userControl.stackPanelSets.Children.Add(radioButton);
+                radioButton.Checked += (s, e) => BeatmapDetail = beatmapDetail;
+
+                userControl.stackPanelDifficulties.Children.Add(radioButton);
             }
+
+            ((RadioButton)userControl.stackPanelDifficulties.Children[0]).IsChecked = true;
         }
     }
 }

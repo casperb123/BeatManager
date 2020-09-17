@@ -165,7 +165,7 @@ namespace BeatSaberSongManager.ViewModels
         {
             LocalBeatmap beatmap = LocalBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
             MainWindow.LocalDetailsUserControl.ViewModel.Beatmap = beatmap;
-            MainWindow.userControlMain.Content = MainWindow.LocalDetailsUserControl;
+            MainWindow.transitionControl.Content = MainWindow.LocalDetailsUserControl;
             MainWindow.LocalUserControl.dataGridMaps.UnselectAll();
         }
     }

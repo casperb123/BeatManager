@@ -32,7 +32,7 @@ namespace BeatSaberSongManager
         public readonly SettingsUserControl SettingsUserControl;
         public readonly BeatmapLocalDetailsUserControl LocalDetailsUserControl;
         private bool localBeatmapsLoaded = false;
-        private object lastUserControl;
+        private object lastLocalPage;
 
         public MainWindow()
         {
@@ -45,19 +45,19 @@ namespace BeatSaberSongManager
 
         private void RadioButtonLocal_Click(object sender, RoutedEventArgs e)
         {
-            if (lastUserControl is BeatmapLocalDetailsUserControl)
+            if (lastLocalPage is BeatmapLocalDetailsUserControl)
             {
-                lastUserControl = userControlMain.Content;
-                userControlMain.Content = LocalDetailsUserControl;
+                lastLocalPage = transitionControl.Content;
+                transitionControl.Content = LocalDetailsUserControl;
             }
             else
             {
-                if (userControlMain.Content == LocalDetailsUserControl)
-                    lastUserControl = null;
+                if (transitionControl.Content == LocalDetailsUserControl)
+                    lastLocalPage = null;
                 else
-                    lastUserControl = userControlMain.Content;
+                    lastLocalPage = transitionControl.Content;
 
-                userControlMain.Content = LocalUserControl;
+                transitionControl.Content = LocalUserControl;
                 if (!localBeatmapsLoaded ||
                     OnlineUserControl.ViewModel.SongChanged ||
                     SettingsUserControl.ViewModel.SongsPathChanged)
@@ -89,14 +89,12 @@ namespace BeatSaberSongManager
                 LocalUserControl.ViewModel.SongDeleted = false;
             }
 
-            lastUserControl = userControlMain.Content;
-            userControlMain.Content = OnlineUserControl;
+            transitionControl.Content = OnlineUserControl;
         }
 
         private void RadioButtonSettings_Checked(object sender, RoutedEventArgs e)
         {
-            lastUserControl = userControlMain.Content;
-            userControlMain.Content = SettingsUserControl;
+            transitionControl.Content = SettingsUserControl;
         }
 
         private async void MetroWindow_Closing(object sender, CancelEventArgs e)

@@ -81,11 +81,12 @@
         </Grid>
 
         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                      VerticalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Hidden"
                       Grid.Column="1">
-            <UserControl x:Name="userControlMain"
-                         Margin="30,5"
-                         MaxWidth="1700" />
+            <mah:TransitioningContentControl x:Name="transitionControl"
+                                             MaxWidth="1700"
+                                             Margin="30,5"
+                                             Transition="Left" />
         </ScrollViewer>
 
         <Rectangle x:Name="rectangleLoading"

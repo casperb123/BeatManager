@@ -38,7 +38,7 @@ namespace BeatSaberSongManager.ViewModels
 
         public void Back()
         {
-            mainWindow.userControlMain.Content = mainWindow.LocalUserControl;
+            mainWindow.transitionControl.Content = mainWindow.LocalUserControl;
         }
     }
 }

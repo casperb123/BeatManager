@@ -1,12 +1,9 @@
 ﻿using BeatSaberSongManager.Entities;
-using BeatSaberSongManager.UserControls;
 using BeatSaberSongManager.ViewModels;
-using BeatSaverApi.Entities;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace BeatSaberSongManager

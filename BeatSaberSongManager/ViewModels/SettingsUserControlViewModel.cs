@@ -1,14 +1,8 @@
 ﻿using BeatSaberSongManager.Entities;
 using ControlzEx.Theming;
-using MahApps.Metro.Controls.Dialogs;
-using Microsoft.Win32;
 using Ookii.Dialogs.Wpf;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Windows;
 
 namespace BeatSaberSongManager.ViewModels

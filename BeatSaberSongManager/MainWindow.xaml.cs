@@ -6,6 +6,7 @@ using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace BeatSaberSongManager
@@ -39,6 +40,13 @@ namespace BeatSaberSongManager
             ViewModel.ShowSettingsPage();
         }
 
+
+        private void TransitionControl_TransitionCompleted(object sender, RoutedEventArgs e)
+        {
+            if (!ViewModel.ShowLocalDetails)
+                ViewModel.LocalDetailsUserControl.scrollViewer.ScrollToTop();
+        }
+
         private async void MetroWindow_Closing(object sender, CancelEventArgs e)
         {
             if (ViewModel.OnlineUserControl.ViewModel.OnlineBeatmaps != null &&
@@ -51,10 +59,10 @@ namespace BeatSaberSongManager
                 Settings.CurrentSettings.Save();
         }
 
-        private void TransitionControl_TransitionCompleted(object sender, RoutedEventArgs e)
+        private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!ViewModel.ShowLocalDetails)
-                ViewModel.LocalDetailsUserControl.scrollViewer.ScrollToTop();
+            radioButtonLocal.IsChecked = true;
+            ViewModel.ShowLocalPage();
         }
     }
 }

@@ -647,13 +647,13 @@
                                 <Label Content="Notes Movement Speed"
                                        FontSize="15"
                                        HorizontalContentAlignment="Right" />
-                                <Label Content="{Binding Path=BeatmapDetail.Difficulty.NoteJumpMovementSpeed, Converter={StaticResource AddCommasConverter}}"
+                                <Label Content="{Binding Path=BeatmapDetail.DifficultyBeatmap.NoteJumpMovementSpeed, Converter={StaticResource AddCommasConverter}}"
                                        FontSize="15" />
 
                                 <Label Content="Notes Start Offset"
                                        FontSize="15"
                                        HorizontalContentAlignment="Right" />
-                                <Label Content="{Binding Path=BeatmapDetail.Difficulty.NoteJumpStartBeatOffset, Converter={StaticResource AddCommasConverter}}"
+                                <Label Content="{Binding Path=BeatmapDetail.DifficultyBeatmap.NoteJumpStartBeatOffset, Converter={StaticResource AddCommasConverter}}"
                                        FontSize="15" />
                             </st:AutoGrid>
                         </st:StackPanel>

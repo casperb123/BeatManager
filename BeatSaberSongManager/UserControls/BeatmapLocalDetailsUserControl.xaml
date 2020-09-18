@@ -29,6 +29,11 @@
             <Setter Property="HorizontalAlignment"
                     Value="Left" />
         </Style>
+        <Style TargetType="Label"
+               BasedOn="{StaticResource MahApps.Styles.Label}">
+            <Setter Property="FontSize"
+                    Value="15" />
+        </Style>
 
         <Style x:Key="ToggleButtonDifficultyEasy"
                TargetType="{x:Type ToggleButton}"
@@ -436,38 +441,26 @@
                                  Rows="auto,auto,auto,auto,auto,auto"
                                  ChildMargin="2.5,0">
                         <Label Content="Name"
-                               FontSize="15"
                                HorizontalContentAlignment="Right" />
-                        <TextBox Text="{Binding Path=Beatmap.SongName}"
-                                 FontSize="15" />
+                        <TextBox Text="{Binding Path=Beatmap.SongName}" />
 
                         <Label Content="Subname"
-                               FontSize="15"
                                HorizontalContentAlignment="Right" />
-                        <TextBox Text="{Binding Path=Beatmap.SongSubName, TargetNullValue=-}"
-                                 FontSize="15" />
+                        <TextBox Text="{Binding Path=Beatmap.SongSubName, TargetNullValue=-}" />
 
                         <Label Content="Artist"
-                               FontSize="15"
                                HorizontalContentAlignment="Right" />
-                        <TextBox Text="{Binding Path=Beatmap.SongAuthorName, TargetNullValue=-}"
-                                 FontSize="15" />
+                        <TextBox Text="{Binding Path=Beatmap.SongAuthorName, TargetNullValue=-}" />
 
                         <Label Content="Mapper"
-                               FontSize="15"
                                HorizontalContentAlignment="Right" />
-                        <TextBox Text="{Binding Path=Beatmap.LevelAuthorName}"
-                                 FontSize="15" />
+                        <TextBox Text="{Binding Path=Beatmap.LevelAuthorName}" />
 
                         <Label Content="BPM"
-                               FontSize="15"
                                HorizontalContentAlignment="Right" />
-                        <Label Content="{Binding Path=Beatmap.BeatsPerMinute}"
-                               FontSize="15"
-                               Margin="5,0,0,0" />
+                        <Label Content="{Binding Path=Beatmap.BeatsPerMinute}" />
 
                         <Label Content="Key"
-                               FontSize="15"
                                HorizontalContentAlignment="Right" />
                         <TextBox Text="{Binding Path=Beatmap.Key}" />
                     </st:AutoGrid>
@@ -477,40 +470,28 @@
                                  ChildMargin="2.5,0"
                                  Grid.Column="1">
                         <Label Content="Uploaded"
-                               FontSize="15"
                                HorizontalContentAlignment="Right" />
-                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Uploaded, Converter={StaticResource DateTimeConverter}}"
-                               FontSize="15" />
+                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Uploaded, Converter={StaticResource DateTimeConverter}}" />
 
                         <Label Content="Downloads"
-                               FontSize="15"
                                HorizontalContentAlignment="Right" />
-                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.Downloads, Converter={StaticResource AddCommasConverter}}"
-                               FontSize="15" />
+                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.Downloads, Converter={StaticResource AddCommasConverter}}" />
 
                         <Label Content="Plays"
-                               FontSize="15"
                                HorizontalContentAlignment="Right" />
-                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.Plays, Converter={StaticResource AddCommasConverter}}"
-                               FontSize="15" />
+                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.Plays, Converter={StaticResource AddCommasConverter}}" />
 
                         <Label Content="Up votes"
-                               FontSize="15"
                                HorizontalContentAlignment="Right" />
-                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.UpVotes, Converter={StaticResource AddCommasConverter}}"
-                               FontSize="15" />
+                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.UpVotes, Converter={StaticResource AddCommasConverter}}" />
 
                         <Label Content="Down votes"
-                               FontSize="15"
                                HorizontalContentAlignment="Right" />
-                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.DownVotes, Converter={StaticResource AddCommasConverter}}"
-                               FontSize="15" />
+                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.DownVotes, Converter={StaticResource AddCommasConverter}}" />
 
                         <Label Content="Rating"
-                               FontSize="15"
                                HorizontalContentAlignment="Right" />
-                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.Rating, Converter={StaticResource FloatToPercentageConverter}}"
-                               FontSize="15" />
+                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.Rating, Converter={StaticResource FloatToPercentageConverter}}" />
                     </st:AutoGrid>
                 </Grid>
 
@@ -518,11 +499,6 @@
                           IsExpanded="True"
                           Margin="0,0,0,10">
                     <TextBox Text="{Binding Path=Beatmap.OnlineBeatmap.Description}"
-                             Background="{x:Null}"
-                             BorderThickness="0"
-                             IsReadOnly="True"
-                             FontSize="15"
-                             HorizontalAlignment="Left"
                              TextWrapping="Wrap" />
                 </Expander>
 
@@ -545,47 +521,35 @@
                                        MarginBetweenChildren="10">
                             <st:AutoGrid Columns="auto,1*"
                                          Rows="auto,auto,auto,auto"
-                                         ChildMargin="5,0"
+                                         ChildMargin="2.5,0"
                                          st:StackPanel.Fill="Fill">
                                 <Label Content="Duration"
-                                       FontSize="15"
                                        HorizontalContentAlignment="Right" />
-                                <Label Content="{Binding Path=BeatmapDetail.Duration, Mode=OneWay, Converter={StaticResource AddCommasConverter}}"
-                                       FontSize="15" />
+                                <Label Content="{Binding Path=BeatmapDetail.Duration, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
 
                                 <Label Content="Bombs"
-                                       FontSize="15"
                                        HorizontalContentAlignment="Right" />
-                                <Label Content="{Binding Path=BeatmapDetail.BombsCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}"
-                                       FontSize="15" />
+                                <Label Content="{Binding Path=BeatmapDetail.BombsCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
 
                                 <Label Content="Notes"
-                                       FontSize="15"
                                        HorizontalContentAlignment="Right" />
-                                <Label Content="{Binding Path=BeatmapDetail.NotesCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}"
-                                       FontSize="15" />
+                                <Label Content="{Binding Path=BeatmapDetail.NotesCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
 
                                 <Label Content="Obstacles"
-                                       FontSize="15"
                                        HorizontalContentAlignment="Right" />
-                                <Label Content="{Binding Path=BeatmapDetail.ObstaclesCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}"
-                                       FontSize="15" />
+                                <Label Content="{Binding Path=BeatmapDetail.ObstaclesCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
                             </st:AutoGrid>
                             <st:AutoGrid Columns="auto,1*"
                                          Rows="auto,auto"
-                                         ChildMargin="5,0"
+                                         ChildMargin="2.5,0"
                                          st:StackPanel.Fill="Fill">
                                 <Label Content="Notes Movement Speed"
-                                       FontSize="15"
                                        HorizontalContentAlignment="Right" />
-                                <Label Content="{Binding Path=BeatmapDetail.DifficultyBeatmap.NoteJumpMovementSpeed, Converter={StaticResource AddCommasConverter}}"
-                                       FontSize="15" />
+                                <Label Content="{Binding Path=BeatmapDetail.DifficultyBeatmap.NoteJumpMovementSpeed, Converter={StaticResource AddCommasConverter}}" />
 
                                 <Label Content="Notes Start Offset"
-                                       FontSize="15"
                                        HorizontalContentAlignment="Right" />
-                                <Label Content="{Binding Path=BeatmapDetail.DifficultyBeatmap.NoteJumpStartBeatOffset, Converter={StaticResource AddCommasConverter}}"
-                                       FontSize="15" />
+                                <Label Content="{Binding Path=BeatmapDetail.DifficultyBeatmap.NoteJumpStartBeatOffset, Converter={StaticResource AddCommasConverter}}" />
                             </st:AutoGrid>
                         </st:StackPanel>
                     </st:AutoGrid>

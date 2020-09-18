@@ -582,7 +582,8 @@
                     </Grid>
                 </Grid>
 
-                <GroupBox Header="Description"
+                <Expander Header="Description"
+                          IsExpanded="True"
                           Grid.Row="3"
                           Margin="0,0,0,10">
                     <TextBox Text="{Binding Path=Beatmap.OnlineBeatmap.Description}"
@@ -592,7 +593,7 @@
                              FontSize="15"
                              HorizontalAlignment="Left"
                              TextWrapping="Wrap" />
-                </GroupBox>
+                </Expander>
 
                 <GroupBox Header="Difficulties"
                           Grid.Row="4">

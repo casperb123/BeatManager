@@ -60,7 +60,7 @@
                 <Trigger Property="IsChecked"
                          Value="False">
                     <Setter Property="Background"
-                            Value="#663cb371" />
+                            Value="#4d3cb371" />
                     <Setter Property="Foreground"
                             Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
                 </Trigger>
@@ -101,7 +101,7 @@
                 <Trigger Property="IsChecked"
                          Value="False">
                     <Setter Property="Background"
-                            Value="#6659b0f4" />
+                            Value="#4d59b0f4" />
                     <Setter Property="Foreground"
                             Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
                 </Trigger>
@@ -142,7 +142,7 @@
                 <Trigger Property="IsChecked"
                          Value="False">
                     <Setter Property="Background"
-                            Value="#66ff6347" />
+                            Value="#4dff6347" />
                     <Setter Property="Foreground"
                             Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
                 </Trigger>
@@ -183,7 +183,7 @@
                 <Trigger Property="IsChecked"
                          Value="False">
                     <Setter Property="Background"
-                            Value="#66bf2a42" />
+                            Value="#4dbf2a42" />
                     <Setter Property="Foreground"
                             Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
                 </Trigger>
@@ -224,7 +224,7 @@
                 <Trigger Property="IsChecked"
                          Value="False">
                     <Setter Property="Background"
-                            Value="#668f48db" />
+                            Value="#4d8f48db" />
                     <Setter Property="Foreground"
                             Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
                 </Trigger>

@@ -107,22 +107,28 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal"
                                         Margin="10,0,0,0">
-                                <StackPanel.ToolTip>
-                                    <TextBlock>
-                                        <TextBlock.Text>
-                                            <MultiBinding StringFormat="{}{0} {1}">
-                                                <Binding Path="SongName" />
-                                                <Binding Path="SongSubName" />
-                                            </MultiBinding>
-                                        </TextBlock.Text>
-                                    </TextBlock>
-                                </StackPanel.ToolTip>
-
-                                <TextBlock Text="{Binding Path=SongName, IsAsync=True, FallbackValue=...}"
-                                           Margin="0,0,2.5,0" />
-                                <TextBlock Text="{Binding Path=SongSubName, IsAsync=True, FallbackValue=...}"
-                                           Foreground="#a3a3a3"
-                                           Margin="2.5,0,0,0" />
+                                <TextBlock ToolTipService.BetweenShowDelay="0"
+                                           ToolTipService.InitialShowDelay="0">
+                                    <TextBlock.ToolTip>
+                                        <TextBlock>
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0} {1}">
+                                                    <Binding Path="SongName" />
+                                                    <Binding Path="SongSubName" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </TextBlock.ToolTip>
+                                    
+                                    <Run Text="{Binding Path=SongName, IsAsync=True, FallbackValue=...}" />
+                                    <Run Text="" />
+                                    <Run Text="{Binding Path=SongSubName, IsAsync=True, FallbackValue=...}">
+                                        <Run.Foreground>
+                                            <SolidColorBrush Color="{DynamicResource MahApps.Colors.ThemeForeground}"
+                                                             Opacity=".5" />
+                                        </Run.Foreground>
+                                    </Run>
+                                </TextBlock>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

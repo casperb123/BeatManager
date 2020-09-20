@@ -285,8 +285,12 @@
                                  FontSize="35" />
                             <Run Text=" " />
                             <Run Text="{Binding Path=Beatmap.SongSubName}"
-                                 FontSize="25"
-                                 Foreground="#a3a3a3" />
+                                 FontSize="25">
+                                <Run.Foreground>
+                                    <SolidColorBrush Color="{DynamicResource MahApps.Colors.ThemeForeground}"
+                                                     Opacity=".5" />
+                                </Run.Foreground>
+                            </Run>
                         </TextBlock>
 
                         <TextBlock Text="{Binding Path=Beatmap.LevelAuthorName}"

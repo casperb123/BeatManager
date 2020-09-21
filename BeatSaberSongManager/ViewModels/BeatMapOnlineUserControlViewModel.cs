@@ -46,6 +46,7 @@ namespace BeatSaberSongManager.ViewModels
             {
                 MainWindow.radioButtonLocal.IsEnabled = true;
                 MainWindow.radioButtonSettings.IsEnabled = true;
+                userControl.stackPanelSort.IsEnabled = true;
             }
 
             UpdatePageButtons();
@@ -191,6 +192,8 @@ namespace BeatSaberSongManager.ViewModels
         {
             MainWindow.radioButtonLocal.IsEnabled = false;
             MainWindow.radioButtonSettings.IsEnabled = false;
+            userControl.stackPanelSort.IsEnabled = false;
+
             OnlineBeatmap song = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
             BeatSaverApi.DownloadSong(song).ConfigureAwait(false);
             SongChanged = true;
@@ -199,7 +202,10 @@ namespace BeatSaberSongManager.ViewModels
         public void DeleteSong(string key)
         {
             OnlineBeatmap onlineBeatmap = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
-            LocalBeatmap localBeatmap = MainWindow.ViewModel.LocalUserControl.ViewModel.LocalBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
+            LocalBeatmap localBeatmap = MainWindow.ViewModel.LocalUserControl.ViewModel.LocalBeatmaps.Maps.FirstOrDefault(x => x.Identifier.Value == onlineBeatmap.Key);
+            if (localBeatmap is null)
+                localBeatmap = MainWindow.ViewModel.LocalUserControl.ViewModel.LocalBeatmaps.Maps.FirstOrDefault(x => x.Identifier.Value == onlineBeatmap.Hash);
+
             MainWindow.ViewModel.LocalUserControl.ViewModel.LocalBeatmaps.Maps.Remove(localBeatmap);
             BeatSaverApi.DeleteSong(onlineBeatmap);
             SongChanged = true;

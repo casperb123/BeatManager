@@ -34,7 +34,8 @@
                Grid.ColumnSpan="2"
                Margin="0,0,0,30" />
 
-        <StackPanel Grid.Row="1"
+        <StackPanel x:Name="stackPanelSort"
+                    Grid.Row="1"
                     Margin="0,0,20,0"
                     VerticalAlignment="Center"
                     Orientation="Horizontal">
@@ -133,7 +134,7 @@
             <TextBox x:Name="textBoxSearch"
                      mah:TextBoxHelper.Watermark="Search by name, description or uploader"
                      VerticalContentAlignment="Center"
-                     mah:TextBoxHelper.ClearTextButton="True"
+                     Margin="0,0,10,0"
                      KeyDown="TextBoxSearch_KeyDown" />
             <Button x:Name="buttonSearch"
                     Grid.Column="1"

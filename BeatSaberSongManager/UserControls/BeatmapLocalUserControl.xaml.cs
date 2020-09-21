@@ -1,5 +1,6 @@
 ﻿using BeatSaberSongManager.ViewModels;
 using BeatSaverApi.Entities;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -30,14 +31,14 @@ namespace BeatSaberSongManager.UserControls
 
         private void Map_Delete(object sender, RoutedEventArgs e)
         {
-            string key = ((Button)sender).Tag.ToString();
-            ViewModel.DeleteSong(key);
+            LocalIdentifier identifier = ((Button)sender).Tag as LocalIdentifier;
+            ViewModel.DeleteSong(identifier);
         }
 
         private void Map_Details(object sender, RoutedEventArgs e)
         {
-            string key = ((Button)sender).Tag.ToString();
-            ViewModel.BeatmapDetails(key);
+            LocalIdentifier identifier = ((Button)sender).Tag as LocalIdentifier;
+            ViewModel.BeatmapDetails(identifier);
         }
 
         private void MenuItemDataGridDelete_Click(object sender, RoutedEventArgs e)

@@ -57,10 +57,17 @@
                     Value="14" />
             <Setter Property="FontWeight"
                     Value="Regular" />
+            <Style.Triggers>
+                <Trigger Property="IsChecked"
+                         Value="True">
+                    <Setter Property="Foreground"
+                            Value="White" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <Style x:Key="ToggleButtonDifficultyEasy"
                TargetType="ToggleButton"
-               BasedOn="{StaticResource  MahApps.Styles.ToggleButton.Flat}">
+               BasedOn="{StaticResource MahApps.Styles.ToggleButton.Flat}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="RadioButton">

@@ -398,7 +398,8 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <StackPanel Orientation="Horizontal"
+        <StackPanel x:Name="stackPanelNavigation"
+                    Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     Grid.Row="3"
                     Grid.ColumnSpan="2">

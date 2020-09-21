@@ -47,6 +47,7 @@ namespace BeatSaberSongManager.ViewModels
                 MainWindow.radioButtonLocal.IsEnabled = true;
                 MainWindow.radioButtonSettings.IsEnabled = true;
                 userControl.stackPanelSort.IsEnabled = true;
+                userControl.stackPanelNavigation.IsEnabled = true;
             }
 
             UpdatePageButtons();
@@ -112,6 +113,12 @@ namespace BeatSaberSongManager.ViewModels
 
         public async Task Search(string query)
         {
+            if (OnlineBeatmaps.Maps.Any(x => x.IsDownloading))
+            {
+                await MainWindow.ShowMessageAsync("Beat Saver search", "You can't search while a song is downloading");
+                return;
+            }
+
             if (string.IsNullOrWhiteSpace(query))
             {
                 await MainWindow.ShowMessageAsync("Beat Saver search", "The search query can't be null or empty");
@@ -193,6 +200,7 @@ namespace BeatSaberSongManager.ViewModels
             MainWindow.radioButtonLocal.IsEnabled = false;
             MainWindow.radioButtonSettings.IsEnabled = false;
             userControl.stackPanelSort.IsEnabled = false;
+            userControl.stackPanelNavigation.IsEnabled = false;
 
             OnlineBeatmap song = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
             BeatSaverApi.DownloadSong(song).ConfigureAwait(false);

@@ -74,6 +74,7 @@ namespace BeatSaberSongManager.ViewModels
             foreach (LocalBeatmapDetails beatmapDetails in Beatmap.Details)
             {
                 RadioButton radioButton = XamlReader.Parse(XamlWriter.Save(userControl.radioButtonDifficultyTemplate)) as RadioButton;
+                radioButton.Style = userControl.Resources[$"ToggleButtonDifficultySet"] as Style;
 
                 radioButton.Content = beatmapDetails.CharacteristicName;
                 radioButton.Visibility = Visibility.Visible;

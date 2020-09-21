@@ -36,8 +36,30 @@
                     Value="15" />
         </Style>
 
+        <Style x:Key="ToggleButtonDifficultySet"
+               TargetType="ToggleButton"
+               BasedOn="{StaticResource MahApps.Styles.ToggleButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                Background="{TemplateBinding Background}"
+                                Padding="{TemplateBinding Padding}"
+                                BorderThickness="0">
+                            <ContentPresenter Content="{TemplateBinding Content}"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontSize"
+                    Value="14" />
+            <Setter Property="FontWeight"
+                    Value="Regular" />
+        </Style>
         <Style x:Key="ToggleButtonDifficultyEasy"
-               TargetType="{x:Type ToggleButton}"
+               TargetType="ToggleButton"
                BasedOn="{StaticResource  MahApps.Styles.ToggleButton.Flat}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -516,8 +538,7 @@
                         <RadioButton x:Name="radioButtonDifficultyTemplate"
                                      st:StackPanel.Fill="Fill"
                                      HorizontalContentAlignment="Center"
-                                     Visibility="Collapsed"
-                                     Style="{DynamicResource MahApps.Styles.ToggleButton.Flat}" />
+                                     Visibility="Collapsed" />
 
                         <st:StackPanel x:Name="stackPanelSets"
                                        Orientation="Horizontal" />

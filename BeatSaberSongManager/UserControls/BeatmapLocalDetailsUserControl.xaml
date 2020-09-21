@@ -44,7 +44,7 @@
                     <ControlTemplate TargetType="RadioButton">
                         <Border BorderBrush="{TemplateBinding BorderBrush}"
                                 Background="{TemplateBinding Background}"
-                                Padding="{TemplateBinding Padding}"
+                                Padding="4"
                                 BorderThickness="0">
                             <ContentPresenter Content="{TemplateBinding Content}"
                                               HorizontalAlignment="Center"

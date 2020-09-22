@@ -109,22 +109,32 @@ namespace BeatSaberSongManager.ViewModels
 
         public void NextPage()
         {
-            LocalBeatmaps = beatSaverApi.ChangeLocalPage(LocalBeatmaps, LocalBeatmaps.NextPage.Value);
+            beatSaverApi.ChangeLocalPage(LocalBeatmaps, LocalBeatmaps.NextPage.Value);
+            UpdateBeatmaps();
         }
 
         public void PreviousPage()
         {
-            LocalBeatmaps = beatSaverApi.ChangeLocalPage(LocalBeatmaps, LocalBeatmaps.PrevPage.Value);
+            beatSaverApi.ChangeLocalPage(LocalBeatmaps, LocalBeatmaps.PrevPage.Value);
+            UpdateBeatmaps();
         }
 
         public void FirstPage()
         {
-            LocalBeatmaps = beatSaverApi.ChangeLocalPage(LocalBeatmaps, 0);
+            beatSaverApi.ChangeLocalPage(LocalBeatmaps, 0);
+            UpdateBeatmaps();
         }
 
         public void LastPage()
         {
-            LocalBeatmaps = beatSaverApi.ChangeLocalPage(LocalBeatmaps, LocalBeatmaps.LastPage);
+            beatSaverApi.ChangeLocalPage(LocalBeatmaps, LocalBeatmaps.LastPage);
+            UpdateBeatmaps();
+        }
+
+        private void UpdateBeatmaps()
+        {
+            userControl.dataGridMaps.Items.Refresh();
+            UpdatePageButtons();
         }
 
         public void DeleteSong(LocalIdentifier identifier)

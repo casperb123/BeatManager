@@ -154,7 +154,6 @@
                   AutoGenerateColumns="False"
                   SelectionMode="Single"
                   CanUserAddRows="False"
-                  CanUserSortColumns="False"
                   CanUserDeleteRows="False"
                   CanUserReorderColumns="False"
                   CanUserResizeRows="False"
@@ -201,18 +200,8 @@
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="Song name"
                                     Width="1*"
-                                    IsReadOnly="True">
-                    <DataGridTextColumn.Binding>
-                        <MultiBinding StringFormat="{}{0} {1}"
-                                      FallbackValue="..."
-                                      TargetNullValue="...">
-                            <Binding Path="Metadata.SongName"
-                                     IsAsync="True" />
-                            <Binding Path="Metadata.SongSubName"
-                                     IsAsync="True" />
-                        </MultiBinding>
-                    </DataGridTextColumn.Binding>
-
+                                    IsReadOnly="True"
+                                    Binding="{Binding Path=Metadata.FullSongName, IsAsync=True, FallbackValue=...}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock"
                                BasedOn="{StaticResource MahApps.Styles.TextBlock}">
@@ -306,6 +295,7 @@
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Downloads"
                                     IsReadOnly="True"
+                                    MinWidth="110"
                                     Binding="{Binding Path=Stats.Downloads, Converter={StaticResource AddCommasConverter}, IsAsync=True, FallbackValue=...}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock"

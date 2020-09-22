@@ -30,6 +30,7 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
             <Label Content="Beat Saber Version"
@@ -39,6 +40,7 @@
                               OnContent="Copy"
                               OffContent="Original"
                               Grid.Column="1"
+                              Margin="0,2.5,0,0"
                               IsOn="{Binding Path=BeatSaberCopy, Source={x:Static entities:Settings.CurrentSettings}}"
                               Toggled="ToggleSwitchVersion_Toggled" />
 
@@ -87,6 +89,19 @@
                       Margin="0,2.5,0,0"
                       SelectedIndex="{Binding Path=Color, Source={x:Static entities:Settings.CurrentSettings}}"
                       SelectionChanged="ComboBoxThemeSettings_SelectionChanged" />
+
+            <Label Content="Check for updates"
+                   VerticalContentAlignment="Center"
+                   Grid.Row="4"
+                   Margin="0,0,5,0" />
+            <mah:ToggleSwitch x:Name="toggleSwitchCheckForUpdates"
+                              Grid.Row="4"
+                              Grid.Column="1"
+                              ToolTip="Check for updates"
+                              ToolTipService.BetweenShowDelay="0"
+                              ToolTipService.InitialShowDelay="0"
+                              Margin="0,2.5,0,0"
+                              IsOn="{Binding Path=CheckForUpdates, Source={x:Static entities:Settings.CurrentSettings}}" />
         </Grid>
     </Grid>
 </UserControl>

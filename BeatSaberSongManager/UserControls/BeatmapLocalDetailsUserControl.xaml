@@ -566,7 +566,7 @@
                                          st:StackPanel.Fill="Fill">
                                 <Label Content="Duration"
                                        HorizontalContentAlignment="Right" />
-                                <Label Content="{Binding Path=BeatmapDetail.Duration, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
+                                <Label Content="{Binding Path=BeatmapDetail.Duration, Mode=OneWay, Converter={StaticResource AddCommasConverter}, TargetNullValue=-}" />
                                 
                                 <Label Content="Bombs"
                                        HorizontalContentAlignment="Right" />

@@ -561,13 +561,13 @@
                         <st:StackPanel Orientation="Horizontal"
                                        MarginBetweenChildren="10">
                             <st:AutoGrid Columns="auto,1*"
-                                         Rows="auto,auto,auto,auto"
+                                         Rows="auto,auto,auto,auto,auto"
                                          ChildMargin="2.5,0"
                                          st:StackPanel.Fill="Fill">
                                 <Label Content="Duration"
                                        HorizontalContentAlignment="Right" />
                                 <Label Content="{Binding Path=BeatmapDetail.Duration, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
-
+                                
                                 <Label Content="Bombs"
                                        HorizontalContentAlignment="Right" />
                                 <Label Content="{Binding Path=BeatmapDetail.BombsCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
@@ -579,9 +579,13 @@
                                 <Label Content="Obstacles"
                                        HorizontalContentAlignment="Right" />
                                 <Label Content="{Binding Path=BeatmapDetail.ObstaclesCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
+
+                                <Label Content="Events"
+                                       HorizontalContentAlignment="Right" />
+                                <Label Content="{Binding Path=BeatmapDetail.EventsCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
                             </st:AutoGrid>
                             <st:AutoGrid Columns="auto,1*"
-                                         Rows="auto,auto"
+                                         Rows="auto,auto,auto,auto"
                                          ChildMargin="2.5,0"
                                          st:StackPanel.Fill="Fill">
                                 <Label Content="Notes Movement Speed"
@@ -591,6 +595,14 @@
                                 <Label Content="Notes Start Offset"
                                        HorizontalContentAlignment="Right" />
                                 <Label Content="{Binding Path=BeatmapDetail.DifficultyBeatmap.NoteJumpStartBeatOffset, Converter={StaticResource AddCommasConverter}}" />
+
+                                <Label Content="Half Jump Duration"
+                                       HorizontalContentAlignment="Right" />
+                                <Label Content="{Binding Path=BeatmapDetail.HalfJumpDuration, Converter={StaticResource AddCommasConverter}}" />
+
+                                <Label Content="Jump Distance"
+                                       HorizontalContentAlignment="Right" />
+                                <Label Content="{Binding Path=BeatmapDetail.JumpDistance, Converter={StaticResource AddCommasConverter}}" />
                             </st:AutoGrid>
                         </st:StackPanel>
                     </st:AutoGrid>

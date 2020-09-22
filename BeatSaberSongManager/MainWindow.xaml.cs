@@ -2,9 +2,13 @@
 using BeatSaberSongManager.ViewModels;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using Octokit;
+using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using GitHubUpdater;
+using Version = GitHubUpdater.Version;
 
 namespace BeatSaberSongManager
 {
@@ -60,6 +64,28 @@ namespace BeatSaberSongManager
         {
             radioButtonLocal.IsChecked = true;
             ViewModel.ShowLocalPage();
+        }
+
+        private async void ButtonUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Version version = await ViewModel.Updater.CheckForUpdatesAsync();
+
+                if (version.IsCurrentVersion)
+                    await this.ShowMessageAsync($"Up to date - {version}", "You're already using the latest version of the application");
+            }
+            catch (ApiException ex)
+            {
+                if (ex.InnerException is null)
+                    await this.ShowMessageAsync("Checking for updates failed", $"There was an error while checking for updates.\n\n" +
+                                                                               $"Error:\n" +
+                                                                               $"{ex.Message}");
+                else
+                    await this.ShowMessageAsync("Checking for updates failed", $"There was an error while checking for updates.\n\n" +
+                                                                               $"Error:\n" +
+                                                                               $"{ex.InnerException.Message}");
+            }
         }
     }
 }

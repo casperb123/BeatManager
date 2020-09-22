@@ -10,7 +10,6 @@ namespace BeatSaberSongManager.Entities
 {
     public class Settings : INotifyPropertyChanged
     {
-        private string customLevelsPath;
         private string songsPath;
         private int theme;
         private int color;
@@ -78,6 +77,10 @@ namespace BeatSaberSongManager.Entities
         {
             get { return $@"{SongsPath}\Beat Saber_Data\CustomLevels"; }
         }
+
+        public bool CheckForUpdates { get; set; }
+
+        public bool NotifyUpdates { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

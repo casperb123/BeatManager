@@ -13,6 +13,15 @@
                  MinWidth="955"
                  Closing="MetroWindow_Closing"
                  Loaded="MetroWindow_Loaded">
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button x:Name="buttonUpdate"
+                    Content="Check for updates"
+                    Cursor="Hand"
+                    Click="ButtonUpdate_Click" />
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />

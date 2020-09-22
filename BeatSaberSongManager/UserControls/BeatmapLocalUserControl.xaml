@@ -103,7 +103,7 @@
                 <DataGridTextColumn Header="Song Name"
                                     Width=".35*"
                                     IsReadOnly="True"
-                                    Binding="{Binding Path=FullName, IsAsync=True, FallbackValue=..., TargetNullValue=...}">
+                                    Binding="{Binding Path=FullSongName, IsAsync=True, FallbackValue=..., TargetNullValue=...}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock"
                                BasedOn="{StaticResource MahApps.Styles.TextBlock}">
@@ -112,7 +112,7 @@
                             <Setter Property="Margin"
                                     Value="10,0,0,0" />
                             <Setter Property="ToolTip"
-                                    Value="{Binding Path=FullName, Mode=OneWay, IsAsync=True}" />
+                                    Value="{Binding Path=FullSongName, Mode=OneWay, IsAsync=True}" />
                             <Setter Property="ToolTipService.BetweenShowDelay"
                                     Value="0" />
                             <Setter Property="ToolTipService.InitialShowDelay"

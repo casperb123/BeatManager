@@ -228,7 +228,12 @@ namespace BeatSaberSongManager.ViewModels
 
         public void ShowOnlinePage()
         {
-            if (LocalUserControl.ViewModel.SongDeleted)
+            if (!OnlineUserControl.ViewModel.IsLoaded)
+            {
+                OnlineUserControl.radioButtonHot.IsChecked = true;
+                OnlineUserControl.ViewModel.IsLoaded = true;
+            }
+            else if (LocalUserControl.ViewModel.SongDeleted)
             {
                 if (OnlineUserControl.ViewModel.OnlineBeatmaps != null)
                 {

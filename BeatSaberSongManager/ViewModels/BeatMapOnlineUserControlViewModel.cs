@@ -20,6 +20,7 @@ namespace BeatSaberSongManager.ViewModels
         public readonly MainWindow MainWindow;
         public readonly BeatSaver BeatSaverApi;
         public bool SongChanged;
+        public bool IsLoaded;
 
         public OnlineBeatmaps OnlineBeatmaps
         {

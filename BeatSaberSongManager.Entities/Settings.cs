@@ -14,6 +14,7 @@ namespace BeatSaberSongManager.Entities
         private int theme;
         private int color;
         private bool beatSaberCopy;
+        private bool checkForUpdates;
 
         public static Settings CurrentSettings;
         public static string SettingsFilePath;
@@ -78,22 +79,32 @@ namespace BeatSaberSongManager.Entities
             get { return $@"{SongsPath}\Beat Saber_Data\CustomLevels"; }
         }
 
-        public bool CheckForUpdates { get; set; }
+        public bool CheckForUpdates
+        {
+            get { return checkForUpdates; }
+            set
+            {
+                checkForUpdates = value;
+                OnPropertyChanged(nameof(CheckForUpdates));
+            }
+        }
 
         public bool NotifyUpdates { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public Settings()
-        {
-            Color = 1;
-            BeatSaberCopy = true;
-        }
-
         private void OnPropertyChanged(string prop)
         {
             if (!string.IsNullOrWhiteSpace(prop))
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
+
+        public Settings()
+        {
+            Color = 1;
+            BeatSaberCopy = true;
+            CheckForUpdates = true;
+            NotifyUpdates = true;
         }
 
         public void Save()

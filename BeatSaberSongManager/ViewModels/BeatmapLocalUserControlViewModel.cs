@@ -171,12 +171,14 @@ namespace BeatSaberSongManager.ViewModels
             LocalBeatmaps = beatSaverApi.RefreshLocalPages(LocalBeatmaps);
         }
 
-        public void BeatmapDetails(LocalIdentifier identifier)
+        public void BeatmapDetails(LocalIdentifier identifier, bool changePage = true)
         {
             MainWindow.ViewModel.ShowLocalDetails = true;
             LocalBeatmap beatmap = LocalBeatmaps.Maps.FirstOrDefault(x => x.Identifier.Value == identifier.Value);
             MainWindow.ViewModel.LocalDetailsUserControl.ViewModel.Beatmap = beatmap;
-            MainWindow.transitionControl.Content = MainWindow.ViewModel.LocalDetailsUserControl;
+            if (changePage)
+                MainWindow.transitionControl.Content = MainWindow.ViewModel.LocalDetailsUserControl;
+
             MainWindow.ViewModel.LocalUserControl.dataGridMaps.UnselectAll();
         }
     }

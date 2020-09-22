@@ -1,6 +1,7 @@
 ﻿using BeatSaberSongManager.UserControls;
 using BeatSaverApi.Entities;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
@@ -107,6 +108,47 @@ namespace BeatSaberSongManager.ViewModels
             }
 
             ((RadioButton)userControl.stackPanelDifficulties.Children[0]).IsChecked = true;
+        }
+
+        public void DeleteSong()
+        {
+            mainWindow.ViewModel.LocalUserControl.ViewModel.DeleteSong(Beatmap.Identifier);
+            mainWindow.transitionControl.Content = mainWindow.ViewModel.LocalUserControl;
+        }
+
+        public void RefreshData()
+        {
+            mainWindow.ViewModel.LocalUserControl.ViewModel.BeatmapDetails(Beatmap.Identifier, false);
+        }
+
+        public void OpenFolder()
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = beatmap.FolderPath,
+                UseShellExecute = true,
+                Verb = "open"
+            });
+        }
+
+        public void PreviewBeatmap()
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = $"https://skystudioapps.com/bs-viewer/?id={beatmap.OnlineBeatmap.Key}",
+                UseShellExecute = true,
+                Verb = "open"
+            });
+        }
+
+        public void OpenBeatSaver()
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = $"https://beatsaver.com/beatmap/{beatmap.OnlineBeatmap.Key}",
+                UseShellExecute = true,
+                Verb = "open"
+            });
         }
     }
 }

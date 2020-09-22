@@ -22,5 +22,30 @@ namespace BeatSaberSongManager.UserControls
         {
             ViewModel.Back();
         }
+
+        private void ButtonDeleteBeatmap_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.DeleteSong();
+        }
+
+        private void ButtonRefreshData_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.RefreshData();
+        }
+
+        private void ButtonOpenFolder_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.OpenFolder();
+        }
+
+        private void ButtonPreviewBeatmap_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.PreviewBeatmap();
+        }
+
+        private void ButtonOpenOnBeatsaver_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.OpenBeatSaver();
+        }
     }
 }

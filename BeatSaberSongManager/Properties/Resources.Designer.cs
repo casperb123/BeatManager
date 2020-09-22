@@ -60,9 +60,6 @@ namespace BeatSaberSongManager.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to 69e0f96fb877708b1fd7b9b373c1d4a804c9b6dd.
-        /// </summary>
         internal static string GitHubToken {
             get {
                 return ResourceManager.GetString("GitHubToken", resourceCulture);

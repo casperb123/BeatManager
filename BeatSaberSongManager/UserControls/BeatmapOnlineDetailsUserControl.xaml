@@ -443,21 +443,6 @@
                                               IsEnabled="{Binding Path=Beatmap.IsDownloading}" />
                         </Grid>
                     </Grid>
-                    <!--<Button x:Name="buttonDeleteBeatmap"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            Style="{DynamicResource MahApps.Styles.Button.Circle}"
-                            Width="35"
-                            Height="35"
-                            ToolTip="Delete the beatmap"
-                            ToolTipService.BetweenShowDelay="0"
-                            ToolTipService.InitialShowDelay="0"
-                            Margin="0,0,2.5,0"
-                            Click="ButtonDeleteBeatmap_Click">
-                        <icons:PackIconMaterial Kind="DeleteForever"
-                                                Width="20"
-                                                Height="20" />
-                    </Button>-->
                     <Button x:Name="buttonRefreshData"
                             Background="Transparent"
                             BorderThickness="0"

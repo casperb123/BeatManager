@@ -219,5 +219,16 @@ namespace BeatSaberSongManager.ViewModels
             BeatSaverApi.DeleteSong(onlineBeatmap);
             SongChanged = true;
         }
+
+        public void BeatmapDetails(string key, bool changePage = true)
+        {
+            MainWindow.ViewModel.ShowOnlineDetails = true;
+            OnlineBeatmap beatmap = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
+            MainWindow.ViewModel.OnlineDetailsUserControl.ViewModel.Beatmap = beatmap;
+            if (changePage)
+                MainWindow.transitionControl.Content = MainWindow.ViewModel.OnlineDetailsUserControl;
+
+            MainWindow.ViewModel.OnlineUserControl.dataGridMaps.UnselectAll();
+        }
     }
 }

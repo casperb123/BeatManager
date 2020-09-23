@@ -375,7 +375,6 @@
                                         Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                         Width="30"
                                         Height="30"
-                                        IsEnabled="False"
                                         Click="Map_Details">
                                     <iconPacks:PackIconMaterial Kind="ArrowRightCircle"
                                                                 Width="20"

@@ -60,7 +60,7 @@
                              ToolTipService.InitialShowDelay="0"
                              Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                              GroupName="NavigationButtons"
-                             Checked="RadioButtonOnline_Checked">
+                             Click="RadioButtonOnline_Click">
                     <iconPacks:PackIconFontAwesome Kind="GlobeSolid"
                                                    Width="20"
                                                    Height="20"

@@ -39,6 +39,7 @@ namespace BeatSaberSongManager.UserControls
         private void Map_Details(object sender, RoutedEventArgs e)
         {
             string songKey = ((Button)sender).Tag.ToString();
+            ViewModel.BeatmapDetails(songKey);
         }
 
         private void RadioButtonSearch_Checked(object sender, RoutedEventArgs e)

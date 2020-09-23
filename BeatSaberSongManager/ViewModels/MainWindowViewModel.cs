@@ -21,8 +21,10 @@ namespace BeatSaberSongManager.ViewModels
         public readonly BeatmapOnlineUserControl OnlineUserControl;
         public readonly SettingsUserControl SettingsUserControl;
         public readonly BeatmapLocalDetailsUserControl LocalDetailsUserControl;
+        public readonly BeatmapOnlineDetailsUserControl OnlineDetailsUserControl;
 
         public bool ShowLocalDetails;
+        public bool ShowOnlineDetails;
         public bool UpdateAvailable;
         public bool UpdateDownloaded;
         public readonly Updater Updater;
@@ -34,6 +36,7 @@ namespace BeatSaberSongManager.ViewModels
             OnlineUserControl = new BeatmapOnlineUserControl(mainWindow);
             SettingsUserControl = new SettingsUserControl();
             LocalDetailsUserControl = new BeatmapLocalDetailsUserControl(mainWindow);
+            OnlineDetailsUserControl = new BeatmapOnlineDetailsUserControl(mainWindow);
 
             try
             {
@@ -228,26 +231,34 @@ namespace BeatSaberSongManager.ViewModels
 
         public void ShowOnlinePage()
         {
-            if (!OnlineUserControl.ViewModel.IsLoaded)
+            if (mainWindow.transitionControl.Content == OnlineDetailsUserControl)
+                ShowOnlineDetails = false;
+
+            if (ShowOnlineDetails && !SettingsUserControl.ViewModel.SongsPathChanged)
+                mainWindow.transitionControl.Content = OnlineDetailsUserControl;
+            else
             {
-                OnlineUserControl.radioButtonHot.IsChecked = true;
-                OnlineUserControl.ViewModel.IsLoaded = true;
-            }
-            else if (LocalUserControl.ViewModel.SongDeleted)
-            {
-                if (OnlineUserControl.ViewModel.OnlineBeatmaps != null)
+                if (!OnlineUserControl.ViewModel.IsLoaded)
                 {
-                    MapSort mapSort = OnlineUserControl.ViewModel.CurrentMapSort;
-                    if (mapSort == MapSort.Search)
-                        OnlineUserControl.ViewModel.GetBeatmaps(OnlineUserControl.textBoxSearch.Text, OnlineUserControl.ViewModel.OnlineBeatmaps.CurrentPage);
-                    else
-                        OnlineUserControl.ViewModel.GetBeatmaps(mapSort, OnlineUserControl.ViewModel.OnlineBeatmaps.CurrentPage);
+                    OnlineUserControl.radioButtonHot.IsChecked = true;
+                    OnlineUserControl.ViewModel.IsLoaded = true;
+                }
+                else if (LocalUserControl.ViewModel.SongDeleted)
+                {
+                    if (OnlineUserControl.ViewModel.OnlineBeatmaps != null)
+                    {
+                        MapSort mapSort = OnlineUserControl.ViewModel.CurrentMapSort;
+                        if (mapSort == MapSort.Search)
+                            OnlineUserControl.ViewModel.GetBeatmaps(OnlineUserControl.textBoxSearch.Text, OnlineUserControl.ViewModel.OnlineBeatmaps.CurrentPage);
+                        else
+                            OnlineUserControl.ViewModel.GetBeatmaps(mapSort, OnlineUserControl.ViewModel.OnlineBeatmaps.CurrentPage);
+                    }
+
+                    LocalUserControl.ViewModel.SongDeleted = false;
                 }
 
-                LocalUserControl.ViewModel.SongDeleted = false;
+                mainWindow.transitionControl.Content = OnlineUserControl;
             }
-
-            mainWindow.transitionControl.Content = OnlineUserControl;
         }
 
         public void ShowSettingsPage()

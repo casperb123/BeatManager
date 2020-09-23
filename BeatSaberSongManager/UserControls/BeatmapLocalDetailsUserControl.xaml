@@ -16,6 +16,7 @@
         <converters:DateTimeConverter x:Key="DateTimeConverter" />
         <converters:FloatToPercentageConverter x:Key="FloatToPercentageConverter" />
         <converters:AddCommasConverter x:Key="AddCommasConverter" />
+        <converters:TimeSpanToStringConverter x:Key="TimeSpanToStringConverter" />
 
         <Style TargetType="TextBox"
                BasedOn="{StaticResource MahApps.Styles.TextBox}">
@@ -478,7 +479,7 @@
                     </Grid.ColumnDefinitions>
 
                     <st:AutoGrid Columns="auto,1*"
-                                 Rows="auto,auto,auto,auto,auto,auto"
+                                 Rows="auto,auto,auto,auto,auto,auto,auto"
                                  ChildMargin="2.5,0"
                                  Margin="0,0,2.5,0">
                         <Label Content="Name"
@@ -497,6 +498,10 @@
                                HorizontalContentAlignment="Right" />
                         <TextBox Text="{Binding Path=Beatmap.LevelAuthorName}" />
 
+                        <Label Content="Duration"
+                               HorizontalContentAlignment="Right" />
+                        <Label Content="{Binding Path=Beatmap.Duration, Converter={StaticResource TimeSpanToStringConverter}}" />
+                        
                         <Label Content="BPM"
                                HorizontalContentAlignment="Right" />
                         <Label Content="{Binding Path=Beatmap.BeatsPerMinute}" />
@@ -561,13 +566,9 @@
                         <st:StackPanel Orientation="Horizontal"
                                        MarginBetweenChildren="10">
                             <st:AutoGrid Columns="auto,1*"
-                                         Rows="auto,auto,auto,auto,auto"
+                                         Rows="auto,auto,auto,auto"
                                          ChildMargin="2.5,0"
                                          st:StackPanel.Fill="Fill">
-                                <Label Content="Duration"
-                                       HorizontalContentAlignment="Right" />
-                                <Label Content="{Binding Path=BeatmapDetail.Duration, Mode=OneWay, Converter={StaticResource AddCommasConverter}, TargetNullValue=-}" />
-                                
                                 <Label Content="Bombs"
                                        HorizontalContentAlignment="Right" />
                                 <Label Content="{Binding Path=BeatmapDetail.BombsCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />

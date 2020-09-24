@@ -3,11 +3,9 @@ using BeatSaberSongManager.ViewModels;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Octokit;
-using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
-using GitHubUpdater;
 using Version = GitHubUpdater.Version;
 
 namespace BeatSaberSongManager

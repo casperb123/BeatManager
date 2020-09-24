@@ -1,7 +1,13 @@
 ﻿using BeatSaberSongManager.Entities;
 using BeatSaverApi;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows;
 
 namespace BeatSaberSongManager
@@ -15,6 +21,12 @@ namespace BeatSaberSongManager
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            if (Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length > 1)
+            {
+                MessageBox.Show("Only one instance of this application is allowed", "Multiple instances", MessageBoxButton.OK, MessageBoxImage.Error);
+                Current.Shutdown();
+            }
+
             string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string settingsPath = $@"{appDataPath}\BeatSaberSongManager";
 

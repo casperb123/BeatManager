@@ -46,6 +46,7 @@
                          ToolTip="Search"
                          ToolTipService.BetweenShowDelay="0"
                          ToolTipService.InitialShowDelay="0"
+                         Cursor="Hand"
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonSearch_Checked">
                 <iconPacks:PackIconFontAwesome Kind="SearchSolid"
@@ -60,6 +61,7 @@
                          ToolTip="Hot"
                          ToolTipService.BetweenShowDelay="0"
                          ToolTipService.InitialShowDelay="0"
+                         Cursor="Hand"
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonHot_Checked">
                 <iconPacks:PackIconFontAwesome Kind="FireSolid"
@@ -74,6 +76,7 @@
                          ToolTip="Rating"
                          ToolTipService.BetweenShowDelay="0"
                          ToolTipService.InitialShowDelay="0"
+                         Cursor="Hand"
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonRating_Checked">
                 <iconPacks:PackIconFontAwesome Kind="StarSolid"
@@ -88,6 +91,7 @@
                          ToolTip="Latest"
                          ToolTipService.BetweenShowDelay="0"
                          ToolTipService.InitialShowDelay="0"
+                         Cursor="Hand"
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonLatest_Checked">
                 <iconPacks:PackIconFontAwesome Kind="ExclamationSolid"
@@ -102,6 +106,7 @@
                          ToolTip="Downloads"
                          ToolTipService.BetweenShowDelay="0"
                          ToolTipService.InitialShowDelay="0"
+                         Cursor="Hand"
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonDownloads_Checked">
                 <iconPacks:PackIconFontAwesome Kind="DownloadSolid"
@@ -116,6 +121,7 @@
                          ToolTip="Plays"
                          ToolTipService.BetweenShowDelay="0"
                          ToolTipService.InitialShowDelay="0"
+                         Cursor="Hand"
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonPlays_Checked">
                 <iconPacks:PackIconFontAwesome Kind="PlaySolid"
@@ -139,6 +145,7 @@
             <Button x:Name="buttonSearch"
                     Grid.Column="1"
                     Width="35"
+                    Cursor="Hand"
                     Click="ButtonSearch_Click">
                 <iconPacks:PackIconFontAwesome Kind="SearchSolid"
                                                HorizontalAlignment="Center"
@@ -333,6 +340,7 @@
                                             Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                             Width="30"
                                             Height="30"
+                                            Cursor="Hand"
                                             Visibility="{Binding Path=IsDownloaded, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
                                             IsEnabled="{Binding Path=IsDownloaded, Converter={StaticResource InverseBooleanConverter}}"
                                             Click="Map_Download">
@@ -349,6 +357,7 @@
                                             Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                             Width="30"
                                             Height="30"
+                                            Cursor="Hand"
                                             Visibility="{Binding Path=IsDownloaded, Converter={StaticResource BooleanToVisibilityConverter}}"
                                             IsEnabled="{Binding Path=IsDownloaded}"
                                             Click="Map_Delete">
@@ -375,6 +384,7 @@
                                         Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                         Width="30"
                                         Height="30"
+                                        Cursor="Hand"
                                         Click="Map_Details">
                                     <iconPacks:PackIconMaterial Kind="ArrowRightCircle"
                                                                 Width="20"
@@ -416,6 +426,7 @@
                     ToolTipService.BetweenShowDelay="0"
                     ToolTipService.InitialShowDelay="0"
                     IsEnabled="False"
+                    Cursor="Hand"
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="ButtonFirstPage_Click">
                 <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleLeftSolid"
@@ -431,6 +442,7 @@
                     ToolTipService.BetweenShowDelay="0"
                     ToolTipService.InitialShowDelay="0"
                     IsEnabled="False"
+                    Cursor="Hand"
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="ButtonPreviousPage_Click">
                 <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleLeftRegular"
@@ -446,6 +458,7 @@
                     ToolTipService.BetweenShowDelay="0"
                     ToolTipService.InitialShowDelay="0"
                     IsEnabled="False"
+                    Cursor="Hand"
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="ButtonNextPage_Click">
                 <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleRightRegular"
@@ -461,6 +474,7 @@
                     ToolTipService.BetweenShowDelay="0"
                     ToolTipService.InitialShowDelay="0"
                     IsEnabled="False"
+                    Cursor="Hand"
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="ButtonLastPage_Click">
                 <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleRightSolid"

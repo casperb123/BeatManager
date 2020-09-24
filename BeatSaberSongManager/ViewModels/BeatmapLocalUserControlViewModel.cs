@@ -195,15 +195,9 @@ namespace BeatSaberSongManager.ViewModels
                 errors.Add($"- The cover image file {beatmap.CoverImageFilename} couldn't be found");
 
             if (errors.Count > 0)
-            {
-                MainWindow.ViewModel.LocalDetailsUserControl.labelTitle.Content = "Beatmap Information (Invalid)";
                 MainWindow.ViewModel.LocalDetailsUserControl.ViewModel.Errors = new List<string>(errors);
-            }
             else
-            {
                 MainWindow.ViewModel.LocalDetailsUserControl.ViewModel.Errors = null;
-                MainWindow.ViewModel.LocalDetailsUserControl.labelTitle.Content = "Beatmap Information";
-            }
 
             if (changePage)
                 MainWindow.transitionControl.Content = MainWindow.ViewModel.LocalDetailsUserControl;

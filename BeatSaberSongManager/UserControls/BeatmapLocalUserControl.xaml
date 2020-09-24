@@ -234,6 +234,7 @@
                                         Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                         Width="30"
                                         Height="30"
+                                        Cursor="Hand"
                                         Click="Map_Delete">
                                     <iconPacks:PackIconMaterial Kind="DeleteCircle"
                                                                 Width="20"
@@ -250,6 +251,7 @@
                                         Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                         Width="30"
                                         Height="30"
+                                        Cursor="Hand"
                                         IsEnabled="{Binding Path=Details, Converter={StaticResource NullToBooleanConverter}}"
                                         Click="Map_Details">
                                     <iconPacks:PackIconMaterial Kind="ArrowRightCircle"

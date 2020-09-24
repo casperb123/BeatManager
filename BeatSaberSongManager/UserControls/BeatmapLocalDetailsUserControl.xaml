@@ -87,7 +87,7 @@
             </Setter>
             <Setter Property="Cursor"
                     Value="Hand" />
-            
+
             <Style.Triggers>
                 <Trigger Property="IsChecked"
                          Value="True">
@@ -312,12 +312,11 @@
                 </Button>
 
                 <Label x:Name="labelTitle"
-                       Content="Beatmap Information (Invalid)"
+                       Content="Beatmap Information"
                        FontSize="45"
                        Margin="10,0,0,0" />
 
                 <Button x:Name="buttonInvalid"
-                        Background="Transparent"
                         BorderThickness="0"
                         Style="{DynamicResource MahApps.Styles.Button.Circle}"
                         Width="35"
@@ -329,9 +328,14 @@
                         Cursor="Hand"
                         Visibility="{Binding Path=Errors, Converter={StaticResource InverseNullToVisibilityConverter}}"
                         Click="ButtonInvalid_Click">
+                    <Button.Background>
+                        <SolidColorBrush Color="Red"
+                                         Opacity=".2" />
+                    </Button.Background>
                     <icons:PackIconMaterial Kind="ExclamationThick"
                                             Width="20"
-                                            Height="20" />
+                                            Height="20"
+                                            Foreground="Red" />
                 </Button>
             </StackPanel>
 

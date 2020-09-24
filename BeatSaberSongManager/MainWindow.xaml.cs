@@ -6,6 +6,7 @@ using Octokit;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 using Version = GitHubUpdater.Version;
 
 namespace BeatSaberSongManager
@@ -83,6 +84,17 @@ namespace BeatSaberSongManager
                     await this.ShowMessageAsync("Checking for updates failed", $"There was an error while checking for updates.\n\n" +
                                                                                $"Error:\n" +
                                                                                $"{ex.InnerException.Message}");
+            }
+        }
+
+        private void MetroWindow_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.XButton1)
+            {
+                if (transitionControl.Content == ViewModel.LocalDetailsUserControl)
+                    ViewModel.LocalDetailsUserControl.ViewModel.Back();
+                else if (transitionControl.Content == ViewModel.OnlineDetailsUserControl)
+                    ViewModel.OnlineDetailsUserControl.ViewModel.Back();
             }
         }
     }

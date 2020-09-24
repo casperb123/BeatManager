@@ -12,7 +12,8 @@
                  Width="955"
                  MinWidth="955"
                  Closing="MetroWindow_Closing"
-                 Loaded="MetroWindow_Loaded">
+                 Loaded="MetroWindow_Loaded"
+                 MouseDown="MetroWindow_MouseDown">
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
             <Button x:Name="buttonUpdate"

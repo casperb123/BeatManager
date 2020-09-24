@@ -1,9 +1,5 @@
-﻿using BeatSaberSongManager.Entities;
-using BeatSaberSongManager.ViewModels;
+﻿using BeatSaberSongManager.ViewModels;
 using BeatSaverApi.Entities;
-using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;

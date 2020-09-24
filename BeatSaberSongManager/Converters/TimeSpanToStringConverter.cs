@@ -10,7 +10,7 @@ namespace BeatSaberSongManager.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is TimeSpan timeSpan)
+            if (value != null && value is TimeSpan timeSpan)
             {
                 if (timeSpan.Hours > 0)
                     return timeSpan.ToString(@"hh\:mm\:ss", CultureInfo.CurrentCulture);

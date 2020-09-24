@@ -44,6 +44,7 @@
                              ToolTipService.InitialShowDelay="0"
                              Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                              GroupName="NavigationButtons"
+                             Cursor="Hand"
                              Click="RadioButtonLocal_Click">
                     <iconPacks:PackIconFontAwesome Kind="LaptopSolid"
                                                    Width="20"
@@ -60,6 +61,7 @@
                              ToolTipService.InitialShowDelay="0"
                              Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                              GroupName="NavigationButtons"
+                             Cursor="Hand"
                              Click="RadioButtonOnline_Click">
                     <iconPacks:PackIconFontAwesome Kind="GlobeSolid"
                                                    Width="20"
@@ -79,6 +81,7 @@
                              ToolTipService.InitialShowDelay="0"
                              Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                              GroupName="NavigationButtons"
+                             Cursor="Hand"
                              Checked="RadioButtonSettings_Checked">
                     <iconPacks:PackIconMaterialDesign Kind="Settings"
                                                       Width="20"

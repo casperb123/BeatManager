@@ -47,5 +47,10 @@ namespace BeatSaberSongManager.UserControls
         {
             ViewModel.OpenBeatSaver();
         }
+
+        private void ButtonInvalid_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.ShowErrors();
+        }
     }
 }

@@ -186,6 +186,25 @@ namespace BeatSaberSongManager.ViewModels
             MainWindow.ViewModel.ShowLocalDetails = true;
             LocalBeatmap beatmap = LocalBeatmaps.Maps.FirstOrDefault(x => x.Identifier.Value == identifier.Value);
             MainWindow.ViewModel.LocalDetailsUserControl.ViewModel.Beatmap = beatmap;
+            List<string> errors = new List<string>();
+            if (beatmap.OnlineBeatmap is null)
+                errors.Add("- The beatmap couldn't be found on BeatSaver");
+            if (beatmap.Duration is null)
+                errors.Add($"- The song file {beatmap.SongFilename} couldn't be found");
+            if (string.IsNullOrEmpty(beatmap.CoverImageFilename))
+                errors.Add($"- The cover image file {beatmap.CoverImageFilename} couldn't be found");
+
+            if (errors.Count > 0)
+            {
+                MainWindow.ViewModel.LocalDetailsUserControl.labelTitle.Content = "Beatmap Information (Invalid)";
+                MainWindow.ViewModel.LocalDetailsUserControl.ViewModel.Errors = new List<string>(errors);
+            }
+            else
+            {
+                MainWindow.ViewModel.LocalDetailsUserControl.ViewModel.Errors = null;
+                MainWindow.ViewModel.LocalDetailsUserControl.labelTitle.Content = "Beatmap Information";
+            }
+
             if (changePage)
                 MainWindow.transitionControl.Content = MainWindow.ViewModel.LocalDetailsUserControl;
 

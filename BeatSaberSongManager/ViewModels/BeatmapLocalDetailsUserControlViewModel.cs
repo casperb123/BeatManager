@@ -1,5 +1,7 @@
 ﻿using BeatSaberSongManager.UserControls;
 using BeatSaverApi.Entities;
+using MahApps.Metro.Controls.Dialogs;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
@@ -15,6 +17,17 @@ namespace BeatSaberSongManager.ViewModels
         private LocalBeatmap beatmap;
         private LocalBeatmapDetails beatmapDetails;
         private LocalBeatmapDetail beatmapDetail;
+        private List<string> errors;
+
+        public List<string> Errors
+        {
+            get { return errors; }
+            set
+            {
+                errors = value;
+                OnPropertyChanged(nameof(Errors));
+            }
+        }
 
         public LocalBeatmapDetail BeatmapDetail
         {
@@ -149,6 +162,13 @@ namespace BeatSaberSongManager.ViewModels
                 UseShellExecute = true,
                 Verb = "open"
             });
+        }
+
+        public async void ShowErrors()
+        {
+            string errorsText = string.Join("\n", Errors);
+            await mainWindow.ShowMessageAsync("Beatmap Invalid", $"The current beatmap has the following errors:\n" +
+                                                                 $"{errorsText}");
         }
     }
 }

@@ -61,6 +61,8 @@
                     Value="14" />
             <Setter Property="FontWeight"
                     Value="Regular" />
+            <Setter Property="Cursor"
+                    Value="Hand" />
             <Style.Triggers>
                 <Trigger Property="IsChecked"
                          Value="True">
@@ -85,6 +87,9 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Setter Property="Cursor"
+                    Value="Hand" />
+            
             <Style.Triggers>
                 <Trigger Property="IsChecked"
                          Value="True">
@@ -126,6 +131,9 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Setter Property="Cursor"
+                    Value="Hand" />
+
             <Style.Triggers>
                 <Trigger Property="IsChecked"
                          Value="True">
@@ -167,6 +175,9 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Setter Property="Cursor"
+                    Value="Hand" />
+
             <Style.Triggers>
                 <Trigger Property="IsChecked"
                          Value="True">
@@ -208,6 +219,9 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Setter Property="Cursor"
+                    Value="Hand" />
+
             <Style.Triggers>
                 <Trigger Property="IsChecked"
                          Value="True">
@@ -249,6 +263,9 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Setter Property="Cursor"
+                    Value="Hand" />
+
             <Style.Triggers>
                 <Trigger Property="IsChecked"
                          Value="True">
@@ -289,6 +306,7 @@
                         Width="35"
                         Height="35"
                         Margin="0,5,0,0"
+                        Cursor="Hand"
                         Click="ButtonBack_Click">
                     <icons:PackIconMaterial Kind="ArrowLeft"
                                             Width="20"
@@ -410,6 +428,7 @@
                                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                     Width="35"
                                     Height="35"
+                                    Cursor="Hand"
                                     Visibility="{Binding Path=Beatmap.IsDownloaded, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
                                     IsEnabled="{Binding Path=Beatmap.IsDownloaded, Converter={StaticResource InverseBooleanConverter}}"
                                     Click="ButtonDownloadBeatmap_Click">
@@ -427,6 +446,7 @@
                                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                     Width="35"
                                     Height="35"
+                                    Cursor="Hand"
                                     Visibility="{Binding Path=Beatmap.IsDownloaded, Converter={StaticResource BooleanToVisibilityConverter}}"
                                     IsEnabled="{Binding Path=Beatmap.IsDownloaded}"
                                     Click="ButtonDeleteBeatmap_Click">
@@ -453,6 +473,7 @@
                             ToolTipService.BetweenShowDelay="0"
                             ToolTipService.InitialShowDelay="0"
                             Margin="2.5,0,2.5,0"
+                            Cursor="Hand"
                             Click="ButtonRefreshData_Click">
                         <icons:PackIconMaterial Kind="Refresh"
                                                 Width="20"
@@ -468,6 +489,7 @@
                             ToolTipService.BetweenShowDelay="0"
                             ToolTipService.InitialShowDelay="0"
                             Margin="2.5,0,2.5,0"
+                            Cursor="Hand"
                             Visibility="{Binding Path=Beatmap.Metadata.FolderPath, Converter={StaticResource InverseNullToVisibilityConverter}}"
                             Click="ButtonOpenFolder_Click">
                         <icons:PackIconMaterial Kind="Folder"
@@ -484,6 +506,7 @@
                             ToolTipService.BetweenShowDelay="0"
                             ToolTipService.InitialShowDelay="0"
                             Margin="2.5,0,2.5,0"
+                            Cursor="Hand"
                             Click="ButtonPreviewBeatmap_Click">
                         <icons:PackIconMaterial Kind="Eye"
                                                 Width="20"
@@ -499,6 +522,7 @@
                             ToolTipService.BetweenShowDelay="0"
                             ToolTipService.InitialShowDelay="0"
                             Margin="2.5,0,0,0"
+                            Cursor="Hand"
                             Click="ButtonOpenOnBeatsaver_Click">
                         <icons:PackIconMaterial Kind="Link"
                                                 Width="20"

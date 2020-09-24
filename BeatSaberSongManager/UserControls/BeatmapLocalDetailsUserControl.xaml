@@ -17,6 +17,7 @@
         <converters:FloatToPercentageConverter x:Key="FloatToPercentageConverter" />
         <converters:AddCommasConverter x:Key="AddCommasConverter" />
         <converters:TimeSpanToStringConverter x:Key="TimeSpanToStringConverter" />
+        <converters:InverseNullToVisibilityConverter x:Key="InverseNullToVisibilityConverter" />
 
         <Style TargetType="TextBox"
                BasedOn="{StaticResource MahApps.Styles.TextBox}">
@@ -58,6 +59,8 @@
                     Value="14" />
             <Setter Property="FontWeight"
                     Value="Regular" />
+            <Setter Property="Cursor"
+                    Value="Hand" />
             <Style.Triggers>
                 <Trigger Property="IsChecked"
                          Value="True">
@@ -82,6 +85,9 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Setter Property="Cursor"
+                    Value="Hand" />
+            
             <Style.Triggers>
                 <Trigger Property="IsChecked"
                          Value="True">
@@ -123,6 +129,9 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Setter Property="Cursor"
+                    Value="Hand" />
+
             <Style.Triggers>
                 <Trigger Property="IsChecked"
                          Value="True">
@@ -164,6 +173,9 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Setter Property="Cursor"
+                    Value="Hand" />
+
             <Style.Triggers>
                 <Trigger Property="IsChecked"
                          Value="True">
@@ -205,6 +217,9 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Setter Property="Cursor"
+                    Value="Hand" />
+
             <Style.Triggers>
                 <Trigger Property="IsChecked"
                          Value="True">
@@ -246,6 +261,9 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Setter Property="Cursor"
+                    Value="Hand" />
+
             <Style.Triggers>
                 <Trigger Property="IsChecked"
                          Value="True">
@@ -285,16 +303,36 @@
                         Style="{DynamicResource MahApps.Styles.Button.Circle}"
                         Width="35"
                         Height="35"
-                        Margin="0,5,0,0"
+                        Margin="0,10,0,0"
+                        Cursor="Hand"
                         Click="ButtonBack_Click">
                     <icons:PackIconMaterial Kind="ArrowLeft"
                                             Width="20"
                                             Height="20" />
                 </Button>
 
-                <Label Content="Beatmap Information"
+                <Label x:Name="labelTitle"
+                       Content="Beatmap Information (Invalid)"
                        FontSize="45"
                        Margin="10,0,0,0" />
+
+                <Button x:Name="buttonInvalid"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                        Width="35"
+                        Height="35"
+                        Margin="10,10,0,0"
+                        ToolTip="Beatmap invalid"
+                        ToolTipService.BetweenShowDelay="0"
+                        ToolTipService.InitialShowDelay="0"
+                        Cursor="Hand"
+                        Visibility="{Binding Path=Errors, Converter={StaticResource InverseNullToVisibilityConverter}}"
+                        Click="ButtonInvalid_Click">
+                    <icons:PackIconMaterial Kind="ExclamationThick"
+                                            Width="20"
+                                            Height="20" />
+                </Button>
             </StackPanel>
 
             <st:AutoGrid x:Name="gridMain"
@@ -405,6 +443,7 @@
                             ToolTipService.BetweenShowDelay="0"
                             ToolTipService.InitialShowDelay="0"
                             Margin="0,0,2.5,0"
+                            Cursor="Hand"
                             Click="ButtonDeleteBeatmap_Click">
                         <icons:PackIconMaterial Kind="DeleteForever"
                                                 Width="20"
@@ -420,6 +459,7 @@
                             ToolTipService.BetweenShowDelay="0"
                             ToolTipService.InitialShowDelay="0"
                             Margin="2.5,0,2.5,0"
+                            Cursor="Hand"
                             Click="ButtonRefreshData_Click">
                         <icons:PackIconMaterial Kind="Refresh"
                                                 Width="20"
@@ -435,6 +475,7 @@
                             ToolTipService.BetweenShowDelay="0"
                             ToolTipService.InitialShowDelay="0"
                             Margin="2.5,0,2.5,0"
+                            Cursor="Hand"
                             Click="ButtonOpenFolder_Click">
                         <icons:PackIconMaterial Kind="Folder"
                                                 Width="20"
@@ -450,6 +491,7 @@
                             ToolTipService.BetweenShowDelay="0"
                             ToolTipService.InitialShowDelay="0"
                             Margin="2.5,0,2.5,0"
+                            Cursor="Hand"
                             Click="ButtonPreviewBeatmap_Click">
                         <icons:PackIconMaterial Kind="Eye"
                                                 Width="20"
@@ -465,6 +507,7 @@
                             ToolTipService.BetweenShowDelay="0"
                             ToolTipService.InitialShowDelay="0"
                             Margin="2.5,0,0,0"
+                            Cursor="Hand"
                             Click="ButtonOpenOnBeatsaver_Click">
                         <icons:PackIconMaterial Kind="Link"
                                                 Width="20"
@@ -500,8 +543,8 @@
 
                         <Label Content="Duration"
                                HorizontalContentAlignment="Right" />
-                        <Label Content="{Binding Path=Beatmap.Duration, Converter={StaticResource TimeSpanToStringConverter}}" />
-                        
+                        <Label Content="{Binding Path=Beatmap.Duration, Converter={StaticResource TimeSpanToStringConverter}, TargetNullValue=-}" />
+
                         <Label Content="BPM"
                                HorizontalContentAlignment="Right" />
                         <Label Content="{Binding Path=Beatmap.BeatsPerMinute}" />

@@ -129,6 +129,7 @@ namespace BeatSaberSongManager.ViewModels
 
         private void UpdateBeatmaps()
         {
+            userControl.dataGridMaps.UnselectAll();
             userControl.dataGridMaps.Items.Refresh();
             UpdatePageButtons();
         }

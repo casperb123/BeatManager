@@ -1,5 +1,6 @@
 ﻿using BeatSaberSongManager.ViewModels;
 using BeatSaverApi.Entities;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,8 +20,6 @@ namespace BeatSaberSongManager.UserControls
             InitializeComponent();
             ViewModel = new BeatMapOnlineUserControlViewModel(mainWindow, this);
             DataContext = ViewModel;
-
-            dataGridMaps.SelectionChanged += (s, e) => dataGridMaps.UnselectAll();
         }
 
         private void Map_Download(object sender, RoutedEventArgs e)
@@ -127,6 +126,44 @@ namespace BeatSaberSongManager.UserControls
                 ViewModel.LastPage(textBoxSearch.Text);
             else
                 ViewModel.LastPage();
+        }
+
+        private void DataGridMaps_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ViewModel.SelectedSongs.Clear();
+            foreach (OnlineBeatmap song in dataGridMaps.SelectedItems)
+                ViewModel.SelectedSongs.Add(song);
+
+            ViewModel.SelectedSongsToDownloadCount = ViewModel.SelectedSongs.Count;
+        }
+
+        private void ContextMenuDataGridMaps_Opened(object sender, RoutedEventArgs e)
+        {
+            int songsToDownload = ViewModel.SelectedSongs.Where(x => !x.IsDownloaded).Count();
+            int songsToDelete = ViewModel.SelectedSongs.Where(x => x.IsDownloaded).Count();
+
+            ViewModel.SelectedSongsToDownloadCount = songsToDownload;
+            ViewModel.SelectedSongsToDeleteCount = songsToDelete;
+
+            if (songsToDownload == 0)
+                menuItemDataGridMapsDownload.IsEnabled = false;
+            else
+                menuItemDataGridMapsDownload.IsEnabled = true;
+
+            if (songsToDelete == 0)
+                menuItemDataGridMapsDelete.IsEnabled = false;
+            else
+                menuItemDataGridMapsDelete.IsEnabled = true;
+        }
+
+        private void MenuItemDataGridMapsDownload_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.DownloadSongs(ViewModel.SelectedSongs.Where(x => !x.IsDownloaded).ToList());
+        }
+
+        private void MenuItemDataGridMapsDelete_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.DeleteSongs(ViewModel.SelectedSongs.Where(x => x.IsDownloaded).ToList());
         }
     }
 }

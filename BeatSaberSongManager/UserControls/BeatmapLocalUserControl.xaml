@@ -47,10 +47,10 @@
                   SelectionChanged="DataGridMaps_SelectionChanged"
                   LoadingRow="DataGridMaps_LoadingRow">
             <DataGrid.ContextMenu>
-                <ContextMenu x:Name="dataGridMapsContextMenu"
-                             Opened="DataGridMapsContextMenu_Opened">
-                    <MenuItem x:Name="menuItemDataGridDelete"
-                              Click="MenuItemDataGridDelete_Click">
+                <ContextMenu x:Name="contextMenuDataGridMaps"
+                             Opened="ContextMenuDataGridMaps_Opened">
+                    <MenuItem x:Name="menuItemDataGridMapsDelete"
+                              Click="MenuItemDataGridMapsDelete_Click">
                         <MenuItem.Header>
                             <TextBlock>
                                 <TextBlock.Text>

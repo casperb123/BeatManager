@@ -40,11 +40,6 @@ namespace BeatSaberSongManager.UserControls
             ViewModel.BeatmapDetails(identifier);
         }
 
-        private void MenuItemDataGridDelete_Click(object sender, RoutedEventArgs e)
-        {
-            ViewModel.DeleteSongs(ViewModel.SelectedSongs);
-        }
-
         private void ButtonFirstPage_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.FirstPage();
@@ -68,17 +63,23 @@ namespace BeatSaberSongManager.UserControls
         private void DataGridMaps_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ViewModel.SelectedSongs.Clear();
-            ViewModel.SelectedSongsCount = dataGridMaps.SelectedItems.Count;
             foreach (LocalBeatmap song in dataGridMaps.SelectedItems)
                 ViewModel.SelectedSongs.Add(song);
+
+            ViewModel.SelectedSongsCount = ViewModel.SelectedSongs.Count;
         }
 
-        private void DataGridMapsContextMenu_Opened(object sender, RoutedEventArgs e)
+        private void ContextMenuDataGridMaps_Opened(object sender, RoutedEventArgs e)
         {
             if (ViewModel.SelectedSongs.Count == 0)
-                menuItemDataGridDelete.IsEnabled = false;
+                menuItemDataGridMapsDelete.IsEnabled = false;
             else
-                menuItemDataGridDelete.IsEnabled = true;
+                menuItemDataGridMapsDelete.IsEnabled = true;
+        }
+
+        private void MenuItemDataGridMapsDelete_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.DeleteSongs(ViewModel.SelectedSongs);
         }
 
         private void DataGridMaps_LoadingRow(object sender, DataGridRowEventArgs e)

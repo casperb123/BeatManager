@@ -1,6 +1,4 @@
-﻿using BeatSaberSongManager.Entities;
-using BeatSaberSongManager.UserControls;
-using BeatSaverApi;
+﻿using BeatSaberSongManager.UserControls;
 using BeatSaverApi.Entities;
 using BeatSaverApi.Events;
 using MahApps.Metro.Controls.Dialogs;

@@ -1,6 +1,4 @@
-﻿using BeatSaberSongManager.Entities;
-using BeatSaberSongManager.UserControls;
-using BeatSaverApi;
+﻿using BeatSaberSongManager.UserControls;
 using BeatSaverApi.Entities;
 using System.Collections.Generic;
 using System.ComponentModel;

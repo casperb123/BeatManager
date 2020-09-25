@@ -636,11 +636,11 @@
                                          Rows="auto,auto,auto,auto"
                                          ChildMargin="2.5,0"
                                          st:StackPanel.Fill="Fill">
-                                <Label Content="Notes Movement Speed"
+                                <Label Content="Note Movement Speed"
                                        HorizontalContentAlignment="Right" />
                                 <Label Content="{Binding Path=BeatmapDetail.DifficultyBeatmap.NoteJumpMovementSpeed, Converter={StaticResource AddCommasConverter}}" />
 
-                                <Label Content="Notes Start Offset"
+                                <Label Content="Note Start Offset"
                                        HorizontalContentAlignment="Right" />
                                 <Label Content="{Binding Path=BeatmapDetail.DifficultyBeatmap.NoteJumpStartBeatOffset, Converter={StaticResource AddCommasConverter}}" />
 

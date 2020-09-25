@@ -496,6 +496,7 @@
                             ToolTipService.InitialShowDelay="0"
                             Margin="2.5,0,2.5,0"
                             Cursor="Hand"
+                            Visibility="{Binding Path=Beatmap.OnlineBeatmap, Converter={StaticResource InverseNullToVisibilityConverter}}"
                             Click="ButtonPreviewBeatmap_Click">
                         <icons:PackIconMaterial Kind="Eye"
                                                 Width="20"
@@ -512,6 +513,7 @@
                             ToolTipService.InitialShowDelay="0"
                             Margin="2.5,0,0,0"
                             Cursor="Hand"
+                            Visibility="{Binding Path=Beatmap.OnlineBeatmap, Converter={StaticResource InverseNullToVisibilityConverter}}"
                             Click="ButtonOpenOnBeatsaver_Click">
                         <icons:PackIconMaterial Kind="Link"
                                                 Width="20"

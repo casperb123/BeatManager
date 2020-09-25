@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:BeatSaberSongManager.UserControls"
              xmlns:converters="clr-namespace:BeatSaberSongManager.Converters"
-             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d"
              d:DesignHeight="450"
@@ -49,7 +49,7 @@
                          Cursor="Hand"
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonSearch_Checked">
-                <iconPacks:PackIconFontAwesome Kind="SearchSolid"
+                <icons:PackIconFontAwesome Kind="SearchSolid"
                                                Width="15"
                                                Height="15" />
             </RadioButton>
@@ -64,7 +64,7 @@
                          Cursor="Hand"
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonHot_Checked">
-                <iconPacks:PackIconFontAwesome Kind="FireSolid"
+                <icons:PackIconFontAwesome Kind="FireSolid"
                                                Width="15"
                                                Height="15" />
             </RadioButton>
@@ -79,7 +79,7 @@
                          Cursor="Hand"
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonRating_Checked">
-                <iconPacks:PackIconFontAwesome Kind="StarSolid"
+                <icons:PackIconFontAwesome Kind="StarSolid"
                                                Width="15"
                                                Height="15" />
             </RadioButton>
@@ -94,7 +94,7 @@
                          Cursor="Hand"
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonLatest_Checked">
-                <iconPacks:PackIconFontAwesome Kind="ExclamationSolid"
+                <icons:PackIconFontAwesome Kind="ExclamationSolid"
                                                Width="15"
                                                Height="15" />
             </RadioButton>
@@ -109,7 +109,7 @@
                          Cursor="Hand"
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonDownloads_Checked">
-                <iconPacks:PackIconFontAwesome Kind="DownloadSolid"
+                <icons:PackIconFontAwesome Kind="DownloadSolid"
                                                Width="15"
                                                Height="15" />
             </RadioButton>
@@ -124,7 +124,7 @@
                          Cursor="Hand"
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonPlays_Checked">
-                <iconPacks:PackIconFontAwesome Kind="PlaySolid"
+                <icons:PackIconFontAwesome Kind="PlaySolid"
                                                Width="15"
                                                Height="15" />
             </RadioButton>
@@ -147,7 +147,7 @@
                     Width="35"
                     Cursor="Hand"
                     Click="ButtonSearch_Click">
-                <iconPacks:PackIconFontAwesome Kind="SearchSolid"
+                <icons:PackIconFontAwesome Kind="SearchSolid"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center" />
             </Button>
@@ -184,6 +184,10 @@
                                 </TextBlock.Text>
                             </TextBlock>
                         </MenuItem.Header>
+                        <MenuItem.Icon>
+                            <icons:PackIconMaterial Kind="Download"
+                                                    Margin="5,0,0,0" />
+                        </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem x:Name="menuItemDataGridMapsDelete"
                               Click="MenuItemDataGridMapsDelete_Click">
@@ -196,6 +200,10 @@
                                 </TextBlock.Text>
                             </TextBlock>
                         </MenuItem.Header>
+                        <MenuItem.Icon>
+                            <icons:PackIconMaterial Kind="Delete"
+                                                    Margin="5,0,0,0" />
+                        </MenuItem.Icon>
                     </MenuItem>
                 </ContextMenu>
             </DataGrid.ContextMenu>
@@ -375,7 +383,7 @@
                                             Visibility="{Binding Path=IsDownloaded, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
                                             IsEnabled="{Binding Path=IsDownloaded, Converter={StaticResource InverseBooleanConverter}}"
                                             Click="Map_Download">
-                                        <iconPacks:PackIconMaterial Kind="DownloadCircle"
+                                        <icons:PackIconMaterial Kind="DownloadCircle"
                                                                     Width="20"
                                                                     Height="20" />
                                     </Button>
@@ -392,7 +400,7 @@
                                             Visibility="{Binding Path=IsDownloaded, Converter={StaticResource BooleanToVisibilityConverter}}"
                                             IsEnabled="{Binding Path=IsDownloaded}"
                                             Click="Map_Delete">
-                                        <iconPacks:PackIconMaterial Kind="DeleteCircle"
+                                        <icons:PackIconMaterial Kind="DeleteCircle"
                                                                     Width="20"
                                                                     Height="20" />
                                     </Button>
@@ -417,7 +425,7 @@
                                         Height="30"
                                         Cursor="Hand"
                                         Click="Map_Details">
-                                    <iconPacks:PackIconMaterial Kind="ArrowRightCircle"
+                                    <icons:PackIconMaterial Kind="ArrowRightCircle"
                                                                 Width="20"
                                                                 Height="20" />
                                 </Button>
@@ -460,7 +468,7 @@
                     Cursor="Hand"
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="ButtonFirstPage_Click">
-                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleLeftSolid"
+                <icons:PackIconFontAwesome Kind="ArrowAltCircleLeftSolid"
                                                Width="25"
                                                Height="25" />
             </Button>
@@ -476,7 +484,7 @@
                     Cursor="Hand"
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="ButtonPreviousPage_Click">
-                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleLeftRegular"
+                <icons:PackIconFontAwesome Kind="ArrowAltCircleLeftRegular"
                                                Width="25"
                                                Height="25" />
             </Button>
@@ -492,7 +500,7 @@
                     Cursor="Hand"
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="ButtonNextPage_Click">
-                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleRightRegular"
+                <icons:PackIconFontAwesome Kind="ArrowAltCircleRightRegular"
                                                Width="25"
                                                Height="25" />
             </Button>
@@ -508,7 +516,7 @@
                     Cursor="Hand"
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="ButtonLastPage_Click">
-                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleRightSolid"
+                <icons:PackIconFontAwesome Kind="ArrowAltCircleRightSolid"
                                                Width="25"
                                                Height="25" />
             </Button>

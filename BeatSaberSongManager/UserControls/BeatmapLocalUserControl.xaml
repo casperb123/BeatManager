@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:converters="clr-namespace:BeatSaberSongManager.Converters"
-             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
@@ -60,6 +60,10 @@
                                 </TextBlock.Text>
                             </TextBlock>
                         </MenuItem.Header>
+                        <MenuItem.Icon>
+                            <icons:PackIconMaterial Kind="Delete"
+                                                    Margin="5,0,0,0" />
+                        </MenuItem.Icon>
                     </MenuItem>
                 </ContextMenu>
             </DataGrid.ContextMenu>
@@ -236,9 +240,9 @@
                                         Height="30"
                                         Cursor="Hand"
                                         Click="Map_Delete">
-                                    <iconPacks:PackIconMaterial Kind="DeleteCircle"
-                                                                Width="20"
-                                                                Height="20" />
+                                    <icons:PackIconMaterial Kind="DeleteCircle"
+                                                            Width="20"
+                                                            Height="20" />
                                 </Button>
 
                                 <Button Tag="{Binding Path=Identifier}"
@@ -254,9 +258,9 @@
                                         Cursor="Hand"
                                         IsEnabled="{Binding Path=Details, Converter={StaticResource NullToBooleanConverter}}"
                                         Click="Map_Details">
-                                    <iconPacks:PackIconMaterial Kind="ArrowRightCircle"
-                                                                Width="20"
-                                                                Height="20" />
+                                    <icons:PackIconMaterial Kind="ArrowRightCircle"
+                                                            Width="20"
+                                                            Height="20" />
                                 </Button>
                             </Grid>
                         </DataTemplate>
@@ -296,9 +300,9 @@
                     Cursor="Hand"
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="ButtonFirstPage_Click">
-                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleLeftSolid"
-                                               Width="25"
-                                               Height="25" />
+                <icons:PackIconFontAwesome Kind="ArrowAltCircleLeftSolid"
+                                           Width="25"
+                                           Height="25" />
             </Button>
             <Button x:Name="buttonPreviousPage"
                     Width="35"
@@ -312,9 +316,9 @@
                     Cursor="Hand"
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="ButtonPreviousPage_Click">
-                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleLeftRegular"
-                                               Width="25"
-                                               Height="25" />
+                <icons:PackIconFontAwesome Kind="ArrowAltCircleLeftRegular"
+                                           Width="25"
+                                           Height="25" />
             </Button>
             <Button x:Name="buttonNextPage"
                     Width="35"
@@ -328,9 +332,9 @@
                     Cursor="Hand"
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="ButtonNextPage_Click">
-                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleRightRegular"
-                                               Width="25"
-                                               Height="25" />
+                <icons:PackIconFontAwesome Kind="ArrowAltCircleRightRegular"
+                                           Width="25"
+                                           Height="25" />
             </Button>
             <Button x:Name="buttonLastPage"
                     Width="35"
@@ -344,9 +348,9 @@
                     Cursor="Hand"
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="ButtonLastPage_Click">
-                <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleRightSolid"
-                                               Width="25"
-                                               Height="25" />
+                <icons:PackIconFontAwesome Kind="ArrowAltCircleRightSolid"
+                                           Width="25"
+                                           Height="25" />
             </Button>
         </StackPanel>
     </Grid>

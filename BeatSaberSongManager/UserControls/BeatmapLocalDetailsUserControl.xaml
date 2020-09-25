@@ -557,7 +557,7 @@
 
                         <Label Content="Key"
                                HorizontalContentAlignment="Right" />
-                        <TextBox Text="{Binding Path=Beatmap.OnlineBeatmap.Key, TargetNullValue=-}" />
+                        <TextBox Text="{Binding Path=Beatmap.OnlineBeatmap.Key, FallbackValue=-, TargetNullValue=-}" />
                     </st:AutoGrid>
 
                     <st:AutoGrid Columns="auto,1*"

@@ -293,6 +293,7 @@
                     ToolTipService.BetweenShowDelay="0"
                     ToolTipService.InitialShowDelay="0"
                     IsEnabled="False"
+                    Cursor="Hand"
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="ButtonFirstPage_Click">
                 <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleLeftSolid"
@@ -308,6 +309,7 @@
                     ToolTipService.BetweenShowDelay="0"
                     ToolTipService.InitialShowDelay="0"
                     IsEnabled="False"
+                    Cursor="Hand"
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="ButtonPreviousPage_Click">
                 <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleLeftRegular"
@@ -323,6 +325,7 @@
                     ToolTipService.BetweenShowDelay="0"
                     ToolTipService.InitialShowDelay="0"
                     IsEnabled="False"
+                    Cursor="Hand"
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="ButtonNextPage_Click">
                 <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleRightRegular"
@@ -338,6 +341,7 @@
                     ToolTipService.BetweenShowDelay="0"
                     ToolTipService.InitialShowDelay="0"
                     IsEnabled="False"
+                    Cursor="Hand"
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="ButtonLastPage_Click">
                 <iconPacks:PackIconFontAwesome Kind="ArrowAltCircleRightSolid"

@@ -191,9 +191,9 @@ namespace BeatSaberSongManager.ViewModels
             if (beatmap.OnlineBeatmap is null)
                 errors.Add("- The beatmap couldn't be found on BeatSaver");
             if (beatmap.Duration is null)
-                errors.Add($"- The song file {beatmap.SongFilename} couldn't be found");
+                errors.Add($"- The song file '{beatmap.SongFilename}' couldn't be found");
             if (string.IsNullOrEmpty(beatmap.CoverImageFilename))
-                errors.Add($"- The cover image file {beatmap.CoverImageFilename} couldn't be found");
+                errors.Add($"- The cover image file '{beatmap.CoverImageFilename}' couldn't be found");
 
             if (errors.Count > 0)
                 MainWindow.ViewModel.LocalDetailsUserControl.ViewModel.Errors = new List<string>(errors);

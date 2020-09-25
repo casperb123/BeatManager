@@ -41,6 +41,7 @@
                               OffContent="Original"
                               Grid.Column="1"
                               Margin="0,2.5,0,0"
+                              Cursor="Hand"
                               IsOn="{Binding Path=BeatSaberCopy, Source={x:Static entities:Settings.CurrentSettings}}"
                               Toggled="ToggleSwitchVersion_Toggled" />
 
@@ -61,10 +62,12 @@
                 <Button x:Name="buttonDetectPath"
                         Content="Detect Path"
                         Margin="0,0,2.5,0"
+                        Cursor="Hand"
                         Click="ButtonDetectPath_Click" />
                 <Button x:Name="buttonBrowsePath"
                         Content="Browse"
                         Margin="2.5,0,0,0"
+                        Cursor="Hand"
                         Click="ButtonBrowsePath_Click" />
             </StackPanel>
 
@@ -101,6 +104,7 @@
                               ToolTipService.BetweenShowDelay="0"
                               ToolTipService.InitialShowDelay="0"
                               Margin="0,2.5,0,0"
+                              Cursor="Hand"
                               IsOn="{Binding Path=CheckForUpdates, Source={x:Static entities:Settings.CurrentSettings}}" />
         </Grid>
     </Grid>

@@ -10,21 +10,13 @@ using System.Windows;
 
 namespace BeatSaberSongManager.ViewModels
 {
-    public class SettingsUserControlViewModel : INotifyPropertyChanged
+    public class SettingsUserControlViewModel
     {
         public readonly MainWindow MainWindow;
         public bool SongsPathChanged = false;
         public bool ChangePath = true;
 
         public string BeatSaberPath { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string prop)
-        {
-            if (!string.IsNullOrWhiteSpace(prop))
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
 
         public SettingsUserControlViewModel(MainWindow mainWindow)
         {
@@ -37,7 +29,7 @@ namespace BeatSaberSongManager.ViewModels
             VistaFolderBrowserDialog dialog = new VistaFolderBrowserDialog
             {
                 UseDescriptionForTitle = true,
-                Description = "Select a folder for the beatmaps"
+                Description = "Select the folder that has the 'Beat Saber_Data' folder inside"
             };
 
             if (dialog.ShowDialog().GetValueOrDefault())

@@ -61,8 +61,13 @@ namespace BeatSaberSongManager
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            radioButtonLocal.IsChecked = true;
-            ViewModel.ShowLocalPage();
+            if (Settings.CurrentSettings.SongsPath is null)
+                radioButtonSettings.IsChecked = true;
+            else
+            {
+                radioButtonLocal.IsChecked = true;
+                ViewModel.ShowLocalPage();
+            }
         }
 
         private async void ButtonUpdate_Click(object sender, RoutedEventArgs e)

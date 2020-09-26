@@ -1,6 +1,7 @@
 ﻿using BeatSaberSongManager.Entities;
 using BeatSaberSongManager.ViewModels;
 using ControlzEx.Theming;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -13,10 +14,10 @@ namespace BeatSaberSongManager.UserControls
     {
         public readonly SettingsUserControlViewModel ViewModel;
 
-        public SettingsUserControl()
+        public SettingsUserControl(MainWindow mainWindow)
         {
             InitializeComponent();
-            ViewModel = new SettingsUserControlViewModel();
+            ViewModel = new SettingsUserControlViewModel(mainWindow);
             DataContext = ViewModel;
 
             comboBoxTheme.ItemsSource = ThemeManager.Current.BaseColors;
@@ -32,22 +33,34 @@ namespace BeatSaberSongManager.UserControls
             ViewModel.ChangeTheme(comboBoxTheme.SelectedItem.ToString(), comboBoxColor.SelectedItem.ToString());
         }
 
-        private void ToggleSwitchVersion_Toggled(object sender, RoutedEventArgs e)
+        private async void ToggleSwitchVersion_Toggled(object sender, RoutedEventArgs e)
         {
             if (!IsLoaded)
                 return;
 
-            ViewModel.DetectPath(Settings.CurrentSettings.BeatSaberCopy, true);
+            if (ViewModel.ChangePath)
+            {
+                ViewModel.MainWindow.progressRingLoading.IsActive = true;
+                ViewModel.MainWindow.rectangleLoading.Visibility = Visibility.Visible;
+                ViewModel.MainWindow.progressRingLoading.Visibility = Visibility.Visible;
+                await Task.Run(() => ViewModel.GetBeatSaberPath(Settings.CurrentSettings.BeatSaberCopy, true, true));
+                ViewModel.MainWindow.rectangleLoading.Visibility = Visibility.Hidden;
+                ViewModel.MainWindow.progressRingLoading.Visibility = Visibility.Hidden;
+                ViewModel.MainWindow.progressRingLoading.IsActive = false;
+            }
+            else
+                ViewModel.ChangePath = true;
         }
 
-        private void ButtonDetectPath_Click(object sender, RoutedEventArgs e)
+        private async void ButtonDetectPath_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.DetectPath(Settings.CurrentSettings.BeatSaberCopy);
-        }
-
-        private void ButtonBrowsePath_Click(object sender, RoutedEventArgs e)
-        {
-            ViewModel.BrowsePath();
+            ViewModel.MainWindow.progressRingLoading.IsActive = true;
+            ViewModel.MainWindow.rectangleLoading.Visibility = Visibility.Visible;
+            ViewModel.MainWindow.progressRingLoading.Visibility = Visibility.Visible;
+            await Task.Run(() => ViewModel.GetBeatSaberPath(Settings.CurrentSettings.BeatSaberCopy, false, true));
+            ViewModel.MainWindow.rectangleLoading.Visibility = Visibility.Hidden;
+            ViewModel.MainWindow.progressRingLoading.Visibility = Visibility.Hidden;
+            ViewModel.MainWindow.progressRingLoading.IsActive = false;
         }
     }
 }

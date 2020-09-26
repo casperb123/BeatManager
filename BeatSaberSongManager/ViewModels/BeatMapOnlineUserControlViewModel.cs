@@ -10,7 +10,7 @@ using System.Windows;
 
 namespace BeatSaberSongManager.ViewModels
 {
-    public class BeatMapOnlineUserControlViewModel : INotifyPropertyChanged
+    public class BeatmapOnlineUserControlViewModel : INotifyPropertyChanged
     {
         private readonly BeatmapOnlineUserControl userControl;
         private OnlineBeatmaps onlineBeatmaps;
@@ -52,7 +52,7 @@ namespace BeatSaberSongManager.ViewModels
             }
         }
 
-        public BeatMapOnlineUserControlViewModel(MainWindow mainWindow, BeatmapOnlineUserControl userControl)
+        public BeatmapOnlineUserControlViewModel(MainWindow mainWindow, BeatmapOnlineUserControl userControl)
         {
             MainWindow = mainWindow;
             this.userControl = userControl;
@@ -132,7 +132,7 @@ namespace BeatSaberSongManager.ViewModels
             });
         }
 
-        public async Task Search(string query)
+        public async void Search(string query)
         {
             if (OnlineBeatmaps.Maps.Any(x => x.IsDownloading))
             {
@@ -145,6 +145,7 @@ namespace BeatSaberSongManager.ViewModels
                 await MainWindow.ShowMessageAsync("Beat Saver search", "The search query can't be null or empty");
                 return;
             }
+
             if (!userControl.radioButtonSearch.IsChecked.Value)
                 userControl.radioButtonSearch.IsChecked = true;
 

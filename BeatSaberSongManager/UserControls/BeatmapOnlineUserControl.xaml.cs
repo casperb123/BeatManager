@@ -13,12 +13,12 @@ namespace BeatSaberSongManager.UserControls
     /// </summary>
     public partial class BeatmapOnlineUserControl : UserControl
     {
-        public BeatMapOnlineUserControlViewModel ViewModel;
+        public BeatmapOnlineUserControlViewModel ViewModel;
 
         public BeatmapOnlineUserControl(MainWindow mainWindow)
         {
             InitializeComponent();
-            ViewModel = new BeatMapOnlineUserControlViewModel(mainWindow, this);
+            ViewModel = new BeatmapOnlineUserControlViewModel(mainWindow, this);
             DataContext = ViewModel;
         }
 
@@ -85,15 +85,15 @@ namespace BeatSaberSongManager.UserControls
             ViewModel.UpdatePageButtons();
         }
 
-        private async void ButtonSearch_Click(object sender, RoutedEventArgs e)
+        private void ButtonSearch_Click(object sender, RoutedEventArgs e)
         {
-            await ViewModel.Search(textBoxSearch.Text);
+            ViewModel.Search(textBoxSearch.Text);
         }
 
-        private async void TextBoxSearch_KeyDown(object sender, KeyEventArgs e)
+        private void TextBoxSearch_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
-                await ViewModel.Search(textBoxSearch.Text);
+                ViewModel.Search(textBoxSearch.Text);
         }
 
         private void ButtonFirstPage_Click(object sender, RoutedEventArgs e)

@@ -34,7 +34,7 @@ namespace BeatSaberSongManager.ViewModels
             this.mainWindow = mainWindow;
             LocalUserControl = new BeatmapLocalUserControl(mainWindow);
             OnlineUserControl = new BeatmapOnlineUserControl(mainWindow);
-            SettingsUserControl = new SettingsUserControl();
+            SettingsUserControl = new SettingsUserControl(mainWindow);
             LocalDetailsUserControl = new BeatmapLocalDetailsUserControl(mainWindow);
             OnlineDetailsUserControl = new BeatmapOnlineDetailsUserControl(mainWindow);
 

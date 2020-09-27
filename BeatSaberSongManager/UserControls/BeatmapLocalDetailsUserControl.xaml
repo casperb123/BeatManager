@@ -545,7 +545,7 @@
 
                         <Label Content="Mapper"
                                HorizontalContentAlignment="Right" />
-                        <TextBox Text="{Binding Path=Beatmap.LevelAuthorName}" />
+                        <TextBox Text="{Binding Path=Beatmap.LevelAuthorName, TargetNullValue=-}" />
 
                         <Label Content="Duration"
                                HorizontalContentAlignment="Right" />
@@ -567,27 +567,27 @@
                                  Margin="2.5,0,0,0">
                         <Label Content="Uploaded"
                                HorizontalContentAlignment="Right" />
-                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Uploaded, Converter={StaticResource DateTimeConverter}}" />
+                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Uploaded, Converter={StaticResource DateTimeConverter}, FallbackValue=-}" />
 
                         <Label Content="Downloads"
                                HorizontalContentAlignment="Right" />
-                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.Downloads, Converter={StaticResource AddCommasConverter}}" />
+                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.Downloads, Converter={StaticResource AddCommasConverter}, FallbackValue=-}" />
 
                         <Label Content="Plays"
                                HorizontalContentAlignment="Right" />
-                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.Plays, Converter={StaticResource AddCommasConverter}}" />
+                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.Plays, Converter={StaticResource AddCommasConverter}, FallbackValue=-}" />
 
                         <Label Content="Up votes"
                                HorizontalContentAlignment="Right" />
-                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.UpVotes, Converter={StaticResource AddCommasConverter}}" />
+                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.UpVotes, Converter={StaticResource AddCommasConverter}, FallbackValue=-}" />
 
                         <Label Content="Down votes"
                                HorizontalContentAlignment="Right" />
-                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.DownVotes, Converter={StaticResource AddCommasConverter}}" />
+                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.DownVotes, Converter={StaticResource AddCommasConverter}, FallbackValue=-}" />
 
                         <Label Content="Rating"
                                HorizontalContentAlignment="Right" />
-                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.Rating, Converter={StaticResource FloatToPercentageConverter}}" />
+                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.Rating, Converter={StaticResource FloatToPercentageConverter}, FallbackValue=-}" />
                     </st:AutoGrid>
                 </Grid>
 

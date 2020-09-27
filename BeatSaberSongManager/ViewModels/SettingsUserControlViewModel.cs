@@ -29,7 +29,7 @@ namespace BeatSaberSongManager.ViewModels
             VistaFolderBrowserDialog dialog = new VistaFolderBrowserDialog
             {
                 UseDescriptionForTitle = true,
-                Description = "The folder that has the 'Beat Saber_Data' folder and/or the 'Beat Saber.exe' file inside"
+                Description = "Select the folder that has the 'Beat Saber_Data' folder and/or the 'Beat Saber.exe' file inside"
             };
 
             if (dialog.ShowDialog().GetValueOrDefault())

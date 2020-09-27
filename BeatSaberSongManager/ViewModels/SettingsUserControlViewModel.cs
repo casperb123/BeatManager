@@ -29,7 +29,7 @@ namespace BeatSaberSongManager.ViewModels
             VistaFolderBrowserDialog dialog = new VistaFolderBrowserDialog
             {
                 UseDescriptionForTitle = true,
-                Description = "Select the folder that has the 'Beat Saber_Data' folder inside"
+                Description = "The folder that has the 'Beat Saber_Data' folder and/or the Beat Saber.exe file inside"
             };
 
             if (dialog.ShowDialog().GetValueOrDefault())
@@ -128,7 +128,7 @@ namespace BeatSaberSongManager.ViewModels
             {
                 foreach (DirectoryInfo dirInfo in subDirs)
                 {
-                    if (dirInfo.Name == "Beat Saber_Data")
+                    if (dirInfo.Name == "Beat Saber_Data" || File.Exists($@"{dirInfo.FullName}\Beat Saber.exe"))
                     {
                         BeatSaberPath = dirInfo.Parent.FullName;
                         break;

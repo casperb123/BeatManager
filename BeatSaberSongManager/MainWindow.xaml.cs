@@ -61,7 +61,7 @@ namespace BeatSaberSongManager
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            if (Settings.CurrentSettings.SongsPath is null)
+            if (Settings.CurrentSettings.RootPath is null)
                 radioButtonSettings.IsChecked = true;
             else
             {

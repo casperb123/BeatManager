@@ -10,7 +10,7 @@ namespace BeatSaberSongManager.Entities
 {
     public class Settings : INotifyPropertyChanged
     {
-        private string songsPath;
+        private string rootPath;
         private int theme;
         private int color;
         private bool beatSaberCopy;
@@ -55,13 +55,13 @@ namespace BeatSaberSongManager.Entities
             }
         }
 
-        public string SongsPath
+        public string RootPath
         {
-            get { return songsPath; }
+            get { return rootPath; }
             set
             {
-                songsPath = value;
-                OnPropertyChanged(nameof(SongsPath));
+                rootPath = value;
+                OnPropertyChanged(nameof(RootPath));
 
                 string dataPath = $@"{value}\Beat Saber_Data";
                 string customLevelsPath = $@"{dataPath}\CustomLevels";
@@ -76,7 +76,7 @@ namespace BeatSaberSongManager.Entities
         [JsonIgnore]
         public string CustomLevelsPath
         {
-            get { return $@"{SongsPath}\Beat Saber_Data\CustomLevels"; }
+            get { return $@"{RootPath}\Beat Saber_Data\CustomLevels"; }
         }
 
         public bool CheckForUpdates

@@ -43,7 +43,7 @@ namespace BeatSaberSongManager.ViewModels
 
         public async Task GetBeatSaberPath(bool copy, bool toggleChanged, bool forceChangePath = false)
         {
-            if (!string.IsNullOrWhiteSpace(Settings.CurrentSettings.SongsPath) && Directory.Exists(Settings.CurrentSettings.SongsPath) && !forceChangePath)
+            if (!string.IsNullOrWhiteSpace(Settings.CurrentSettings.RootPath) && Directory.Exists(Settings.CurrentSettings.RootPath) && !forceChangePath)
                 return;
 
             BeatSaberPath = null;
@@ -68,7 +68,7 @@ namespace BeatSaberSongManager.ViewModels
             {
                 if (BrowsePath())
                 {
-                    Settings.CurrentSettings.SongsPath = BeatSaberPath;
+                    Settings.CurrentSettings.RootPath = BeatSaberPath;
                     Settings.CurrentSettings.Save();
                     Application.Current.Dispatcher.Invoke(() => App.BeatSaverApi.SongsPath = Settings.CurrentSettings.CustomLevelsPath);
                     SongsPathChanged = true;
@@ -86,12 +86,12 @@ namespace BeatSaberSongManager.ViewModels
                 await Application.Current.Dispatcher.Invoke(async () =>
                 {
                     result = await MainWindow.ShowMessageAsync("Beat Saber folder found", "The following folder was found, would you like to use it?\n" +
-                                                                                                          $"{BeatSaberPath}", MessageDialogStyle.AffirmativeAndNegative);
+                                                                                                          $"'{BeatSaberPath}'", MessageDialogStyle.AffirmativeAndNegative);
                 });
 
                 if (result == MessageDialogResult.Affirmative)
                 {
-                    Settings.CurrentSettings.SongsPath = BeatSaberPath;
+                    Settings.CurrentSettings.RootPath = BeatSaberPath;
                     Settings.CurrentSettings.Save();
                     Application.Current.Dispatcher.Invoke(() => App.BeatSaverApi.SongsPath = Settings.CurrentSettings.CustomLevelsPath);
                     SongsPathChanged = true;
@@ -100,7 +100,7 @@ namespace BeatSaberSongManager.ViewModels
                 {
                     if (BrowsePath())
                     {
-                        Settings.CurrentSettings.SongsPath = BeatSaberPath;
+                        Settings.CurrentSettings.RootPath = BeatSaberPath;
                         Settings.CurrentSettings.Save();
                         Application.Current.Dispatcher.Invoke(() => App.BeatSaverApi.SongsPath = Settings.CurrentSettings.CustomLevelsPath);
                         SongsPathChanged = true;
@@ -128,14 +128,9 @@ namespace BeatSaberSongManager.ViewModels
             {
                 foreach (DirectoryInfo dirInfo in subDirs)
                 {
-                    if (dirInfo.Name == "Beat Saber")
+                    if (dirInfo.Name == "Beat Saber_Data")
                     {
-                        BeatSaberPath = dirInfo.FullName;
-                        break;
-                    }
-                    else if (dirInfo.Name == "BeatSaber")
-                    {
-                        BeatSaberPath = dirInfo.FullName;
+                        BeatSaberPath = dirInfo.Parent.FullName;
                         break;
                     }
                     else

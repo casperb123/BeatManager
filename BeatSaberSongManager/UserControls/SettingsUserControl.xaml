@@ -45,12 +45,12 @@
                               IsOn="{Binding Path=BeatSaberCopy, Source={x:Static entities:Settings.CurrentSettings}}"
                               Toggled="ToggleSwitchVersion_Toggled" />
 
-            <Label Content="Songs Path"
+            <Label Content="Root Path"
                    VerticalContentAlignment="Center"
                    Grid.Row="1"
                    Margin="0,0,5,0" />
             <TextBox x:Name="textBoxSongsPath"
-                     Text="{Binding Path=SongsPath, Source={x:Static entities:Settings.CurrentSettings}}"
+                     Text="{Binding Path=RootPath, Source={x:Static entities:Settings.CurrentSettings}}"
                      Grid.Row="1"
                      Grid.Column="1"
                      IsReadOnly="True"

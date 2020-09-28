@@ -9,9 +9,6 @@ namespace BeatSaberSongManager.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is null)
-                return Visibility.Collapsed;
-
             return (bool)value ? Visibility.Collapsed : Visibility.Visible;
         }
 

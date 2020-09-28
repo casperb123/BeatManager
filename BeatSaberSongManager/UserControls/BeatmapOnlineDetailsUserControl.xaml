@@ -19,6 +19,7 @@
         <converters:AddCommasConverter x:Key="AddCommasConverter" />
         <converters:TimeSpanToStringConverter x:Key="TimeSpanToStringConverter" />
         <converters:InverseNullToVisibilityConverter x:Key="InverseNullToVisibilityConverter" />
+        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
 
         <Style TargetType="TextBox"
@@ -624,35 +625,35 @@
                                          st:StackPanel.Fill="Fill"
                                          HorizontalContentAlignment="Center"
                                          Content="Easy"
-                                         Visibility="{Binding Path=Characteristic.Difficulties.Easy, Converter={StaticResource InverseNullToVisibilityConverter}}"
+                                         Visibility="{Binding Path=Characteristic.Difficulties.Easy, Converter={StaticResource NullToVisibilityConverter}}"
                                          Style="{DynamicResource ToggleButtonDifficultyEasy}"
                                          Checked="RadioButtonEasyDifficulty_Checked" />
                             <RadioButton x:Name="radioButtonNormalDifficulty"
                                          st:StackPanel.Fill="Fill"
                                          HorizontalContentAlignment="Center"
                                          Content="Normal"
-                                         Visibility="{Binding Path=Characteristic.Difficulties.Normal, Converter={StaticResource InverseNullToVisibilityConverter}}"
+                                         Visibility="{Binding Path=Characteristic.Difficulties.Normal, Converter={StaticResource NullToVisibilityConverter}}"
                                          Style="{DynamicResource ToggleButtonDifficultyNormal}"
                                          Checked="RadioButtonNormalDifficulty_Checked" />
                             <RadioButton x:Name="radioButtonHardDifficulty"
                                          st:StackPanel.Fill="Fill"
                                          HorizontalContentAlignment="Center"
                                          Content="Hard"
-                                         Visibility="{Binding Path=Characteristic.Difficulties.Hard, Converter={StaticResource InverseNullToVisibilityConverter}}"
+                                         Visibility="{Binding Path=Characteristic.Difficulties.Hard, Converter={StaticResource NullToVisibilityConverter}}"
                                          Style="{DynamicResource ToggleButtonDifficultyHard}"
                                          Checked="RadioButtonHardDifficulty_Checked" />
                             <RadioButton x:Name="radioButtonExpertDifficulty"
                                          st:StackPanel.Fill="Fill"
                                          HorizontalContentAlignment="Center"
                                          Content="Expert"
-                                         Visibility="{Binding Path=Characteristic.Difficulties.Expert, Converter={StaticResource InverseNullToVisibilityConverter}}"
+                                         Visibility="{Binding Path=Characteristic.Difficulties.Expert, Converter={StaticResource NullToVisibilityConverter}}"
                                          Style="{DynamicResource ToggleButtonDifficultyExpert}"
                                          Checked="RadioButtonExpertDifficulty_Checked" />
                             <RadioButton x:Name="radioButtonExpertPlusDifficulty"
                                          st:StackPanel.Fill="Fill"
                                          HorizontalContentAlignment="Center"
                                          Content="Expert+"
-                                         Visibility="{Binding Path=Characteristic.Difficulties.ExpertPlus, Converter={StaticResource InverseNullToVisibilityConverter}}"
+                                         Visibility="{Binding Path=Characteristic.Difficulties.ExpertPlus, Converter={StaticResource NullToVisibilityConverter}}"
                                          Style="{DynamicResource ToggleButtonDifficultyExpertPlus}"
                                          Checked="RadioButtonExpertPlusDifficulty_Checked" />
                         </st:StackPanel>

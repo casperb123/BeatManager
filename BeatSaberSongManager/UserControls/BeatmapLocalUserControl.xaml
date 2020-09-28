@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:converters="clr-namespace:BeatSaberSongManager.Converters"
              xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
@@ -15,6 +16,8 @@
         <converters:ImageSourceToBitmapConverter x:Key="ImageSourceToBitmapConverter" />
         <converters:NullToBooleanConverter x:Key="NullToBooleanConverter" />
         <converters:AddCommasConverter x:Key="AddCommasConverter" />
+        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+        <converters:InverseNullToVisibilityConverter x:Key="InverseNullToVisibilityConverter" />
     </UserControl.Resources>
 
     <Grid Margin="30,5">
@@ -87,7 +90,7 @@
                 <DataGridTextColumn Header="Artist"
                                     Width=".35*"
                                     IsReadOnly="True"
-                                    Binding="{Binding Path=SongAuthorName, IsAsync=True, FallbackValue=..., TargetNullValue=...}">
+                                    Binding="{Binding Path=SongAuthorName, IsAsync=True, FallbackValue=..., TargetNullValue=-}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock"
                                BasedOn="{StaticResource MahApps.Styles.TextBlock}">
@@ -107,7 +110,7 @@
                 <DataGridTextColumn Header="Song Name"
                                     Width=".35*"
                                     IsReadOnly="True"
-                                    Binding="{Binding Path=FullSongName, IsAsync=True, FallbackValue=..., TargetNullValue=...}">
+                                    Binding="{Binding Path=FullSongName, IsAsync=True, FallbackValue=...}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock"
                                BasedOn="{StaticResource MahApps.Styles.TextBlock}">
@@ -127,7 +130,7 @@
                 <DataGridTextColumn Header="Mapper"
                                     Width=".35*"
                                     IsReadOnly="True"
-                                    Binding="{Binding Path=LevelAuthorName, IsAsync=True, FallbackValue=..., TargetNullValue=...}">
+                                    Binding="{Binding Path=LevelAuthorName, IsAsync=True, FallbackValue=..., TargetNullValue=-}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock"
                                BasedOn="{StaticResource MahApps.Styles.TextBlock}">
@@ -136,7 +139,7 @@
                             <Setter Property="Margin"
                                     Value="10,0,0,0" />
                             <Setter Property="ToolTip"
-                                    Value="{Binding Path=LevelAuthorName, IsAsync=True, FallbackValue=..., TargetNullValue=...}" />
+                                    Value="{Binding Path=LevelAuthorName, IsAsync=True, FallbackValue=...}" />
                             <Setter Property="ToolTipService.BetweenShowDelay"
                                     Value="0" />
                             <Setter Property="ToolTipService.InitialShowDelay"
@@ -256,12 +259,21 @@
                                         Width="30"
                                         Height="30"
                                         Cursor="Hand"
-                                        IsEnabled="{Binding Path=Details, Converter={StaticResource NullToBooleanConverter}}"
+                                        Visibility="{Binding Path=Details, Converter={StaticResource NullToVisibilityConverter}}"
                                         Click="Map_Details">
                                     <icons:PackIconMaterial Kind="ArrowRightCircle"
                                                             Width="20"
                                                             Height="20" />
                                 </Button>
+                                <Grid Width="30"
+                                      Height="30"
+                                      Grid.Column="1"
+                                      Visibility="{Binding Path=Details, Converter={StaticResource InverseNullToVisibilityConverter}}">
+                                    <mah:ProgressRing Width="20"
+                                                      Height="20"
+                                                      IsActive="{Binding Path=Details, Converter={StaticResource InverseNullToVisibilityConverter}}"
+                                                      IsEnabled="{Binding Path=Details, Converter={StaticResource NullToBooleanConverter}}" />
+                                </Grid>
                             </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

@@ -227,7 +227,7 @@
                 <DataGridTextColumn Header="Artist"
                                     Width=".35*"
                                     IsReadOnly="True"
-                                    Binding="{Binding Path=Metadata.SongAuthorName, IsAsync=True, FallbackValue=..., TargetNullValue=...}">
+                                    Binding="{Binding Path=Metadata.SongAuthorName, IsAsync=True, FallbackValue=..., TargetNullValue=-}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock"
                                BasedOn="{StaticResource MahApps.Styles.TextBlock}">
@@ -256,7 +256,7 @@
                             <Setter Property="Margin"
                                     Value="10,0,0,0" />
                             <Setter Property="ToolTip"
-                                    Value="{Binding Path=Name, IsAsync=True}" />
+                                    Value="{Binding Path=Metadata.FullSongName, IsAsync=True}" />
                             <Setter Property="ToolTipService.BetweenShowDelay"
                                     Value="0" />
                             <Setter Property="ToolTipService.InitialShowDelay"
@@ -267,7 +267,7 @@
                 <DataGridTextColumn Header="Mapper"
                                     Width=".35*"
                                     IsReadOnly="True"
-                                    Binding="{Binding Path=Metadata.LevelAuthorName, IsAsync=True, FallbackValue=...}">
+                                    Binding="{Binding Path=Metadata.LevelAuthorName, IsAsync=True, FallbackValue=..., TargetNullValue=-}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock"
                                BasedOn="{StaticResource MahApps.Styles.TextBlock}">

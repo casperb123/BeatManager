@@ -18,6 +18,7 @@
         <converters:AddCommasConverter x:Key="AddCommasConverter" />
         <converters:TimeSpanToStringConverter x:Key="TimeSpanToStringConverter" />
         <converters:InverseNullToVisibilityConverter x:Key="InverseNullToVisibilityConverter" />
+        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
 
         <Style TargetType="TextBox"
                BasedOn="{StaticResource MahApps.Styles.TextBox}">
@@ -326,7 +327,7 @@
                         ToolTipService.BetweenShowDelay="0"
                         ToolTipService.InitialShowDelay="0"
                         Cursor="Hand"
-                        Visibility="{Binding Path=Errors, Converter={StaticResource InverseNullToVisibilityConverter}}"
+                        Visibility="{Binding Path=Errors, Converter={StaticResource NullToVisibilityConverter}}"
                         Click="ButtonInvalid_Click">
                     <Button.Background>
                         <SolidColorBrush Color="Red"
@@ -496,7 +497,7 @@
                             ToolTipService.InitialShowDelay="0"
                             Margin="2.5,0,2.5,0"
                             Cursor="Hand"
-                            Visibility="{Binding Path=Beatmap.OnlineBeatmap, Converter={StaticResource InverseNullToVisibilityConverter}}"
+                            Visibility="{Binding Path=Beatmap.OnlineBeatmap, Converter={StaticResource NullToVisibilityConverter}}"
                             Click="ButtonPreviewBeatmap_Click">
                         <icons:PackIconMaterial Kind="Eye"
                                                 Width="20"
@@ -513,7 +514,7 @@
                             ToolTipService.InitialShowDelay="0"
                             Margin="2.5,0,0,0"
                             Cursor="Hand"
-                            Visibility="{Binding Path=Beatmap.OnlineBeatmap, Converter={StaticResource InverseNullToVisibilityConverter}}"
+                            Visibility="{Binding Path=Beatmap.OnlineBeatmap, Converter={StaticResource NullToVisibilityConverter}}"
                             Click="ButtonOpenOnBeatsaver_Click">
                         <icons:PackIconMaterial Kind="Link"
                                                 Width="20"

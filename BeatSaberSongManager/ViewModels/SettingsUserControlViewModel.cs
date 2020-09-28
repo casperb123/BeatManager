@@ -3,8 +3,10 @@ using ControlzEx.Theming;
 using MahApps.Metro.Controls.Dialogs;
 using Ookii.Dialogs.Wpf;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -50,18 +52,33 @@ namespace BeatSaberSongManager.ViewModels
 
             if (copy)
             {
-                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
-                FindBeatSaber(new DirectoryInfo(documentsPath));
+                DirectoryInfo documents = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
+                FindBeatSaber(documents);
             }
             else
             {
-                string programFilesPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
-                string programFiles86Path = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+                DirectoryInfo programFiles = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles));
+                DirectoryInfo programFiles86 = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86));
+                string mainDriveLetter = Path.GetPathRoot(programFiles.FullName);
 
-                FindBeatSaber(new DirectoryInfo(programFilesPath));
+                FindBeatSaber(programFiles);
                 if (string.IsNullOrEmpty(BeatSaberPath))
-                    FindBeatSaber(new DirectoryInfo(programFiles86Path));
+                    FindBeatSaber(programFiles86);
+                if (string.IsNullOrEmpty(BeatSaberPath))
+                {
+                    List<DriveInfo> drives = DriveInfo.GetDrives().Where(x => x.VolumeLabel != mainDriveLetter && x.DriveType == DriveType.Fixed).ToList();
+                    foreach (DriveInfo drive in drives)
+                    {
+                        string steamPath = null;
+                        if (Directory.Exists($@"{drive.RootDirectory}\Steam"))
+                            steamPath = $@"{drive.RootDirectory}\Steam";
+                        else if (Directory.Exists($@"{drive.RootDirectory}\SteamLibrary"))
+                            steamPath = $@"{drive.RootDirectory}\SteamLibrary";
+
+                        if (!string.IsNullOrEmpty(steamPath))
+                            FindBeatSaber(new DirectoryInfo(steamPath));
+                    }
+                }
             }
 
             if (string.IsNullOrEmpty(BeatSaberPath))

@@ -66,7 +66,7 @@ namespace BeatSaberSongManager.ViewModels
                     FindBeatSaber(programFiles86);
                 if (string.IsNullOrEmpty(BeatSaberPath))
                 {
-                    List<DriveInfo> drives = DriveInfo.GetDrives().Where(x => x.VolumeLabel != mainDriveLetter && x.DriveType == DriveType.Fixed).ToList();
+                    List<DriveInfo> drives = DriveInfo.GetDrives().Where(x => x.Name != mainDriveLetter && x.DriveType == DriveType.Fixed).ToList();
                     foreach (DriveInfo drive in drives)
                     {
                         string steamPath = null;

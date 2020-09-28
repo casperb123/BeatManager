@@ -8,7 +8,7 @@
              xmlns:st="http://schemas.spicytaco.io/"
              mc:Ignorable="d"
              d:DesignWidth="800"
-             d:DesignHeight="1088">
+             d:DesignHeight="1500">
     <UserControl.Resources>
         <converters:ImageSourceToBitmapConverter x:Key="ImageSourceToBitmapConverter" />
         <converters:BooleanToVisiblityConverter x:Key="BooleanToVisibilityConverter" />
@@ -613,48 +613,82 @@
                                        Orientation="Horizontal"
                                        Margin="0,0,0,10" />
 
-                        <st:StackPanel Orientation="Horizontal"
-                                       MarginBetweenChildren="10">
-                            <st:AutoGrid Columns="auto,1*"
-                                         Rows="auto,auto,auto,auto"
-                                         ChildMargin="2.5,0"
-                                         st:StackPanel.Fill="Fill">
-                                <Label Content="Bombs"
-                                       HorizontalContentAlignment="Right" />
-                                <Label Content="{Binding Path=BeatmapDetail.BombsCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
+                        <st:StackPanel MarginBetweenChildren="10">
+                            <st:StackPanel Orientation="Horizontal"
+                                           MarginBetweenChildren="10">
+                                <st:AutoGrid Columns="auto,1*"
+                                             Rows="auto,auto,auto,auto"
+                                             ChildMargin="2.5,0"
+                                             st:StackPanel.Fill="Fill">
+                                    <Label Content="Bombs"
+                                           HorizontalContentAlignment="Right" />
+                                    <Label Content="{Binding Path=BeatmapDetail.BombsCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
 
-                                <Label Content="Notes"
-                                       HorizontalContentAlignment="Right" />
-                                <Label Content="{Binding Path=BeatmapDetail.NotesCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
+                                    <Label Content="Notes"
+                                           HorizontalContentAlignment="Right" />
+                                    <Label Content="{Binding Path=BeatmapDetail.NotesCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
 
-                                <Label Content="Obstacles"
-                                       HorizontalContentAlignment="Right" />
-                                <Label Content="{Binding Path=BeatmapDetail.ObstaclesCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
+                                    <Label Content="Obstacles"
+                                           HorizontalContentAlignment="Right" />
+                                    <Label Content="{Binding Path=BeatmapDetail.ObstaclesCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
 
-                                <Label Content="Events"
-                                       HorizontalContentAlignment="Right" />
-                                <Label Content="{Binding Path=BeatmapDetail.EventsCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
-                            </st:AutoGrid>
-                            <st:AutoGrid Columns="auto,1*"
-                                         Rows="auto,auto,auto,auto"
-                                         ChildMargin="2.5,0"
-                                         st:StackPanel.Fill="Fill">
-                                <Label Content="Note Movement Speed"
-                                       HorizontalContentAlignment="Right" />
-                                <Label Content="{Binding Path=BeatmapDetail.DifficultyBeatmap.NoteJumpMovementSpeed, Converter={StaticResource AddCommasConverter}}" />
+                                    <Label Content="Events"
+                                           HorizontalContentAlignment="Right" />
+                                    <Label Content="{Binding Path=BeatmapDetail.EventsCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
+                                </st:AutoGrid>
+                                <st:AutoGrid Columns="auto,1*"
+                                             Rows="auto,auto,auto,auto"
+                                             ChildMargin="2.5,0"
+                                             st:StackPanel.Fill="Fill">
+                                    <Label Content="Note Movement Speed"
+                                           HorizontalContentAlignment="Right" />
+                                    <Label Content="{Binding Path=BeatmapDetail.DifficultyBeatmap.NoteJumpMovementSpeed, Converter={StaticResource AddCommasConverter}}" />
 
-                                <Label Content="Note Start Offset"
-                                       HorizontalContentAlignment="Right" />
-                                <Label Content="{Binding Path=BeatmapDetail.DifficultyBeatmap.NoteJumpStartBeatOffset, Converter={StaticResource AddCommasConverter}}" />
+                                    <Label Content="Note Start Offset"
+                                           HorizontalContentAlignment="Right" />
+                                    <Label Content="{Binding Path=BeatmapDetail.DifficultyBeatmap.NoteJumpStartBeatOffset, Converter={StaticResource AddCommasConverter}}" />
 
-                                <Label Content="Half Jump Duration"
-                                       HorizontalContentAlignment="Right" />
-                                <Label Content="{Binding Path=BeatmapDetail.HalfJumpDuration, Converter={StaticResource AddCommasConverter}}" />
+                                    <Label Content="Half Jump Duration"
+                                           HorizontalContentAlignment="Right" />
+                                    <Label Content="{Binding Path=BeatmapDetail.HalfJumpDuration, Converter={StaticResource AddCommasConverter}}" />
 
-                                <Label Content="Jump Distance"
-                                       HorizontalContentAlignment="Right" />
-                                <Label Content="{Binding Path=BeatmapDetail.JumpDistance, Converter={StaticResource AddCommasConverter}}" />
-                            </st:AutoGrid>
+                                    <Label Content="Jump Distance"
+                                           HorizontalContentAlignment="Right" />
+                                    <Label Content="{Binding Path=BeatmapDetail.JumpDistance, Converter={StaticResource AddCommasConverter}}" />
+                                </st:AutoGrid>
+                            </st:StackPanel>
+
+                            <GroupBox x:Name="groupBoxDifficultyRequirements"
+                                      Header="Mod Requirements"
+                                      MaxHeight="200">
+                                <DataGrid x:Name="dataGridDifficultyRequirements"
+                                          ItemsSource="{Binding Path=BeatmapDetail.DifficultyBeatmap.CustomData.Requirements}"
+                                          AutoGenerateColumns="False"
+                                          SelectionMode="Single"
+                                          CanUserAddRows="False"
+                                          CanUserDeleteRows="False"
+                                          CanUserReorderColumns="False"
+                                          CanUserResizeRows="False"
+                                          CanUserResizeColumns="False"
+                                          VerticalScrollBarVisibility="Auto"
+                                          HorizontalScrollBarVisibility="Disabled"
+                                          VirtualizingPanel.IsVirtualizing="False"
+                                          LoadingRow="DataGridDifficultyRequirements_LoadingRow">
+                                    <DataGrid.RowStyle>
+                                        <Style TargetType="DataGridRow">
+                                            <Setter Property="IsHitTestVisible"
+                                                    Value="False" />
+                                        </Style>
+                                    </DataGrid.RowStyle>
+                                    
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Name"
+                                                            Width="1*"
+                                                            IsReadOnly="True"
+                                                            Binding="{Binding}" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </GroupBox>
                         </st:StackPanel>
                     </st:AutoGrid>
                 </GroupBox>

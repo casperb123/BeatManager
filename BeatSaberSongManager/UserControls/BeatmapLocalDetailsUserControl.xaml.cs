@@ -1,6 +1,10 @@
-﻿using BeatSaberSongManager.ViewModels;
+﻿using BeatSaberSongManager.Entities;
+using BeatSaberSongManager.ViewModels;
+using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace BeatSaberSongManager.UserControls
 {
@@ -16,6 +20,8 @@ namespace BeatSaberSongManager.UserControls
             InitializeComponent();
             ViewModel = new BeatmapLocalDetailsUserControlViewModel(this, mainWindow);
             DataContext = ViewModel;
+
+            dataGridDifficultyRequirements.SelectionChanged += (s, e) => dataGridDifficultyRequirements.UnselectAll();
         }
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
@@ -51,6 +57,18 @@ namespace BeatSaberSongManager.UserControls
         private void ButtonInvalid_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.ShowErrors();
+        }
+
+        private void DataGridDifficultyRequirements_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            string modName = e.Row.Item.ToString().Replace(" ", "");
+
+            if (Directory.Exists(Settings.CurrentSettings.PluginsPath))
+            {
+                if (Directory.GetFiles(Settings.CurrentSettings.PluginsPath).FirstOrDefault(x => x.Contains(modName)) != null)
+                    e.Row.Foreground = new SolidColorBrush(Color.FromRgb(0, 200, 0));
+            }
+            else if (File.Exists(Settings.CurrentSettings.ModRequirementsPath)) { }
         }
     }
 }

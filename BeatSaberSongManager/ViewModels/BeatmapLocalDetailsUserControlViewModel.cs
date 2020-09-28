@@ -36,6 +36,11 @@ namespace BeatSaberSongManager.ViewModels
             {
                 beatmapDetail = value;
                 OnPropertyChanged(nameof(BeatmapDetail));
+
+                if (value.DifficultyBeatmap.CustomData.Requirements is null || value.DifficultyBeatmap.CustomData.Requirements.Length == 0)
+                    userControl.groupBoxDifficultyRequirements.Visibility = Visibility.Collapsed;
+                else
+                    userControl.groupBoxDifficultyRequirements.Visibility = Visibility.Visible;
             }
         }
 

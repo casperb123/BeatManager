@@ -79,6 +79,18 @@ namespace BeatSaberSongManager.Entities
             get { return $@"{RootPath}\Beat Saber_Data\CustomLevels"; }
         }
 
+        [JsonIgnore]
+        public string PluginsPath
+        {
+            get { return $@"{RootPath}\Plugins"; }
+        }
+
+        [JsonIgnore]
+        public string ModRequirementsPath
+        {
+            get { return $@"{RootPath}\ModRequirements.json"; }
+        }
+
         public bool CheckForUpdates
         {
             get { return checkForUpdates; }

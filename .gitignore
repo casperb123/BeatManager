@@ -338,4 +338,4 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
-/BeatSaberSongManager/Resources/GitHubToken.txt
+/BeatManager/Resources/GitHubToken.txt

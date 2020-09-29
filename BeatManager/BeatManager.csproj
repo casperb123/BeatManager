@@ -12,7 +12,7 @@
     <RepositoryType>Open source</RepositoryType>
     <NeutralLanguage>en-DK</NeutralLanguage>
     <Authors>Casper Bastholm</Authors>
-    <Description>Song manager for the original Beat Saber and the copy of Beat Saber made by Will1400</Description>
+    <Description>Management application for the original Beat Saber and the copy of Beat Saber made by Will1400</Description>
     <PackageId>BeatManager</PackageId>
   </PropertyGroup>
 

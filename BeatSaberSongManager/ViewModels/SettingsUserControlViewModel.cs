@@ -88,6 +88,7 @@ namespace BeatSaberSongManager.ViewModels
                     Settings.CurrentSettings.RootPath = BeatSaberPath;
                     Settings.CurrentSettings.Save();
                     Application.Current.Dispatcher.Invoke(() => App.BeatSaverApi.SongsPath = Settings.CurrentSettings.CustomLevelsPath);
+                    App.GetSupportedMods();
                     SongsPathChanged = true;
                 }
                 else if (toggleChanged)
@@ -103,7 +104,7 @@ namespace BeatSaberSongManager.ViewModels
                 await Application.Current.Dispatcher.Invoke(async () =>
                 {
                     result = await MainWindow.ShowMessageAsync("Beat Saber folder found", "The following folder was found, would you like to use it?\n" +
-                                                                                                          $"'{BeatSaberPath}'", MessageDialogStyle.AffirmativeAndNegative);
+                                                                                          $"'{BeatSaberPath}'", MessageDialogStyle.AffirmativeAndNegative);
                 });
 
                 if (result == MessageDialogResult.Affirmative)
@@ -111,6 +112,7 @@ namespace BeatSaberSongManager.ViewModels
                     Settings.CurrentSettings.RootPath = BeatSaberPath;
                     Settings.CurrentSettings.Save();
                     Application.Current.Dispatcher.Invoke(() => App.BeatSaverApi.SongsPath = Settings.CurrentSettings.CustomLevelsPath);
+                    App.GetSupportedMods();
                     SongsPathChanged = true;
                 }
                 else
@@ -120,6 +122,7 @@ namespace BeatSaberSongManager.ViewModels
                         Settings.CurrentSettings.RootPath = BeatSaberPath;
                         Settings.CurrentSettings.Save();
                         Application.Current.Dispatcher.Invoke(() => App.BeatSaverApi.SongsPath = Settings.CurrentSettings.CustomLevelsPath);
+                        App.GetSupportedMods();
                         SongsPathChanged = true;
                     }
                     else if (toggleChanged)

@@ -86,9 +86,9 @@ namespace BeatSaberSongManager.Entities
         }
 
         [JsonIgnore]
-        public string ModRequirementsPath
+        public string ModSupportPath
         {
-            get { return $@"{RootPath}\ModRequirements.json"; }
+            get { return $@"{RootPath}\ModSupport.json"; }
         }
 
         public bool CheckForUpdates

@@ -84,9 +84,7 @@ namespace BeatSaberSongManager.ViewModels
 
         public void GetBeatmaps(MapSort mapSort, int page = 0)
         {
-            MainWindow.progressRingLoading.IsActive = true;
-            MainWindow.rectangleLoading.Visibility = Visibility.Visible;
-            MainWindow.progressRingLoading.Visibility = Visibility.Visible;
+            MainWindow.ToggleLoading(true);
 
             _ = Task.Run(async () =>
             {
@@ -109,9 +107,7 @@ namespace BeatSaberSongManager.ViewModels
 
         public void GetBeatmaps(string query, int page = 0)
         {
-            MainWindow.progressRingLoading.IsActive = true;
-            MainWindow.rectangleLoading.Visibility = Visibility.Visible;
-            MainWindow.progressRingLoading.Visibility = Visibility.Visible;
+            MainWindow.ToggleLoading(true);
 
             _ = Task.Run(async () =>
             {

@@ -658,36 +658,58 @@
                                 </st:AutoGrid>
                             </st:StackPanel>
 
-                            <GroupBox x:Name="groupBoxDifficultyRequirements"
-                                      Header="Mod Requirements"
+                            <GroupBox Header="Mod Requirements"
                                       MaxHeight="200">
-                                <DataGrid x:Name="dataGridDifficultyRequirements"
-                                          ItemsSource="{Binding Path=BeatmapDetail.DifficultyBeatmap.CustomData.Requirements}"
-                                          AutoGenerateColumns="False"
-                                          SelectionMode="Single"
-                                          CanUserAddRows="False"
-                                          CanUserDeleteRows="False"
-                                          CanUserReorderColumns="False"
-                                          CanUserResizeRows="False"
-                                          CanUserResizeColumns="False"
-                                          VerticalScrollBarVisibility="Auto"
-                                          HorizontalScrollBarVisibility="Disabled"
-                                          VirtualizingPanel.IsVirtualizing="False"
-                                          LoadingRow="DataGridDifficultyRequirements_LoadingRow">
-                                    <DataGrid.RowStyle>
-                                        <Style TargetType="DataGridRow">
-                                            <Setter Property="IsHitTestVisible"
-                                                    Value="False" />
-                                        </Style>
-                                    </DataGrid.RowStyle>
-                                    
-                                    <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Name"
-                                                            Width="1*"
-                                                            IsReadOnly="True"
-                                                            Binding="{Binding}" />
-                                    </DataGrid.Columns>
-                                </DataGrid>
+                                <Grid>
+                                    <Label x:Name="labelRequirements"
+                                           Content="No requirements found"
+                                           Visibility="Collapsed"
+                                           FontSize="15" />
+
+                                    <DataGrid x:Name="dataGridDifficultyRequirements"
+                                              ItemsSource="{Binding Path=BeatmapDetail.DifficultyBeatmap.CustomData.Requirements}"
+                                              AutoGenerateColumns="False"
+                                              SelectionMode="Single"
+                                              CanUserAddRows="False"
+                                              CanUserDeleteRows="False"
+                                              CanUserReorderColumns="False"
+                                              CanUserResizeRows="False"
+                                              CanUserResizeColumns="False"
+                                              VerticalScrollBarVisibility="Auto"
+                                              HorizontalScrollBarVisibility="Disabled"
+                                              VirtualizingPanel.IsVirtualizing="False"
+                                              LoadingRow="DataGridDifficultyRequirements_LoadingRow">
+                                        <DataGrid.RowStyle>
+                                            <Style TargetType="DataGridRow">
+                                                <Setter Property="IsHitTestVisible"
+                                                        Value="False" />
+                                            </Style>
+                                        </DataGrid.RowStyle>
+
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Name"
+                                                                Width="1*"
+                                                                IsReadOnly="True"
+                                                                Binding="{Binding}">
+                                                <DataGridTextColumn.ElementStyle>
+                                                    <Style TargetType="TextBlock"
+                                                           BasedOn="{StaticResource MahApps.Styles.TextBlock}">
+                                                        <Setter Property="TextTrimming"
+                                                                Value="CharacterEllipsis" />
+                                                        <Setter Property="Margin"
+                                                                Value="10,0,0,0" />
+                                                        <Setter Property="ToolTip"
+                                                                Value="{Binding Path=SongAuthorName, IsAsync=True}" />
+                                                        <Setter Property="ToolTipService.BetweenShowDelay"
+                                                                Value="0" />
+                                                        <Setter Property="ToolTipService.InitialShowDelay"
+                                                                Value="0" />
+                                                    </Style>
+                                                </DataGridTextColumn.ElementStyle>
+                                            </DataGridTextColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </Grid>
                             </GroupBox>
                         </st:StackPanel>
                     </st:AutoGrid>

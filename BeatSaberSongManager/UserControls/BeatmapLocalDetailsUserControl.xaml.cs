@@ -1,5 +1,7 @@
 ﻿using BeatSaberSongManager.Entities;
 using BeatSaberSongManager.ViewModels;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -63,12 +65,10 @@ namespace BeatSaberSongManager.UserControls
         {
             string modName = e.Row.Item.ToString().Replace(" ", "");
 
-            if (Directory.Exists(Settings.CurrentSettings.PluginsPath))
-            {
-                if (Directory.GetFiles(Settings.CurrentSettings.PluginsPath).FirstOrDefault(x => x.Contains(modName)) != null)
-                    e.Row.Foreground = new SolidColorBrush(Color.FromRgb(0, 200, 0));
-            }
-            else if (File.Exists(Settings.CurrentSettings.ModRequirementsPath)) { }
+            if (App.SupportedMods.Contains(modName))
+                e.Row.Foreground = new SolidColorBrush(Color.FromRgb(0, 200, 0));
+            else
+                e.Row.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
         }
     }
 }

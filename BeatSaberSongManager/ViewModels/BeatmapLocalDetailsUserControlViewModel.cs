@@ -1,12 +1,17 @@
-﻿using BeatSaberSongManager.UserControls;
+﻿using BeatSaberSongManager.Entities;
+using BeatSaberSongManager.UserControls;
 using BeatSaverApi.Entities;
 using MahApps.Metro.Controls.Dialogs;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
+using System.Windows.Media;
 
 namespace BeatSaberSongManager.ViewModels
 {
@@ -37,10 +42,16 @@ namespace BeatSaberSongManager.ViewModels
                 beatmapDetail = value;
                 OnPropertyChanged(nameof(BeatmapDetail));
 
-                if (value.DifficultyBeatmap.CustomData.Requirements is null || value.DifficultyBeatmap.CustomData.Requirements.Length == 0)
-                    userControl.groupBoxDifficultyRequirements.Visibility = Visibility.Collapsed;
+                if (value.DifficultyBeatmap.CustomData.Requirements is null)
+                {
+                    userControl.dataGridDifficultyRequirements.Visibility = Visibility.Collapsed;
+                    userControl.labelRequirements.Visibility = Visibility.Visible;
+                }
                 else
-                    userControl.groupBoxDifficultyRequirements.Visibility = Visibility.Visible;
+                {
+                    userControl.labelRequirements.Visibility = Visibility.Collapsed;
+                    userControl.dataGridDifficultyRequirements.Visibility = Visibility.Visible;
+                }
             }
         }
 

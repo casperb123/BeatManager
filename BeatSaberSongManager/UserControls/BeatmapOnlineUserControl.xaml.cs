@@ -79,9 +79,7 @@ namespace BeatSaberSongManager.UserControls
 
         private void DataGridMaps_TargetUpdated(object sender, DataTransferEventArgs e)
         {
-            ViewModel.MainWindow.rectangleLoading.Visibility = Visibility.Hidden;
-            ViewModel.MainWindow.progressRingLoading.Visibility = Visibility.Hidden;
-            ViewModel.MainWindow.progressRingLoading.IsActive = false;
+            MainWindow.ToggleLoading(false);
             ViewModel.UpdatePageButtons();
         }
 

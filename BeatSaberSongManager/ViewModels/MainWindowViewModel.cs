@@ -6,13 +6,14 @@ using GitHubUpdater;
 using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Threading.Tasks;
+using System.Windows;
 using Version = GitHubUpdater.Version;
 
 namespace BeatSaberSongManager.ViewModels
 {
     public class MainWindowViewModel
     {
-        private readonly MainWindow mainWindow;
+        public readonly MainWindow mainWindow;
         private bool localBeatmapsLoaded = false;
         private ProgressDialogController progressDialog;
 

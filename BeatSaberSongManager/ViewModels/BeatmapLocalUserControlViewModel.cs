@@ -54,19 +54,13 @@ namespace BeatSaberSongManager.ViewModels
 
         public void GetBeatmaps()
         {
-            MainWindow.progressRingLoading.IsActive = true;
-            MainWindow.rectangleLoading.Visibility = Visibility.Visible;
-            MainWindow.progressRingLoading.Visibility = Visibility.Visible;
-
+            MainWindow.ToggleLoading(true);
             _ = Task.Run(async () => LocalBeatmaps = await App.BeatSaverApi.GetLocalBeatmaps());
         }
 
         public void GetBeatmaps(LocalBeatmaps localBeatmaps)
         {
-            MainWindow.progressRingLoading.IsActive = true;
-            MainWindow.rectangleLoading.Visibility = Visibility.Visible;
-            MainWindow.progressRingLoading.Visibility = Visibility.Visible;
-
+            MainWindow.ToggleLoading(true);
             _ = Task.Run(async () => LocalBeatmaps = await App.BeatSaverApi.GetLocalBeatmaps(localBeatmaps));
         }
 

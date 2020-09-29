@@ -40,13 +40,9 @@ namespace BeatSaberSongManager.UserControls
 
             if (ViewModel.ChangePath)
             {
-                ViewModel.MainWindow.progressRingLoading.IsActive = true;
-                ViewModel.MainWindow.rectangleLoading.Visibility = Visibility.Visible;
-                ViewModel.MainWindow.progressRingLoading.Visibility = Visibility.Visible;
+                MainWindow.ToggleLoading(true);
                 await Task.Run(() => ViewModel.GetBeatSaberPath(Settings.CurrentSettings.BeatSaberCopy, true, true));
-                ViewModel.MainWindow.rectangleLoading.Visibility = Visibility.Hidden;
-                ViewModel.MainWindow.progressRingLoading.Visibility = Visibility.Hidden;
-                ViewModel.MainWindow.progressRingLoading.IsActive = false;
+                MainWindow.ToggleLoading(false);
             }
             else
                 ViewModel.ChangePath = true;
@@ -54,13 +50,9 @@ namespace BeatSaberSongManager.UserControls
 
         private async void ButtonDetectPath_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.MainWindow.progressRingLoading.IsActive = true;
-            ViewModel.MainWindow.rectangleLoading.Visibility = Visibility.Visible;
-            ViewModel.MainWindow.progressRingLoading.Visibility = Visibility.Visible;
+            MainWindow.ToggleLoading(true);
             await Task.Run(() => ViewModel.GetBeatSaberPath(Settings.CurrentSettings.BeatSaberCopy, false, true));
-            ViewModel.MainWindow.rectangleLoading.Visibility = Visibility.Hidden;
-            ViewModel.MainWindow.progressRingLoading.Visibility = Visibility.Hidden;
-            ViewModel.MainWindow.progressRingLoading.IsActive = false;
+            MainWindow.ToggleLoading(false);
         }
     }
 }

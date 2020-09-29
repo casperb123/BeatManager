@@ -16,6 +16,8 @@ namespace BeatSaberSongManager
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        public static MainWindow Instance;
+
         public readonly MainWindowViewModel ViewModel;
 
         public MainWindow()
@@ -23,6 +25,23 @@ namespace BeatSaberSongManager
             InitializeComponent();
             ViewModel = new MainWindowViewModel(this);
             DataContext = ViewModel;
+            Instance = this;
+        }
+
+        public static void ToggleLoading(bool enabled)
+        {
+            if (enabled)
+            {
+                Instance.progressRingLoading.IsActive = true;
+                Instance.rectangleLoading.Visibility = Visibility.Visible;
+                Instance.progressRingLoading.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Instance.rectangleLoading.Visibility = Visibility.Hidden;
+                Instance.progressRingLoading.Visibility = Visibility.Hidden;
+                Instance.progressRingLoading.IsActive = false;
+            }
         }
 
         private void RadioButtonLocal_Click(object sender, RoutedEventArgs e)

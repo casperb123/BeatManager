@@ -667,7 +667,7 @@
                                            FontSize="15" />
 
                                     <DataGrid x:Name="dataGridDifficultyRequirements"
-                                              ItemsSource="{Binding Path=BeatmapDetail.DifficultyBeatmap.CustomData.Requirements}"
+                                              ItemsSource="{Binding Path=BeatmapDetail.DifficultyBeatmap.CustomData.RequiredMods, Mode=OneWay}"
                                               AutoGenerateColumns="False"
                                               SelectionMode="Single"
                                               CanUserAddRows="False"

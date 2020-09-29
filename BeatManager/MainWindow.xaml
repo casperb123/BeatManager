@@ -4,7 +4,8 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-                 xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                 xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                 xmlns:st="http://schemas.spicytaco.io/"
                  mc:Ignorable="d"
                  Title="Beat Manager"
                  Height="750"
@@ -22,76 +23,120 @@
                     Click="ButtonUpdate_Click" />
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
 
-        <Grid>
-            <Grid.Background>
-                <SolidColorBrush Color="Black"
-                                 Opacity=".2" />
-            </Grid.Background>
+        <StackPanel Orientation="Horizontal">
+            <Grid x:Name="gridNavigation">
+                <Grid.Background>
+                    <SolidColorBrush Color="Black"
+                                     Opacity=".2" />
+                </Grid.Background>
 
-            <StackPanel Margin="10">
-                <RadioButton x:Name="radioButtonLocal"
-                             Width="40"
-                             Height="40"
-                             Margin="0,0,0,5"
-                             ToolTip="Local Beatmaps"
-                             ToolTipService.BetweenShowDelay="0"
-                             ToolTipService.InitialShowDelay="0"
-                             Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
-                             GroupName="NavigationButtons"
-                             Cursor="Hand"
-                             Click="RadioButtonLocal_Click">
-                    <iconPacks:PackIconFontAwesome Kind="LaptopSolid"
+                <st:StackPanel Margin="10"
+                               MarginBetweenChildren="5">
+                    <RadioButton x:Name="radioButtonHome"
+                                 Width="40"
+                                 Height="40"
+                                 ToolTip="Home"
+                                 ToolTipService.BetweenShowDelay="0"
+                                 ToolTipService.InitialShowDelay="0"
+                                 Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
+                                 GroupName="NavigationButtons"
+                                 Cursor="Hand"
+                                 Checked="RadioButtonHome_Checked">
+                        <icons:PackIconFontAwesome Kind="HomeSolid"
                                                    Width="20"
-                                                   Height="20"
-                                                   HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center" />
-                </RadioButton>
+                                                   Height="20" />
+                    </RadioButton>
 
-                <RadioButton x:Name="radioButtonOnline"
-                             Width="40"
-                             Height="40"
-                             ToolTip="Online Beatmaps"
-                             ToolTipService.BetweenShowDelay="0"
-                             ToolTipService.InitialShowDelay="0"
-                             Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
-                             GroupName="NavigationButtons"
-                             Cursor="Hand"
-                             Click="RadioButtonOnline_Click">
-                    <iconPacks:PackIconFontAwesome Kind="GlobeSolid"
-                                                   Width="20"
-                                                   Height="20"
-                                                   HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center" />
-                </RadioButton>
-            </StackPanel>
+                    <RadioButton x:Name="radioButtonBeatmaps"
+                                 Width="40"
+                                 Height="40"
+                                 ToolTip="Beatmaps"
+                                 ToolTipService.BetweenShowDelay="0"
+                                 ToolTipService.InitialShowDelay="0"
+                                 Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
+                                 GroupName="NavigationButtons"
+                                 Cursor="Hand"
+                                 Checked="RadioButtonBeatmaps_Checked">
+                        <icons:PackIconMaterial Kind="PlaylistMusic"
+                                                Width="20"
+                                                Height="20" />
+                    </RadioButton>
+                </st:StackPanel>
 
-            <StackPanel VerticalAlignment="Bottom"
-                        Margin="10">
-                <RadioButton x:Name="radioButtonSettings"
-                             Width="40"
-                             Height="40"
-                             ToolTip="Settings"
-                             ToolTipService.BetweenShowDelay="0"
-                             ToolTipService.InitialShowDelay="0"
-                             Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
-                             GroupName="NavigationButtons"
-                             Cursor="Hand"
-                             Checked="RadioButtonSettings_Checked">
-                    <iconPacks:PackIconMaterialDesign Kind="Settings"
+                <st:StackPanel VerticalAlignment="Bottom"
+                               Margin="10">
+                    <RadioButton x:Name="radioButtonSettings"
+                                 Width="40"
+                                 Height="40"
+                                 ToolTip="Settings"
+                                 ToolTipService.BetweenShowDelay="0"
+                                 ToolTipService.InitialShowDelay="0"
+                                 Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
+                                 GroupName="NavigationButtons"
+                                 Cursor="Hand"
+                                 Checked="RadioButtonSettings_Checked">
+                        <icons:PackIconMaterialDesign Kind="Settings"
                                                       Width="20"
                                                       Height="20"
                                                       HorizontalAlignment="Center"
                                                       VerticalAlignment="Center" />
-                </RadioButton>
-            </StackPanel>
-        </Grid>
+                    </RadioButton>
+                </st:StackPanel>
+            </Grid>
+
+            <Grid x:Name="gridNavigationBeatmaps"
+                  Grid.Column="1"
+                  Visibility="Collapsed">
+                <Grid.Background>
+                    <SolidColorBrush Color="#424242"
+                                     Opacity=".2" />
+                </Grid.Background>
+
+                <st:StackPanel Margin="10"
+                               MarginBetweenChildren="5">
+                    <RadioButton x:Name="radioButtonLocal"
+                                 Width="40"
+                                 Height="40"
+                                 ToolTip="Local Beatmaps"
+                                 ToolTipService.BetweenShowDelay="0"
+                                 ToolTipService.InitialShowDelay="0"
+                                 Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
+                                 GroupName="NavigationButtonsBeatmaps"
+                                 Cursor="Hand"
+                                 Click="RadioButtonLocal_Click">
+                        <icons:PackIconFontAwesome Kind="LaptopSolid"
+                                                   Width="20"
+                                                   Height="20"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center" />
+                    </RadioButton>
+
+                    <RadioButton x:Name="radioButtonOnline"
+                                 Width="40"
+                                 Height="40"
+                                 ToolTip="Online Beatmaps"
+                                 ToolTipService.BetweenShowDelay="0"
+                                 ToolTipService.InitialShowDelay="0"
+                                 Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
+                                 GroupName="NavigationButtonsBeatmaps"
+                                 Cursor="Hand"
+                                 Click="RadioButtonOnline_Click">
+                        <icons:PackIconFontAwesome Kind="GlobeSolid"
+                                                   Width="20"
+                                                   Height="20"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center" />
+                    </RadioButton>
+                </st:StackPanel>
+            </Grid>
+        </StackPanel>
 
         <mah:TransitioningContentControl x:Name="transitionControl"
                                          MaxWidth="1700"

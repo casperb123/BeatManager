@@ -44,6 +44,22 @@ namespace BeatManager
             }
         }
 
+        private void RadioButtonHome_Checked(object sender, RoutedEventArgs e)
+        {
+            transitionControl.Content = null;
+            gridNavigationBeatmaps.Visibility = Visibility.Collapsed;
+        }
+
+        private void RadioButtonBeatmaps_Checked(object sender, RoutedEventArgs e)
+        {
+            gridNavigationBeatmaps.Visibility = Visibility.Visible;
+
+            if (radioButtonLocal.IsChecked.GetValueOrDefault())
+                ViewModel.ShowLocalPage();
+            else if (radioButtonOnline.IsChecked.GetValueOrDefault())
+                ViewModel.ShowOnlinePage();
+        }
+
         private void RadioButtonLocal_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.ShowLocalPage();
@@ -84,8 +100,7 @@ namespace BeatManager
                 radioButtonSettings.IsChecked = true;
             else
             {
-                radioButtonLocal.IsChecked = true;
-                ViewModel.ShowLocalPage();
+                radioButtonHome.IsChecked = true;
             }
         }
 

@@ -265,6 +265,7 @@ namespace BeatManager.ViewModels
         public void ShowSettingsPage()
         {
             mainWindow.transitionControl.Content = SettingsUserControl;
+            mainWindow.gridNavigationBeatmaps.Visibility = Visibility.Collapsed;
         }
     }
 }

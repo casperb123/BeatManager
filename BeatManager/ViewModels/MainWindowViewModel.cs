@@ -41,7 +41,7 @@ namespace BeatManager.ViewModels
 
             try
             {
-                Updater = new Updater("casperb123", "BeatSaberSongManager", Resources.GitHubToken);
+                Updater = new Updater("casperb123", "BeatManager", Resources.GitHubToken);
                 Updater.UpdateAvailable += Updater_UpdateAvailable;
                 Updater.DownloadingStarted += Updater_DownloadingStarted;
                 Updater.DownloadingProgressed += Updater_DownloadingProgressed;

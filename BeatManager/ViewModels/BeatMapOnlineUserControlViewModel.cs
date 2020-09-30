@@ -146,7 +146,9 @@ namespace BeatManager.ViewModels
             if (!userControl.radioButtonSearch.IsChecked.Value &&
                 CurrentMapSort != MapSort.SearchKey &&
                 CurrentMapSort != MapSort.SearchHash)
+            {
                 userControl.radioButtonSearch.IsChecked = true;
+            }
 
             GetBeatmaps(query);
         }

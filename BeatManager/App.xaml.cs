@@ -47,15 +47,15 @@ namespace BeatManager
 
         public static void GetSupportedMods()
         {
+            SupportedMods = new List<SupportedMod>();
+
             if (Directory.Exists(Settings.CurrentSettings.PluginsPath))
             {
-                SupportedMods = new List<SupportedMod>();
                 List<string> modFiles = Directory.GetFiles(Settings.CurrentSettings.PluginsPath).ToList();
                 modFiles.ForEach(x => SupportedMods.Add(new SupportedMod(Path.GetFileNameWithoutExtension(x).Replace(" ", ""), 2)));
             }
             else if (File.Exists(Settings.CurrentSettings.ModSupportPath))
             {
-                SupportedMods = new List<SupportedMod>();
                 List<SupportedMod> supportedMods = null;
 
                 try

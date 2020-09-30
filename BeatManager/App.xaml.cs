@@ -51,14 +51,22 @@ namespace BeatManager
             {
                 SupportedMods = new List<SupportedMod>();
                 List<string> modFiles = Directory.GetFiles(Settings.CurrentSettings.PluginsPath).ToList();
-                modFiles.ForEach(x => SupportedMods.Add(new SupportedMod(x.Replace(" ", ""), 2)));
+                modFiles.ForEach(x => SupportedMods.Add(new SupportedMod(Path.GetFileNameWithoutExtension(x).Replace(" ", ""), 2)));
             }
             else if (File.Exists(Settings.CurrentSettings.ModSupportPath))
             {
                 SupportedMods = new List<SupportedMod>();
-                string json = File.ReadAllText(Settings.CurrentSettings.ModSupportPath);
-                List<SupportedMod> supportedMods = JsonConvert.DeserializeObject<List<SupportedMod>>(json);
-                supportedMods.ForEach(x => SupportedMods.Add(new SupportedMod(x.Name.Replace(" ", ""), x.Supported)));
+                List<SupportedMod> supportedMods = null;
+
+                try
+                {
+                    string json = File.ReadAllText(Settings.CurrentSettings.ModSupportPath);
+                    supportedMods = JsonConvert.DeserializeObject<List<SupportedMod>>(json);
+                }
+                catch (Exception) { }
+
+                if (supportedMods != null)
+                    supportedMods.ForEach(x => SupportedMods.Add(new SupportedMod(x.Name.Replace(" ", ""), x.Supported)));
             }
         }
     }

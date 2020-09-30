@@ -195,7 +195,7 @@ namespace BeatManager.ViewModels
                 MainWindow.ViewModel.LocalDetailsUserControl.ViewModel.Errors = null;
 
             if (changePage)
-                MainWindow.transitionControl.Content = MainWindow.ViewModel.LocalDetailsUserControl;
+                MainWindow.userControlMain.Content = MainWindow.ViewModel.LocalDetailsUserControl;
 
             MainWindow.ViewModel.LocalUserControl.dataGridMaps.UnselectAll();
         }

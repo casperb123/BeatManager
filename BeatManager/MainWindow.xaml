@@ -10,8 +10,8 @@
                  Title="Beat Manager"
                  Height="750"
                  MinHeight="750"
-                 Width="955"
-                 MinWidth="955"
+                 Width="1000"
+                 MinWidth="1000"
                  Closing="MetroWindow_Closing"
                  Loaded="MetroWindow_Loaded"
                  MouseDown="MetroWindow_MouseDown">
@@ -91,59 +91,12 @@
                 </st:StackPanel>
             </Grid>
 
-            <Grid x:Name="gridNavigationBeatmaps"
-                  Grid.Column="1"
-                  Visibility="Collapsed">
-                <Grid.Background>
-                    <SolidColorBrush Color="#424242"
-                                     Opacity=".2" />
-                </Grid.Background>
-
-                <st:StackPanel Margin="10"
-                               MarginBetweenChildren="5">
-                    <RadioButton x:Name="radioButtonLocal"
-                                 Width="40"
-                                 Height="40"
-                                 ToolTip="Local Beatmaps"
-                                 ToolTipService.BetweenShowDelay="0"
-                                 ToolTipService.InitialShowDelay="0"
-                                 Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
-                                 GroupName="NavigationButtonsBeatmaps"
-                                 Cursor="Hand"
-                                 Click="RadioButtonLocal_Click">
-                        <icons:PackIconFontAwesome Kind="LaptopSolid"
-                                                   Width="20"
-                                                   Height="20"
-                                                   HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center" />
-                    </RadioButton>
-
-                    <RadioButton x:Name="radioButtonOnline"
-                                 Width="40"
-                                 Height="40"
-                                 ToolTip="Online Beatmaps"
-                                 ToolTipService.BetweenShowDelay="0"
-                                 ToolTipService.InitialShowDelay="0"
-                                 Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
-                                 GroupName="NavigationButtonsBeatmaps"
-                                 Cursor="Hand"
-                                 Click="RadioButtonOnline_Click">
-                        <icons:PackIconFontAwesome Kind="GlobeSolid"
-                                                   Width="20"
-                                                   Height="20"
-                                                   HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center" />
-                    </RadioButton>
-                </st:StackPanel>
-            </Grid>
+            <UserControl x:Name="userControlNavigation" />
         </StackPanel>
 
-        <mah:TransitioningContentControl x:Name="transitionControl"
-                                         MaxWidth="1700"
-                                         Grid.Column="1"
-                                         Transition="Left"
-                                         RestartTransitionOnContentChange="True"
-                                         TransitionCompleted="TransitionControl_TransitionCompleted" />
+        <UserControl x:Name="userControlMain"
+                     MaxWidth="1700"
+                     Grid.Column="1" />
 
         <Rectangle x:Name="rectangleLoading"
                    Grid.ColumnSpan="2"

@@ -46,40 +46,28 @@ namespace BeatManager
 
         private void RadioButtonHome_Checked(object sender, RoutedEventArgs e)
         {
-            transitionControl.Content = null;
-            gridNavigationBeatmaps.Visibility = Visibility.Collapsed;
+            userControlNavigation.Content = null;
+            userControlMain.Content = null;
         }
 
         private void RadioButtonBeatmaps_Checked(object sender, RoutedEventArgs e)
         {
-            gridNavigationBeatmaps.Visibility = Visibility.Visible;
+            userControlNavigation.Content = ViewModel.NavigationBeatmapsUserControl;
 
-            if (radioButtonLocal.IsChecked.GetValueOrDefault())
+            if (ViewModel.NavigationBeatmapsUserControl.ViewModel.LocalPage)
                 ViewModel.ShowLocalPage();
-            else if (radioButtonOnline.IsChecked.GetValueOrDefault())
+            else if (ViewModel.NavigationBeatmapsUserControl.ViewModel.OnlinePage)
                 ViewModel.ShowOnlinePage();
-        }
-
-        private void RadioButtonLocal_Click(object sender, RoutedEventArgs e)
-        {
-            ViewModel.ShowLocalPage();
-        }
-
-        private void RadioButtonOnline_Click(object sender, RoutedEventArgs e)
-        {
-            ViewModel.ShowOnlinePage();
+            else
+            {
+                ViewModel.NavigationBeatmapsUserControl.ViewModel.LocalPage = true;
+                ViewModel.ShowLocalPage();
+            }
         }
 
         private void RadioButtonSettings_Checked(object sender, RoutedEventArgs e)
         {
             ViewModel.ShowSettingsPage();
-        }
-
-
-        private void TransitionControl_TransitionCompleted(object sender, RoutedEventArgs e)
-        {
-            if (!ViewModel.ShowLocalDetails)
-                ViewModel.LocalDetailsUserControl.scrollViewer.ScrollToTop();
         }
 
         private async void MetroWindow_Closing(object sender, CancelEventArgs e)
@@ -130,9 +118,9 @@ namespace BeatManager
         {
             if (e.ChangedButton == MouseButton.XButton1)
             {
-                if (transitionControl.Content == ViewModel.LocalDetailsUserControl)
+                if (userControlMain.Content == ViewModel.LocalDetailsUserControl)
                     ViewModel.LocalDetailsUserControl.ViewModel.Back();
-                else if (transitionControl.Content == ViewModel.OnlineDetailsUserControl)
+                else if (userControlMain.Content == ViewModel.OnlineDetailsUserControl)
                     ViewModel.OnlineDetailsUserControl.ViewModel.Back();
             }
         }

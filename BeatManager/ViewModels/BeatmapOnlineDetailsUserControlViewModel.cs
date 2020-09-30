@@ -64,7 +64,7 @@ namespace BeatManager.ViewModels
         public void Back()
         {
             mainWindow.ViewModel.ShowOnlineDetails = false;
-            mainWindow.transitionControl.Content = mainWindow.ViewModel.OnlineUserControl;
+            mainWindow.userControlMain.Content = mainWindow.ViewModel.OnlineUserControl;
         }
 
         private void CreateDifficultySets()

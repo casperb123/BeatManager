@@ -1,28 +1,29 @@
 ﻿using BeatManager.Entities;
 using BeatManager.Properties;
 using BeatManager.UserControls;
+using BeatManager.UserControls.Navigation;
 using BeatSaverApi.Entities;
 using GitHubUpdater;
 using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Threading.Tasks;
-using System.Windows;
 using Version = GitHubUpdater.Version;
 
 namespace BeatManager.ViewModels
 {
     public class MainWindowViewModel
     {
-        public readonly MainWindow mainWindow;
         private bool localBeatmapsLoaded = false;
         private ProgressDialogController progressDialog;
 
+        public readonly MainWindow MainWindow;
         public readonly MainWindowViewModel ViewModel;
         public readonly BeatmapLocalUserControl LocalUserControl;
         public readonly BeatmapOnlineUserControl OnlineUserControl;
         public readonly SettingsUserControl SettingsUserControl;
         public readonly BeatmapLocalDetailsUserControl LocalDetailsUserControl;
         public readonly BeatmapOnlineDetailsUserControl OnlineDetailsUserControl;
+        public readonly NavigationBeatmapsUserControl NavigationBeatmapsUserControl;
 
         public bool ShowLocalDetails;
         public bool ShowOnlineDetails;
@@ -32,12 +33,15 @@ namespace BeatManager.ViewModels
 
         public MainWindowViewModel(MainWindow mainWindow)
         {
-            this.mainWindow = mainWindow;
+            MainWindow = mainWindow;
             LocalUserControl = new BeatmapLocalUserControl(mainWindow);
             OnlineUserControl = new BeatmapOnlineUserControl(mainWindow);
             SettingsUserControl = new SettingsUserControl(mainWindow);
             LocalDetailsUserControl = new BeatmapLocalDetailsUserControl(mainWindow);
             OnlineDetailsUserControl = new BeatmapOnlineDetailsUserControl(mainWindow);
+            NavigationBeatmapsUserControl = new NavigationBeatmapsUserControl();
+            NavigationBeatmapsUserControl.LocalEvent += NavigationBeatmapsUserControl_LocalEvent;
+            NavigationBeatmapsUserControl.OnlineEvent += NavigationBeatmapsUserControl_OnlineEvent;
 
             try
             {
@@ -64,6 +68,16 @@ namespace BeatManager.ViewModels
             }
         }
 
+        private void NavigationBeatmapsUserControl_LocalEvent(object sender, EventArgs e)
+        {
+            ShowLocalPage();
+        }
+
+        private void NavigationBeatmapsUserControl_OnlineEvent(object sender, EventArgs e)
+        {
+            ShowOnlinePage();
+        }
+
         private async void CheckForUpdates()
         {
             if (Settings.CurrentSettings.CheckForUpdates)
@@ -75,7 +89,7 @@ namespace BeatManager.ViewModels
             else if (Updater.IsUpdateDownloaded())
             {
                 UpdateDownloaded = true;
-                mainWindow.buttonUpdate.Content = "Update downloaded";
+                MainWindow.buttonUpdate.Content = "Update downloaded";
             }
             else
                 Updater.DeleteUpdateFiles();
@@ -83,14 +97,14 @@ namespace BeatManager.ViewModels
 
         private async void Updater_InstallationFailed(object sender, ExceptionEventArgs<Exception> e)
         {
-            await mainWindow.ShowMessageAsync("Installation failed", "Installing the update failed.\n\n" +
+            await MainWindow.ShowMessageAsync("Installation failed", "Installing the update failed.\n\n" +
                                                                      "Error:\n" +
                                                                      $"{e.Message}");
         }
 
         private async void Updater_DownloadingFailed(object sender, ExceptionEventArgs<Exception> e)
         {
-            await mainWindow.ShowMessageAsync("Downloading failed", "Downloading the update failed.\n\n" +
+            await MainWindow.ShowMessageAsync("Downloading failed", "Downloading the update failed.\n\n" +
                                                                     "Error:\n" +
                                                                     $"{e.Message}");
         }
@@ -112,7 +126,7 @@ namespace BeatManager.ViewModels
 
         private async void Updater_DownloadingStarted(object sender, DownloadStartedEventArgs e)
         {
-            progressDialog = await mainWindow.ShowProgressAsync($"Downloading update - {e.Version}", "Estimated time left: 0 sec (0 kb of 0 kb downloaded)\n" +
+            progressDialog = await MainWindow.ShowProgressAsync($"Downloading update - {e.Version}", "Estimated time left: 0 sec (0 kb of 0 kb downloaded)\n" +
                                                                                                      "Time spent: 0 sec");
             progressDialog.Minimum = 0;
             progressDialog.Maximum = 100;
@@ -127,7 +141,7 @@ namespace BeatManager.ViewModels
                 else
                 {
                     UpdateDownloaded = true;
-                    mainWindow.buttonUpdate.Content = "Update downloaded";
+                    MainWindow.buttonUpdate.Content = "Update downloaded";
                 }
             }
             else
@@ -140,7 +154,7 @@ namespace BeatManager.ViewModels
                                      $"Changelog:\n" +
                                      $"{e.Changelog}";
 
-                    MessageDialogResult result = await mainWindow.ShowMessageAsync("Update available", message, MessageDialogStyle.AffirmativeAndNegative);
+                    MessageDialogResult result = await MainWindow.ShowMessageAsync("Update available", message, MessageDialogStyle.AffirmativeAndNegative);
 
                     if (result == MessageDialogResult.Affirmative)
                     {
@@ -154,7 +168,7 @@ namespace BeatManager.ViewModels
                         Settings.CurrentSettings.NotifyUpdates = false;
                         Settings.CurrentSettings.Save();
                         UpdateAvailable = true;
-                        mainWindow.buttonUpdate.Content = "Update available";
+                        MainWindow.buttonUpdate.Content = "Update available";
                     }
                 }
                 else
@@ -167,7 +181,7 @@ namespace BeatManager.ViewModels
 
                     UpdateAvailable = true;
                     UpdateDownloaded = false;
-                    mainWindow.buttonUpdate.Content = "Update available";
+                    MainWindow.buttonUpdate.Content = "Update available";
                 }
             }
         }
@@ -182,7 +196,7 @@ namespace BeatManager.ViewModels
                 message += $"\n\nChangelog:\n" +
                            $"{changelog}";
 
-            MessageDialogResult result = await mainWindow.ShowMessageAsync("Update downloaded", message, MessageDialogStyle.AffirmativeAndNegative);
+            MessageDialogResult result = await MainWindow.ShowMessageAsync("Update downloaded", message, MessageDialogStyle.AffirmativeAndNegative);
 
             if (result == MessageDialogResult.Affirmative)
             {
@@ -198,20 +212,20 @@ namespace BeatManager.ViewModels
                 UpdateDownloaded = true;
                 UpdateAvailable = false;
 
-                mainWindow.buttonUpdate.Content = "Update downloaded";
+                MainWindow.buttonUpdate.Content = "Update downloaded";
             }
         }
 
         public void ShowLocalPage()
         {
-            if (mainWindow.transitionControl.Content == LocalDetailsUserControl)
+            if (MainWindow.userControlMain.Content == LocalDetailsUserControl)
                 ShowLocalDetails = false;
 
             if (ShowLocalDetails && !SettingsUserControl.ViewModel.SongsPathChanged)
-                mainWindow.transitionControl.Content = LocalDetailsUserControl;
+                MainWindow.userControlMain.Content = LocalDetailsUserControl;
             else
             {
-                mainWindow.transitionControl.Content = LocalUserControl;
+                MainWindow.userControlMain.Content = LocalUserControl;
 
                 if (!localBeatmapsLoaded ||
                     OnlineUserControl.ViewModel.SongChanged ||
@@ -232,11 +246,11 @@ namespace BeatManager.ViewModels
 
         public void ShowOnlinePage()
         {
-            if (mainWindow.transitionControl.Content == OnlineDetailsUserControl)
+            if (MainWindow.userControlMain.Content == OnlineDetailsUserControl)
                 ShowOnlineDetails = false;
 
             if (ShowOnlineDetails && !SettingsUserControl.ViewModel.SongsPathChanged)
-                mainWindow.transitionControl.Content = OnlineDetailsUserControl;
+                MainWindow.userControlMain.Content = OnlineDetailsUserControl;
             else
             {
                 if (!OnlineUserControl.ViewModel.IsLoaded)
@@ -258,14 +272,14 @@ namespace BeatManager.ViewModels
                     LocalUserControl.ViewModel.SongDeleted = false;
                 }
 
-                mainWindow.transitionControl.Content = OnlineUserControl;
+                MainWindow.userControlMain.Content = OnlineUserControl;
             }
         }
 
         public void ShowSettingsPage()
         {
-            mainWindow.transitionControl.Content = SettingsUserControl;
-            mainWindow.gridNavigationBeatmaps.Visibility = Visibility.Collapsed;
+            MainWindow.userControlNavigation.Content = null;
+            MainWindow.userControlMain.Content = SettingsUserControl;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace BeatManager
     public partial class App : Application
     {
         public static BeatSaver BeatSaverApi;
-        public static List<string> SupportedMods { get; private set; }
+        public static List<SupportedMod> SupportedMods { get; private set; }
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -26,6 +26,8 @@ namespace BeatManager
                 MessageBox.Show("Only one instance of this application is allowed", "Multiple instances", MessageBoxButton.OK, MessageBoxImage.Error);
                 Current.Shutdown();
             }
+
+            SupportedMods = new List<SupportedMod>();
 
             string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string mainProjectName = Assembly.GetEntryAssembly().GetName().Name;
@@ -47,16 +49,16 @@ namespace BeatManager
         {
             if (Directory.Exists(Settings.CurrentSettings.PluginsPath))
             {
-                SupportedMods = new List<string>();
+                SupportedMods = new List<SupportedMod>();
                 List<string> modFiles = Directory.GetFiles(Settings.CurrentSettings.PluginsPath).ToList();
-                modFiles.ForEach(x => SupportedMods.Add(Path.GetFileNameWithoutExtension(x).Replace(" ", "")));
+                modFiles.ForEach(x => SupportedMods.Add(new SupportedMod(x.Replace(" ", ""), 2)));
             }
             else if (File.Exists(Settings.CurrentSettings.ModSupportPath))
             {
-                SupportedMods = new List<string>();
+                SupportedMods = new List<SupportedMod>();
                 string json = File.ReadAllText(Settings.CurrentSettings.ModSupportPath);
-                List<string> supportedMods = JsonConvert.DeserializeObject<List<string>>(json);
-                supportedMods.ForEach(x => SupportedMods.Add(x.Replace(" ", "")));
+                List<SupportedMod> supportedMods = JsonConvert.DeserializeObject<List<SupportedMod>>(json);
+                supportedMods.ForEach(x => SupportedMods.Add(new SupportedMod(x.Name.Replace(" ", ""), x.Supported)));
             }
         }
     }

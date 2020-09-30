@@ -64,11 +64,17 @@ namespace BeatManager.UserControls
         private void DataGridDifficultyRequirements_LoadingRow(object sender, DataGridRowEventArgs e)
         {
             string modName = e.Row.Item.ToString().Replace(" ", "");
+            SupportedMod supportedMod = App.SupportedMods.FirstOrDefault(x => x.Name == modName);
 
-            if (App.SupportedMods.Contains(modName))
-                e.Row.Foreground = new SolidColorBrush(Color.FromRgb(0, 200, 0));
-            else
+            if (supportedMod is null)
                 e.Row.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+            else
+            {
+                if (supportedMod.Supported == 1)
+                    e.Row.Foreground = new SolidColorBrush(Color.FromRgb(214, 143, 0));
+                else if (supportedMod.Supported == 2)
+                    e.Row.Foreground = new SolidColorBrush(Color.FromRgb(0, 200, 0));
+            }
         }
     }
 }

@@ -491,7 +491,7 @@
                             ToolTipService.InitialShowDelay="0"
                             Margin="2.5,0,2.5,0"
                             Cursor="Hand"
-                            Visibility="{Binding Path=Beatmap.Metadata.FolderPath, Converter={StaticResource InverseNullToVisibilityConverter}}"
+                            Visibility="{Binding Path=Beatmap.IsDownloaded, Converter={StaticResource BooleanToVisibilityConverter}}"
                             Click="ButtonOpenFolder_Click">
                         <icons:PackIconMaterial Kind="Folder"
                                                 Width="20"

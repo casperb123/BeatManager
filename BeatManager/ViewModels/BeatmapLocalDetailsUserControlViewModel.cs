@@ -94,7 +94,8 @@ namespace BeatManager.ViewModels
         public void Back()
         {
             mainWindow.ViewModel.ShowLocalDetails = false;
-            mainWindow.transitionControl.Content = mainWindow.ViewModel.LocalUserControl;
+            mainWindow.userControlMain.Content = mainWindow.ViewModel.LocalUserControl;
+            userControl.scrollViewer.ScrollToTop();
         }
 
         private void CreateDifficultySets()
@@ -142,7 +143,7 @@ namespace BeatManager.ViewModels
         public void DeleteSong()
         {
             mainWindow.ViewModel.LocalUserControl.ViewModel.DeleteSong(Beatmap.Identifier);
-            mainWindow.transitionControl.Content = mainWindow.ViewModel.LocalUserControl;
+            mainWindow.userControlMain.Content = mainWindow.ViewModel.LocalUserControl;
         }
 
         public void RefreshData()

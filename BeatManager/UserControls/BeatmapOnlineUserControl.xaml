@@ -224,26 +224,6 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Artist"
-                                    Width=".35*"
-                                    IsReadOnly="True"
-                                    Binding="{Binding Path=Metadata.SongAuthorName, IsAsync=True, FallbackValue=..., TargetNullValue=-}">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock"
-                               BasedOn="{StaticResource MahApps.Styles.TextBlock}">
-                            <Setter Property="TextTrimming"
-                                    Value="CharacterEllipsis" />
-                            <Setter Property="Margin"
-                                    Value="10,0,0,0" />
-                            <Setter Property="ToolTip"
-                                    Value="{Binding Path=Metadata.SongAuthorName, IsAsync=True}" />
-                            <Setter Property="ToolTipService.BetweenShowDelay"
-                                    Value="0" />
-                            <Setter Property="ToolTipService.InitialShowDelay"
-                                    Value="0" />
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
                 <DataGridTextColumn Header="Song name"
                                     Width="1*"
                                     IsReadOnly="True"
@@ -264,8 +244,28 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
+                <DataGridTextColumn Header="Artist"
+                                    Width=".4*"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Path=Metadata.SongAuthorName, IsAsync=True, FallbackValue=..., TargetNullValue=-}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock"
+                               BasedOn="{StaticResource MahApps.Styles.TextBlock}">
+                            <Setter Property="TextTrimming"
+                                    Value="CharacterEllipsis" />
+                            <Setter Property="Margin"
+                                    Value="10,0,0,0" />
+                            <Setter Property="ToolTip"
+                                    Value="{Binding Path=Metadata.SongAuthorName, IsAsync=True}" />
+                            <Setter Property="ToolTipService.BetweenShowDelay"
+                                    Value="0" />
+                            <Setter Property="ToolTipService.InitialShowDelay"
+                                    Value="0" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
                 <DataGridTextColumn Header="Mapper"
-                                    Width=".35*"
+                                    Width=".4*"
                                     IsReadOnly="True"
                                     Binding="{Binding Path=Metadata.LevelAuthorName, IsAsync=True, FallbackValue=..., TargetNullValue=-}">
                     <DataGridTextColumn.ElementStyle>

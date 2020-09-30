@@ -15,14 +15,40 @@ namespace BeatManager.ViewModels
         private readonly BeatmapOnlineUserControl userControl;
         private OnlineBeatmaps onlineBeatmaps;
 
-        public MapSort CurrentMapSort;
-        public readonly MainWindow MainWindow;
         private int selectedSongsToDownloadCount;
         private int selectedSongsToDeleteCount;
+        private MapSort currentMapSort;
+        private string searchWatermark;
 
+        public readonly MainWindow MainWindow;
         public bool SongChanged;
         public bool IsLoaded;
 
+        public MapSort CurrentMapSort
+        {
+            get { return currentMapSort; }
+            set
+            {
+                currentMapSort = value;
+                OnPropertyChanged(nameof(CurrentMapSort));
+
+                if (value == MapSort.SearchKey)
+                    SearchWatermark = "Search by key";
+                else if (value == MapSort.SearchHash)
+                    SearchWatermark = "Search by hash";
+                else
+                    SearchWatermark = "Search by name, description or uploader";
+            }
+        }
+        public string SearchWatermark
+        {
+            get { return searchWatermark; }
+            set
+            {
+                searchWatermark = value;
+                OnPropertyChanged(nameof(SearchWatermark));
+            }
+        }
         public List<OnlineBeatmap> SelectedSongs { get; set; }
         public int SelectedSongsToDeleteCount
         {

@@ -112,7 +112,7 @@ namespace BeatManager.ViewModels
 
             _ = Task.Run(async () =>
             {
-                OnlineBeatmaps = await App.BeatSaverApi.GetOnlineBeatmaps(query, page);
+                OnlineBeatmaps = await App.BeatSaverApi.GetOnlineBeatmaps(query, CurrentMapSort, page);
                 if (OnlineBeatmaps is null)
                 {
                     await MainWindow.Dispatcher.Invoke(async () =>
@@ -131,7 +131,7 @@ namespace BeatManager.ViewModels
 
         public async void Search(string query)
         {
-            if (OnlineBeatmaps.Maps.Any(x => x.IsDownloading))
+            if (OnlineBeatmaps != null && OnlineBeatmaps.Maps.Any(x => x.IsDownloading))
             {
                 await MainWindow.ShowMessageAsync("Beat Saver search", "You can't search while a song is downloading");
                 return;
@@ -143,7 +143,9 @@ namespace BeatManager.ViewModels
                 return;
             }
 
-            if (!userControl.radioButtonSearch.IsChecked.Value)
+            if (!userControl.radioButtonSearch.IsChecked.Value &&
+                CurrentMapSort != MapSort.SearchKey &&
+                CurrentMapSort != MapSort.SearchHash)
                 userControl.radioButtonSearch.IsChecked = true;
 
             GetBeatmaps(query);

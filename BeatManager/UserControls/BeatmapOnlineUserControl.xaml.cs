@@ -77,6 +77,18 @@ namespace BeatManager.UserControls
             ViewModel.GetBeatmaps(MapSort.Plays);
         }
 
+        private void RadioButtonSearchKey_Checked(object sender, RoutedEventArgs e)
+        {
+            ViewModel.CurrentMapSort = MapSort.SearchKey;
+            ViewModel.OnlineBeatmaps = null;
+        }
+
+        private void RadioButtonSearchHash_Checked(object sender, RoutedEventArgs e)
+        {
+            ViewModel.CurrentMapSort = MapSort.SearchHash;
+            ViewModel.OnlineBeatmaps = null;
+        }
+
         private void DataGridMaps_TargetUpdated(object sender, DataTransferEventArgs e)
         {
             MainWindow.ToggleLoading(false);

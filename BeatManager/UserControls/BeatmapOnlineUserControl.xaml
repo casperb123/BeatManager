@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:BeatManager.UserControls"
              xmlns:converters="clr-namespace:BeatManager.Converters"
              xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:st="http://schemas.spicytaco.io/"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
@@ -34,15 +34,15 @@
                Grid.ColumnSpan="2"
                Margin="0,0,0,30" />
 
-        <StackPanel x:Name="stackPanelSort"
-                    Grid.Row="1"
-                    Margin="0,0,20,0"
-                    VerticalAlignment="Center"
-                    Orientation="Horizontal">
+        <st:StackPanel x:Name="stackPanelSort"
+                       Grid.Row="1"
+                       Margin="0,0,20,0"
+                       VerticalAlignment="Center"
+                       Orientation="Horizontal"
+                       MarginBetweenChildren="5">
             <RadioButton x:Name="radioButtonSearch"
                          Width="30"
                          Height="30"
-                         Margin="0,0,2.5,0"
                          ToolTip="Search"
                          ToolTipService.BetweenShowDelay="0"
                          ToolTipService.InitialShowDelay="0"
@@ -50,14 +50,13 @@
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonSearch_Checked">
                 <icons:PackIconFontAwesome Kind="SearchSolid"
-                                               Width="15"
-                                               Height="15" />
+                                           Width="15"
+                                           Height="15" />
             </RadioButton>
 
             <RadioButton x:Name="radioButtonHot"
                          Width="30"
                          Height="30"
-                         Margin="2.5,0,2.5,0"
                          ToolTip="Hot"
                          ToolTipService.BetweenShowDelay="0"
                          ToolTipService.InitialShowDelay="0"
@@ -65,14 +64,13 @@
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonHot_Checked">
                 <icons:PackIconFontAwesome Kind="FireSolid"
-                                               Width="15"
-                                               Height="15" />
+                                           Width="15"
+                                           Height="15" />
             </RadioButton>
 
             <RadioButton x:Name="radioButtonRating"
                          Width="30"
                          Height="30"
-                         Margin="2.5,0,2.5,0"
                          ToolTip="Rating"
                          ToolTipService.BetweenShowDelay="0"
                          ToolTipService.InitialShowDelay="0"
@@ -80,14 +78,13 @@
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonRating_Checked">
                 <icons:PackIconFontAwesome Kind="StarSolid"
-                                               Width="15"
-                                               Height="15" />
+                                           Width="15"
+                                           Height="15" />
             </RadioButton>
 
             <RadioButton x:Name="radioButtonLatest"
                          Width="30"
                          Height="30"
-                         Margin="2.5,0,2.5,0"
                          ToolTip="Latest"
                          ToolTipService.BetweenShowDelay="0"
                          ToolTipService.InitialShowDelay="0"
@@ -95,14 +92,13 @@
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonLatest_Checked">
                 <icons:PackIconFontAwesome Kind="ExclamationSolid"
-                                               Width="15"
-                                               Height="15" />
+                                           Width="15"
+                                           Height="15" />
             </RadioButton>
 
             <RadioButton x:Name="radioButtonDownloads"
                          Width="30"
                          Height="30"
-                         Margin="2.5,0,2.5,0"
                          ToolTip="Downloads"
                          ToolTipService.BetweenShowDelay="0"
                          ToolTipService.InitialShowDelay="0"
@@ -110,14 +106,13 @@
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonDownloads_Checked">
                 <icons:PackIconFontAwesome Kind="DownloadSolid"
-                                               Width="15"
-                                               Height="15" />
+                                           Width="15"
+                                           Height="15" />
             </RadioButton>
 
             <RadioButton x:Name="radioButtonPlays"
                          Width="30"
                          Height="30"
-                         Margin="2.5,0,0,0"
                          ToolTip="Plays"
                          ToolTipService.BetweenShowDelay="0"
                          ToolTipService.InitialShowDelay="0"
@@ -125,10 +120,38 @@
                          Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                          Checked="RadioButtonPlays_Checked">
                 <icons:PackIconFontAwesome Kind="PlaySolid"
-                                               Width="15"
-                                               Height="15" />
+                                           Width="15"
+                                           Height="15" />
             </RadioButton>
-        </StackPanel>
+
+            <RadioButton x:Name="radioButtonSearchKey"
+                         Width="30"
+                         Height="30"
+                         ToolTip="Key"
+                         ToolTipService.BetweenShowDelay="0"
+                         ToolTipService.InitialShowDelay="0"
+                         Cursor="Hand"
+                         Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
+                         Checked="RadioButtonSearchKey_Checked">
+                <icons:PackIconFontAwesome Kind="KeySolid"
+                                           Width="15"
+                                           Height="15" />
+            </RadioButton>
+
+            <RadioButton x:Name="radioButtonSearchHash"
+                         Width="30"
+                         Height="30"
+                         ToolTip="Hash"
+                         ToolTipService.BetweenShowDelay="0"
+                         ToolTipService.InitialShowDelay="0"
+                         Cursor="Hand"
+                         Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
+                         Checked="RadioButtonSearchHash_Checked">
+                <icons:PackIconFontAwesome Kind="HashtagSolid"
+                                           Width="15"
+                                           Height="15" />
+            </RadioButton>
+        </st:StackPanel>
 
         <Grid Grid.Column="1"
               Grid.Row="1">
@@ -148,8 +171,8 @@
                     Cursor="Hand"
                     Click="ButtonSearch_Click">
                 <icons:PackIconFontAwesome Kind="SearchSolid"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center" />
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center" />
             </Button>
         </Grid>
 
@@ -207,7 +230,7 @@
                     </MenuItem>
                 </ContextMenu>
             </DataGrid.ContextMenu>
-            
+
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Cover">
                     <DataGridTemplateColumn.CellTemplate>
@@ -384,8 +407,8 @@
                                             IsEnabled="{Binding Path=IsDownloaded, Converter={StaticResource InverseBooleanConverter}}"
                                             Click="Map_Download">
                                         <icons:PackIconMaterial Kind="DownloadCircle"
-                                                                    Width="20"
-                                                                    Height="20" />
+                                                                Width="20"
+                                                                Height="20" />
                                     </Button>
                                     <Button Tag="{Binding Path=Key}"
                                             ToolTip="Delete song"
@@ -401,8 +424,8 @@
                                             IsEnabled="{Binding Path=IsDownloaded}"
                                             Click="Map_Delete">
                                         <icons:PackIconMaterial Kind="DeleteCircle"
-                                                                    Width="20"
-                                                                    Height="20" />
+                                                                Width="20"
+                                                                Height="20" />
                                     </Button>
                                 </Grid>
                                 <Grid Width="30"
@@ -426,8 +449,8 @@
                                         Cursor="Hand"
                                         Click="Map_Details">
                                     <icons:PackIconMaterial Kind="ArrowRightCircle"
-                                                                Width="20"
-                                                                Height="20" />
+                                                            Width="20"
+                                                            Height="20" />
                                 </Button>
                             </Grid>
                         </DataTemplate>
@@ -469,8 +492,8 @@
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="ButtonFirstPage_Click">
                 <icons:PackIconFontAwesome Kind="ArrowAltCircleLeftSolid"
-                                               Width="25"
-                                               Height="25" />
+                                           Width="25"
+                                           Height="25" />
             </Button>
             <Button x:Name="buttonPreviousPage"
                     Width="35"
@@ -485,8 +508,8 @@
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="ButtonPreviousPage_Click">
                 <icons:PackIconFontAwesome Kind="ArrowAltCircleLeftRegular"
-                                               Width="25"
-                                               Height="25" />
+                                           Width="25"
+                                           Height="25" />
             </Button>
             <Button x:Name="buttonNextPage"
                     Width="35"
@@ -501,8 +524,8 @@
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="ButtonNextPage_Click">
                 <icons:PackIconFontAwesome Kind="ArrowAltCircleRightRegular"
-                                               Width="25"
-                                               Height="25" />
+                                           Width="25"
+                                           Height="25" />
             </Button>
             <Button x:Name="buttonLastPage"
                     Width="35"
@@ -517,8 +540,8 @@
                     Style="{DynamicResource MahApps.Styles.Button.Circle}"
                     Click="ButtonLastPage_Click">
                 <icons:PackIconFontAwesome Kind="ArrowAltCircleRightSolid"
-                                               Width="25"
-                                               Height="25" />
+                                           Width="25"
+                                           Height="25" />
             </Button>
         </StackPanel>
     </Grid>

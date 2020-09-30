@@ -157,15 +157,12 @@ namespace BeatManager.ViewModels
 
         public async void Search(string query)
         {
+            if (string.IsNullOrWhiteSpace(query))
+                return;
+
             if (OnlineBeatmaps != null && OnlineBeatmaps.Maps.Any(x => x.IsDownloading))
             {
                 await MainWindow.ShowMessageAsync("Beat Saver search", "You can't search while a song is downloading");
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(query))
-            {
-                await MainWindow.ShowMessageAsync("Beat Saver search", "The search query can't be null or empty");
                 return;
             }
 

@@ -153,13 +153,12 @@ namespace BeatManager.ViewModels
             if (copy)
             {
                 FindBeatSaber(documents);
-
                 if (BeatSaberPath is null)
-                {
                     FindBeatSaber(programFiles);
-                    if (BeatSaberPath is null)
-                        FindBeatSaber(programFiles86);
-                }
+                if (BeatSaberPath is null)
+                    FindBeatSaber(programFiles86);
+                if (BeatSaberPath is null)
+                    GetBeatSaberFolderInOtherDrives(Path.GetPathRoot(programFiles.FullName));
             }
             else
             {
@@ -167,11 +166,10 @@ namespace BeatManager.ViewModels
                 if (BeatSaberPath is null)
                     FindBeatSaber(programFiles86);
                 if (BeatSaberPath is null)
+                    GetBeatSaberFolderInOtherDrives(Path.GetPathRoot(programFiles.FullName));
+                if (BeatSaberPath is null)
                     FindBeatSaber(documents);
             }
-
-            if (BeatSaberPath is null)
-                GetBeatSaberFolderInOtherDrives(Path.GetPathRoot(programFiles.FullName));
         }
 
         private void GetBeatSaberFolderInOtherDrives(string mainDriveLetter)

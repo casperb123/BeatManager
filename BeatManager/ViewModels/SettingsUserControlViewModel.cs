@@ -53,7 +53,7 @@ namespace BeatManager.ViewModels
             if (copy)
             {
                 DirectoryInfo documents = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
-                FindBeatSaber(documents);
+                await FindBeatSaber(documents);
             }
             else
             {
@@ -61,9 +61,9 @@ namespace BeatManager.ViewModels
                 DirectoryInfo programFiles86 = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86));
                 string mainDriveLetter = Path.GetPathRoot(programFiles.FullName);
 
-                FindBeatSaber(programFiles);
+                await FindBeatSaber(programFiles);
                 if (string.IsNullOrEmpty(BeatSaberPath))
-                    FindBeatSaber(programFiles86);
+                    await FindBeatSaber(programFiles86);
                 if (string.IsNullOrEmpty(BeatSaberPath))
                 {
                     List<DriveInfo> drives = DriveInfo.GetDrives().Where(x => x.Name != mainDriveLetter && x.DriveType == DriveType.Fixed).ToList();
@@ -76,7 +76,7 @@ namespace BeatManager.ViewModels
                             steamPath = $@"{drive.RootDirectory}\SteamLibrary";
 
                         if (!string.IsNullOrEmpty(steamPath))
-                            FindBeatSaber(new DirectoryInfo(steamPath));
+                            await FindBeatSaber(new DirectoryInfo(steamPath));
                     }
                 }
             }
@@ -134,7 +134,7 @@ namespace BeatManager.ViewModels
             }
         }
 
-        private void FindBeatSaber(DirectoryInfo root)
+        private async Task FindBeatSaber(DirectoryInfo root)
         {
             DirectoryInfo[] subDirs = null;
 
@@ -146,16 +146,16 @@ namespace BeatManager.ViewModels
 
             if (subDirs != null)
             {
-                foreach (DirectoryInfo dirInfo in subDirs)
+                Parallel.ForEach(subDirs, (dirInfo, state) =>
                 {
                     if (dirInfo.Name == "Beat Saber_Data" || File.Exists($@"{dirInfo.FullName}\Beat Saber.exe"))
                     {
                         BeatSaberPath = dirInfo.Parent.FullName;
-                        break;
+                        state.Break();
                     }
                     else
-                        FindBeatSaber(dirInfo);
-                }
+                        _ = FindBeatSaber(dirInfo).ConfigureAwait(false);
+                });
             }
         }
 

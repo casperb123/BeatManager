@@ -99,7 +99,7 @@ namespace BeatManager.ViewModels
                     MessageDialogResult result = MessageDialogResult.Canceled;
                     await Application.Current.Dispatcher.Invoke(async () =>
                     {
-                        result = await MainWindow.ShowMessageAsync("Beat Saber folder found", "The following folder was found, would you like to use it?\n" +
+                        result = await MainWindow.ShowMessageAsync("Beat Saber folder found", "The following folder was found, would you like to use it?\n\n" +
                                                                                               $"'{BeatSaberPath}'", MessageDialogStyle.AffirmativeAndNegative);
                     });
 

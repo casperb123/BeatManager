@@ -171,10 +171,10 @@ namespace BeatManager.ViewModels
             }
 
             if (BeatSaberPath is null)
-                GetBeatSaberPathInOtherDrives(Path.GetPathRoot(programFiles.FullName));
+                GetBeatSaberFolderInOtherDrives(Path.GetPathRoot(programFiles.FullName));
         }
 
-        private void GetBeatSaberPathInOtherDrives(string mainDriveLetter)
+        private void GetBeatSaberFolderInOtherDrives(string mainDriveLetter)
         {
             List<DriveInfo> drives = DriveInfo.GetDrives().Where(x => x.Name != mainDriveLetter && x.DriveType == DriveType.Fixed).ToList();
             foreach (DriveInfo drive in drives)

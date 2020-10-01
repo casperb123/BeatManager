@@ -171,10 +171,14 @@ namespace BeatManager.ViewModels
             {
                 Parallel.ForEach(subDirs, (dirInfo, state) =>
                 {
-                    if ((dirInfo.Name == "Beat Saber_Data" || File.Exists($@"{dirInfo.FullName}\Beat Saber.exe")) &&
-                        dirInfo.Parent.Name.Contains("Beat") && dirInfo.Parent.Name.Contains("Saber"))
+                    if (dirInfo.Name == "Beat Saber_Data")
                     {
                         BeatSaberPath = dirInfo.Parent.FullName;
+                        state.Break();
+                    }
+                    else if (File.Exists($@"{dirInfo.FullName}\Beat Saber.exe"))
+                    {
+                        BeatSaberPath = dirInfo.FullName;
                         state.Break();
                     }
                     else

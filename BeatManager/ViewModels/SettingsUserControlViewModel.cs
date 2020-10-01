@@ -179,14 +179,16 @@ namespace BeatManager.ViewModels
             List<DriveInfo> drives = DriveInfo.GetDrives().Where(x => x.Name != mainDriveLetter && x.DriveType == DriveType.Fixed).ToList();
             foreach (DriveInfo drive in drives)
             {
-                string steamPath = null;
+                string rootPath = null;
                 if (Directory.Exists($@"{drive.RootDirectory}\Steam"))
-                    steamPath = $@"{drive.RootDirectory}\Steam";
+                    rootPath = $@"{drive.RootDirectory}\Steam";
                 else if (Directory.Exists($@"{drive.RootDirectory}\SteamLibrary"))
-                    steamPath = $@"{drive.RootDirectory}\SteamLibrary";
+                    rootPath = $@"{drive.RootDirectory}\SteamLibrary";
+                else if (Directory.Exists($@"{drive.RootDirectory}\Games"))
+                    rootPath = $@"{drive.RootDirectory}\Games";
 
-                if (!string.IsNullOrEmpty(steamPath))
-                    FindBeatSaber(new DirectoryInfo(steamPath));
+                if (!string.IsNullOrEmpty(rootPath))
+                    FindBeatSaber(new DirectoryInfo(rootPath));
             }
         }
 

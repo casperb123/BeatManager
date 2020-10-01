@@ -23,7 +23,7 @@ namespace BeatManager.ViewModels
         {
             MainWindow = mainWindow;
             if (string.IsNullOrWhiteSpace(Settings.CurrentSettings.RootPath) || !Directory.Exists(Settings.CurrentSettings.RootPath))
-                _ = GetBeatSaberPath(Settings.CurrentSettings.BeatSaberCopy, true).ConfigureAwait(false);
+                _ = GetBeatSaberPath(Settings.CurrentSettings.BeatSaberCopy, true, true).ConfigureAwait(false);
             else
                 _ = GetBeatSaberPath(Settings.CurrentSettings.BeatSaberCopy).ConfigureAwait(false);
         }
@@ -45,9 +45,9 @@ namespace BeatManager.ViewModels
             return false;
         }
 
-        public async Task GetBeatSaberPath(bool copy, bool forceChangePath = false)
+        public async Task GetBeatSaberPath(bool copy, bool ignoreExists = false, bool forceChange = false)
         {
-            if (!string.IsNullOrWhiteSpace(Settings.CurrentSettings.RootPath) && Directory.Exists(Settings.CurrentSettings.RootPath) && !forceChangePath)
+            if (!string.IsNullOrWhiteSpace(Settings.CurrentSettings.RootPath) && Directory.Exists(Settings.CurrentSettings.RootPath) && !ignoreExists)
                 return;
 
             BeatSaberPath = null;
@@ -117,7 +117,7 @@ namespace BeatManager.ViewModels
                 }
                 else
                 {
-                    if (BrowsePath() || (forceChangePath && !string.IsNullOrWhiteSpace(BeatSaberPath) && Directory.Exists(BeatSaberPath)))
+                    if (BrowsePath() || (forceChange && !string.IsNullOrWhiteSpace(BeatSaberPath) && Directory.Exists(BeatSaberPath)))
                     {
                         Settings.CurrentSettings.RootPath = BeatSaberPath;
                         Settings.CurrentSettings.Save();
@@ -128,9 +128,9 @@ namespace BeatManager.ViewModels
                 }
             }
 
-            if (!string.IsNullOrWhiteSpace(BeatSaberPath))
+            if (!string.IsNullOrWhiteSpace(Settings.CurrentSettings.RootPath))
             {
-                bool applicationExists = File.Exists($@"{BeatSaberPath}\Beat Saber.exe");
+                bool applicationExists = File.Exists($@"{Settings.CurrentSettings.RootPath}\Beat Saber.exe");
                 if (applicationExists && Settings.CurrentSettings.BeatSaberCopy)
                 {
                     ChangePath = false;

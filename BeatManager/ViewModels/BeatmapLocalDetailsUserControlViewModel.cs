@@ -42,7 +42,7 @@ namespace BeatManager.ViewModels
                 beatmapDetail = value;
                 OnPropertyChanged(nameof(BeatmapDetail));
 
-                if (value.DifficultyBeatmap.CustomData.RequiredMods.Count == 0)
+                if (value.DifficultyBeatmap.CustomData is null || value.DifficultyBeatmap.CustomData.RequiredMods.Count == 0)
                 {
                     userControl.dataGridDifficultyRequirements.Visibility = Visibility.Collapsed;
                     userControl.labelRequirements.Visibility = Visibility.Visible;

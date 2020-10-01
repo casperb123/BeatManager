@@ -4,6 +4,7 @@ using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Octokit;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -84,12 +85,10 @@ namespace BeatManager
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            if (Settings.CurrentSettings.RootPath is null)
+            if (string.IsNullOrWhiteSpace(Settings.CurrentSettings.RootPath) || !Directory.Exists(Settings.CurrentSettings.RootPath))
                 radioButtonSettings.IsChecked = true;
             else
-            {
                 radioButtonHome.IsChecked = true;
-            }
         }
 
         private async void ButtonUpdate_Click(object sender, RoutedEventArgs e)

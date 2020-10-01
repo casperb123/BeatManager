@@ -63,13 +63,16 @@ namespace BeatManager.Entities
                 rootPath = value;
                 OnPropertyChanged(nameof(RootPath));
 
-                string dataPath = $@"{value}\Beat Saber_Data";
-                string customLevelsPath = $@"{dataPath}\CustomLevels";
+                if (!string.IsNullOrWhiteSpace(value) && Directory.Exists(value))
+                {
+                    string dataPath = $@"{value}\Beat Saber_Data";
+                    string customLevelsPath = $@"{dataPath}\CustomLevels";
 
-                if (!Directory.Exists(dataPath))
-                    Directory.CreateDirectory(dataPath);
-                if (!Directory.Exists(customLevelsPath))
-                    Directory.CreateDirectory(customLevelsPath);
+                    if (!Directory.Exists(dataPath))
+                        Directory.CreateDirectory(dataPath);
+                    if (!Directory.Exists(customLevelsPath))
+                        Directory.CreateDirectory(customLevelsPath);
+                }
             }
         }
 

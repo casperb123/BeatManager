@@ -70,9 +70,12 @@ namespace BeatManager.UserControls
         private void ContextMenuDataGridMaps_Opened(object sender, RoutedEventArgs e)
         {
             if (ViewModel.SelectedSongs.Count == 0)
-                menuItemDataGridMapsDelete.IsEnabled = false;
+            {
+                menuItemDataGridMapsDelete.Visibility = Visibility.Collapsed;
+                contextMenuDataGridMaps.IsOpen = false;
+            }
             else
-                menuItemDataGridMapsDelete.IsEnabled = true;
+                menuItemDataGridMapsDelete.Visibility = Visibility.Visible;
         }
 
         private void MenuItemDataGridMapsDelete_Click(object sender, RoutedEventArgs e)

@@ -156,14 +156,17 @@ namespace BeatManager.UserControls
             ViewModel.SelectedSongsToDeleteCount = songsToDelete;
 
             if (songsToDownload == 0)
-                menuItemDataGridMapsDownload.IsEnabled = false;
+                menuItemDataGridMapsDownload.Visibility = Visibility.Collapsed;
             else
-                menuItemDataGridMapsDownload.IsEnabled = true;
+                menuItemDataGridMapsDownload.Visibility = Visibility.Visible;
 
             if (songsToDelete == 0)
-                menuItemDataGridMapsDelete.IsEnabled = false;
+                menuItemDataGridMapsDelete.Visibility = Visibility.Collapsed;
             else
-                menuItemDataGridMapsDelete.IsEnabled = true;
+                menuItemDataGridMapsDelete.Visibility = Visibility.Visible;
+
+            if (songsToDownload == 0 && songsToDelete == 0)
+                contextMenuDataGridMaps.IsOpen = false;
         }
 
         private void MenuItemDataGridMapsDownload_Click(object sender, RoutedEventArgs e)

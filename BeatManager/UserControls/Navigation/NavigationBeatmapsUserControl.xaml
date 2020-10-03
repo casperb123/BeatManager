@@ -7,13 +7,16 @@
              xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d"
              d:DesignHeight="450"
-             d:DesignWidth="60">
-    <Grid>
-        <Grid.Background>
-            <SolidColorBrush Color="#424242"
-                             Opacity=".2" />
-        </Grid.Background>
+             d:DesignWidth="200">
+    <st:StackPanel Orientation="Horizontal">
+        <st:StackPanel.Background>
+            <SolidColorBrush Color="Black"
+                             Opacity=".15" />
+        </st:StackPanel.Background>
 
+        <Rectangle VerticalAlignment="Stretch"
+                   Fill="{DynamicResource MahApps.Brushes.Accent}"
+                   Width="1" />
         <st:StackPanel Margin="10"
                        MarginBetweenChildren="5">
             <RadioButton x:Name="radioButtonLocal"
@@ -52,5 +55,5 @@
                                            VerticalAlignment="Center" />
             </RadioButton>
         </st:StackPanel>
-    </Grid>
+    </st:StackPanel>
 </UserControl>

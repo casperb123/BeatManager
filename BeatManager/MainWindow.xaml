@@ -34,7 +34,7 @@
             <Grid x:Name="gridNavigation">
                 <Grid.Background>
                     <SolidColorBrush Color="Black"
-                                     Opacity=".15" />
+                                     Opacity=".25" />
                 </Grid.Background>
 
                 <st:StackPanel Margin="10"

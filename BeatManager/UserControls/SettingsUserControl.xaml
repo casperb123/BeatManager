@@ -11,8 +11,7 @@
              d:DesignHeight="450"
              d:DesignWidth="800">
     <UserControl.Resources>
-        <converters:BooleanToVisiblityConverter x:Key="BooleanToVisibilityConverter" />
-        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     </UserControl.Resources>
     
     <Grid Margin="30,5">
@@ -123,23 +122,13 @@
                     <Label Content="One click installer"
                            VerticalContentAlignment="Center"
                            Margin="0,0,5,0" />
-                    
-                    <mah:ToggleSwitch x:Name="toggleSwitchBeatSaverOneClick"
-                                      Grid.Column="1"
-                                      ToolTip="BeatSaber one click installer"
-                                      ToolTipService.BetweenShowDelay="0"
-                                      ToolTipService.InitialShowDelay="0"
-                                      Margin="0,2.5,0,0"
-                                      Cursor="Hand"
-                                      Visibility="{Binding Path=IsRunningAsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                      IsOn="{Binding Path=BeatSaverOneClickInstaller, Source={x:Static entities:Settings.CurrentSettings}}"
-                                      Toggled="ToggleSwitchBeatSaverOneClick_Toggled" />
-                    <Button x:Name="buttonRunAsAdmin"
+
+                    <Button x:Name="buttonEnableBeatSaverOneClick"
                             Grid.Column="1"
-                            Content="Restart as administrator"
+                            Content="Enable OneClick installer"
                             HorizontalAlignment="Left"
-                            Visibility="{Binding Path=IsRunningAsAdmin, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
-                            Click="ButtonRunAsAdmin_Click" />
+                            IsEnabled="{Binding Path=IsBeatSaverOneClick, Converter={StaticResource InverseBooleanConverter}}"
+                            Click="ButtonEnableBeatSaverOneClick_Click" />
                 </Grid>
             </GroupBox>
         </st:AutoGrid>

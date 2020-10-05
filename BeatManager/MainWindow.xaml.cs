@@ -85,7 +85,8 @@ namespace BeatManager
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(Settings.CurrentSettings.RootPath) || !Directory.Exists(Settings.CurrentSettings.RootPath))
+            if (string.IsNullOrWhiteSpace(Settings.CurrentSettings.RootPath) || !Directory.Exists(Settings.CurrentSettings.RootPath) ||
+                Settings.CurrentSettings.BeatSaverOneClickInstaller && !ViewModel.SettingsUserControl.ViewModel.IsBeatSaverOneClick)
                 radioButtonSettings.IsChecked = true;
             else
                 radioButtonHome.IsChecked = true;

@@ -72,5 +72,20 @@ namespace BeatManager.UserControls
 
             ViewModel.RestartAsAdmin();
         }
+
+        private async void ButtonEnableBeatSaverOneClick_Click(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.IsRunningAsAdmin)
+            {
+                if (await ViewModel.ToggleOneClick(OneClickType.BeatSaver, true))
+                    Settings.CurrentSettings.BeatSaverOneClickInstaller = true;
+            }
+            else
+            {
+                MessageDialogResult result = await ViewModel.MainWindow.ShowMessageAsync("OneClick installer", "You need to run the application as administrator. Would you like to restart the application as administrator?", MessageDialogStyle.AffirmativeAndNegative);
+                if (result == MessageDialogResult.Affirmative)
+                    ViewModel.RestartAsAdmin();
+            }
+        }
     }
 }

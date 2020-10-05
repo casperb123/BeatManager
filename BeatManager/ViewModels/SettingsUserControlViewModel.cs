@@ -20,11 +20,22 @@ namespace BeatManager.ViewModels
     public class SettingsUserControlViewModel : INotifyPropertyChanged
     {
         private bool isRunningAsAdmin;
+        private bool isBeatSaverOneClick;
 
         public readonly MainWindow MainWindow;
         public bool SongsPathChanged = false;
         public bool ChangePath = true;
         public bool ChangeBeatSaverOneClick = true;
+
+        public bool IsBeatSaverOneClick
+        {
+            get { return isBeatSaverOneClick; }
+            set
+            {
+                isBeatSaverOneClick = value;
+                OnPropertyChanged(nameof(IsBeatSaverOneClick));
+            }
+        }
 
         public bool IsRunningAsAdmin
         {
@@ -61,16 +72,13 @@ namespace BeatManager.ViewModels
 
             if (IsRunningAsAdmin)
             {
-                if (Settings.CurrentSettings.BeatSaverOneClickInstaller)
-                {
-                    if (!CheckOneClick(OneClickType.BeatSaver))
-                        ToggleOneClick(OneClickType.BeatSaver, true);
-                }
-                else
-                {
-                    if (CheckOneClick(OneClickType.BeatSaver))
-                        ToggleOneClick(OneClickType.BeatSaver, false);
-                }
+                var (beatSaverCallback, beatSaverprovider) = CheckOneClick(OneClickType.BeatSaver);
+
+                if (beatSaverCallback == OneClickCallback.BeatManager)
+                    IsBeatSaverOneClick = true;
+
+                if (!IsBeatSaverOneClick && Settings.CurrentSettings.BeatSaverOneClickInstaller)
+                    ToggleOneClick(OneClickType.BeatSaver, true).ConfigureAwait(false);
             }
         }
 
@@ -271,7 +279,7 @@ namespace BeatManager.ViewModels
             ThemeManager.Current.ChangeTheme(Application.Current, $"{theme}.{color}");
         }
 
-        public bool CheckOneClick(OneClickType oneClickType)
+        public (OneClickCallback callback, string provider) CheckOneClick(OneClickType oneClickType)
         {
             string processName = Process.GetCurrentProcess().ProcessName;
             string applicationPath = $@"{Directory.GetCurrentDirectory()}\{processName}.exe";
@@ -282,32 +290,55 @@ namespace BeatManager.ViewModels
                     RegistryKey beatSaverKey = Registry.ClassesRoot.OpenSubKey("beatsaver");
                     if (beatSaverKey is null ||
                         beatSaverKey.GetValue("").ToString() != "URL:beatsaver" ||
-                        beatSaverKey.GetValue("OneClick-Provider") is null || beatSaverKey.GetValue("OneClick-Provider").ToString() != "BeatManager" ||
                         beatSaverKey.GetValue("URL Protocol") is null)
                     {
-                        return false;
+                        return (OneClickCallback.KeyError, null);
                     }
                     RegistryKey commandKey = beatSaverKey.OpenSubKey(@"shell\open\command");
-                    if (commandKey is null || commandKey.GetValue("").ToString() != $"\"{applicationPath}\" \"%1\"")
+                    if (commandKey is null)
+                        return (OneClickCallback.KeyError, null);
+
+                    string[] commandKeyValues = commandKey.GetValue("").ToString().Replace("\"", "").Split(" ");
+                    if (commandKeyValues.Length != 2 || commandKeyValues[1] != "%1")
+                        return (OneClickCallback.KeyError, null);
+
+                    if (beatSaverKey.GetValue("OneClick-Provider") != null)
                     {
-                        return false;
+                        string provider = beatSaverKey.GetValue("OneClick-Provider").ToString();
+                        if (provider != "BeatManager")
+                            return (OneClickCallback.OtherProvider, provider);
+                    }
+                    if (commandKeyValues[0] != applicationPath)
+                    {
+                        string provider = Path.GetFileNameWithoutExtension(commandKeyValues[0]);
+                        if (provider != "BeatManager")
+                            return (OneClickCallback.OtherProvider, provider);
                     }
 
-                    return true;
+                    return (OneClickCallback.BeatManager, null);
                 default:
-                    return false;
+                    return (OneClickCallback.Null, null);
             }
         }
 
-        public void ToggleOneClick(OneClickType oneClickType, bool enabled)
+        public async Task<bool> ToggleOneClick(OneClickType oneClickType, bool enable)
         {
             string processName = Process.GetCurrentProcess().ProcessName;
             string applicationPath = $@"{Directory.GetCurrentDirectory()}\{processName}.exe";
 
             if (oneClickType == OneClickType.BeatSaver)
             {
-                if (enabled)
+                if (enable)
                 {
+                    var (callback, provider) = CheckOneClick(oneClickType);
+
+                    if (callback == OneClickCallback.OtherProvider)
+                    {
+                        MessageDialogResult result = await MainWindow.ShowMessageAsync($"BeatSaver OneClick", $"The OneClick provider for BeatSaver is currently {provider}. Would you like to enable it anyways?", MessageDialogStyle.AffirmativeAndNegative);
+                        if (result != MessageDialogResult.Affirmative)
+                            return false;
+                    }
+
                     RegistryKey beatSaverKey = Registry.ClassesRoot.CreateSubKey("beatsaver", true);
                     beatSaverKey.SetValue("", "URL:beatsaver");
                     beatSaverKey.SetValue("URL Protocol", string.Empty);
@@ -315,14 +346,20 @@ namespace BeatManager.ViewModels
 
                     RegistryKey commandKey = beatSaverKey.CreateSubKey(@"shell\open\command", true);
                     commandKey.SetValue("", $"\"{applicationPath}\" \"%1\"");
+
+                    IsBeatSaverOneClick = true;
                 }
                 else
                 {
                     RegistryKey beatSaverKey = Registry.ClassesRoot.OpenSubKey("beatsaver");
                     if (beatSaverKey != null)
                         Registry.ClassesRoot.DeleteSubKeyTree("beatsaver");
+
+                    IsBeatSaverOneClick = false;
                 }
             }
+
+            return true;
         }
 
         public void RestartAsAdmin()

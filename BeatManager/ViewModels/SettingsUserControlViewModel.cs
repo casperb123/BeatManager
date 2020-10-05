@@ -1,31 +1,77 @@
 ﻿using BeatManager.Entities;
 using ControlzEx.Theming;
 using MahApps.Metro.Controls.Dialogs;
+using Microsoft.Win32;
 using Ookii.Dialogs.Wpf;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Security.Permissions;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace BeatManager.ViewModels
 {
-    public class SettingsUserControlViewModel
+    public class SettingsUserControlViewModel : INotifyPropertyChanged
     {
+        private bool isRunningAsAdmin;
+
         public readonly MainWindow MainWindow;
         public bool SongsPathChanged = false;
         public bool ChangePath = true;
+        public bool ChangeBeatSaverOneClick = true;
+
+        public bool IsRunningAsAdmin
+        {
+            get { return isRunningAsAdmin; }
+            set
+            {
+                isRunningAsAdmin = value;
+                OnPropertyChanged(nameof(IsRunningAsAdmin));
+            }
+        }
 
         public string BeatSaberPath { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(string prop)
+        {
+            if (!string.IsNullOrWhiteSpace(prop))
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
 
         public SettingsUserControlViewModel(MainWindow mainWindow)
         {
             MainWindow = mainWindow;
+
+            WindowsIdentity id = WindowsIdentity.GetCurrent();
+            WindowsPrincipal principal = new WindowsPrincipal(id);
+            IsRunningAsAdmin = principal.IsInRole(WindowsBuiltInRole.Administrator);
+
             if (string.IsNullOrWhiteSpace(Settings.CurrentSettings.RootPath) || !Directory.Exists(Settings.CurrentSettings.RootPath))
                 _ = GetBeatSaberPath(Settings.CurrentSettings.BeatSaberCopy, true, true).ConfigureAwait(false);
             else
                 _ = GetBeatSaberPath(Settings.CurrentSettings.BeatSaberCopy).ConfigureAwait(false);
+
+            if (IsRunningAsAdmin)
+            {
+                if (Settings.CurrentSettings.BeatSaverOneClickInstaller)
+                {
+                    if (!CheckOneClick(OneClickType.BeatSaver))
+                        ToggleOneClick(OneClickType.BeatSaver, true);
+                }
+                else
+                {
+                    if (CheckOneClick(OneClickType.BeatSaver))
+                        ToggleOneClick(OneClickType.BeatSaver, false);
+                }
+            }
         }
 
         public bool BrowsePath()
@@ -223,6 +269,75 @@ namespace BeatManager.ViewModels
         public void ChangeTheme(string theme, string color)
         {
             ThemeManager.Current.ChangeTheme(Application.Current, $"{theme}.{color}");
+        }
+
+        public bool CheckOneClick(OneClickType oneClickType)
+        {
+            string processName = Process.GetCurrentProcess().ProcessName;
+            string applicationPath = $@"{Directory.GetCurrentDirectory()}\{processName}.exe";
+
+            switch (oneClickType)
+            {
+                case OneClickType.BeatSaver:
+                    RegistryKey beatSaverKey = Registry.ClassesRoot.OpenSubKey("beatsaver");
+                    if (beatSaverKey is null ||
+                        beatSaverKey.GetValue("").ToString() != "URL:beatsaver" ||
+                        beatSaverKey.GetValue("OneClick-Provider") is null || beatSaverKey.GetValue("OneClick-Provider").ToString() != "BeatManager" ||
+                        beatSaverKey.GetValue("URL Protocol") is null)
+                    {
+                        return false;
+                    }
+                    RegistryKey commandKey = beatSaverKey.OpenSubKey(@"shell\open\command");
+                    if (commandKey is null || commandKey.GetValue("").ToString() != $"\"{applicationPath}\" \"%1\"")
+                    {
+                        return false;
+                    }
+
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        public void ToggleOneClick(OneClickType oneClickType, bool enabled)
+        {
+            string processName = Process.GetCurrentProcess().ProcessName;
+            string applicationPath = $@"{Directory.GetCurrentDirectory()}\{processName}.exe";
+
+            if (oneClickType == OneClickType.BeatSaver)
+            {
+                if (enabled)
+                {
+                    RegistryKey beatSaverKey = Registry.ClassesRoot.CreateSubKey("beatsaver", true);
+                    beatSaverKey.SetValue("", "URL:beatsaver");
+                    beatSaverKey.SetValue("URL Protocol", string.Empty);
+                    beatSaverKey.SetValue("OneClick-Provider", "BeatManager");
+
+                    RegistryKey commandKey = beatSaverKey.CreateSubKey(@"shell\open\command", true);
+                    commandKey.SetValue("", $"\"{applicationPath}\" \"%1\"");
+                }
+                else
+                {
+                    RegistryKey beatSaverKey = Registry.ClassesRoot.OpenSubKey("beatsaver");
+                    if (beatSaverKey != null)
+                        Registry.ClassesRoot.DeleteSubKeyTree("beatsaver");
+                }
+            }
+        }
+
+        public void RestartAsAdmin()
+        {
+            string processName = Process.GetCurrentProcess().ProcessName;
+            string applicationPath = $@"{Directory.GetCurrentDirectory()}\{processName}.exe";
+
+            ProcessStartInfo elevated = new ProcessStartInfo(applicationPath)
+            {
+                UseShellExecute = true,
+                Verb = "runas"
+            };
+
+            Process.Start(elevated);
+            Environment.Exit(0);
         }
     }
 }

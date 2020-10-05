@@ -15,9 +15,20 @@ namespace BeatManager.Entities
         private int color;
         private bool beatSaberCopy;
         private bool checkForUpdates;
+        private bool beatSaverOneClickInstaller;
 
         public static Settings CurrentSettings;
         public static string SettingsFilePath;
+
+        public bool BeatSaverOneClickInstaller
+        {
+            get { return beatSaverOneClickInstaller; }
+            set
+            {
+                beatSaverOneClickInstaller = value;
+                OnPropertyChanged(nameof(BeatSaverOneClickInstaller));
+            }
+        }
 
         public bool BeatSaberCopy
         {

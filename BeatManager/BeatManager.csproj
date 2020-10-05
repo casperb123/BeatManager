@@ -5,7 +5,6 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <Version>0.4.7</Version>
-    <NoWin32Manifest>true</NoWin32Manifest>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/casperb123/BeatSaberSongManager</PackageProjectUrl>
     <RepositoryUrl>https://github.com/casperb123/BeatSaberSongManager</RepositoryUrl>
@@ -14,6 +13,7 @@
     <Authors>Casper Bastholm</Authors>
     <Description>Management application for the original Beat Saber and the copy of Beat Saber made by Will1400</Description>
     <PackageId>BeatManager</PackageId>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
 
   <ItemGroup>

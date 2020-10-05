@@ -1,6 +1,7 @@
 ﻿using BeatManager.Entities;
 using BeatManager.ViewModels;
 using ControlzEx.Theming;
+using MahApps.Metro.Controls.Dialogs;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -53,6 +54,23 @@ namespace BeatManager.UserControls
             MainWindow.ToggleLoading(true);
             await Task.Run(() => ViewModel.GetBeatSaberPath(Settings.CurrentSettings.BeatSaberCopy, true));
             MainWindow.ToggleLoading(false);
+        }
+
+        private void ToggleSwitchBeatSaverOneClick_Toggled(object sender, RoutedEventArgs e)
+        {
+            if (!IsLoaded || !ViewModel.IsRunningAsAdmin)
+                return;
+
+            ViewModel.ToggleOneClick(OneClickType.BeatSaver, Settings.CurrentSettings.BeatSaverOneClickInstaller);
+        }
+
+        private async void ButtonRunAsAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            MessageDialogResult result = await ViewModel.MainWindow.ShowMessageAsync("Restart as administrator", "Are you sure that you want to restart the application as administrator?", MessageDialogStyle.AffirmativeAndNegative);
+            if (result != MessageDialogResult.Affirmative)
+                return;
+
+            ViewModel.RestartAsAdmin();
         }
     }
 }

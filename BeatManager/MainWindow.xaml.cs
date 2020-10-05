@@ -3,6 +3,7 @@ using BeatManager.ViewModels;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Octokit;
+using System;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;

@@ -7,6 +7,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows;
 
 namespace BeatManager
@@ -21,6 +23,24 @@ namespace BeatManager
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            string appGuid = "a5d7dcc7-73fc-41c5-805b-b2fe96f7abdc";
+            string mutexId = $@"Global\\{appGuid}";
+
+            using (Mutex mutex = new Mutex(false, mutexId))
+            {
+                try
+                {
+                    if (!mutex.WaitOne(0, false))
+                    {
+
+                    }
+                }
+                finally
+                {
+
+                }
+            }
+
             if (Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length > 1)
             {
                 MessageBox.Show("Only one instance of this application is allowed", "Multiple instances", MessageBoxButton.OK, MessageBoxImage.Error);

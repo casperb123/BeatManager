@@ -77,8 +77,8 @@ namespace BeatManager.ViewModels
                 if (beatSaverCallback == OneClickCallback.BeatManager)
                     IsBeatSaverOneClick = true;
 
-                if (!IsBeatSaverOneClick && Settings.CurrentSettings.BeatSaverOneClickInstaller)
-                    ToggleOneClick(OneClickType.BeatSaver, true).ConfigureAwait(false);
+                //if (!IsBeatSaverOneClick && Settings.CurrentSettings.BeatSaverOneClickInstaller)
+                //    ToggleOneClick(OneClickType.BeatSaver, true).ConfigureAwait(false);
             }
         }
 

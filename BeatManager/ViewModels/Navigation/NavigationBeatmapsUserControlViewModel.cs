@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using BeatManager.UserControls.Navigation;
+using System;
+using System.ComponentModel;
 
 namespace BeatManager.ViewModels.Navigation
 {
@@ -6,6 +8,9 @@ namespace BeatManager.ViewModels.Navigation
     {
         private bool onlinePage;
         private bool localPage;
+
+        public event EventHandler LocalEvent;
+        public event EventHandler OnlineEvent;
 
         public bool LocalPage
         {
@@ -32,6 +37,16 @@ namespace BeatManager.ViewModels.Navigation
         {
             if (!string.IsNullOrWhiteSpace(prop))
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
+
+        public void Local()
+        {
+            LocalEvent?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void Online()
+        {
+            OnlineEvent?.Invoke(this, EventArgs.Empty);
         }
     }
 }

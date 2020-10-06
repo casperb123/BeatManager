@@ -1,5 +1,6 @@
 ﻿using BeatManager.Entities;
 using BeatManager.ViewModels;
+using BeatSaverApi.Entities;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Octokit;
@@ -28,20 +29,41 @@ namespace BeatManager
             ViewModel = new MainWindowViewModel(this);
             DataContext = ViewModel;
             Instance = this;
+
+            NamedPipe<string> beatSaverPipe = new NamedPipe<string>(NamedPipe<string>.NameTypes.BeatSaver);
+            beatSaverPipe.OnRequest += new NamedPipe<string>.Request(BeatSaverPipe_OnRequest);
+            beatSaverPipe.Start();
         }
 
-        public static void ToggleLoading(bool enabled)
+        private async void BeatSaverPipe_OnRequest(string key)
+        {
+            await ViewModel.DownloadSong(key);
+        }
+
+        public static void ToggleLoading(bool enabled, string title = null, string description = null)
         {
             if (enabled)
             {
+                if (!string.IsNullOrWhiteSpace(title))
+                {
+                    Instance.labelLoadingTitle.Content = title;
+                    Instance.stackPanelLoadingText.Visibility = Visibility.Visible;
+                }
+                if (!string.IsNullOrWhiteSpace(description))
+                {
+                    Instance.labelLoadingDescription.Content = description;
+                    Instance.stackPanelLoadingText.Visibility = Visibility.Visible;
+                }
+
                 Instance.progressRingLoading.IsActive = true;
+                Instance.stackPanelLoading.Visibility = Visibility.Visible;
                 Instance.rectangleLoading.Visibility = Visibility.Visible;
-                Instance.progressRingLoading.Visibility = Visibility.Visible;
             }
             else
             {
                 Instance.rectangleLoading.Visibility = Visibility.Hidden;
-                Instance.progressRingLoading.Visibility = Visibility.Hidden;
+                Instance.stackPanelLoading.Visibility = Visibility.Hidden;
+                Instance.stackPanelLoadingText.Visibility = Visibility.Hidden;
                 Instance.progressRingLoading.IsActive = false;
             }
         }
@@ -84,10 +106,21 @@ namespace BeatManager
                 Settings.CurrentSettings.Save();
         }
 
-        private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
+        private async void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            string[] args = Environment.GetCommandLineArgs();
+            string beatSaverArg = args.FirstOrDefault(x => x.Contains("beatsaver"));
+
+            if (!string.IsNullOrEmpty(beatSaverArg))
+            {
+                string beatSaverKey = beatSaverArg.Substring(12).Replace("/", "");
+                await ViewModel.DownloadSong(beatSaverKey);
+            }
+
+            ViewModel.IsLoaded = true;
+
             if (string.IsNullOrWhiteSpace(Settings.CurrentSettings.RootPath) || !Directory.Exists(Settings.CurrentSettings.RootPath) ||
-                Settings.CurrentSettings.BeatSaverOneClickInstaller && !ViewModel.SettingsUserControl.ViewModel.IsBeatSaverOneClick)
+            Settings.CurrentSettings.BeatSaverOneClickInstaller && !ViewModel.SettingsUserControl.ViewModel.IsBeatSaverOneClick)
                 radioButtonSettings.IsChecked = true;
             else
                 radioButtonHome.IsChecked = true;

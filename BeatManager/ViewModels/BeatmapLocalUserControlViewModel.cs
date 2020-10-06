@@ -1,5 +1,6 @@
 ﻿using BeatManager.UserControls;
 using BeatSaverApi.Entities;
+using BeatSaverApi.Events;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -50,6 +51,13 @@ namespace BeatManager.ViewModels
             this.userControl = userControl;
             MainWindow = mainWindow;
             SelectedSongs = new List<LocalBeatmap>();
+
+            App.BeatSaverApi.DownloadCompleted += BeatSaverApi_DownloadCompleted;
+        }
+
+        private void BeatSaverApi_DownloadCompleted(object sender, DownloadCompletedEventArgs e)
+        {
+            
         }
 
         public void GetBeatmaps()

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BeatManager": {
+      "commandName": "Project",
+      "commandLineArgs": "beatsaver://fa31"
+    }
+  }
+}

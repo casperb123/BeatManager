@@ -10,9 +10,6 @@ namespace BeatManager.UserControls.Navigation
     /// </summary>
     public partial class NavigationBeatmapsUserControl : UserControl
     {
-        public event EventHandler LocalEvent;
-        public event EventHandler OnlineEvent;
-
         public NavigationBeatmapsUserControlViewModel ViewModel;
 
         public NavigationBeatmapsUserControl()
@@ -24,12 +21,12 @@ namespace BeatManager.UserControls.Navigation
 
         private void RadioButtonLocal_Click(object sender, RoutedEventArgs e)
         {
-            LocalEvent?.Invoke(this, EventArgs.Empty);
+            ViewModel.Local();
         }
 
         private void RadioButtonOnline_Click(object sender, RoutedEventArgs e)
         {
-            OnlineEvent?.Invoke(this, EventArgs.Empty);
+            ViewModel.Online();
         }
     }
 }

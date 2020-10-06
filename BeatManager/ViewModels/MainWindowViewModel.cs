@@ -1,12 +1,14 @@
-﻿using BeatManager.Entities;
-using BeatManager.Properties;
+﻿using BeatManager.Properties;
 using BeatManager.UserControls;
 using BeatManager.UserControls.Navigation;
 using BeatSaverApi.Entities;
 using GitHubUpdater;
 using MahApps.Metro.Controls.Dialogs;
 using System;
+using System.IO;
 using System.Threading.Tasks;
+using System.Windows;
+using Settings = BeatManager.Entities.Settings;
 using Version = GitHubUpdater.Version;
 
 namespace BeatManager.ViewModels
@@ -30,6 +32,7 @@ namespace BeatManager.ViewModels
         public bool UpdateAvailable;
         public bool UpdateDownloaded;
         public readonly Updater Updater;
+        public bool IsLoaded;
 
         public MainWindowViewModel(MainWindow mainWindow)
         {
@@ -40,8 +43,9 @@ namespace BeatManager.ViewModels
             LocalDetailsUserControl = new BeatmapLocalDetailsUserControl(mainWindow);
             OnlineDetailsUserControl = new BeatmapOnlineDetailsUserControl(mainWindow);
             NavigationBeatmapsUserControl = new NavigationBeatmapsUserControl();
-            NavigationBeatmapsUserControl.LocalEvent += NavigationBeatmapsUserControl_LocalEvent;
-            NavigationBeatmapsUserControl.OnlineEvent += NavigationBeatmapsUserControl_OnlineEvent;
+
+            NavigationBeatmapsUserControl.ViewModel.LocalEvent += NavigationBeatmapsUserControl_LocalEvent;
+            NavigationBeatmapsUserControl.ViewModel.OnlineEvent += NavigationBeatmapsUserControl_OnlineEvent;
 
             try
             {
@@ -280,6 +284,16 @@ namespace BeatManager.ViewModels
         {
             MainWindow.userControlNavigation.Content = null;
             MainWindow.userControlMain.Content = SettingsUserControl;
+        }
+
+        public async Task DownloadSong(string key)
+        {
+            OnlineBeatmap onlineBeatmap = await App.BeatSaverApi.GetBeatmap(key);
+            MessageBox.Show($"{onlineBeatmap.Metadata.SongName} {onlineBeatmap.Metadata.SongSubName}");
+
+            MainWindow.ToggleLoading(true, "Downloading Song", $"{onlineBeatmap.Metadata.SongName} {onlineBeatmap.Metadata.SongSubName}");
+            await App.BeatSaverApi.DownloadSong(onlineBeatmap);
+            MainWindow.ToggleLoading(false);
         }
     }
 }

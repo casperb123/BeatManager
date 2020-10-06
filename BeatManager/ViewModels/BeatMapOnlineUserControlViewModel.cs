@@ -89,6 +89,9 @@ namespace BeatManager.ViewModels
 
         private void BeatSaverApi_DownloadCompleted(object sender, DownloadCompletedEventArgs e)
         {
+            if (OnlineBeatmaps is null)
+                return;
+
             if (!OnlineBeatmaps.Maps.Any(x => x.IsDownloading))
             {
                 MainWindow.gridNavigation.IsEnabled = true;
@@ -96,6 +99,16 @@ namespace BeatManager.ViewModels
                 MainWindow.radioButtonSettings.IsEnabled = true;
                 userControl.stackPanelSort.IsEnabled = true;
                 userControl.stackPanelNavigation.IsEnabled = true;
+            }
+
+            if (!OnlineBeatmaps.Maps.Contains(e.Song))
+            {
+                OnlineBeatmap onlineBeatmap = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == e.Song.Key);
+                if (onlineBeatmap != null)
+                {
+                    onlineBeatmap.IsDownloading = e.Song.IsDownloading;
+                    onlineBeatmap.IsDownloaded = e.Song.IsDownloaded;
+                }
             }
 
             UpdatePageButtons();
@@ -254,6 +267,18 @@ namespace BeatManager.ViewModels
             SongChanged = true;
         }
 
+        public void DownloadSong(OnlineBeatmap onlineBeatmap)
+        {
+            MainWindow.gridNavigation.IsEnabled = false;
+            MainWindow.userControlNavigation.IsEnabled = false;
+            MainWindow.radioButtonSettings.IsEnabled = false;
+            userControl.stackPanelSort.IsEnabled = false;
+            userControl.stackPanelNavigation.IsEnabled = false;
+
+            App.BeatSaverApi.DownloadSong(onlineBeatmap).ConfigureAwait(false);
+            SongChanged = true;
+        }
+
         public void DownloadSongs(List<OnlineBeatmap> songs)
         {
             MainWindow.gridNavigation.IsEnabled = false;
@@ -264,6 +289,13 @@ namespace BeatManager.ViewModels
 
             songs.ForEach(x => App.BeatSaverApi.DownloadSong(x).ConfigureAwait(false));
             SongChanged = true;
+        }
+
+        public async void DownloadPipeSong(string key)
+        {
+            MainWindow.ToggleLoading(true);
+            await App.BeatSaverApi.DownloadSong(key);
+            MainWindow.ToggleLoading(false);
         }
 
         public void DeleteSong(string key)

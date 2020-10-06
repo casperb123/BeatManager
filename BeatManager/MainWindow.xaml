@@ -106,9 +106,29 @@
                                  Opacity=".8" />
             </Rectangle.Fill>
         </Rectangle>
-        <mah:ProgressRing x:Name="progressRingLoading"
-                          Grid.ColumnSpan="2"
-                          Visibility="Hidden"
-                          IsActive="False" />
+        <st:StackPanel x:Name="stackPanelLoading"
+                       Grid.ColumnSpan="2"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       MarginBetweenChildren="30"
+                       Visibility="Hidden">
+            <st:StackPanel x:Name="stackPanelLoadingText"
+                           HorizontalAlignment="Center"
+                           Visibility="Collapsed">
+                <Label x:Name="labelLoadingTitle"
+                       Content="Title"
+                       FontSize="35"
+                       Foreground="White"
+                       HorizontalContentAlignment="Center" />
+                <Label x:Name="labelLoadingDescription"
+                       Content="Description"
+                       FontSize="30"
+                       Foreground="White"
+                       HorizontalContentAlignment="Center" />
+            </st:StackPanel>
+
+            <mah:ProgressRing x:Name="progressRingLoading"
+                              IsActive="False" />
+        </st:StackPanel>
     </Grid>
 </mah:MetroWindow>

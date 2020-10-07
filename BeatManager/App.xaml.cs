@@ -24,13 +24,30 @@ namespace BeatManager
             if (Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length > 1)
             {
                 string[] args = Environment.GetCommandLineArgs();
-                string beatSaverArg = args.Length == 2 ? (args[1].StartsWith("beatsaver") ? args[1] : null) : null;
+                string beatSaverArg = args.FirstOrDefault(x => x.StartsWith("beatsaver://"));
 
                 if (!string.IsNullOrEmpty(beatSaverArg))
                 {
-                    string beatSaverKey = beatSaverArg.Substring(12).Replace("/", "");
-                    NamedPipe<string>.Send(NamedPipe<string>.NameTypes.BeatSaver, beatSaverKey);
-                    Environment.Exit(0);
+                    try
+                    {
+                        string beatSaverKey = beatSaverArg.Substring(12).Replace("/", "");
+                        NamedPipe<string>.Send(NamedPipe<string>.NameTypes.BeatSaver, beatSaverKey);
+                        Environment.Exit(0);
+                    }
+                    catch (UnauthorizedAccessException)
+                    {
+                        string processFilePath = Process.GetCurrentProcess().MainModule.FileName;
+
+                        ProcessStartInfo elevated = new ProcessStartInfo(processFilePath)
+                        {
+                            UseShellExecute = true,
+                            Verb = "runas",
+                            Arguments = beatSaverArg
+                        };
+
+                        Process.Start(elevated);
+                        Environment.Exit(0);
+                    }
                 }
             }
 

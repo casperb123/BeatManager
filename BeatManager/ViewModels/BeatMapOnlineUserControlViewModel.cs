@@ -264,19 +264,7 @@ namespace BeatManager.ViewModels
 
             OnlineBeatmap song = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
             App.BeatSaverApi.DownloadSong(song).ConfigureAwait(false);
-            SongChanged = true;
-        }
-
-        public void DownloadSong(OnlineBeatmap onlineBeatmap)
-        {
-            MainWindow.gridNavigation.IsEnabled = false;
-            MainWindow.userControlNavigation.IsEnabled = false;
-            MainWindow.radioButtonSettings.IsEnabled = false;
-            userControl.stackPanelSort.IsEnabled = false;
-            userControl.stackPanelNavigation.IsEnabled = false;
-
-            App.BeatSaverApi.DownloadSong(onlineBeatmap).ConfigureAwait(false);
-            SongChanged = true;
+            MainWindow.ViewModel.OnlineSongChanged = true;
         }
 
         public void DownloadSongs(List<OnlineBeatmap> songs)
@@ -288,14 +276,7 @@ namespace BeatManager.ViewModels
             userControl.stackPanelNavigation.IsEnabled = false;
 
             songs.ForEach(x => App.BeatSaverApi.DownloadSong(x).ConfigureAwait(false));
-            SongChanged = true;
-        }
-
-        public async void DownloadPipeSong(string key)
-        {
-            MainWindow.ToggleLoading(true);
-            await App.BeatSaverApi.DownloadSong(key);
-            MainWindow.ToggleLoading(false);
+            MainWindow.ViewModel.OnlineSongChanged = true;
         }
 
         public void DeleteSong(string key)
@@ -307,7 +288,7 @@ namespace BeatManager.ViewModels
                 MainWindow.ViewModel.LocalUserControl.ViewModel.LocalBeatmaps.Maps.Remove(localBeatmap);
 
             App.BeatSaverApi.DeleteSong(onlineBeatmap);
-            SongChanged = true;
+            MainWindow.ViewModel.OnlineSongChanged = true;
         }
 
         public void DeleteSongs(ICollection<OnlineBeatmap> songs)
@@ -323,7 +304,7 @@ namespace BeatManager.ViewModels
             }
 
             if (songs.Count > 0)
-                SongChanged = true;
+                MainWindow.ViewModel.OnlineSongChanged = true;
         }
 
         public void BeatmapDetails(string key, bool changePage = true)

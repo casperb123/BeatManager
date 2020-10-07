@@ -1,6 +1,7 @@
 ﻿using BeatManager.Entities;
 using BeatManager.ViewModels;
 using BeatSaverApi.Entities;
+using BeatSaverApi.Events;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Octokit;
@@ -46,12 +47,12 @@ namespace BeatManager
             {
                 if (!string.IsNullOrWhiteSpace(title))
                 {
-                    Instance.labelLoadingTitle.Content = title;
+                    Instance.textBlockLoadingTitle.Text = title;
                     Instance.stackPanelLoadingText.Visibility = Visibility.Visible;
                 }
                 if (!string.IsNullOrWhiteSpace(description))
                 {
-                    Instance.labelLoadingDescription.Content = description;
+                    Instance.textBlockLoadingDescription.Text = description;
                     Instance.stackPanelLoadingText.Visibility = Visibility.Visible;
                 }
 
@@ -106,7 +107,7 @@ namespace BeatManager
                 Settings.CurrentSettings.Save();
         }
 
-        private async void MetroWindow_Loaded(object sender, RoutedEventArgs e)
+        private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
             string[] args = Environment.GetCommandLineArgs();
             string beatSaverArg = args.FirstOrDefault(x => x.Contains("beatsaver"));
@@ -114,14 +115,17 @@ namespace BeatManager
             if (!string.IsNullOrEmpty(beatSaverArg))
             {
                 string beatSaverKey = beatSaverArg.Substring(12).Replace("/", "");
-                await ViewModel.DownloadSong(beatSaverKey);
+                ViewModel.DownloadSong(beatSaverKey).ConfigureAwait(false);
             }
 
             ViewModel.IsLoaded = true;
 
             if (string.IsNullOrWhiteSpace(Settings.CurrentSettings.RootPath) || !Directory.Exists(Settings.CurrentSettings.RootPath) ||
-            Settings.CurrentSettings.BeatSaverOneClickInstaller && !ViewModel.SettingsUserControl.ViewModel.IsBeatSaverOneClick)
+                Settings.CurrentSettings.BeatSaverOneClickInstaller && !ViewModel.SettingsUserControl.ViewModel.IsBeatSaverOneClick &&
+                ViewModel.SettingsUserControl.ViewModel.IsRunningAsAdmin)
+            {
                 radioButtonSettings.IsChecked = true;
+            }
             else
                 radioButtonHome.IsChecked = true;
         }

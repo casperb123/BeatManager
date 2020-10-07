@@ -148,7 +148,7 @@ namespace BeatManager.ViewModels
             App.BeatSaverApi.DeleteSong(localBeatmap);
             LocalBeatmaps.Maps.Remove(localBeatmap);
             if (onlineBeatmap is null)
-                SongDeleted = true;
+                MainWindow.ViewModel.LocalSongChanged = true;
             else
                 onlineBeatmap.IsDownloaded = false;
 
@@ -179,7 +179,7 @@ namespace BeatManager.ViewModels
             if (onlineBeatmaps.Count == songs.Count)
                 onlineBeatmaps.ForEach(x => x.IsDownloaded = false);
             else
-                SongDeleted = true;
+                MainWindow.ViewModel.LocalSongChanged = true;
 
             LocalBeatmaps = App.BeatSaverApi.RefreshLocalPages(LocalBeatmaps);
         }

@@ -6,6 +6,7 @@ using GitHubUpdater;
 using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Settings = BeatManager.Entities.Settings;
@@ -33,6 +34,8 @@ namespace BeatManager.ViewModels
         public bool UpdateDownloaded;
         public readonly Updater Updater;
         public bool IsLoaded;
+        public bool OnlineSongChanged;
+        public bool LocalSongChanged;
 
         public MainWindowViewModel(MainWindow mainWindow)
         {
@@ -232,11 +235,11 @@ namespace BeatManager.ViewModels
                 MainWindow.userControlMain.Content = LocalUserControl;
 
                 if (!localBeatmapsLoaded ||
-                    OnlineUserControl.ViewModel.SongChanged ||
+                    OnlineSongChanged ||
                     SettingsUserControl.ViewModel.SongsPathChanged)
                 {
                     localBeatmapsLoaded = true;
-                    OnlineUserControl.ViewModel.SongChanged = false;
+                    OnlineSongChanged = false;
 
                     if (LocalUserControl.ViewModel.LocalBeatmaps is null || SettingsUserControl.ViewModel.SongsPathChanged)
                         LocalUserControl.ViewModel.GetBeatmaps();
@@ -262,7 +265,7 @@ namespace BeatManager.ViewModels
                     OnlineUserControl.radioButtonHot.IsChecked = true;
                     OnlineUserControl.ViewModel.IsLoaded = true;
                 }
-                else if (LocalUserControl.ViewModel.SongDeleted)
+                else if (LocalSongChanged)
                 {
                     if (OnlineUserControl.ViewModel.OnlineBeatmaps != null)
                     {
@@ -273,7 +276,7 @@ namespace BeatManager.ViewModels
                             OnlineUserControl.ViewModel.GetBeatmaps(mapSort, OnlineUserControl.ViewModel.OnlineBeatmaps.CurrentPage);
                     }
 
-                    LocalUserControl.ViewModel.SongDeleted = false;
+                    LocalSongChanged = false;
                 }
 
                 MainWindow.userControlMain.Content = OnlineUserControl;
@@ -288,12 +291,33 @@ namespace BeatManager.ViewModels
 
         public async Task DownloadSong(string key)
         {
-            OnlineBeatmap onlineBeatmap = await App.BeatSaverApi.GetBeatmap(key);
-            MessageBox.Show($"{onlineBeatmap.Metadata.SongName} {onlineBeatmap.Metadata.SongSubName}");
+            await MainWindow.Dispatcher.Invoke(async () =>
+            {
+                OnlineBeatmap onlineBeatmap = await App.BeatSaverApi.GetBeatmap(key);
 
-            MainWindow.ToggleLoading(true, "Downloading Song", $"{onlineBeatmap.Metadata.SongName} {onlineBeatmap.Metadata.SongSubName}");
-            await App.BeatSaverApi.DownloadSong(onlineBeatmap);
-            MainWindow.ToggleLoading(false);
+                if (onlineBeatmap != null)
+                {
+                    try
+                    {
+                        MainWindow.ToggleLoading(true, "Downloading Song", onlineBeatmap.Metadata.FullSongName);
+                        await App.BeatSaverApi.DownloadSong(onlineBeatmap);
+                        OnlineSongChanged = true;
+                        if (OnlineUserControl.ViewModel.OnlineBeatmaps != null && OnlineUserControl.ViewModel.OnlineBeatmaps.Maps.Any(x => x.Key == key))
+                            LocalSongChanged = true;
+
+                        MainWindow.ToggleLoading(false);
+                        if (MainWindow.userControlMain.Content == LocalUserControl || MainWindow.userControlMain.Content == LocalDetailsUserControl)
+                            ShowLocalPage();
+                        else if (MainWindow.userControlMain.Content == OnlineUserControl || MainWindow.userControlMain.Content == OnlineDetailsUserControl)
+                            ShowOnlinePage();
+                    }
+                    catch (Exception)
+                    {
+                        MainWindow.ToggleLoading(false);
+                        await MainWindow.ShowMessageAsync("Downloading failed", "Downloading the song failed, please try again.");
+                    }
+                }
+            });
         }
     }
 }

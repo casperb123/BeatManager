@@ -42,7 +42,7 @@ namespace BeatManager.UserControls
             if (ViewModel.ChangePath)
             {
                 MainWindow.ToggleLoading(true);
-                await Task.Run(() => ViewModel.GetBeatSaberPath(Settings.CurrentSettings.BeatSaberCopy, true));
+                await Task.Run(async () => await ViewModel.GetBeatSaberPath(Settings.CurrentSettings.BeatSaberCopy, true));
                 MainWindow.ToggleLoading(false);
             }
             else
@@ -52,16 +52,16 @@ namespace BeatManager.UserControls
         private async void ButtonDetectPath_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.ToggleLoading(true);
-            await Task.Run(() => ViewModel.GetBeatSaberPath(Settings.CurrentSettings.BeatSaberCopy, true));
+            await Task.Run(async () => await ViewModel.GetBeatSaberPath(Settings.CurrentSettings.BeatSaberCopy, true));
             MainWindow.ToggleLoading(false);
         }
 
-        private void ToggleSwitchBeatSaverOneClick_Toggled(object sender, RoutedEventArgs e)
+        private async void ToggleSwitchBeatSaverOneClick_Toggled(object sender, RoutedEventArgs e)
         {
             if (!IsLoaded || !ViewModel.IsRunningAsAdmin)
                 return;
 
-            ViewModel.ToggleOneClick(OneClickType.BeatSaver, Settings.CurrentSettings.BeatSaverOneClickInstaller);
+            await ViewModel.ToggleOneClick(OneClickType.BeatSaver, Settings.CurrentSettings.BeatSaverOneClickInstaller);
         }
 
         private async void ButtonRunAsAdmin_Click(object sender, RoutedEventArgs e)

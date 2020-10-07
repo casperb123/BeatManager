@@ -1,17 +1,12 @@
-﻿using BeatManager.Entities;
-using BeatManager.UserControls;
+﻿using BeatManager.UserControls;
 using BeatSaverApi.Entities;
 using MahApps.Metro.Controls.Dialogs;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
-using System.Windows.Media;
 
 namespace BeatManager.ViewModels
 {

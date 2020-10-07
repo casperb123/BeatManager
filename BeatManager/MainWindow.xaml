@@ -114,17 +114,20 @@
                        Visibility="Hidden">
             <st:StackPanel x:Name="stackPanelLoadingText"
                            HorizontalAlignment="Center"
-                           Visibility="Collapsed">
-                <Label x:Name="labelLoadingTitle"
-                       Content="Title"
-                       FontSize="35"
-                       Foreground="White"
-                       HorizontalContentAlignment="Center" />
-                <Label x:Name="labelLoadingDescription"
-                       Content="Description"
-                       FontSize="30"
-                       Foreground="White"
-                       HorizontalContentAlignment="Center" />
+                           Visibility="Hidden"
+                           MarginBetweenChildren="10">
+                <TextBlock x:Name="textBlockLoadingTitle"
+                           Text="Title"
+                           FontSize="35"
+                           Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}"
+                           HorizontalAlignment="Center"
+                           TextWrapping="Wrap" />
+                <TextBlock x:Name="textBlockLoadingDescription"
+                           Text="Description"
+                           FontSize="25"
+                           Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}"
+                           HorizontalAlignment="Center"
+                           TextWrapping="Wrap" />
             </st:StackPanel>
 
             <mah:ProgressRing x:Name="progressRingLoading"

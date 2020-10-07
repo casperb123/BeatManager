@@ -43,11 +43,18 @@ namespace BeatManager.Entities
 
         public static void Send(NameTypes pipeType, T t)
         {
-            using (var npc = new NamedPipeClientStream(".", pipeType.ToString(), PipeDirection.Out))
+            try
             {
-                var bf = new BinaryFormatter();
-                npc.Connect();
-                bf.Serialize(npc, t);
+                using (var npc = new NamedPipeClientStream(".", pipeType.ToString(), PipeDirection.Out))
+                {
+                    var bf = new BinaryFormatter();
+                    npc.Connect();
+                    bf.Serialize(npc, t);
+                }
+            }
+            catch (UnauthorizedAccessException)
+            {
+                throw;
             }
         }
 

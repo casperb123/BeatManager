@@ -77,8 +77,8 @@ namespace BeatManager.ViewModels
                 if (beatSaverCallback == OneClickCallback.BeatManager)
                     IsBeatSaverOneClick = true;
 
-                //if (!IsBeatSaverOneClick && Settings.CurrentSettings.BeatSaverOneClickInstaller)
-                //    ToggleOneClick(OneClickType.BeatSaver, true).ConfigureAwait(false);
+                if (!IsBeatSaverOneClick && Settings.CurrentSettings.BeatSaverOneClickInstaller)
+                    ToggleOneClick(OneClickType.BeatSaver, true).ConfigureAwait(false);
             }
         }
 
@@ -302,17 +302,10 @@ namespace BeatManager.ViewModels
                     if (commandKeyValues.Length != 2 || commandKeyValues[1] != "%1")
                         return (OneClickCallback.KeyError, null);
 
-                    if (beatSaverKey.GetValue("OneClick-Provider") != null)
-                    {
-                        string provider = beatSaverKey.GetValue("OneClick-Provider").ToString();
-                        if (provider != "BeatManager")
-                            return (OneClickCallback.OtherProvider, provider);
-                    }
                     if (commandKeyValues[0] != applicationPath)
                     {
                         string provider = Path.GetFileNameWithoutExtension(commandKeyValues[0]);
-                        if (provider != "BeatManager")
-                            return (OneClickCallback.OtherProvider, provider);
+                        return (OneClickCallback.OtherProvider, provider);
                     }
 
                     return (OneClickCallback.BeatManager, null);

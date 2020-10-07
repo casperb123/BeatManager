@@ -158,8 +158,10 @@ namespace BeatManager.ViewModels
 
             _ = Task.Run(async () =>
             {
-                OnlineBeatmaps = await App.BeatSaverApi.GetOnlineBeatmaps(query, CurrentMapSort, page);
-                if (OnlineBeatmaps is null)
+                (bool isValid, OnlineBeatmaps onlineBeatmaps) = await App.BeatSaverApi.GetOnlineBeatmaps(query, CurrentMapSort, page);
+                if (isValid)
+                    OnlineBeatmaps = onlineBeatmaps;
+                else
                 {
                     await MainWindow.Dispatcher.Invoke(async () =>
                     {

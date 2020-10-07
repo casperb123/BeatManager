@@ -61,13 +61,13 @@ namespace BeatManager.ViewModels
 
         public void GetBeatmaps()
         {
-            MainWindow.ToggleLoading(true);
+            MainWindow.ToggleLoading(true, "Loading local beatmaps");
             _ = Task.Run(async () => LocalBeatmaps = await App.BeatSaverApi.GetLocalBeatmaps());
         }
 
         public void GetBeatmaps(LocalBeatmaps localBeatmaps)
         {
-            MainWindow.ToggleLoading(true);
+            MainWindow.ToggleLoading(true, "Loading local beatmaps");
             _ = Task.Run(async () => LocalBeatmaps = await App.BeatSaverApi.GetLocalBeatmaps(localBeatmaps));
         }
 

@@ -123,7 +123,7 @@ namespace BeatManager.ViewModels
 
         public void GetBeatmaps(MapSort mapSort, int page = 0)
         {
-            MainWindow.ToggleLoading(true);
+            MainWindow.ToggleLoading(true, "Loading online beatmaps", $"Sorting by: {mapSort}");
 
             _ = Task.Run(async () =>
             {
@@ -146,7 +146,15 @@ namespace BeatManager.ViewModels
 
         public void GetBeatmaps(string query, int page = 0)
         {
-            MainWindow.ToggleLoading(true);
+            string description = null;
+            if (CurrentMapSort == MapSort.Search)
+                description = $"Searching by name: {query}";
+            else if (CurrentMapSort == MapSort.SearchKey)
+                description = $"Searching by key: {query}";
+            else if (CurrentMapSort == MapSort.SearchHash)
+                description = $"Searching by hash: {query}";
+
+            MainWindow.ToggleLoading(true, "Loading online beatmaps", description);
 
             _ = Task.Run(async () =>
             {

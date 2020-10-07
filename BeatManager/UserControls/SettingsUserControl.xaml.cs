@@ -41,7 +41,7 @@ namespace BeatManager.UserControls
 
             if (ViewModel.ChangePath)
             {
-                MainWindow.ToggleLoading(true);
+                MainWindow.ToggleLoading(true, "Locating Beat Saber folder");
                 await Task.Run(async () => await ViewModel.GetBeatSaberPath(Settings.CurrentSettings.BeatSaberCopy, true));
                 MainWindow.ToggleLoading(false);
             }
@@ -51,7 +51,7 @@ namespace BeatManager.UserControls
 
         private async void ButtonDetectPath_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.ToggleLoading(true);
+            MainWindow.ToggleLoading(true, "Locating Beat Saber folder");
             await Task.Run(async () => await ViewModel.GetBeatSaberPath(Settings.CurrentSettings.BeatSaberCopy, true));
             MainWindow.ToggleLoading(false);
         }

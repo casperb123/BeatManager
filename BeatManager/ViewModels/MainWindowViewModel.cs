@@ -297,7 +297,13 @@ namespace BeatManager.ViewModels
                 {
                     try
                     {
-                        MainWindow.ToggleLoading(true, "Downloading Song", onlineBeatmap.Metadata.FullSongName);
+                        string description = null;
+                        if (onlineBeatmap.Metadata.SongAuthorName is null)
+                            description = onlineBeatmap.Metadata.FullSongName;
+                        else
+                            description = $"{onlineBeatmap.Metadata.SongAuthorName} - {onlineBeatmap.Metadata.FullSongName}";
+
+                        MainWindow.ToggleLoading(true, "Downloading Song", description);
                         await App.BeatSaverApi.DownloadSong(onlineBeatmap);
                         OnlineSongChanged = true;
                         if (OnlineUserControl.ViewModel.OnlineBeatmaps != null && OnlineUserControl.ViewModel.OnlineBeatmaps.Maps.Any(x => x.Key == key))

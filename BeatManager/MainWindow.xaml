@@ -127,6 +127,7 @@
                            FontSize="25"
                            Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}"
                            HorizontalAlignment="Center"
+                           Visibility="Collapsed"
                            TextWrapping="Wrap" />
             </st:StackPanel>
 

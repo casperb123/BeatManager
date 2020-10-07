@@ -51,6 +51,7 @@ namespace BeatManager
                 if (!string.IsNullOrWhiteSpace(description))
                 {
                     Instance.textBlockLoadingDescription.Text = description;
+                    Instance.textBlockLoadingDescription.Visibility = Visibility.Visible;
                     Instance.stackPanelLoadingText.Visibility = Visibility.Visible;
                 }
 
@@ -63,6 +64,7 @@ namespace BeatManager
                 Instance.rectangleLoading.Visibility = Visibility.Hidden;
                 Instance.stackPanelLoading.Visibility = Visibility.Hidden;
                 Instance.stackPanelLoadingText.Visibility = Visibility.Hidden;
+                Instance.textBlockLoadingDescription.Visibility = Visibility.Collapsed;
                 Instance.progressRingLoading.IsActive = false;
             }
         }

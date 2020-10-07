@@ -12,6 +12,8 @@
              d:DesignWidth="800">
     <UserControl.Resources>
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        <converters:BooleanToVisiblityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
     </UserControl.Resources>
 
     <Grid Margin="30,5">
@@ -123,11 +125,18 @@
                            VerticalContentAlignment="Center"
                            Margin="0,0,5,0" />
 
+                    <Button x:Name="buttonRestartAsAdmin"
+                            Grid.Column="1"
+                            Content="Restart as administrator"
+                            HorizontalAlignment="Left"
+                            Visibility="{Binding Path=IsRunningAsAdmin, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+                            Click="ButtonRestartAsAdmin_Click" />
                     <Button x:Name="buttonEnableBeatSaverOneClick"
                             Grid.Column="1"
                             Content="Enable OneClick installer"
                             HorizontalAlignment="Left"
                             IsEnabled="{Binding Path=IsBeatSaverOneClick, Converter={StaticResource InverseBooleanConverter}}"
+                            Visibility="{Binding Path=IsRunningAsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"
                             Click="ButtonEnableBeatSaverOneClick_Click" />
                 </Grid>
             </GroupBox>

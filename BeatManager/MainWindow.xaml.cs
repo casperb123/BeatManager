@@ -1,7 +1,5 @@
 ﻿using BeatManager.Entities;
 using BeatManager.ViewModels;
-using BeatSaverApi.Entities;
-using BeatSaverApi.Events;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Octokit;

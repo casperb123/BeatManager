@@ -9,8 +9,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Security.Permissions;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,7 +23,6 @@ namespace BeatManager.ViewModels
         public readonly MainWindow MainWindow;
         public bool SongsPathChanged = false;
         public bool ChangePath = true;
-        public bool ChangeBeatSaverOneClick = true;
 
         public bool IsBeatSaverOneClick
         {
@@ -281,8 +278,7 @@ namespace BeatManager.ViewModels
 
         public (OneClickCallback callback, string provider) CheckOneClick(OneClickType oneClickType)
         {
-            string processName = Process.GetCurrentProcess().ProcessName;
-            string applicationPath = $@"{Directory.GetCurrentDirectory()}\{processName}.exe";
+            string applicationPath = Process.GetCurrentProcess().MainModule.FileName;
 
             switch (oneClickType)
             {
@@ -316,8 +312,7 @@ namespace BeatManager.ViewModels
 
         public async Task<bool> ToggleOneClick(OneClickType oneClickType, bool enable)
         {
-            string processName = Process.GetCurrentProcess().ProcessName;
-            string applicationPath = $@"{Directory.GetCurrentDirectory()}\{processName}.exe";
+            string applicationPath = Process.GetCurrentProcess().MainModule.FileName;
 
             if (oneClickType == OneClickType.BeatSaver)
             {
@@ -357,8 +352,7 @@ namespace BeatManager.ViewModels
 
         public void RestartAsAdmin()
         {
-            string processName = Process.GetCurrentProcess().ProcessName;
-            string applicationPath = $@"{Directory.GetCurrentDirectory()}\{processName}.exe";
+            string applicationPath = Process.GetCurrentProcess().MainModule.FileName;
 
             ProcessStartInfo elevated = new ProcessStartInfo(applicationPath)
             {

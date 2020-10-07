@@ -1,5 +1,4 @@
-﻿using BeatManager.UserControls.Navigation;
-using System;
+﻿using System;
 using System.ComponentModel;
 
 namespace BeatManager.ViewModels.Navigation

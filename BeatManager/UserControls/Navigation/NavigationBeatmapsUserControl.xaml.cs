@@ -1,5 +1,4 @@
 ﻿using BeatManager.ViewModels.Navigation;
-using System;
 using System.Windows;
 using System.Windows.Controls;
 

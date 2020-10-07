@@ -5,10 +5,8 @@ using BeatSaverApi.Entities;
 using GitHubUpdater;
 using MahApps.Metro.Controls.Dialogs;
 using System;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 using Settings = BeatManager.Entities.Settings;
 using Version = GitHubUpdater.Version;
 

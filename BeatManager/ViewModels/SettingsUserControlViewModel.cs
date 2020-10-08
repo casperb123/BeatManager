@@ -69,13 +69,16 @@ namespace BeatManager.ViewModels
 
             if (IsRunningAsAdmin)
             {
-                var (beatSaverCallback, beatSaverprovider) = CheckOneClick(OneClickType.BeatSaver);
+                if (Settings.CurrentSettings.BeatSaverOneClickInstaller)
+                {
+                    var (beatSaverCallback, beatSaverMessage) = CheckOneClick(OneClickType.BeatSaver);
 
-                if (beatSaverCallback == OneClickCallback.BeatManager)
-                    IsBeatSaverOneClick = true;
+                    if (beatSaverCallback == OneClickReturn.BeatManager)
+                        IsBeatSaverOneClick = true;
 
-                if (!IsBeatSaverOneClick && Settings.CurrentSettings.BeatSaverOneClickInstaller)
-                    ToggleOneClick(OneClickType.BeatSaver, true).ConfigureAwait(false);
+                    if (!IsBeatSaverOneClick)
+                        ToggleOneClick(OneClickType.BeatSaver, true).ConfigureAwait(false);
+                }
             }
         }
 
@@ -276,7 +279,7 @@ namespace BeatManager.ViewModels
             ThemeManager.Current.ChangeTheme(Application.Current, $"{theme}.{color}");
         }
 
-        public (OneClickCallback callback, string provider) CheckOneClick(OneClickType oneClickType)
+        public (OneClickReturn, string) CheckOneClick(OneClickType oneClickType)
         {
             string applicationPath = Process.GetCurrentProcess().MainModule.FileName;
 
@@ -288,31 +291,34 @@ namespace BeatManager.ViewModels
                         beatSaverKey.GetValue("").ToString() != "URL:beatsaver" ||
                         beatSaverKey.GetValue("URL Protocol") is null)
                     {
-                        return (OneClickCallback.KeyError, null);
+                        return (OneClickReturn.KeyError, null);
                     }
                     RegistryKey commandKey = beatSaverKey.OpenSubKey(@"shell\open\command");
                     if (commandKey is null)
-                        return (OneClickCallback.KeyError, null);
+                        return (OneClickReturn.KeyError, null);
 
                     string[] commandKeyValues = commandKey.GetValue("").ToString().Replace("\"", "").Split(" ");
                     if (commandKeyValues.Length != 2 || commandKeyValues[1] != "%1")
-                        return (OneClickCallback.KeyError, null);
+                        return (OneClickReturn.KeyError, null);
 
                     if (beatSaverKey.GetValue("OneClick-Provider") != null)
                     {
                         string provider = beatSaverKey.GetValue("OneClick-Provider").ToString();
                         if (provider != "BeatManager")
-                            return (OneClickCallback.OtherProvider, provider);
+                            return (OneClickReturn.OtherProvider, provider);
                     }
                     if (commandKeyValues[0] != applicationPath)
                     {
                         string provider = Path.GetFileNameWithoutExtension(commandKeyValues[0]);
-                        return (OneClickCallback.OtherProvider, provider);
+                        if (provider == "BeatManager")
+                            return (OneClickReturn.WrongPath, commandKeyValues[0]);
+                        else
+                            return (OneClickReturn.OtherProvider, provider);
                     }
 
-                    return (OneClickCallback.BeatManager, null);
+                    return (OneClickReturn.BeatManager, null);
                 default:
-                    return (OneClickCallback.Null, null);
+                    return (OneClickReturn.Null, null);
             }
         }
 
@@ -324,11 +330,17 @@ namespace BeatManager.ViewModels
             {
                 if (enable)
                 {
-                    var (callback, provider) = CheckOneClick(oneClickType);
+                    var (callback, message) = CheckOneClick(oneClickType);
 
-                    if (callback == OneClickCallback.OtherProvider)
+                    if (callback == OneClickReturn.OtherProvider)
                     {
-                        MessageDialogResult result = await MainWindow.ShowMessageAsync($"BeatSaver OneClick", $"The OneClick provider for BeatSaver is currently {provider}. Would you like to enable it anyways?", MessageDialogStyle.AffirmativeAndNegative);
+                        MessageDialogResult result = await MainWindow.ShowMessageAsync($"BeatSaver OneClick", $"The OneClick provider for BeatSaver is currently {message}. Would you like to enable it anyways?", MessageDialogStyle.AffirmativeAndNegative);
+                        if (result != MessageDialogResult.Affirmative)
+                            return false;
+                    }
+                    else if (callback == OneClickReturn.WrongPath)
+                    {
+                        MessageDialogResult result = await MainWindow.ShowMessageAsync($"BeatSaver OneClick", "The OneClick file path is wrong. Would you like to update it?", MessageDialogStyle.AffirmativeAndNegative);
                         if (result != MessageDialogResult.Affirmative)
                             return false;
                     }

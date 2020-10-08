@@ -1,9 +1,10 @@
 ﻿namespace BeatManager.Entities
 {
-    public enum OneClickCallback
+    public enum OneClickReturn
     {
         KeyError,
         OtherProvider,
+        WrongPath,
         Null,
         BeatManager
     }

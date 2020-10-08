@@ -73,10 +73,10 @@ namespace BeatManager.UserControls
             ViewModel.RestartAsAdmin();
         }
 
-        private async void ButtonEnableBeatSaverOneClick_Click(object sender, RoutedEventArgs e)
+        private async void ToggleSwitchOneClick_Toggled(object sender, RoutedEventArgs e)
         {
-            if (await ViewModel.ToggleOneClick(OneClickType.BeatSaver, true))
-                Settings.CurrentSettings.BeatSaverOneClickInstaller = true;
+            if (Settings.CurrentSettings.BeatSaverOneClickInstaller)
+                await ViewModel.ToggleOneClick(OneClickType.BeatSaver, true);
         }
 
         private async void ButtonRestartAsAdmin_Click(object sender, RoutedEventArgs e)

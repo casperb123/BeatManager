@@ -4,6 +4,7 @@ using MahApps.Metro.Controls.Dialogs;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
@@ -17,17 +18,6 @@ namespace BeatManager.ViewModels
         private LocalBeatmap beatmap;
         private LocalBeatmapDetails beatmapDetails;
         private LocalBeatmapDetail beatmapDetail;
-        private List<string> errors;
-
-        public List<string> Errors
-        {
-            get { return errors; }
-            set
-            {
-                errors = value;
-                OnPropertyChanged(nameof(Errors));
-            }
-        }
 
         public LocalBeatmapDetail BeatmapDetail
         {
@@ -178,7 +168,7 @@ namespace BeatManager.ViewModels
 
         public async void ShowErrors()
         {
-            string errorsText = string.Join("\n", Errors);
+            string errorsText = string.Join("\n", Beatmap.Errors.Select(x => $"- {x}"));
             await mainWindow.ShowMessageAsync("Beatmap Invalid", $"The current beatmap has the following errors:\n" +
                                                                  $"{errorsText}");
         }

@@ -29,8 +29,7 @@
 
         <Label Content="Beatmap Local"
                FontSize="45"
-               Grid.ColumnSpan="2"
-               Margin="0,0,0,30" />
+               Margin="0,0,0,30"/>
 
         <DataGrid x:Name="dataGridMaps"
                   ItemsSource="{Binding Path=LocalBeatmaps.Maps, NotifyOnTargetUpdated=True}"
@@ -285,6 +284,22 @@
                     HorizontalAlignment="Right"
                     Grid.Row="2"
                     Margin="0,5,0,0">
+            <Button x:Name="buttonReloadData"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                    Width="35"
+                    Height="35"
+                    Cursor="Hand"
+                    ToolTip="Reload Beatmaps"
+                    ToolTipService.BetweenShowDelay="0"
+                    ToolTipService.InitialShowDelay="0"
+                    Click="ButtonReloadData_Click">
+                <icons:PackIconMaterial Kind="RefreshCircle"
+                                        Width="25"
+                                        Height="25" />
+            </Button>
+            
             <Label VerticalContentAlignment="Center">
                 <Label.Content>
                     <TextBlock>

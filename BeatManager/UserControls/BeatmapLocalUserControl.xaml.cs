@@ -89,5 +89,10 @@ namespace BeatManager.UserControls
             if (localBeatmap.Page != ViewModel.LocalBeatmaps.CurrentPage)
                 e.Row.Visibility = Visibility.Collapsed;
         }
+
+        private void ButtonReloadData_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.GetBeatmaps();
+        }
     }
 }

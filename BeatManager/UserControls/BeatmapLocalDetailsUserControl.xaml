@@ -327,7 +327,7 @@
                         ToolTipService.BetweenShowDelay="0"
                         ToolTipService.InitialShowDelay="0"
                         Cursor="Hand"
-                        Visibility="{Binding Path=Errors, Converter={StaticResource NullToVisibilityConverter}}"
+                        Visibility="{Binding Path=Beatmap.Errors, Converter={StaticResource NullToVisibilityConverter}}"
                         Click="ButtonInvalid_Click">
                     <Button.Background>
                         <SolidColorBrush Color="Red"

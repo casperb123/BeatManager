@@ -139,16 +139,20 @@ namespace BeatManager
                 if (version.IsCurrentVersion)
                     await this.ShowMessageAsync($"Up to date - {version}", "You're already using the latest version of the application");
             }
-            catch (ApiException ex)
+            catch (Exception ex)
             {
-                if (ex.InnerException is null)
-                    await this.ShowMessageAsync("Checking for updates failed", $"There was an error while checking for updates.\n\n" +
-                                                                               $"Error:\n" +
-                                                                               $"{ex.Message}");
-                else
+                if (string.Equals(ex.Message, ex.InnerException.Message))
+                {
                     await this.ShowMessageAsync("Checking for updates failed", $"There was an error while checking for updates.\n\n" +
                                                                                $"Error:\n" +
                                                                                $"{ex.InnerException.Message}");
+                }
+                else
+                {
+                    await this.ShowMessageAsync("Checking for updates failed", $"There was an error while checking for updates.\n\n" +
+                                                                               $"Error:\n" +
+                                                                               $"{ex.Message} ({ex.InnerException.Message})");
+                }
             }
         }
 

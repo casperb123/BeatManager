@@ -6,6 +6,7 @@ using GitHubUpdater;
 using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Settings = BeatManager.Entities.Settings;
 using Version = GitHubUpdater.Version;
@@ -48,29 +49,15 @@ namespace BeatManager.ViewModels
             NavigationBeatmapsUserControl.ViewModel.LocalEvent += NavigationBeatmapsUserControl_LocalEvent;
             NavigationBeatmapsUserControl.ViewModel.OnlineEvent += NavigationBeatmapsUserControl_OnlineEvent;
 
-            try
-            {
-                Updater = new Updater("casperb123", "BeatManager", Resources.GitHubToken);
-                Updater.UpdateAvailable += Updater_UpdateAvailable;
-                Updater.DownloadingStarted += Updater_DownloadingStarted;
-                Updater.DownloadingProgressed += Updater_DownloadingProgressed;
-                Updater.DownloadingCompleted += Updater_DownloadingCompleted;
-                Updater.DownloadingFailed += Updater_DownloadingFailed;
-                Updater.InstallationFailed += Updater_InstallationFailed;
+            Updater = new Updater("casperb123", "BeatManager", Resources.GitHubToken);
+            Updater.UpdateAvailable += Updater_UpdateAvailable;
+            Updater.DownloadingStarted += Updater_DownloadingStarted;
+            Updater.DownloadingProgressed += Updater_DownloadingProgressed;
+            Updater.DownloadingCompleted += Updater_DownloadingCompleted;
+            Updater.DownloadingFailed += Updater_DownloadingFailed;
+            Updater.InstallationFailed += Updater_InstallationFailed;
 
-                CheckForUpdates();
-            }
-            catch (Exception e)
-            {
-                if (e.InnerException is null)
-                    mainWindow.ShowMessageAsync("Checking for updates failed", $"There was an error while checking for updates.\n\n" +
-                                                                               $"Error:\n" +
-                                                                               $"{e.Message}").ConfigureAwait(false);
-                else
-                    mainWindow.ShowMessageAsync("Checking for updates failed", $"There was an error while checking for updates.\n\n" +
-                                                                               $"Error:\n" +
-                                                                               $"{e.InnerException.Message}").ConfigureAwait(false);
-            }
+            CheckForUpdates();
         }
 
         private void NavigationBeatmapsUserControl_LocalEvent(object sender, EventArgs e)
@@ -85,19 +72,38 @@ namespace BeatManager.ViewModels
 
         private async void CheckForUpdates()
         {
-            if (Settings.CurrentSettings.CheckForUpdates)
+            try
             {
-                Version version = await Updater.CheckForUpdatesAsync();
-                if (version.IsCurrentVersion)
+                if (Settings.CurrentSettings.CheckForUpdates)
+                {
+                    Version version = await Updater.CheckForUpdatesAsync();
+                    if (version.IsCurrentVersion)
+                        Updater.DeleteUpdateFiles();
+                }
+                else if (Updater.IsUpdateDownloaded())
+                {
+                    UpdateDownloaded = true;
+                    MainWindow.buttonUpdate.Content = "Update downloaded";
+                }
+                else
                     Updater.DeleteUpdateFiles();
             }
-            else if (Updater.IsUpdateDownloaded())
+            catch (HttpRequestException) { }
+            catch (Exception e)
             {
-                UpdateDownloaded = true;
-                MainWindow.buttonUpdate.Content = "Update downloaded";
+                if (string.Equals(e.Message, e.InnerException.Message))
+                {
+                    await MainWindow.ShowMessageAsync("Checking for updates failed", $"There was an error while checking for updates.\n\n" +
+                                                                                     $"Error:\n" +
+                                                                                     $"{e.Message}");
+                }
+                else
+                {
+                    await MainWindow.ShowMessageAsync("Checking for updates failed", $"There was an error while checking for updates.\n\n" +
+                                                                                     $"Error:\n" +
+                                                                                     $"{e.Message} ({e.InnerException.Message})");
+                }
             }
-            else
-                Updater.DeleteUpdateFiles();
         }
 
         private async void Updater_InstallationFailed(object sender, ExceptionEventArgs<Exception> e)
@@ -314,7 +320,10 @@ namespace BeatManager.ViewModels
                     catch (Exception)
                     {
                         MainWindow.ToggleLoading(false);
-                        await MainWindow.ShowMessageAsync("Downloading failed", "Downloading the song failed, please try again later");
+                        MessageDialogResult result = await MainWindow.ShowMessageAsync("Downloading failed", "Downloading the song failed, would you like to try again?", MessageDialogStyle.AffirmativeAndNegative);
+
+                        if (result == MessageDialogResult.Affirmative)
+                            await DownloadSong(key);
                     }
                 }
             });

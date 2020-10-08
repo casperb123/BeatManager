@@ -288,11 +288,13 @@ namespace BeatManager.ViewModels
                 case OneClickType.BeatSaver:
                     RegistryKey beatSaverKey = Registry.ClassesRoot.OpenSubKey("beatsaver");
                     if (beatSaverKey is null ||
+                        beatSaverKey.GetValue("") is null ||
                         beatSaverKey.GetValue("").ToString() != "URL:beatsaver" ||
                         beatSaverKey.GetValue("URL Protocol") is null)
                     {
                         return (OneClickReturn.KeyError, null);
                     }
+
                     RegistryKey commandKey = beatSaverKey.OpenSubKey(@"shell\open\command");
                     if (commandKey is null)
                         return (OneClickReturn.KeyError, null);

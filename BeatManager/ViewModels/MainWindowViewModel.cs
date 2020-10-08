@@ -6,6 +6,7 @@ using GitHubUpdater;
 using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Settings = BeatManager.Entities.Settings;
@@ -297,34 +298,36 @@ namespace BeatManager.ViewModels
         {
             await MainWindow.Dispatcher.Invoke(async () =>
             {
-                OnlineBeatmap onlineBeatmap = await App.BeatSaverApi.GetBeatmap(key);
-
-                if (onlineBeatmap != null)
+                try
                 {
-                    try
-                    {
-                        string description = onlineBeatmap.Metadata.SongAuthorName is null ? onlineBeatmap.Metadata.FullSongName : $"{onlineBeatmap.Metadata.SongAuthorName} - {onlineBeatmap.Metadata.FullSongName}";
+                    OnlineBeatmap onlineBeatmap = await App.BeatSaverApi.GetBeatmap(key);
+                    string description = onlineBeatmap.Metadata.SongAuthorName is null ? onlineBeatmap.Metadata.FullSongName : $"{onlineBeatmap.Metadata.SongAuthorName} - {onlineBeatmap.Metadata.FullSongName}";
 
-                        MainWindow.ToggleLoading(true, "Downloading Song", description);
-                        await App.BeatSaverApi.DownloadSong(onlineBeatmap);
-                        OnlineSongChanged = true;
-                        if (OnlineUserControl.ViewModel.OnlineBeatmaps != null && OnlineUserControl.ViewModel.OnlineBeatmaps.Maps.Any(x => x.Key == key))
-                            LocalSongChanged = true;
+                    MainWindow.ToggleLoading(true, "Downloading Song", description);
+                    await App.BeatSaverApi.DownloadSong(onlineBeatmap);
+                    OnlineSongChanged = true;
+                    if (OnlineUserControl.ViewModel.OnlineBeatmaps != null && OnlineUserControl.ViewModel.OnlineBeatmaps.Maps.Any(x => x.Key == key))
+                        LocalSongChanged = true;
 
-                        MainWindow.ToggleLoading(false);
-                        if (MainWindow.userControlMain.Content == LocalUserControl || MainWindow.userControlMain.Content == LocalDetailsUserControl)
-                            ShowLocalPage();
-                        else if (MainWindow.userControlMain.Content == OnlineUserControl || MainWindow.userControlMain.Content == OnlineDetailsUserControl)
-                            ShowOnlinePage();
-                    }
-                    catch (Exception)
-                    {
-                        MainWindow.ToggleLoading(false);
-                        MessageDialogResult result = await MainWindow.ShowMessageAsync("Downloading failed", "Downloading the song failed, would you like to try again?", MessageDialogStyle.AffirmativeAndNegative);
+                    MainWindow.ToggleLoading(false);
+                    if (MainWindow.userControlMain.Content == LocalUserControl || MainWindow.userControlMain.Content == LocalDetailsUserControl)
+                        ShowLocalPage();
+                    else if (MainWindow.userControlMain.Content == OnlineUserControl || MainWindow.userControlMain.Content == OnlineDetailsUserControl)
+                        ShowOnlinePage();
+                }
+                catch (Exception e)
+                {
+                    MainWindow.ToggleLoading(false);
+                    string errorMessage = e.Message;
+                    if (e.InnerException != null && !e.Message.Contains(e.InnerException.Message))
+                        errorMessage += $" ({e.InnerException.Message})";
 
-                        if (result == MessageDialogResult.Affirmative)
-                            await DownloadSong(key);
-                    }
+                    MessageDialogResult result = await MainWindow.ShowMessageAsync("Downloading failed", "Downloading the song failed, would you like to try again?\n\n" +
+                                                                                                         "Error:\n" +
+                                                                                                         $"{errorMessage}", MessageDialogStyle.AffirmativeAndNegative);
+
+                    if (result == MessageDialogResult.Affirmative)
+                        await DownloadSong(key);
                 }
             });
         }

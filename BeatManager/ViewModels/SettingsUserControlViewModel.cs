@@ -338,12 +338,6 @@ namespace BeatManager.ViewModels
                         if (result != MessageDialogResult.Affirmative)
                             return false;
                     }
-                    else if (callback == OneClickReturn.WrongPath)
-                    {
-                        MessageDialogResult result = await MainWindow.ShowMessageAsync($"BeatSaver OneClick", "The OneClick file path is wrong. Would you like to update it?", MessageDialogStyle.AffirmativeAndNegative);
-                        if (result != MessageDialogResult.Affirmative)
-                            return false;
-                    }
 
                     RegistryKey beatSaverKey = Registry.ClassesRoot.CreateSubKey("beatsaver", true);
                     beatSaverKey.SetValue("", "URL:beatsaver");

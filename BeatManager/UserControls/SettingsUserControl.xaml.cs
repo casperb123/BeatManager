@@ -75,6 +75,9 @@ namespace BeatManager.UserControls
 
         private async void ToggleSwitchOneClick_Toggled(object sender, RoutedEventArgs e)
         {
+            if (!IsLoaded)
+                return;
+
             if (Settings.CurrentSettings.BeatSaverOneClickInstaller)
                 await ViewModel.ToggleOneClick(OneClickType.BeatSaver, true);
         }

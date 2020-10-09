@@ -6,7 +6,6 @@ using GitHubUpdater;
 using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Settings = BeatManager.Entities.Settings;
@@ -27,6 +26,7 @@ namespace BeatManager.ViewModels
         public readonly BeatmapLocalDetailsUserControl LocalDetailsUserControl;
         public readonly BeatmapOnlineDetailsUserControl OnlineDetailsUserControl;
         public readonly NavigationBeatmapsUserControl NavigationBeatmapsUserControl;
+        public readonly DownloadsUserControl DownloadsUserControl;
 
         public bool ShowLocalDetails;
         public bool ShowOnlineDetails;
@@ -46,6 +46,7 @@ namespace BeatManager.ViewModels
             LocalDetailsUserControl = new BeatmapLocalDetailsUserControl(mainWindow);
             OnlineDetailsUserControl = new BeatmapOnlineDetailsUserControl(mainWindow);
             NavigationBeatmapsUserControl = new NavigationBeatmapsUserControl();
+            DownloadsUserControl = new DownloadsUserControl();
 
             NavigationBeatmapsUserControl.ViewModel.LocalEvent += NavigationBeatmapsUserControl_LocalEvent;
             NavigationBeatmapsUserControl.ViewModel.OnlineEvent += NavigationBeatmapsUserControl_OnlineEvent;
@@ -286,6 +287,12 @@ namespace BeatManager.ViewModels
 
                 MainWindow.userControlMain.Content = OnlineUserControl;
             }
+        }
+
+        public void ShowDownloadsPage()
+        {
+            MainWindow.userControlNavigation.Content = null;
+            MainWindow.userControlMain.Content = DownloadsUserControl;
         }
 
         public void ShowSettingsPage()

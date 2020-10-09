@@ -90,6 +90,11 @@ namespace BeatManager
             }
         }
 
+        private void RadioButtonDownloads_Checked(object sender, RoutedEventArgs e)
+        {
+            ViewModel.ShowDownloadsPage();
+        }
+
         private void RadioButtonSettings_Checked(object sender, RoutedEventArgs e)
         {
             ViewModel.ShowSettingsPage();

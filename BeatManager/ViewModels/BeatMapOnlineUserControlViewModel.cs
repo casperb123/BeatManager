@@ -2,9 +2,11 @@
 using BeatSaverApi.Entities;
 using BeatSaverApi.Events;
 using MahApps.Metro.Controls.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace BeatManager.ViewModels
@@ -127,19 +129,23 @@ namespace BeatManager.ViewModels
 
             _ = Task.Run(async () =>
             {
-                OnlineBeatmaps = await App.BeatSaverApi.GetOnlineBeatmaps(mapSort, page);
-                if (OnlineBeatmaps is null)
+                try
                 {
-                    await MainWindow.Dispatcher.Invoke(async () =>
-                    {
-                        await MainWindow.ShowMessageAsync("Can't connect to BeatSaver", "Either you don't have any internet connection or BeatSaver is currently offline");
-                        userControl.radioButtonSearch.IsChecked = false;
-                        userControl.radioButtonHot.IsChecked = false;
-                        userControl.radioButtonRating.IsChecked = false;
-                        userControl.radioButtonLatest.IsChecked = false;
-                        userControl.radioButtonDownloads.IsChecked = false;
-                        userControl.radioButtonPlays.IsChecked = false;
-                    });
+                    OnlineBeatmaps = await App.BeatSaverApi.GetOnlineBeatmaps(mapSort, page);
+                }
+                catch (Exception e)
+                {
+                    string description = e.Message;
+                    if (e.InnerException != null || !e.Message.Contains(e.InnerException.Message))
+                        description += $" ({e.InnerException.Message})";
+
+                    await MainWindow.ShowMessageAsync("Online Beatmaps", description);
+                    userControl.radioButtonSearch.IsChecked = false;
+                    userControl.radioButtonHot.IsChecked = false;
+                    userControl.radioButtonRating.IsChecked = false;
+                    userControl.radioButtonLatest.IsChecked = false;
+                    userControl.radioButtonDownloads.IsChecked = false;
+                    userControl.radioButtonPlays.IsChecked = false;
                 }
             });
         }

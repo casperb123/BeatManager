@@ -295,7 +295,7 @@
     <ScrollViewer x:Name="scrollViewer"
                   HorizontalScrollBarVisibility="Disabled"
                   VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="30,5">
+        <StackPanel Margin="30,0">
             <StackPanel Orientation="Horizontal"
                         Margin="0,0,0,30">
                 <Button x:Name="buttonBack"

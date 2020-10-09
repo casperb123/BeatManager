@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BeatManager.ViewModels
@@ -95,7 +96,6 @@ namespace BeatManager.ViewModels
 
             if (!OnlineBeatmaps.Maps.Any(x => x.IsDownloading))
             {
-                MainWindow.gridNavigation.IsEnabled = true;
                 MainWindow.userControlNavigation.IsEnabled = true;
                 MainWindow.radioButtonSettings.IsEnabled = true;
                 userControl.stackPanelSort.IsEnabled = true;
@@ -112,6 +112,7 @@ namespace BeatManager.ViewModels
                 }
             }
 
+            MainWindow.ViewModel.OnlineSongChanged = true;
             UpdatePageButtons();
         }
 
@@ -271,7 +272,6 @@ namespace BeatManager.ViewModels
 
         public void DownloadSong(string key)
         {
-            MainWindow.gridNavigation.IsEnabled = false;
             MainWindow.userControlNavigation.IsEnabled = false;
             MainWindow.radioButtonSettings.IsEnabled = false;
             userControl.stackPanelSort.IsEnabled = false;
@@ -284,7 +284,6 @@ namespace BeatManager.ViewModels
 
         public void DownloadSongs(List<OnlineBeatmap> songs)
         {
-            MainWindow.gridNavigation.IsEnabled = false;
             MainWindow.userControlNavigation.IsEnabled = false;
             MainWindow.radioButtonSettings.IsEnabled = false;
             userControl.stackPanelSort.IsEnabled = false;

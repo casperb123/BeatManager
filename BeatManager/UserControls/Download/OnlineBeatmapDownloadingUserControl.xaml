@@ -3,15 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:converters="clr-namespace:BeatManager.Converters"
              xmlns:st="http://schemas.spicytaco.io/"
              mc:Ignorable="d"
              d:DesignHeight="100"
-             d:DesignWidth="800">
-    <UserControl.Resources>
-        <converters:ImageSourceToBitmapConverter x:Key="ImageSourceToBitmapConverter" />
-    </UserControl.Resources>
-
+             d:DesignWidth="500">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
@@ -21,7 +16,7 @@
         <Border Width="40"
                 Height="40"
                 CornerRadius="100"
-                Margin="0,0,20,0">
+                Margin="0,0,15,0">
             <Border.Background>
                 <ImageBrush ImageSource="{Binding Path=Beatmap.RealCoverURL, Mode=OneWay}" />
             </Border.Background>
@@ -30,9 +25,10 @@
         <st:StackPanel MarginBetweenChildren="5"
                        Grid.Column="1"
                        VerticalAlignment="Center">
-            <TextBlock TextWrapping="Wrap">
+            <TextBlock TextWrapping="Wrap"
+                       FontSize="12"
+                       FontWeight="Bold">
                 <Run Text="{Binding Path=Beatmap.Metadata.SongName}" />
-                <Run Text=" " />
                 <Run Text="{Binding Path=Beatmap.Metadata.SongSubName}">
                     <Run.Foreground>
                         <SolidColorBrush Color="{DynamicResource MahApps.Colors.ThemeForeground}"
@@ -41,8 +37,10 @@
                 </Run>
             </TextBlock>
 
-            <TextBlock Text="{Binding Path=DownloadTimeLeft}" />
-            <TextBlock Text="{Binding Path=DownloadTimeSpent}" />
+            <TextBlock Text="{Binding Path=DownloadTimeLeft}"
+                       FontSize="12" />
+            <TextBlock Text="{Binding Path=DownloadTimeSpent}"
+                       FontSize="12" />
         </st:StackPanel>
     </Grid>
 </UserControl>

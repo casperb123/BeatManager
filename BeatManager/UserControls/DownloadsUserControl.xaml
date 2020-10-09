@@ -7,28 +7,37 @@
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
-    <st:StackPanel>
-        <Label Content="Downloads"
-               FontSize="45"
-               Margin="0,0,0,30" />
-        
-        <Expander IsExpanded="True">
-            <Expander.Header>
-                <Binding Path="DownloadingCount"
-                         StringFormat="{}Downloading - {0}" />
-            </Expander.Header>
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                  VerticalScrollBarVisibility="Auto">
+        <st:StackPanel Margin="30,0">
+            <Label Content="Downloads"
+                   FontSize="45"
+                   Margin="0,0,0,30" />
 
-            <st:StackPanel x:Name="stackPanelDownloading"
-                           MarginBetweenChildren="10" />
-        </Expander>
-        <Expander IsExpanded="True">
-            <Expander.Header>
-                <Binding Path="CompletedCount"
-                         StringFormat="{}Completed - {0}" />
-            </Expander.Header>
+            <Expander IsExpanded="True">
+                <Expander.Header>
+                    <TextBlock>
+                    <Run Text="Downloading - " />
+                    <Run Text="{Binding Path=DownloadingCount}" />
+                    </TextBlock>
+                </Expander.Header>
 
-            <st:StackPanel x:Name="stackPanelCompleted"
-                           MarginBetweenChildren="10" />
-        </Expander>
-    </st:StackPanel>
+                <st:StackPanel x:Name="stackPanelDownloading"
+                               MarginBetweenChildren="10"
+                               Margin="5" />
+            </Expander>
+            <Expander IsExpanded="True">
+                <Expander.Header>
+                    <TextBlock>
+                    <Run Text="Completed - " />
+                    <Run Text="{Binding Path=CompletedCount}" />
+                    </TextBlock>
+                </Expander.Header>
+
+                <st:StackPanel x:Name="stackPanelCompleted"
+                               MarginBetweenChildren="10"
+                               Margin="5" />
+            </Expander>
+        </st:StackPanel>
+    </ScrollViewer>
 </UserControl>

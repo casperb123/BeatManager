@@ -20,7 +20,7 @@
         <converters:InverseNullToVisibilityConverter x:Key="InverseNullToVisibilityConverter" />
     </UserControl.Resources>
 
-    <Grid Margin="30,5">
+    <Grid Margin="30,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />

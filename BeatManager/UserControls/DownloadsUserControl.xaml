@@ -7,11 +7,11 @@
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
-    <st:StackPanel Margin="30,0">
+    <st:StackPanel>
         <Label Content="Downloads"
                FontSize="45"
                Margin="0,0,0,30" />
-
+        
         <Expander IsExpanded="True">
             <Expander.Header>
                 <Binding Path="DownloadingCount"
@@ -19,7 +19,7 @@
             </Expander.Header>
 
             <st:StackPanel x:Name="stackPanelDownloading"
-                           MarginBetweenChildren="5" />
+                           MarginBetweenChildren="10" />
         </Expander>
         <Expander IsExpanded="True">
             <Expander.Header>
@@ -28,7 +28,7 @@
             </Expander.Header>
 
             <st:StackPanel x:Name="stackPanelCompleted"
-                           MarginBetweenChildren="5" />
+                           MarginBetweenChildren="10" />
         </Expander>
     </st:StackPanel>
 </UserControl>

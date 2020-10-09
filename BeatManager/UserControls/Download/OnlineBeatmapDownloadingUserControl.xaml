@@ -21,7 +21,7 @@
         <Border Width="40"
                 Height="40"
                 CornerRadius="100"
-                Margin="0,0,10,0">
+                Margin="0,0,20,0">
             <Border.Background>
                 <ImageBrush ImageSource="{Binding Path=Beatmap.RealCoverURL, Mode=OneWay}" />
             </Border.Background>

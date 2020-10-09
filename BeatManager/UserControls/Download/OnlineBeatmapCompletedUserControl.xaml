@@ -12,7 +12,7 @@
         <converters:ImageSourceToBitmapConverter x:Key="ImageSourceToBitmapConverter" />
     </UserControl.Resources>
 
-    <Grid Margin="30,0">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="1*" />
@@ -23,16 +23,17 @@
                 CornerRadius="100"
                 Margin="0,0,10,0">
             <Border.Background>
-                <ImageBrush ImageSource="{Binding Path=Beatmap.CoverImagePath, Mode=OneWay, Converter={StaticResource ImageSourceToBitmapConverter}}" />
+                <ImageBrush ImageSource="{Binding Path=Beatmap.RealCoverURL, Mode=OneWay}" />
             </Border.Background>
         </Border>
 
         <st:StackPanel MarginBetweenChildren="5"
-                       Grid.Column="1">
+                       Grid.Column="1"
+                       VerticalAlignment="Center">
             <TextBlock TextWrapping="Wrap">
-                <Run Text="{Binding Path=Beatmap.SongName}" />
+                <Run Text="{Binding Path=Beatmap.Metadata.SongName}" />
                 <Run Text=" " />
-                <Run Text="{Binding Path=Beatmap.SongSubName}">
+                <Run Text="{Binding Path=Beatmap.Metadata.SongSubName}">
                     <Run.Foreground>
                         <SolidColorBrush Color="{DynamicResource MahApps.Colors.ThemeForeground}"
                                          Opacity=".5" />

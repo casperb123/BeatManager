@@ -12,25 +12,23 @@
                FontSize="45"
                Margin="0,0,0,30" />
 
-        <Expander Header="{Binding Path=DownloadingCount, StringFormat={}Downloading - {0}}"
-                  IsExpanded="True">
-            <ItemsControl ItemsSource="{Binding Path=Downloading}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
+        <Expander IsExpanded="True">
+            <Expander.Header>
+                <Binding Path="DownloadingCount"
+                         StringFormat="{}Downloading - {0}" />
+            </Expander.Header>
+
+            <st:StackPanel x:Name="stackPanelDownloading"
+                           MarginBetweenChildren="5" />
         </Expander>
-        <Expander Header="{Binding Path=CompletedCount, StringFormat={}Completed - {0}}"
-                  IsExpanded="True">
-            <ItemsControl ItemsSource="{Binding Path=Completed}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
+        <Expander IsExpanded="True">
+            <Expander.Header>
+                <Binding Path="CompletedCount"
+                         StringFormat="{}Completed - {0}" />
+            </Expander.Header>
+
+            <st:StackPanel x:Name="stackPanelCompleted"
+                           MarginBetweenChildren="5" />
         </Expander>
     </st:StackPanel>
 </UserControl>

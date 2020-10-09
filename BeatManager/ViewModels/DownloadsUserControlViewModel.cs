@@ -1,4 +1,5 @@
-﻿using BeatManager.UserControls.Download;
+﻿using BeatManager.UserControls;
+using BeatManager.UserControls.Download;
 using BeatSaverApi.Entities;
 using BeatSaverApi.Events;
 using System;
@@ -12,8 +13,7 @@ namespace BeatManager.ViewModels
 {
     public class DownloadsUserControlViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<OnlineBeatmapDownloadingUserControl> downloading;
-        private ObservableCollection<OnlineBeatmapCompletedUserControl> completed;
+        private readonly DownloadsUserControl userControl;
         private int downloadingCount;
         private int completedCount;
 
@@ -37,26 +37,6 @@ namespace BeatManager.ViewModels
             }
         }
 
-        public ObservableCollection<OnlineBeatmapCompletedUserControl> Completed
-        {
-            get { return completed; }
-            set
-            {
-                completed = value;
-                OnPropertyChanged(nameof(Completed));
-            }
-        }
-
-        public ObservableCollection<OnlineBeatmapDownloadingUserControl> Downloading
-        {
-            get { return downloading; }
-            set
-            {
-                downloading = value;
-                OnPropertyChanged(nameof(Downloading));
-            }
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string prop)
@@ -65,10 +45,9 @@ namespace BeatManager.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
-        public DownloadsUserControlViewModel()
+        public DownloadsUserControlViewModel(DownloadsUserControl userControl)
         {
-            downloading = new ObservableCollection<OnlineBeatmapDownloadingUserControl>();
-            completed = new ObservableCollection<OnlineBeatmapCompletedUserControl>();
+            this.userControl = userControl;
 
             App.BeatSaverApi.DownloadStarted += BeatSaverApi_DownloadStarted;
             App.BeatSaverApi.DownloadProgressed += BeatSaverApi_DownloadProgressed;
@@ -77,30 +56,53 @@ namespace BeatManager.ViewModels
 
         private void BeatSaverApi_DownloadCompleted(object sender, DownloadCompletedEventArgs e)
         {
-            OnlineBeatmapDownloadingUserControl downloadingUserControl = Downloading.FirstOrDefault(x => x.ViewModel.Beatmap == e.Song);
+            OnlineBeatmapDownloadingUserControl downloadingUserControl = null;
+            foreach (OnlineBeatmapDownloadingUserControl control in userControl.stackPanelDownloading.Children)
+            {
+                if (control.ViewModel.Beatmap == e.Song)
+                {
+                    downloadingUserControl = control;
+                    break;
+                }
+            }
+
             if (downloadingUserControl is null)
                 return;
 
-            Downloading.Remove(downloadingUserControl);
             OnlineBeatmapCompletedUserControl completedUserControl = new OnlineBeatmapCompletedUserControl(e.Song, downloadingUserControl.ViewModel.ToDownload);
-            Completed.Add(completedUserControl);
+            completedUserControl.ViewModel.Downloaded = downloadingUserControl.ViewModel.ToDownload;
+
+            userControl.stackPanelDownloading.Children.Remove(downloadingUserControl);
+            DownloadingCount--;
+            userControl.stackPanelCompleted.Children.Add(completedUserControl);
+            CompletedCount++;
         }
 
         private void BeatSaverApi_DownloadProgressed(object sender, DownloadProgressedEventArgs e)
         {
-            OnlineBeatmapDownloadingUserControl userControl = Downloading.FirstOrDefault(x => x.ViewModel.Beatmap == e.Beatmap);
-            if (userControl is null)
+            OnlineBeatmapDownloadingUserControl downloadingUserControl = null;
+            foreach (OnlineBeatmapDownloadingUserControl control in userControl.stackPanelDownloading.Children)
+            {
+                if (control.ViewModel.Beatmap == e.Beatmap)
+                {
+                    downloadingUserControl = control;
+                    break;
+                }
+            }
+
+            if (downloadingUserControl is null)
                 return;
 
-            userControl.ViewModel.ToDownload = e.ToDownload;
-            userControl.ViewModel.DownloadTimeLeft = $"Estimated time left: {e.TimeLeft} ({e.Downloaded} of {e.ToDownload} downloaded)";
-            userControl.ViewModel.DownloadTimeSpent = $"Time spent: {e.TimeSpent}";
+            downloadingUserControl.ViewModel.ToDownload = e.ToDownload;
+            downloadingUserControl.ViewModel.DownloadTimeLeft = $"Estimated time left: {e.TimeLeft} ({e.Downloaded} of {e.ToDownload} downloaded)";
+            downloadingUserControl.ViewModel.DownloadTimeSpent = $"Time spent: {e.TimeSpent}";
         }
 
         private void BeatSaverApi_DownloadStarted(object sender, DownloadStartedEventArgs e)
         {
-            OnlineBeatmapDownloadingUserControl userControl = new OnlineBeatmapDownloadingUserControl(e.Song);
-            Downloading.Add(userControl);
+            OnlineBeatmapDownloadingUserControl downloadingUserControl = new OnlineBeatmapDownloadingUserControl(e.Song);
+            userControl.stackPanelDownloading.Children.Add(downloadingUserControl);
+            DownloadingCount++;
         }
     }
 }

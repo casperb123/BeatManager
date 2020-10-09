@@ -13,7 +13,7 @@ namespace BeatManager.UserControls
         public DownloadsUserControl()
         {
             InitializeComponent();
-            ViewModel = new DownloadsUserControlViewModel();
+            ViewModel = new DownloadsUserControlViewModel(this);
             DataContext = ViewModel;
         }
     }

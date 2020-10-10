@@ -41,6 +41,8 @@
                        FontSize="12" />
             <TextBlock Text="{Binding Path=DownloadTimeSpent}"
                        FontSize="12" />
+
+            <ProgressBar Value="{Binding Path=ProgressPercent}" />
         </st:StackPanel>
     </Grid>
 </UserControl>

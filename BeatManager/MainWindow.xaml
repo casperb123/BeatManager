@@ -19,7 +19,7 @@
     <mah:MetroWindow.Resources>
         <converters:BadgeConverter x:Key="BadgeConverter" />
     </mah:MetroWindow.Resources>
-    
+
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
             <Button x:Name="buttonUpdate"
@@ -118,9 +118,14 @@
             <UserControl x:Name="userControlNavigation" />
         </StackPanel>
 
-        <UserControl x:Name="userControlMain"
-                     MaxWidth="1700"
-                     Grid.Column="1" />
+        <ScrollViewer x:Name="scrollViewer"
+                      Grid.Column="1"
+                      HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Auto">
+            <UserControl x:Name="userControlMain"
+                         MaxWidth="1400"
+                         Margin="30,5" />
+        </ScrollViewer>
 
         <Rectangle x:Name="rectangleLoading"
                    Grid.ColumnSpan="2"

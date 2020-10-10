@@ -7,45 +7,42 @@
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
-    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                  VerticalScrollBarVisibility="Auto">
-        <Grid Margin="30,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="1*" />
-            </Grid.RowDefinitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
 
-            <Label Content="Downloads"
-                   FontSize="45"
-                   Margin="0,0,0,30" />
+        <Label Content="Downloads"
+               FontSize="45"
+               Margin="0,0,0,30" />
 
-            <st:StackPanel Grid.Row="1"
-                           MarginBetweenChildren="10">
-                <Expander IsExpanded="True">
-                    <Expander.Header>
-                        <TextBlock>
+        <st:StackPanel Grid.Row="1"
+                       MarginBetweenChildren="10">
+            <Expander IsExpanded="True">
+                <Expander.Header>
+                    <TextBlock>
                         <Run Text="Downloading - " />
                         <Run Text="{Binding Path=DownloadingCount}" />
-                        </TextBlock>
-                    </Expander.Header>
+                    </TextBlock>
+                </Expander.Header>
 
-                    <st:StackPanel x:Name="stackPanelDownloading"
-                                   MarginBetweenChildren="10"
-                                   Margin="5" />
-                </Expander>
-                <Expander IsExpanded="True">
-                    <Expander.Header>
-                        <TextBlock>
+                <st:StackPanel x:Name="stackPanelDownloading"
+                               MarginBetweenChildren="10"
+                               Margin="5" />
+            </Expander>
+            <Expander IsExpanded="True">
+                <Expander.Header>
+                    <TextBlock>
                         <Run Text="Completed - " />
                         <Run Text="{Binding Path=CompletedCount}" />
-                        </TextBlock>
-                    </Expander.Header>
+                    </TextBlock>
+                </Expander.Header>
 
-                    <st:StackPanel x:Name="stackPanelCompleted"
-                                   MarginBetweenChildren="10"
-                                   Margin="5" />
-                </Expander>
-            </st:StackPanel>
-        </Grid>
-    </ScrollViewer>
+                <st:StackPanel x:Name="stackPanelCompleted"
+                               MarginBetweenChildren="10"
+                               Margin="5" />
+            </Expander>
+        </st:StackPanel>
+    </Grid>
 </UserControl>

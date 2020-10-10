@@ -80,7 +80,7 @@ namespace BeatManager.ViewModels
         {
             mainWindow.ViewModel.ShowLocalDetails = false;
             mainWindow.userControlMain.Content = mainWindow.ViewModel.LocalUserControl;
-            userControl.scrollViewer.ScrollToTop();
+            //mainWindow.scrollViewer.ScrollToTop();
         }
 
         private void CreateDifficultySets()

@@ -351,6 +351,17 @@ namespace BeatManager.ViewModels
                     else if (MainWindow.userControlMain.Content == OnlineUserControl || MainWindow.userControlMain.Content == OnlineDetailsUserControl)
                         ShowOnlinePage();
                 }
+                catch (InvalidOperationException e)
+                {
+                    MainWindow.ToggleLoading(false);
+                    string errorMessage = e.Message;
+                    if (e.InnerException != null && !e.Message.Contains(e.InnerException.Message))
+                        errorMessage += $" ({e.InnerException.Message})";
+
+                    await MainWindow.ShowMessageAsync("Downloading failed", "Downloading the song failed with the following error\n\n" +
+                                                                            "Error:\n" +
+                                                                            $"{errorMessage}");
+                }
                 catch (Exception e)
                 {
                     MainWindow.ToggleLoading(false);

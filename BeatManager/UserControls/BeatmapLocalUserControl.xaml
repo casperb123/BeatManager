@@ -6,6 +6,7 @@
              xmlns:converters="clr-namespace:BeatManager.Converters"
              xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:st="http://schemas.spicytaco.io/"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
@@ -20,7 +21,7 @@
         <converters:InverseNullToVisibilityConverter x:Key="InverseNullToVisibilityConverter" />
     </UserControl.Resources>
 
-    <Grid Margin="30,0">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
@@ -29,7 +30,7 @@
 
         <Label Content="Beatmap Local"
                FontSize="45"
-               Margin="0,0,0,30"/>
+               Margin="0,0,0,30" />
 
         <DataGrid x:Name="dataGridMaps"
                   ItemsSource="{Binding Path=LocalBeatmaps.Maps, NotifyOnTargetUpdated=True}"
@@ -147,16 +148,17 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <DataGridTemplateColumn Header="Difficulties"
-                                        IsReadOnly="True">
+                                        IsReadOnly="True"
+                                        MinWidth="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal"
-                                        Margin="20,0,0,0">
+                            <st:StackPanel Orientation="Horizontal"
+                                           Margin="10,0,0,0"
+                                           MarginBetweenChildren="-10">
                                 <Border Width="25"
                                         Height="25"
                                         CornerRadius="100"
                                         Background="#3cb371"
-                                        Margin="-10,0,0,0"
                                         ToolTip="Easy"
                                         ToolTipService.InitialShowDelay="0"
                                         ToolTipService.BetweenShowDelay="0"
@@ -165,7 +167,6 @@
                                         Height="25"
                                         CornerRadius="100"
                                         Background="#59b0f4"
-                                        Margin="-10,0,0,0"
                                         ToolTip="Normal"
                                         ToolTipService.InitialShowDelay="0"
                                         ToolTipService.BetweenShowDelay="0"
@@ -174,7 +175,6 @@
                                         Height="25"
                                         CornerRadius="100"
                                         Background="Tomato"
-                                        Margin="-10,0,0,0"
                                         ToolTip="Hard"
                                         ToolTipService.InitialShowDelay="0"
                                         ToolTipService.BetweenShowDelay="0"
@@ -183,7 +183,6 @@
                                         Height="25"
                                         CornerRadius="100"
                                         Background="#bf2a42"
-                                        Margin="-10,0,0,0"
                                         ToolTip="Expert"
                                         ToolTipService.InitialShowDelay="0"
                                         ToolTipService.BetweenShowDelay="0"
@@ -192,12 +191,11 @@
                                         Height="25"
                                         CornerRadius="100"
                                         Background="#8f48db"
-                                        Margin="-10,0,0,0"
                                         ToolTip="Expert+"
                                         ToolTipService.InitialShowDelay="0"
                                         ToolTipService.BetweenShowDelay="0"
                                         Visibility="{Binding Path=ExpertPlus, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                            </StackPanel>
+                            </st:StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -299,7 +297,7 @@
                                         Width="25"
                                         Height="25" />
             </Button>
-            
+
             <Label VerticalContentAlignment="Center">
                 <Label.Content>
                     <TextBlock>

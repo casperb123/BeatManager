@@ -17,7 +17,7 @@
         <converters:AddCommasConverter x:Key="AddCommasConverter" />
     </UserControl.Resources>
 
-    <Grid Margin="30,0">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="1*" />
@@ -308,7 +308,8 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <DataGridTemplateColumn Header="Difficulties"
-                                        IsReadOnly="True">
+                                        IsReadOnly="True"
+                                        MinWidth="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal"

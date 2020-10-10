@@ -12,8 +12,19 @@ namespace BeatManager.ViewModels.Download
         private OnlineBeatmap beatmap;
         private string downloadTimeLeft;
         private string downloadTimeSpent;
+        private int progressPercent;
 
         public string ToDownload { get; set; }
+
+        public int ProgressPercent
+        {
+            get { return progressPercent; }
+            set
+            {
+                progressPercent = value;
+                OnPropertyChanged(nameof(ProgressPercent));
+            }
+        }
 
         public string DownloadTimeSpent
         {

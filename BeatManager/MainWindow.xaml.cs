@@ -115,7 +115,7 @@ namespace BeatManager
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
             string[] args = Environment.GetCommandLineArgs();
-            string beatSaverArg = args.FirstOrDefault(x => x.Contains("beatsaver"));
+            string beatSaverArg = args.FirstOrDefault(x => x.Contains("beatsaver://"));
 
             if (!string.IsNullOrEmpty(beatSaverArg))
             {

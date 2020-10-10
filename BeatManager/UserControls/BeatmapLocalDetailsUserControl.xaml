@@ -292,69 +292,66 @@
         </Style>
     </UserControl.Resources>
 
-    <ScrollViewer x:Name="scrollViewer"
-                  HorizontalScrollBarVisibility="Disabled"
-                  VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="30,0">
-            <StackPanel Orientation="Horizontal"
-                        Margin="0,0,0,30">
-                <Button x:Name="buttonBack"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Style="{DynamicResource MahApps.Styles.Button.Circle}"
-                        Width="35"
-                        Height="35"
-                        Margin="0,10,0,0"
-                        Cursor="Hand"
-                        Click="ButtonBack_Click">
-                    <icons:PackIconMaterial Kind="ArrowLeft"
-                                            Width="20"
-                                            Height="20" />
-                </Button>
+    <StackPanel>
+        <StackPanel Orientation="Horizontal"
+                    Margin="0,0,0,30">
+            <Button x:Name="buttonBack"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                    Width="35"
+                    Height="35"
+                    Margin="0,10,0,0"
+                    Cursor="Hand"
+                    Click="ButtonBack_Click">
+                <icons:PackIconMaterial Kind="ArrowLeft"
+                                        Width="20"
+                                        Height="20" />
+            </Button>
 
-                <Label x:Name="labelTitle"
-                       Content="Beatmap Information"
-                       FontSize="45"
-                       Margin="10,0,0,0" />
+            <Label x:Name="labelTitle"
+                   Content="Beatmap Information"
+                   FontSize="45"
+                   Margin="10,0,0,0" />
 
-                <Button x:Name="buttonInvalid"
-                        BorderThickness="0"
-                        Style="{DynamicResource MahApps.Styles.Button.Circle}"
-                        Width="35"
-                        Height="35"
-                        Margin="10,10,0,0"
-                        ToolTip="Beatmap invalid"
-                        ToolTipService.BetweenShowDelay="0"
-                        ToolTipService.InitialShowDelay="0"
-                        Cursor="Hand"
-                        Visibility="{Binding Path=Beatmap.Errors, Converter={StaticResource NullToVisibilityConverter}}"
-                        Click="ButtonInvalid_Click">
-                    <Button.Background>
-                        <SolidColorBrush Color="Red"
-                                         Opacity=".2" />
-                    </Button.Background>
-                    <icons:PackIconMaterial Kind="ExclamationThick"
-                                            Width="20"
-                                            Height="20"
-                                            Foreground="Red" />
-                </Button>
-            </StackPanel>
+            <Button x:Name="buttonInvalid"
+                    BorderThickness="0"
+                    Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                    Width="35"
+                    Height="35"
+                    Margin="10,10,0,0"
+                    ToolTip="Beatmap invalid"
+                    ToolTipService.BetweenShowDelay="0"
+                    ToolTipService.InitialShowDelay="0"
+                    Cursor="Hand"
+                    Visibility="{Binding Path=Beatmap.Errors, Converter={StaticResource NullToVisibilityConverter}}"
+                    Click="ButtonInvalid_Click">
+                <Button.Background>
+                    <SolidColorBrush Color="Red"
+                                     Opacity=".2" />
+                </Button.Background>
+                <icons:PackIconMaterial Kind="ExclamationThick"
+                                        Width="20"
+                                        Height="20"
+                                        Foreground="Red" />
+            </Button>
+        </StackPanel>
 
-            <st:AutoGrid x:Name="gridMain"
-                         Columns="1*"
-                         Rows="auto,auto,auto,auto,auto"
-                         Grid.Row="1">
-                <st:AutoGrid Margin="0,0,0,30"
-                             Columns="auto,1*">
-                    <Image x:Name="imageCover"
-                           Width="200"
-                           Height="200"
-                           Margin="0,0,25,0"
-                           Source="{Binding Path=Beatmap.CoverImagePath, Converter={StaticResource ImageSourceToBitmapConverter}}" />
-                    <st:AutoGrid Rows="auto,auto,auto"
-                                 Columns="1*"
-                                 VerticalAlignment="Center">
-                        <TextBlock TextWrapping="WrapWithOverflow">
+        <st:AutoGrid x:Name="gridMain"
+                     Columns="1*"
+                     Rows="auto,auto,auto,auto,auto"
+                     Grid.Row="1">
+            <st:AutoGrid Margin="0,0,0,30"
+                         Columns="auto,1*">
+                <Image x:Name="imageCover"
+                       Width="200"
+                       Height="200"
+                       Margin="0,0,25,0"
+                       Source="{Binding Path=Beatmap.CoverImagePath, Converter={StaticResource ImageSourceToBitmapConverter}}" />
+                <st:AutoGrid Rows="auto,auto,auto"
+                             Columns="1*"
+                             VerticalAlignment="Center">
+                    <TextBlock TextWrapping="WrapWithOverflow">
                             <Run Text="{Binding Path=Beatmap.SongName}"
                                  FontSize="35" />
                             <Run Text=" " />
@@ -365,356 +362,355 @@
                                                      Opacity=".5" />
                                 </Run.Foreground>
                             </Run>
-                        </TextBlock>
+                    </TextBlock>
 
-                        <TextBlock Text="{Binding Path=Beatmap.LevelAuthorName}"
-                                   FontSize="25"
-                                   Margin="0,0,0,10" />
+                    <TextBlock Text="{Binding Path=Beatmap.LevelAuthorName}"
+                               FontSize="25"
+                               Margin="0,0,0,10" />
 
-                        <StackPanel Orientation="Horizontal">
-                            <Border CornerRadius="15"
-                                    Background="#3cb371"
-                                    ToolTip="Easy"
-                                    ToolTipService.InitialShowDelay="0"
-                                    ToolTipService.BetweenShowDelay="0"
-                                    Margin="0,0,4,0"
-                                    Visibility="{Binding Path=Beatmap.Easy, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <Label Content="Easy"
-                                       Foreground="White"
-                                       FontSize="15"
-                                       Margin="5,0" />
-                            </Border>
-                            <Border CornerRadius="15"
-                                    Background="#59b0f4"
-                                    ToolTip="Normal"
-                                    ToolTipService.InitialShowDelay="0"
-                                    ToolTipService.BetweenShowDelay="0"
-                                    Margin="4,0,4,0"
-                                    Visibility="{Binding Path=Beatmap.Normal, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <Label Content="Normal"
-                                       Foreground="White"
-                                       FontSize="15"
-                                       Margin="5,0" />
-                            </Border>
-                            <Border CornerRadius="15"
-                                    Background="Tomato"
-                                    ToolTip="Hard"
-                                    ToolTipService.InitialShowDelay="0"
-                                    ToolTipService.BetweenShowDelay="0"
-                                    Margin="4,0,4,0"
-                                    Visibility="{Binding Path=Beatmap.Hard, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <Label Content="Hard"
-                                       Foreground="White"
-                                       FontSize="15"
-                                       Margin="5,0" />
-                            </Border>
-                            <Border CornerRadius="15"
-                                    Background="#bf2a42"
-                                    ToolTip="Expert"
-                                    ToolTipService.InitialShowDelay="0"
-                                    ToolTipService.BetweenShowDelay="0"
-                                    Margin="4,0,4,0"
-                                    Visibility="{Binding Path=Beatmap.Expert, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <Label Content="Expert"
-                                       Foreground="White"
-                                       FontSize="15"
-                                       Margin="5,0" />
-                            </Border>
-                            <Border CornerRadius="15"
-                                    Background="#8f48db"
-                                    ToolTip="Expert+"
-                                    ToolTipService.InitialShowDelay="0"
-                                    ToolTipService.BetweenShowDelay="0"
-                                    Margin="4,0,0,0"
-                                    Visibility="{Binding Path=Beatmap.ExpertPlus, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <Label Content="Expert+"
-                                       Foreground="White"
-                                       FontSize="15"
-                                       Margin="5,0" />
-                            </Border>
-                        </StackPanel>
-                    </st:AutoGrid>
+                    <StackPanel Orientation="Horizontal">
+                        <Border CornerRadius="15"
+                                Background="#3cb371"
+                                ToolTip="Easy"
+                                ToolTipService.InitialShowDelay="0"
+                                ToolTipService.BetweenShowDelay="0"
+                                Margin="0,0,4,0"
+                                Visibility="{Binding Path=Beatmap.Easy, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Label Content="Easy"
+                                   Foreground="White"
+                                   FontSize="15"
+                                   Margin="5,0" />
+                        </Border>
+                        <Border CornerRadius="15"
+                                Background="#59b0f4"
+                                ToolTip="Normal"
+                                ToolTipService.InitialShowDelay="0"
+                                ToolTipService.BetweenShowDelay="0"
+                                Margin="4,0,4,0"
+                                Visibility="{Binding Path=Beatmap.Normal, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Label Content="Normal"
+                                   Foreground="White"
+                                   FontSize="15"
+                                   Margin="5,0" />
+                        </Border>
+                        <Border CornerRadius="15"
+                                Background="Tomato"
+                                ToolTip="Hard"
+                                ToolTipService.InitialShowDelay="0"
+                                ToolTipService.BetweenShowDelay="0"
+                                Margin="4,0,4,0"
+                                Visibility="{Binding Path=Beatmap.Hard, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Label Content="Hard"
+                                   Foreground="White"
+                                   FontSize="15"
+                                   Margin="5,0" />
+                        </Border>
+                        <Border CornerRadius="15"
+                                Background="#bf2a42"
+                                ToolTip="Expert"
+                                ToolTipService.InitialShowDelay="0"
+                                ToolTipService.BetweenShowDelay="0"
+                                Margin="4,0,4,0"
+                                Visibility="{Binding Path=Beatmap.Expert, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Label Content="Expert"
+                                   Foreground="White"
+                                   FontSize="15"
+                                   Margin="5,0" />
+                        </Border>
+                        <Border CornerRadius="15"
+                                Background="#8f48db"
+                                ToolTip="Expert+"
+                                ToolTipService.InitialShowDelay="0"
+                                ToolTipService.BetweenShowDelay="0"
+                                Margin="4,0,0,0"
+                                Visibility="{Binding Path=Beatmap.ExpertPlus, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Label Content="Expert+"
+                                   Foreground="White"
+                                   FontSize="15"
+                                   Margin="5,0" />
+                        </Border>
+                    </StackPanel>
+                </st:AutoGrid>
+            </st:AutoGrid>
+
+            <StackPanel Orientation="Horizontal"
+                        Margin="0,0,0,20">
+                <Button x:Name="buttonDeleteBeatmap"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                        Width="35"
+                        Height="35"
+                        ToolTip="Delete the beatmap"
+                        ToolTipService.BetweenShowDelay="0"
+                        ToolTipService.InitialShowDelay="0"
+                        Margin="0,0,2.5,0"
+                        Cursor="Hand"
+                        Click="ButtonDeleteBeatmap_Click">
+                    <icons:PackIconMaterial Kind="DeleteForever"
+                                            Width="20"
+                                            Height="20" />
+                </Button>
+                <Button x:Name="buttonRefreshData"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                        Width="35"
+                        Height="35"
+                        ToolTip="Refresh the data"
+                        ToolTipService.BetweenShowDelay="0"
+                        ToolTipService.InitialShowDelay="0"
+                        Margin="2.5,0,2.5,0"
+                        Cursor="Hand"
+                        Click="ButtonRefreshData_Click">
+                    <icons:PackIconMaterial Kind="Refresh"
+                                            Width="20"
+                                            Height="20" />
+                </Button>
+                <Button x:Name="buttonOpenFolder"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                        Width="35"
+                        Height="35"
+                        ToolTip="Open folder"
+                        ToolTipService.BetweenShowDelay="0"
+                        ToolTipService.InitialShowDelay="0"
+                        Margin="2.5,0,2.5,0"
+                        Cursor="Hand"
+                        Click="ButtonOpenFolder_Click">
+                    <icons:PackIconMaterial Kind="Folder"
+                                            Width="20"
+                                            Height="20" />
+                </Button>
+                <Button x:Name="buttonPreviewBeatmap"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                        Width="35"
+                        Height="35"
+                        ToolTip="Preview beatmap"
+                        ToolTipService.BetweenShowDelay="0"
+                        ToolTipService.InitialShowDelay="0"
+                        Margin="2.5,0,2.5,0"
+                        Cursor="Hand"
+                        Visibility="{Binding Path=Beatmap.OnlineBeatmap, Converter={StaticResource NullToVisibilityConverter}}"
+                        Click="ButtonPreviewBeatmap_Click">
+                    <icons:PackIconMaterial Kind="Eye"
+                                            Width="20"
+                                            Height="20" />
+                </Button>
+                <Button x:Name="buttonOpenOnBeatsaver"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                        Width="35"
+                        Height="35"
+                        ToolTip="Open on beatsaver"
+                        ToolTipService.BetweenShowDelay="0"
+                        ToolTipService.InitialShowDelay="0"
+                        Margin="2.5,0,0,0"
+                        Cursor="Hand"
+                        Visibility="{Binding Path=Beatmap.OnlineBeatmap, Converter={StaticResource NullToVisibilityConverter}}"
+                        Click="ButtonOpenOnBeatsaver_Click">
+                    <icons:PackIconMaterial Kind="Link"
+                                            Width="20"
+                                            Height="20" />
+                </Button>
+            </StackPanel>
+
+            <Grid Margin="0,0,0,30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <st:AutoGrid Columns="auto,1*"
+                             Rows="auto,auto,auto,auto,auto,auto,auto"
+                             ChildMargin="2.5,0"
+                             Margin="0,0,2.5,0">
+                    <Label Content="Name"
+                           HorizontalContentAlignment="Right" />
+                    <TextBox Text="{Binding Path=Beatmap.SongName}" />
+
+                    <Label Content="Subname"
+                           HorizontalContentAlignment="Right" />
+                    <TextBox Text="{Binding Path=Beatmap.SongSubName, TargetNullValue=-}" />
+
+                    <Label Content="Artist"
+                           HorizontalContentAlignment="Right" />
+                    <TextBox Text="{Binding Path=Beatmap.SongAuthorName, TargetNullValue=-}" />
+
+                    <Label Content="Mapper"
+                           HorizontalContentAlignment="Right" />
+                    <TextBox Text="{Binding Path=Beatmap.LevelAuthorName, TargetNullValue=-}" />
+
+                    <Label Content="Duration"
+                           HorizontalContentAlignment="Right" />
+                    <Label Content="{Binding Path=Beatmap.Duration, Converter={StaticResource TimeSpanToStringConverter}, TargetNullValue=-}" />
+
+                    <Label Content="BPM"
+                           HorizontalContentAlignment="Right" />
+                    <Label Content="{Binding Path=Beatmap.BeatsPerMinute}" />
+
+                    <Label Content="Key"
+                           HorizontalContentAlignment="Right" />
+                    <TextBox Text="{Binding Path=Beatmap.OnlineBeatmap.Key, FallbackValue=-, TargetNullValue=-}" />
                 </st:AutoGrid>
 
-                <StackPanel Orientation="Horizontal"
-                            Margin="0,0,0,20">
-                    <Button x:Name="buttonDeleteBeatmap"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            Style="{DynamicResource MahApps.Styles.Button.Circle}"
-                            Width="35"
-                            Height="35"
-                            ToolTip="Delete the beatmap"
-                            ToolTipService.BetweenShowDelay="0"
-                            ToolTipService.InitialShowDelay="0"
-                            Margin="0,0,2.5,0"
-                            Cursor="Hand"
-                            Click="ButtonDeleteBeatmap_Click">
-                        <icons:PackIconMaterial Kind="DeleteForever"
-                                                Width="20"
-                                                Height="20" />
-                    </Button>
-                    <Button x:Name="buttonRefreshData"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            Style="{DynamicResource MahApps.Styles.Button.Circle}"
-                            Width="35"
-                            Height="35"
-                            ToolTip="Refresh the data"
-                            ToolTipService.BetweenShowDelay="0"
-                            ToolTipService.InitialShowDelay="0"
-                            Margin="2.5,0,2.5,0"
-                            Cursor="Hand"
-                            Click="ButtonRefreshData_Click">
-                        <icons:PackIconMaterial Kind="Refresh"
-                                                Width="20"
-                                                Height="20" />
-                    </Button>
-                    <Button x:Name="buttonOpenFolder"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            Style="{DynamicResource MahApps.Styles.Button.Circle}"
-                            Width="35"
-                            Height="35"
-                            ToolTip="Open folder"
-                            ToolTipService.BetweenShowDelay="0"
-                            ToolTipService.InitialShowDelay="0"
-                            Margin="2.5,0,2.5,0"
-                            Cursor="Hand"
-                            Click="ButtonOpenFolder_Click">
-                        <icons:PackIconMaterial Kind="Folder"
-                                                Width="20"
-                                                Height="20" />
-                    </Button>
-                    <Button x:Name="buttonPreviewBeatmap"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            Style="{DynamicResource MahApps.Styles.Button.Circle}"
-                            Width="35"
-                            Height="35"
-                            ToolTip="Preview beatmap"
-                            ToolTipService.BetweenShowDelay="0"
-                            ToolTipService.InitialShowDelay="0"
-                            Margin="2.5,0,2.5,0"
-                            Cursor="Hand"
-                            Visibility="{Binding Path=Beatmap.OnlineBeatmap, Converter={StaticResource NullToVisibilityConverter}}"
-                            Click="ButtonPreviewBeatmap_Click">
-                        <icons:PackIconMaterial Kind="Eye"
-                                                Width="20"
-                                                Height="20" />
-                    </Button>
-                    <Button x:Name="buttonOpenOnBeatsaver"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            Style="{DynamicResource MahApps.Styles.Button.Circle}"
-                            Width="35"
-                            Height="35"
-                            ToolTip="Open on beatsaver"
-                            ToolTipService.BetweenShowDelay="0"
-                            ToolTipService.InitialShowDelay="0"
-                            Margin="2.5,0,0,0"
-                            Cursor="Hand"
-                            Visibility="{Binding Path=Beatmap.OnlineBeatmap, Converter={StaticResource NullToVisibilityConverter}}"
-                            Click="ButtonOpenOnBeatsaver_Click">
-                        <icons:PackIconMaterial Kind="Link"
-                                                Width="20"
-                                                Height="20" />
-                    </Button>
-                </StackPanel>
+                <st:AutoGrid Columns="auto,1*"
+                             Rows="auto,auto,auto,auto,auto,auto"
+                             ChildMargin="2.5,0"
+                             Grid.Column="1"
+                             Margin="2.5,0,0,0">
+                    <Label Content="Uploaded"
+                           HorizontalContentAlignment="Right" />
+                    <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Uploaded, Converter={StaticResource DateTimeConverter}, FallbackValue=-}" />
 
-                <Grid Margin="0,0,0,30">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
-                    </Grid.ColumnDefinitions>
+                    <Label Content="Downloads"
+                           HorizontalContentAlignment="Right" />
+                    <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.Downloads, Converter={StaticResource AddCommasConverter}, FallbackValue=-}" />
 
-                    <st:AutoGrid Columns="auto,1*"
-                                 Rows="auto,auto,auto,auto,auto,auto,auto"
-                                 ChildMargin="2.5,0"
-                                 Margin="0,0,2.5,0">
-                        <Label Content="Name"
-                               HorizontalContentAlignment="Right" />
-                        <TextBox Text="{Binding Path=Beatmap.SongName}" />
+                    <Label Content="Plays"
+                           HorizontalContentAlignment="Right" />
+                    <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.Plays, Converter={StaticResource AddCommasConverter}, FallbackValue=-}" />
 
-                        <Label Content="Subname"
-                               HorizontalContentAlignment="Right" />
-                        <TextBox Text="{Binding Path=Beatmap.SongSubName, TargetNullValue=-}" />
+                    <Label Content="Up votes"
+                           HorizontalContentAlignment="Right" />
+                    <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.UpVotes, Converter={StaticResource AddCommasConverter}, FallbackValue=-}" />
 
-                        <Label Content="Artist"
-                               HorizontalContentAlignment="Right" />
-                        <TextBox Text="{Binding Path=Beatmap.SongAuthorName, TargetNullValue=-}" />
+                    <Label Content="Down votes"
+                           HorizontalContentAlignment="Right" />
+                    <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.DownVotes, Converter={StaticResource AddCommasConverter}, FallbackValue=-}" />
 
-                        <Label Content="Mapper"
-                               HorizontalContentAlignment="Right" />
-                        <TextBox Text="{Binding Path=Beatmap.LevelAuthorName, TargetNullValue=-}" />
+                    <Label Content="Rating"
+                           HorizontalContentAlignment="Right" />
+                    <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.Rating, Converter={StaticResource FloatToPercentageConverter}, FallbackValue=-}" />
+                </st:AutoGrid>
+            </Grid>
 
-                        <Label Content="Duration"
-                               HorizontalContentAlignment="Right" />
-                        <Label Content="{Binding Path=Beatmap.Duration, Converter={StaticResource TimeSpanToStringConverter}, TargetNullValue=-}" />
+            <Expander Header="Description"
+                      IsExpanded="True"
+                      Margin="0,0,0,10">
+                <TextBox Text="{Binding Path=Beatmap.OnlineBeatmap.Description}"
+                         TextWrapping="Wrap" />
+            </Expander>
 
-                        <Label Content="BPM"
-                               HorizontalContentAlignment="Right" />
-                        <Label Content="{Binding Path=Beatmap.BeatsPerMinute}" />
+            <GroupBox Header="Difficulties">
+                <st:AutoGrid Rows="auto,auto,auto"
+                             Columns="1*">
+                    <RadioButton x:Name="radioButtonDifficultyTemplate"
+                                 st:StackPanel.Fill="Fill"
+                                 HorizontalContentAlignment="Center"
+                                 Visibility="Collapsed" />
 
-                        <Label Content="Key"
-                               HorizontalContentAlignment="Right" />
-                        <TextBox Text="{Binding Path=Beatmap.OnlineBeatmap.Key, FallbackValue=-, TargetNullValue=-}" />
-                    </st:AutoGrid>
+                    <st:StackPanel x:Name="stackPanelSets"
+                                   Orientation="Horizontal" />
+                    <st:StackPanel x:Name="stackPanelDifficulties"
+                                   Orientation="Horizontal"
+                                   Margin="0,0,0,10" />
 
-                    <st:AutoGrid Columns="auto,1*"
-                                 Rows="auto,auto,auto,auto,auto,auto"
-                                 ChildMargin="2.5,0"
-                                 Grid.Column="1"
-                                 Margin="2.5,0,0,0">
-                        <Label Content="Uploaded"
-                               HorizontalContentAlignment="Right" />
-                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Uploaded, Converter={StaticResource DateTimeConverter}, FallbackValue=-}" />
+                    <st:StackPanel MarginBetweenChildren="10">
+                        <st:StackPanel Orientation="Horizontal"
+                                       MarginBetweenChildren="10">
+                            <st:AutoGrid Columns="auto,1*"
+                                         Rows="auto,auto,auto,auto"
+                                         ChildMargin="2.5,0"
+                                         st:StackPanel.Fill="Fill">
+                                <Label Content="Bombs"
+                                       HorizontalContentAlignment="Right" />
+                                <Label Content="{Binding Path=BeatmapDetail.BombsCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
 
-                        <Label Content="Downloads"
-                               HorizontalContentAlignment="Right" />
-                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.Downloads, Converter={StaticResource AddCommasConverter}, FallbackValue=-}" />
+                                <Label Content="Notes"
+                                       HorizontalContentAlignment="Right" />
+                                <Label Content="{Binding Path=BeatmapDetail.NotesCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
 
-                        <Label Content="Plays"
-                               HorizontalContentAlignment="Right" />
-                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.Plays, Converter={StaticResource AddCommasConverter}, FallbackValue=-}" />
+                                <Label Content="Obstacles"
+                                       HorizontalContentAlignment="Right" />
+                                <Label Content="{Binding Path=BeatmapDetail.ObstaclesCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
 
-                        <Label Content="Up votes"
-                               HorizontalContentAlignment="Right" />
-                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.UpVotes, Converter={StaticResource AddCommasConverter}, FallbackValue=-}" />
+                                <Label Content="Events"
+                                       HorizontalContentAlignment="Right" />
+                                <Label Content="{Binding Path=BeatmapDetail.EventsCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
+                            </st:AutoGrid>
+                            <st:AutoGrid Columns="auto,1*"
+                                         Rows="auto,auto,auto,auto"
+                                         ChildMargin="2.5,0"
+                                         st:StackPanel.Fill="Fill">
+                                <Label Content="Note Movement Speed"
+                                       HorizontalContentAlignment="Right" />
+                                <Label Content="{Binding Path=BeatmapDetail.DifficultyBeatmap.NoteJumpMovementSpeed, Converter={StaticResource AddCommasConverter}}" />
 
-                        <Label Content="Down votes"
-                               HorizontalContentAlignment="Right" />
-                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.DownVotes, Converter={StaticResource AddCommasConverter}, FallbackValue=-}" />
+                                <Label Content="Note Start Offset"
+                                       HorizontalContentAlignment="Right" />
+                                <Label Content="{Binding Path=BeatmapDetail.DifficultyBeatmap.NoteJumpStartBeatOffset, Converter={StaticResource AddCommasConverter}}" />
 
-                        <Label Content="Rating"
-                               HorizontalContentAlignment="Right" />
-                        <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.Rating, Converter={StaticResource FloatToPercentageConverter}, FallbackValue=-}" />
-                    </st:AutoGrid>
-                </Grid>
+                                <Label Content="Half Jump Duration"
+                                       HorizontalContentAlignment="Right" />
+                                <Label Content="{Binding Path=BeatmapDetail.HalfJumpDuration, Converter={StaticResource AddCommasConverter}}" />
 
-                <Expander Header="Description"
-                          IsExpanded="True"
-                          Margin="0,0,0,10">
-                    <TextBox Text="{Binding Path=Beatmap.OnlineBeatmap.Description}"
-                             TextWrapping="Wrap" />
-                </Expander>
-
-                <GroupBox Header="Difficulties">
-                    <st:AutoGrid Rows="auto,auto,auto"
-                                 Columns="1*">
-                        <RadioButton x:Name="radioButtonDifficultyTemplate"
-                                     st:StackPanel.Fill="Fill"
-                                     HorizontalContentAlignment="Center"
-                                     Visibility="Collapsed" />
-
-                        <st:StackPanel x:Name="stackPanelSets"
-                                       Orientation="Horizontal" />
-                        <st:StackPanel x:Name="stackPanelDifficulties"
-                                       Orientation="Horizontal"
-                                       Margin="0,0,0,10" />
-
-                        <st:StackPanel MarginBetweenChildren="10">
-                            <st:StackPanel Orientation="Horizontal"
-                                           MarginBetweenChildren="10">
-                                <st:AutoGrid Columns="auto,1*"
-                                             Rows="auto,auto,auto,auto"
-                                             ChildMargin="2.5,0"
-                                             st:StackPanel.Fill="Fill">
-                                    <Label Content="Bombs"
-                                           HorizontalContentAlignment="Right" />
-                                    <Label Content="{Binding Path=BeatmapDetail.BombsCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
-
-                                    <Label Content="Notes"
-                                           HorizontalContentAlignment="Right" />
-                                    <Label Content="{Binding Path=BeatmapDetail.NotesCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
-
-                                    <Label Content="Obstacles"
-                                           HorizontalContentAlignment="Right" />
-                                    <Label Content="{Binding Path=BeatmapDetail.ObstaclesCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
-
-                                    <Label Content="Events"
-                                           HorizontalContentAlignment="Right" />
-                                    <Label Content="{Binding Path=BeatmapDetail.EventsCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
-                                </st:AutoGrid>
-                                <st:AutoGrid Columns="auto,1*"
-                                             Rows="auto,auto,auto,auto"
-                                             ChildMargin="2.5,0"
-                                             st:StackPanel.Fill="Fill">
-                                    <Label Content="Note Movement Speed"
-                                           HorizontalContentAlignment="Right" />
-                                    <Label Content="{Binding Path=BeatmapDetail.DifficultyBeatmap.NoteJumpMovementSpeed, Converter={StaticResource AddCommasConverter}}" />
-
-                                    <Label Content="Note Start Offset"
-                                           HorizontalContentAlignment="Right" />
-                                    <Label Content="{Binding Path=BeatmapDetail.DifficultyBeatmap.NoteJumpStartBeatOffset, Converter={StaticResource AddCommasConverter}}" />
-
-                                    <Label Content="Half Jump Duration"
-                                           HorizontalContentAlignment="Right" />
-                                    <Label Content="{Binding Path=BeatmapDetail.HalfJumpDuration, Converter={StaticResource AddCommasConverter}}" />
-
-                                    <Label Content="Jump Distance"
-                                           HorizontalContentAlignment="Right" />
-                                    <Label Content="{Binding Path=BeatmapDetail.JumpDistance, Converter={StaticResource AddCommasConverter}}" />
-                                </st:AutoGrid>
-                            </st:StackPanel>
-
-                            <GroupBox Header="Mod Requirements"
-                                      MaxHeight="200">
-                                <Grid>
-                                    <Label x:Name="labelRequirements"
-                                           Content="No requirements found"
-                                           Visibility="Collapsed"
-                                           FontSize="15" />
-
-                                    <DataGrid x:Name="dataGridDifficultyRequirements"
-                                              ItemsSource="{Binding Path=BeatmapDetail.DifficultyBeatmap.CustomData.RequiredMods, Mode=OneWay}"
-                                              AutoGenerateColumns="False"
-                                              SelectionMode="Single"
-                                              CanUserAddRows="False"
-                                              CanUserDeleteRows="False"
-                                              CanUserReorderColumns="False"
-                                              CanUserResizeRows="False"
-                                              CanUserResizeColumns="False"
-                                              VerticalScrollBarVisibility="Auto"
-                                              HorizontalScrollBarVisibility="Disabled"
-                                              VirtualizingPanel.IsVirtualizing="False"
-                                              LoadingRow="DataGridDifficultyRequirements_LoadingRow">
-                                        <DataGrid.RowStyle>
-                                            <Style TargetType="DataGridRow">
-                                                <Setter Property="IsHitTestVisible"
-                                                        Value="False" />
-                                            </Style>
-                                        </DataGrid.RowStyle>
-
-                                        <DataGrid.Columns>
-                                            <DataGridTextColumn Header="Name"
-                                                                Width="1*"
-                                                                IsReadOnly="True"
-                                                                Binding="{Binding}">
-                                                <DataGridTextColumn.ElementStyle>
-                                                    <Style TargetType="TextBlock"
-                                                           BasedOn="{StaticResource MahApps.Styles.TextBlock}">
-                                                        <Setter Property="TextTrimming"
-                                                                Value="CharacterEllipsis" />
-                                                        <Setter Property="Margin"
-                                                                Value="10,0,0,0" />
-                                                        <Setter Property="ToolTip"
-                                                                Value="{Binding Path=SongAuthorName, IsAsync=True}" />
-                                                        <Setter Property="ToolTipService.BetweenShowDelay"
-                                                                Value="0" />
-                                                        <Setter Property="ToolTipService.InitialShowDelay"
-                                                                Value="0" />
-                                                    </Style>
-                                                </DataGridTextColumn.ElementStyle>
-                                            </DataGridTextColumn>
-                                        </DataGrid.Columns>
-                                    </DataGrid>
-                                </Grid>
-                            </GroupBox>
+                                <Label Content="Jump Distance"
+                                       HorizontalContentAlignment="Right" />
+                                <Label Content="{Binding Path=BeatmapDetail.JumpDistance, Converter={StaticResource AddCommasConverter}}" />
+                            </st:AutoGrid>
                         </st:StackPanel>
-                    </st:AutoGrid>
-                </GroupBox>
-            </st:AutoGrid>
-        </StackPanel>
-    </ScrollViewer>
+
+                        <GroupBox Header="Mod Requirements"
+                                  MaxHeight="200">
+                            <Grid>
+                                <Label x:Name="labelRequirements"
+                                       Content="No requirements found"
+                                       Visibility="Collapsed"
+                                       FontSize="15" />
+
+                                <DataGrid x:Name="dataGridDifficultyRequirements"
+                                          ItemsSource="{Binding Path=BeatmapDetail.DifficultyBeatmap.CustomData.RequiredMods, Mode=OneWay}"
+                                          AutoGenerateColumns="False"
+                                          SelectionMode="Single"
+                                          CanUserAddRows="False"
+                                          CanUserDeleteRows="False"
+                                          CanUserReorderColumns="False"
+                                          CanUserResizeRows="False"
+                                          CanUserResizeColumns="False"
+                                          VerticalScrollBarVisibility="Auto"
+                                          HorizontalScrollBarVisibility="Disabled"
+                                          VirtualizingPanel.IsVirtualizing="False"
+                                          LoadingRow="DataGridDifficultyRequirements_LoadingRow">
+                                    <DataGrid.RowStyle>
+                                        <Style TargetType="DataGridRow">
+                                            <Setter Property="IsHitTestVisible"
+                                                    Value="False" />
+                                        </Style>
+                                    </DataGrid.RowStyle>
+
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Name"
+                                                            Width="1*"
+                                                            IsReadOnly="True"
+                                                            Binding="{Binding}">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="TextBlock"
+                                                       BasedOn="{StaticResource MahApps.Styles.TextBlock}">
+                                                    <Setter Property="TextTrimming"
+                                                            Value="CharacterEllipsis" />
+                                                    <Setter Property="Margin"
+                                                            Value="10,0,0,0" />
+                                                    <Setter Property="ToolTip"
+                                                            Value="{Binding Path=SongAuthorName, IsAsync=True}" />
+                                                    <Setter Property="ToolTipService.BetweenShowDelay"
+                                                            Value="0" />
+                                                    <Setter Property="ToolTipService.InitialShowDelay"
+                                                            Value="0" />
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </GroupBox>
+                    </st:StackPanel>
+                </st:AutoGrid>
+            </GroupBox>
+        </st:AutoGrid>
+    </StackPanel>
 </UserControl>

@@ -73,6 +73,7 @@ namespace BeatManager.ViewModels
             downloadingUserControl.ViewModel.ToDownload = e.ToDownload;
             downloadingUserControl.ViewModel.DownloadTimeLeft = $"Estimated time left: {e.TimeLeft} ({e.Downloaded} of {e.ToDownload} downloaded)";
             downloadingUserControl.ViewModel.DownloadTimeSpent = $"Time spent: {e.TimeSpent}";
+            downloadingUserControl.ViewModel.ProgressPercent = e.ProgressPercent;
         }
 
         private void BeatSaverApi_DownloadStarted(object sender, DownloadStartedEventArgs e)

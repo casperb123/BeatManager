@@ -270,27 +270,85 @@ namespace BeatManager.ViewModels
                 GetBeatmaps(query, OnlineBeatmaps.LastPage);
         }
 
-        public void DownloadSong(string key)
+        public async void DownloadSong(string key)
         {
-            MainWindow.userControlNavigation.IsEnabled = false;
-            MainWindow.radioButtonSettings.IsEnabled = false;
-            userControl.stackPanelSort.IsEnabled = false;
-            userControl.stackPanelNavigation.IsEnabled = false;
+            try
+            {
+                MainWindow.userControlNavigation.IsEnabled = false;
+                MainWindow.radioButtonSettings.IsEnabled = false;
+                userControl.stackPanelSort.IsEnabled = false;
+                userControl.stackPanelNavigation.IsEnabled = false;
 
-            OnlineBeatmap song = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
-            App.BeatSaverApi.DownloadSong(song).ConfigureAwait(false);
-            MainWindow.ViewModel.OnlineSongChanged = true;
+                OnlineBeatmap song = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
+                await App.BeatSaverApi.DownloadSong(song);
+            }
+            catch (InvalidOperationException e)
+            {
+                MainWindow.ToggleLoading(false);
+                string errorMessage = e.Message;
+                if (e.InnerException != null && !e.Message.Contains(e.InnerException.Message))
+                    errorMessage += $" ({e.InnerException.Message})";
+
+                await MainWindow.ShowMessageAsync("Downloading failed", "Downloading the song failed with the following error\n\n" +
+                                                                        "Error:\n" +
+                                                                        $"{errorMessage}");
+            }
+            catch (Exception e)
+            {
+                MainWindow.ToggleLoading(false);
+                string errorMessage = e.Message;
+                if (e.InnerException != null && !e.Message.Contains(e.InnerException.Message))
+                    errorMessage += $" ({e.InnerException.Message})";
+
+                MessageDialogResult result = await MainWindow.ShowMessageAsync("Downloading failed", "Downloading the song failed, would you like to try again?\n\n" +
+                                                                                                     "Error:\n" +
+                                                                                                     $"{errorMessage}", MessageDialogStyle.AffirmativeAndNegative);
+
+                if (result == MessageDialogResult.Affirmative)
+                    DownloadSong(key);
+            }
         }
 
-        public void DownloadSongs(List<OnlineBeatmap> songs)
+        public async void DownloadSongs(List<OnlineBeatmap> songs)
         {
             MainWindow.userControlNavigation.IsEnabled = false;
             MainWindow.radioButtonSettings.IsEnabled = false;
             userControl.stackPanelSort.IsEnabled = false;
             userControl.stackPanelNavigation.IsEnabled = false;
 
-            songs.ForEach(x => App.BeatSaverApi.DownloadSong(x).ConfigureAwait(false));
-            MainWindow.ViewModel.OnlineSongChanged = true;
+            
+            foreach (OnlineBeatmap beatmap in songs)
+            {
+                try
+                {
+                    _ = App.BeatSaverApi.DownloadSong(beatmap).ConfigureAwait(false);
+                }
+                catch (InvalidOperationException e)
+                {
+                    MainWindow.ToggleLoading(false);
+                    string errorMessage = e.Message;
+                    if (e.InnerException != null && !e.Message.Contains(e.InnerException.Message))
+                        errorMessage += $" ({e.InnerException.Message})";
+
+                    await MainWindow.ShowMessageAsync("Downloading failed", "Downloading the song failed with the following error\n\n" +
+                                                                            "Error:\n" +
+                                                                            $"{errorMessage}");
+                }
+                catch (Exception e)
+                {
+                    MainWindow.ToggleLoading(false);
+                    string errorMessage = e.Message;
+                    if (e.InnerException != null && !e.Message.Contains(e.InnerException.Message))
+                        errorMessage += $" ({e.InnerException.Message})";
+
+                    MessageDialogResult result = await MainWindow.ShowMessageAsync("Downloading failed", "Downloading the song failed, would you like to try again?\n\n" +
+                                                                                                         "Error:\n" +
+                                                                                                         $"{errorMessage}", MessageDialogStyle.AffirmativeAndNegative);
+
+                    if (result == MessageDialogResult.Affirmative)
+                        DownloadSong(beatmap.Key);
+                }
+            }
         }
 
         public void DeleteSong(string key)

@@ -37,9 +37,9 @@
                 </Run>
             </TextBlock>
 
-            <TextBlock Text="{Binding Path=DownloadTimeLeft}"
+            <TextBlock Text="{Binding Path=DownloadTimeLeft, TargetNullValue='Estimated time left: 0 sec (0 kb of 0 kb downloaded)'}"
                        FontSize="12" />
-            <TextBlock Text="{Binding Path=DownloadTimeSpent}"
+            <TextBlock Text="{Binding Path=DownloadTimeSpent, TargetNullValue='Time spent: 0 sec'}"
                        FontSize="12" />
 
             <ProgressBar Value="{Binding Path=ProgressPercent}" />

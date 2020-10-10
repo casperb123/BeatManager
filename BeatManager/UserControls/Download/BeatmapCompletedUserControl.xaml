@@ -37,7 +37,7 @@
                 </Run>
             </TextBlock>
 
-            <TextBlock Text="{Binding Path=Downloaded, TargetNullValue='0 kb'}"
+            <TextBlock Text="{Binding Path=Downloaded, TargetNullValue='0 kB'}"
                        FontSize="12" />
         </st:StackPanel>
     </Grid>

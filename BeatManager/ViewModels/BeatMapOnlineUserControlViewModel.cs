@@ -94,14 +94,6 @@ namespace BeatManager.ViewModels
             if (OnlineBeatmaps is null)
                 return;
 
-            if (!OnlineBeatmaps.Maps.Any(x => x.IsDownloading))
-            {
-                MainWindow.userControlNavigation.IsEnabled = true;
-                MainWindow.radioButtonSettings.IsEnabled = true;
-                userControl.stackPanelSort.IsEnabled = true;
-                userControl.stackPanelNavigation.IsEnabled = true;
-            }
-
             if (!OnlineBeatmaps.Maps.Contains(e.Beatmap))
             {
                 OnlineBeatmap onlineBeatmap = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == e.Beatmap.Key);
@@ -111,6 +103,9 @@ namespace BeatManager.ViewModels
                     onlineBeatmap.IsDownloaded = e.Beatmap.IsDownloaded;
                 }
             }
+
+            if (!OnlineBeatmaps.Maps.Any(x => x.IsDownloading) && !App.BeatSaverApi.Downloading.Any())
+                MainWindow.radioButtonSettings.IsEnabled = true;
 
             MainWindow.ViewModel.OnlineSongChanged = true;
             UpdatePageButtons();
@@ -207,7 +202,7 @@ namespace BeatManager.ViewModels
 
         public void UpdatePageButtons()
         {
-            if (OnlineBeatmaps is null || OnlineBeatmaps.Maps.Any(x => x.IsDownloading))
+            if (OnlineBeatmaps is null)
             {
                 userControl.buttonFirstPage.IsEnabled = false;
                 userControl.buttonPreviousPage.IsEnabled = false;
@@ -274,11 +269,7 @@ namespace BeatManager.ViewModels
         {
             try
             {
-                MainWindow.userControlNavigation.IsEnabled = false;
                 MainWindow.radioButtonSettings.IsEnabled = false;
-                userControl.stackPanelSort.IsEnabled = false;
-                userControl.stackPanelNavigation.IsEnabled = false;
-
                 OnlineBeatmap song = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
                 await App.BeatSaverApi.DownloadSong(song);
             }
@@ -311,12 +302,8 @@ namespace BeatManager.ViewModels
 
         public async void DownloadSongs(List<OnlineBeatmap> songs)
         {
-            MainWindow.userControlNavigation.IsEnabled = false;
             MainWindow.radioButtonSettings.IsEnabled = false;
-            userControl.stackPanelSort.IsEnabled = false;
-            userControl.stackPanelNavigation.IsEnabled = false;
 
-            
             foreach (OnlineBeatmap beatmap in songs)
             {
                 try

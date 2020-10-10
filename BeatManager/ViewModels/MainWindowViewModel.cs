@@ -167,7 +167,7 @@ namespace BeatManager.ViewModels
 
         private async void Updater_DownloadingStarted(object sender, DownloadStartedEventArgs e)
         {
-            progressDialog = await MainWindow.ShowProgressAsync($"Downloading update - {e.Version}", "Estimated time left: 0 sec (0 kb of 0 kb downloaded)\n" +
+            progressDialog = await MainWindow.ShowProgressAsync($"Downloading update - {e.Version}", "Estimated time left: 0 sec (0 kB of 0 kB downloaded)\n" +
                                                                                                      "Time spent: 0 sec");
             progressDialog.Minimum = 0;
             progressDialog.Maximum = 100;

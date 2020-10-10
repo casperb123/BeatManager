@@ -46,11 +46,6 @@ namespace BeatManager.ViewModels
             {
                 downloads = value;
                 OnPropertyChanged(nameof(Downloads));
-
-                if (value == 0)
-                    MainWindow.badgeDownloads.Badge = null;
-                else
-                    MainWindow.badgeDownloads.Badge = value;
             }
         }
 

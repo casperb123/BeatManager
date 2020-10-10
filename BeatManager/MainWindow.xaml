@@ -6,6 +6,7 @@
                  xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                  xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
                  xmlns:st="http://schemas.spicytaco.io/"
+                 xmlns:converters="clr-namespace:BeatManager.Converters"
                  mc:Ignorable="d"
                  Title="Beat Manager"
                  Height="750"
@@ -15,6 +16,10 @@
                  Closing="MetroWindow_Closing"
                  Loaded="MetroWindow_Loaded"
                  MouseDown="MetroWindow_MouseDown">
+    <mah:MetroWindow.Resources>
+        <converters:BadgeConverter x:Key="BadgeConverter" />
+    </mah:MetroWindow.Resources>
+    
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
             <Button x:Name="buttonUpdate"
@@ -73,7 +78,7 @@
                 <st:StackPanel VerticalAlignment="Bottom"
                                Margin="10"
                                MarginBetweenChildren="5">
-                    <mah:Badged x:Name="badgeDownloads">
+                    <mah:Badged Badge="{Binding Path=Downloads, Converter={StaticResource BadgeConverter}}">
                         <RadioButton x:Name="radioButtonDownloads"
                                      Width="40"
                                      Height="40"

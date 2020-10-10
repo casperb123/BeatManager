@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="BeatManager.UserControls.Download.OnlineBeatmapDownloadingUserControl"
+﻿<UserControl x:Class="BeatManager.UserControls.Download.BeatmapCompletedUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -37,9 +37,7 @@
                 </Run>
             </TextBlock>
 
-            <TextBlock Text="{Binding Path=DownloadTimeLeft}"
-                       FontSize="12" />
-            <TextBlock Text="{Binding Path=DownloadTimeSpent}"
+            <TextBlock Text="{Binding Path=Downloaded}"
                        FontSize="12" />
         </st:StackPanel>
     </Grid>

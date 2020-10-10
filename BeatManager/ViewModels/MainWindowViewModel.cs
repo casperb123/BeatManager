@@ -5,6 +5,7 @@ using BeatSaverApi.Entities;
 using GitHubUpdater;
 using MahApps.Metro.Controls.Dialogs;
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -13,10 +14,11 @@ using Version = GitHubUpdater.Version;
 
 namespace BeatManager.ViewModels
 {
-    public class MainWindowViewModel
+    public class MainWindowViewModel : INotifyPropertyChanged
     {
         private bool localBeatmapsLoaded = false;
         private ProgressDialogController progressDialog;
+        private int downloads;
 
         public readonly MainWindow MainWindow;
         public readonly MainWindowViewModel ViewModel;
@@ -37,6 +39,29 @@ namespace BeatManager.ViewModels
         public bool OnlineSongChanged;
         public bool LocalSongChanged;
 
+        public int Downloads
+        {
+            get { return downloads; }
+            set
+            {
+                downloads = value;
+                OnPropertyChanged(nameof(Downloads));
+
+                if (value == 0)
+                    MainWindow.badgeDownloads.Badge = null;
+                else
+                    MainWindow.badgeDownloads.Badge = value;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(string prop)
+        {
+            if (!string.IsNullOrWhiteSpace(prop))
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
+
         public MainWindowViewModel(MainWindow mainWindow)
         {
             MainWindow = mainWindow;
@@ -51,6 +76,8 @@ namespace BeatManager.ViewModels
             NavigationBeatmapsUserControl.ViewModel.LocalEvent += NavigationBeatmapsUserControl_LocalEvent;
             NavigationBeatmapsUserControl.ViewModel.OnlineEvent += NavigationBeatmapsUserControl_OnlineEvent;
 
+            App.BeatSaverApi.DownloadStarted += BeatSaverApi_DownloadStarted;
+
             Updater = new Updater("casperb123", "BeatManager", Resources.GitHubToken);
             Updater.UpdateAvailable += Updater_UpdateAvailable;
             Updater.DownloadingStarted += Updater_DownloadingStarted;
@@ -60,6 +87,12 @@ namespace BeatManager.ViewModels
             Updater.InstallationFailed += Updater_InstallationFailed;
 
             CheckForUpdates();
+        }
+
+        private void BeatSaverApi_DownloadStarted(object sender, BeatSaverApi.Events.DownloadStartedEventArgs e)
+        {
+            if (MainWindow.userControlMain.Content != DownloadsUserControl)
+                Downloads++;
         }
 
         private void NavigationBeatmapsUserControl_LocalEvent(object sender, EventArgs e)
@@ -293,6 +326,7 @@ namespace BeatManager.ViewModels
         {
             MainWindow.userControlNavigation.Content = null;
             MainWindow.userControlMain.Content = DownloadsUserControl;
+            Downloads = 0;
         }
 
         public void ShowSettingsPage()

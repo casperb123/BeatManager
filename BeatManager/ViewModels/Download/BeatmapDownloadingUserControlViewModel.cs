@@ -1,4 +1,5 @@
 ﻿using BeatSaverApi.Entities;
+using BeatSaverApi.Events;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,18 +7,31 @@ using System.Text;
 
 namespace BeatManager.ViewModels.Download
 {
-    public class OnlineBeatmapCompletedUserControlViewModel : INotifyPropertyChanged
+    public class BeatmapDownloadingUserControlViewModel : INotifyPropertyChanged
     {
         private OnlineBeatmap beatmap;
-        private string downloaded;
+        private string downloadTimeLeft;
+        private string downloadTimeSpent;
 
-        public string Downloaded
+        public string ToDownload { get; set; }
+
+        public string DownloadTimeSpent
         {
-            get { return downloaded; }
+            get { return downloadTimeSpent; }
             set
             {
-                downloaded = value;
-                OnPropertyChanged(nameof(Downloaded));
+                downloadTimeSpent = value;
+                OnPropertyChanged(nameof(DownloadTimeSpent));
+            }
+        }
+
+        public string DownloadTimeLeft
+        {
+            get { return downloadTimeLeft; }
+            set
+            {
+                downloadTimeLeft = value;
+                OnPropertyChanged(nameof(DownloadTimeLeft));
             }
         }
 
@@ -39,7 +53,7 @@ namespace BeatManager.ViewModels.Download
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
-        public OnlineBeatmapCompletedUserControlViewModel(OnlineBeatmap beatmap)
+        public BeatmapDownloadingUserControlViewModel(OnlineBeatmap beatmap)
         {
             Beatmap = beatmap;
         }

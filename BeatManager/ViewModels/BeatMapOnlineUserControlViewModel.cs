@@ -102,13 +102,13 @@ namespace BeatManager.ViewModels
                 userControl.stackPanelNavigation.IsEnabled = true;
             }
 
-            if (!OnlineBeatmaps.Maps.Contains(e.Song))
+            if (!OnlineBeatmaps.Maps.Contains(e.Beatmap))
             {
-                OnlineBeatmap onlineBeatmap = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == e.Song.Key);
+                OnlineBeatmap onlineBeatmap = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == e.Beatmap.Key);
                 if (onlineBeatmap != null)
                 {
-                    onlineBeatmap.IsDownloading = e.Song.IsDownloading;
-                    onlineBeatmap.IsDownloaded = e.Song.IsDownloaded;
+                    onlineBeatmap.IsDownloading = e.Beatmap.IsDownloading;
+                    onlineBeatmap.IsDownloaded = e.Beatmap.IsDownloaded;
                 }
             }
 

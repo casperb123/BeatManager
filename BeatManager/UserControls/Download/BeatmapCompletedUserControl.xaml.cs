@@ -7,14 +7,14 @@ namespace BeatManager.UserControls.Download
     /// <summary>
     /// Interaction logic for OnlineBeatmapCompletedUserControl.xaml
     /// </summary>
-    public partial class OnlineBeatmapCompletedUserControl : UserControl
+    public partial class BeatmapCompletedUserControl : UserControl
     {
-        public readonly OnlineBeatmapCompletedUserControlViewModel ViewModel;
+        public readonly BeatmapCompletedUserControlViewModel ViewModel;
 
-        public OnlineBeatmapCompletedUserControl(OnlineBeatmap beatmap, string downloaded)
+        public BeatmapCompletedUserControl(OnlineBeatmap beatmap, string downloaded)
         {
             InitializeComponent();
-            ViewModel = new OnlineBeatmapCompletedUserControlViewModel(beatmap);
+            ViewModel = new BeatmapCompletedUserControlViewModel(beatmap);
             DataContext = ViewModel;
         }
     }

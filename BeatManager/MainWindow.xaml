@@ -73,22 +73,24 @@
                 <st:StackPanel VerticalAlignment="Bottom"
                                Margin="10"
                                MarginBetweenChildren="5">
-                    <RadioButton x:Name="radioButtonDownloads"
-                                 Width="40"
-                                 Height="40"
-                                 ToolTip="Downloads"
-                                 ToolTipService.BetweenShowDelay="0"
-                                 ToolTipService.InitialShowDelay="0"
-                                 Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
-                                 GroupName="NavigationButtons"
-                                 Cursor="Hand"
-                                 Checked="RadioButtonDownloads_Checked">
-                        <icons:PackIconMaterialDesign Kind="CloudDownload"
-                                                      Width="20"
-                                                      Height="20"
-                                                      HorizontalAlignment="Center"
-                                                      VerticalAlignment="Center" />
-                    </RadioButton>
+                    <mah:Badged x:Name="badgeDownloads">
+                        <RadioButton x:Name="radioButtonDownloads"
+                                     Width="40"
+                                     Height="40"
+                                     ToolTip="Downloads"
+                                     ToolTipService.BetweenShowDelay="0"
+                                     ToolTipService.InitialShowDelay="0"
+                                     Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
+                                     GroupName="NavigationButtons"
+                                     Cursor="Hand"
+                                     Checked="RadioButtonDownloads_Checked">
+                            <icons:PackIconMaterialDesign Kind="CloudDownload"
+                                                          Width="20"
+                                                          Height="20"
+                                                          HorizontalAlignment="Center"
+                                                          VerticalAlignment="Center" />
+                        </RadioButton>
+                    </mah:Badged>
                     <RadioButton x:Name="radioButtonSettings"
                                  Width="40"
                                  Height="40"

@@ -2,12 +2,7 @@
 using BeatManager.UserControls.Download;
 using BeatSaverApi.Entities;
 using BeatSaverApi.Events;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 
 namespace BeatManager.ViewModels
 {
@@ -56,20 +51,11 @@ namespace BeatManager.ViewModels
 
         private void BeatSaverApi_DownloadCompleted(object sender, DownloadCompletedEventArgs e)
         {
-            OnlineBeatmapDownloadingUserControl downloadingUserControl = null;
-            foreach (OnlineBeatmapDownloadingUserControl control in userControl.stackPanelDownloading.Children)
-            {
-                if (control.ViewModel.Beatmap == e.Song)
-                {
-                    downloadingUserControl = control;
-                    break;
-                }
-            }
-
+            BeatmapDownloadingUserControl downloadingUserControl = GetDownloading(e.Beatmap);
             if (downloadingUserControl is null)
                 return;
 
-            OnlineBeatmapCompletedUserControl completedUserControl = new OnlineBeatmapCompletedUserControl(e.Song, downloadingUserControl.ViewModel.ToDownload);
+            BeatmapCompletedUserControl completedUserControl = new BeatmapCompletedUserControl(e.Beatmap, downloadingUserControl.ViewModel.ToDownload);
             completedUserControl.ViewModel.Downloaded = downloadingUserControl.ViewModel.ToDownload;
 
             userControl.stackPanelDownloading.Children.Remove(downloadingUserControl);
@@ -80,16 +66,7 @@ namespace BeatManager.ViewModels
 
         private void BeatSaverApi_DownloadProgressed(object sender, DownloadProgressedEventArgs e)
         {
-            OnlineBeatmapDownloadingUserControl downloadingUserControl = null;
-            foreach (OnlineBeatmapDownloadingUserControl control in userControl.stackPanelDownloading.Children)
-            {
-                if (control.ViewModel.Beatmap == e.Beatmap)
-                {
-                    downloadingUserControl = control;
-                    break;
-                }
-            }
-
+            BeatmapDownloadingUserControl downloadingUserControl = GetDownloading(e.Beatmap);
             if (downloadingUserControl is null)
                 return;
 
@@ -100,9 +77,39 @@ namespace BeatManager.ViewModels
 
         private void BeatSaverApi_DownloadStarted(object sender, DownloadStartedEventArgs e)
         {
-            OnlineBeatmapDownloadingUserControl downloadingUserControl = new OnlineBeatmapDownloadingUserControl(e.Song);
+            BeatmapDownloadingUserControl downloadingUserControl = new BeatmapDownloadingUserControl(e.Beatmap);
             userControl.stackPanelDownloading.Children.Add(downloadingUserControl);
             DownloadingCount++;
+        }
+
+        private BeatmapDownloadingUserControl GetDownloading(OnlineBeatmap beatmap)
+        {
+            BeatmapDownloadingUserControl downloadingUserControl = null;
+            foreach (BeatmapDownloadingUserControl control in userControl.stackPanelDownloading.Children)
+            {
+                if (control.ViewModel.Beatmap == beatmap)
+                {
+                    downloadingUserControl = control;
+                    break;
+                }
+            }
+
+            return downloadingUserControl;
+        }
+
+        private BeatmapCompletedUserControl GetCompleted(OnlineBeatmap beatmap)
+        {
+            BeatmapCompletedUserControl completedUserControl = null;
+            foreach (BeatmapCompletedUserControl control in userControl.stackPanelCompleted.Children)
+            {
+                if (control.ViewModel.Beatmap == beatmap)
+                {
+                    completedUserControl = control;
+                    break;
+                }
+            }
+
+            return completedUserControl;
         }
     }
 }

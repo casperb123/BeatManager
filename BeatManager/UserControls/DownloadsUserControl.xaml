@@ -22,6 +22,19 @@
             <Expander IsExpanded="True">
                 <Expander.Header>
                     <TextBlock>
+                        <Run Text="Failed - " />
+                        <Run Text="{Binding Path=FailedCount}" />
+                    </TextBlock>
+                </Expander.Header>
+                
+                <st:StackPanel x:Name="stackPanelFailed"
+                               MarginBetweenChildren="10"
+                               Margin="5" />
+            </Expander>
+            
+            <Expander IsExpanded="True">
+                <Expander.Header>
+                    <TextBlock>
                         <Run Text="Downloading - " />
                         <Run Text="{Binding Path=DownloadingCount}" />
                     </TextBlock>
@@ -31,6 +44,7 @@
                                MarginBetweenChildren="10"
                                Margin="5" />
             </Expander>
+            
             <Expander IsExpanded="True">
                 <Expander.Header>
                     <TextBlock>

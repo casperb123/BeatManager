@@ -11,6 +11,17 @@ namespace BeatManager.ViewModels
         private readonly DownloadsUserControl userControl;
         private int downloadingCount;
         private int completedCount;
+        private int failedCount;
+
+        public int FailedCount
+        {
+            get { return failedCount; }
+            set
+            {
+                failedCount = value;
+                OnPropertyChanged(nameof(FailedCount));
+            }
+        }
 
         public int CompletedCount
         {
@@ -47,6 +58,28 @@ namespace BeatManager.ViewModels
             App.BeatSaverApi.DownloadStarted += BeatSaverApi_DownloadStarted;
             App.BeatSaverApi.DownloadProgressed += BeatSaverApi_DownloadProgressed;
             App.BeatSaverApi.DownloadCompleted += BeatSaverApi_DownloadCompleted;
+            App.BeatSaverApi.DownloadFailed += BeatSaverApi_DownloadFailed;
+        }
+
+        private void BeatSaverApi_DownloadFailed(object sender, DownloadFailedEventArgs e)
+        {
+            BeatmapDownloadingUserControl downloadingUserControl = GetDownloading(e.Beatmap);
+            BeatmapCompletedUserControl completedUserControl = GetCompleted(e.Beatmap);
+            BeatmapFailedUserControl failedUserControl = new BeatmapFailedUserControl(e.Beatmap, e.Exception);
+
+            userControl.stackPanelFailed.Children.Insert(0, failedUserControl);
+            FailedCount++;
+
+            if (downloadingUserControl != null)
+            {
+                userControl.stackPanelDownloading.Children.Remove(downloadingUserControl);
+                DownloadingCount--;
+            }
+            else if (completedUserControl != null)
+            {
+                userControl.stackPanelCompleted.Children.Remove(completedUserControl);
+                CompletedCount--;
+            }
         }
 
         private void BeatSaverApi_DownloadCompleted(object sender, DownloadCompletedEventArgs e)
@@ -60,7 +93,7 @@ namespace BeatManager.ViewModels
 
             userControl.stackPanelDownloading.Children.Remove(downloadingUserControl);
             DownloadingCount--;
-            userControl.stackPanelCompleted.Children.Add(completedUserControl);
+            userControl.stackPanelCompleted.Children.Insert(0, completedUserControl);
             CompletedCount++;
         }
 
@@ -79,7 +112,7 @@ namespace BeatManager.ViewModels
         private void BeatSaverApi_DownloadStarted(object sender, DownloadStartedEventArgs e)
         {
             BeatmapDownloadingUserControl downloadingUserControl = new BeatmapDownloadingUserControl(e.Beatmap);
-            userControl.stackPanelDownloading.Children.Add(downloadingUserControl);
+            userControl.stackPanelDownloading.Children.Insert(0, downloadingUserControl);
             DownloadingCount++;
         }
 

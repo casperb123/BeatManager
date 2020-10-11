@@ -72,6 +72,7 @@ namespace BeatManager.ViewModels
             NavigationBeatmapsUserControl.ViewModel.OnlineEvent += NavigationBeatmapsUserControl_OnlineEvent;
 
             App.BeatSaverApi.DownloadStarted += BeatSaverApi_DownloadStarted;
+            App.BeatSaverApi.DownloadFailed += BeatSaverApi_DownloadFailed;
 
             Updater = new Updater("casperb123", "BeatManager", Resources.GitHubToken);
             Updater.UpdateAvailable += Updater_UpdateAvailable;
@@ -82,6 +83,12 @@ namespace BeatManager.ViewModels
             Updater.InstallationFailed += Updater_InstallationFailed;
 
             CheckForUpdates();
+        }
+
+        private void BeatSaverApi_DownloadFailed(object sender, BeatSaverApi.Events.DownloadFailedEventArgs e)
+        {
+            if (MainWindow.userControlMain.Content != DownloadsUserControl)
+                Downloads++;
         }
 
         private void BeatSaverApi_DownloadStarted(object sender, BeatSaverApi.Events.DownloadStartedEventArgs e)
@@ -337,19 +344,18 @@ namespace BeatManager.ViewModels
                 try
                 {
                     OnlineBeatmap onlineBeatmap = await App.BeatSaverApi.GetBeatmap(key);
-                    string description = onlineBeatmap.Metadata.SongAuthorName is null ? onlineBeatmap.Metadata.FullSongName : $"{onlineBeatmap.Metadata.SongAuthorName} - {onlineBeatmap.Metadata.FullSongName}";
+                    bool isValid = await App.BeatSaverApi.DownloadSong(onlineBeatmap);
 
-                    MainWindow.ToggleLoading(true, "Downloading Song", description);
-                    await App.BeatSaverApi.DownloadSong(onlineBeatmap);
-                    OnlineSongChanged = true;
-                    if (OnlineUserControl.ViewModel.OnlineBeatmaps != null && OnlineUserControl.ViewModel.OnlineBeatmaps.Maps.Any(x => x.Key == key))
-                        LocalSongChanged = true;
-
-                    MainWindow.ToggleLoading(false);
-                    if (MainWindow.userControlMain.Content == LocalUserControl || MainWindow.userControlMain.Content == LocalDetailsUserControl)
-                        ShowLocalPage();
-                    else if (MainWindow.userControlMain.Content == OnlineUserControl || MainWindow.userControlMain.Content == OnlineDetailsUserControl)
-                        ShowOnlinePage();
+                    if (isValid)
+                    {
+                        OnlineSongChanged = true;
+                        if (OnlineUserControl.ViewModel.OnlineBeatmaps != null && OnlineUserControl.ViewModel.OnlineBeatmaps.Maps.Any(x => x.Key == key))
+                            LocalSongChanged = true;
+                        if (MainWindow.userControlMain.Content == LocalUserControl || MainWindow.userControlMain.Content == LocalDetailsUserControl)
+                            ShowLocalPage();
+                        else if (MainWindow.userControlMain.Content == OnlineUserControl || MainWindow.userControlMain.Content == OnlineDetailsUserControl)
+                            ShowOnlinePage();
+                    }
                 }
                 catch (InvalidOperationException e)
                 {

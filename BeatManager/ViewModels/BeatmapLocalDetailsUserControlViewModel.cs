@@ -1,7 +1,6 @@
 ﻿using BeatManager.UserControls;
 using BeatSaverApi.Entities;
 using MahApps.Metro.Controls.Dialogs;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -80,7 +79,6 @@ namespace BeatManager.ViewModels
         {
             mainWindow.ViewModel.ShowLocalDetails = false;
             mainWindow.userControlMain.Content = mainWindow.ViewModel.LocalUserControl;
-            //mainWindow.scrollViewer.ScrollToTop();
         }
 
         private void CreateDifficultySets()

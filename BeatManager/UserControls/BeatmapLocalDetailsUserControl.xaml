@@ -30,8 +30,6 @@
                     Value="0" />
             <Setter Property="FontSize"
                     Value="15" />
-            <Setter Property="HorizontalAlignment"
-                    Value="Left" />
         </Style>
         <Style TargetType="Label"
                BasedOn="{StaticResource MahApps.Styles.Label}">
@@ -433,8 +431,9 @@
                 </st:AutoGrid>
             </st:AutoGrid>
 
-            <StackPanel Orientation="Horizontal"
-                        Margin="0,0,0,20">
+            <st:StackPanel Orientation="Horizontal"
+                           Margin="0,0,0,20"
+                           MarginBetweenChildren="5">
                 <Button x:Name="buttonDeleteBeatmap"
                         Background="Transparent"
                         BorderThickness="0"
@@ -444,7 +443,6 @@
                         ToolTip="Delete the beatmap"
                         ToolTipService.BetweenShowDelay="0"
                         ToolTipService.InitialShowDelay="0"
-                        Margin="0,0,2.5,0"
                         Cursor="Hand"
                         Click="ButtonDeleteBeatmap_Click">
                     <icons:PackIconMaterial Kind="DeleteForever"
@@ -460,7 +458,6 @@
                         ToolTip="Refresh the data"
                         ToolTipService.BetweenShowDelay="0"
                         ToolTipService.InitialShowDelay="0"
-                        Margin="2.5,0,2.5,0"
                         Cursor="Hand"
                         Click="ButtonRefreshData_Click">
                     <icons:PackIconMaterial Kind="Refresh"
@@ -476,7 +473,6 @@
                         ToolTip="Open folder"
                         ToolTipService.BetweenShowDelay="0"
                         ToolTipService.InitialShowDelay="0"
-                        Margin="2.5,0,2.5,0"
                         Cursor="Hand"
                         Click="ButtonOpenFolder_Click">
                     <icons:PackIconMaterial Kind="Folder"
@@ -492,7 +488,6 @@
                         ToolTip="Preview beatmap"
                         ToolTipService.BetweenShowDelay="0"
                         ToolTipService.InitialShowDelay="0"
-                        Margin="2.5,0,2.5,0"
                         Cursor="Hand"
                         Visibility="{Binding Path=Beatmap.OnlineBeatmap, Converter={StaticResource NullToVisibilityConverter}}"
                         Click="ButtonPreviewBeatmap_Click">
@@ -509,7 +504,6 @@
                         ToolTip="Open on beatsaver"
                         ToolTipService.BetweenShowDelay="0"
                         ToolTipService.InitialShowDelay="0"
-                        Margin="2.5,0,0,0"
                         Cursor="Hand"
                         Visibility="{Binding Path=Beatmap.OnlineBeatmap, Converter={StaticResource NullToVisibilityConverter}}"
                         Click="ButtonOpenOnBeatsaver_Click">
@@ -517,7 +511,7 @@
                                             Width="20"
                                             Height="20" />
                 </Button>
-            </StackPanel>
+            </st:StackPanel>
 
             <Grid Margin="0,0,0,30">
                 <Grid.ColumnDefinitions>
@@ -525,37 +519,37 @@
                     <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
 
-                <st:AutoGrid Columns="auto,1*"
+                <st:AutoGrid Columns="auto,auto"
                              Rows="auto,auto,auto,auto,auto,auto,auto"
                              ChildMargin="2.5,0"
                              Margin="0,0,2.5,0">
                     <Label Content="Name"
                            HorizontalContentAlignment="Right" />
-                    <TextBox Text="{Binding Path=Beatmap.SongName}" />
+                    <TextBox Text="{Binding Path=Beatmap.SongName, FallbackValue='...', TargetNullValue='-'}" />
 
                     <Label Content="Subname"
                            HorizontalContentAlignment="Right" />
-                    <TextBox Text="{Binding Path=Beatmap.SongSubName, TargetNullValue=-}" />
+                    <TextBox Text="{Binding Path=Beatmap.SongSubName, FallbackValue='...', TargetNullValue='-'}" />
 
                     <Label Content="Artist"
                            HorizontalContentAlignment="Right" />
-                    <TextBox Text="{Binding Path=Beatmap.SongAuthorName, TargetNullValue=-}" />
+                    <TextBox Text="{Binding Path=Beatmap.SongAuthorName, FallbackValue='...', TargetNullValue='-'}" />
 
                     <Label Content="Mapper"
                            HorizontalContentAlignment="Right" />
-                    <TextBox Text="{Binding Path=Beatmap.LevelAuthorName, TargetNullValue=-}" />
+                    <TextBox Text="{Binding Path=Beatmap.LevelAuthorName, FallbackValue='...', TargetNullValue='-'}" />
 
                     <Label Content="Duration"
                            HorizontalContentAlignment="Right" />
-                    <Label Content="{Binding Path=Beatmap.Duration, Converter={StaticResource TimeSpanToStringConverter}, TargetNullValue=-}" />
+                    <Label Content="{Binding Path=Beatmap.Duration, FallbackValue='...', TargetNullValue='-', Converter={StaticResource TimeSpanToStringConverter}}" />
 
                     <Label Content="BPM"
                            HorizontalContentAlignment="Right" />
-                    <Label Content="{Binding Path=Beatmap.BeatsPerMinute}" />
+                    <Label Content="{Binding Path=Beatmap.BeatsPerMinute, FallbackValue='...'}" />
 
                     <Label Content="Key"
                            HorizontalContentAlignment="Right" />
-                    <TextBox Text="{Binding Path=Beatmap.OnlineBeatmap.Key, FallbackValue=-, TargetNullValue=-}" />
+                    <TextBox Text="{Binding Path=Beatmap.OnlineBeatmap.Key, FallbackValue='...', TargetNullValue='-'}" />
                 </st:AutoGrid>
 
                 <st:AutoGrid Columns="auto,1*"

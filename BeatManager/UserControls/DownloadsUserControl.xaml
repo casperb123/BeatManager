@@ -21,7 +21,8 @@
                        MarginBetweenChildren="10">
             <Expander IsExpanded="True">
                 <Expander.Header>
-                    <TextBlock Text="{Binding Path=FailedCount, StringFormat='Failed - {0}', FallbackValue='Failed - 0'}" />
+                    <TextBlock Text="{Binding Path=FailedCount, StringFormat='Failed - {0}', FallbackValue='Failed - 0'}"
+                               Foreground="White" />
                 </Expander.Header>
 
                 <st:StackPanel x:Name="stackPanelFailed"
@@ -31,7 +32,8 @@
 
             <Expander IsExpanded="True">
                 <Expander.Header>
-                    <TextBlock Text="{Binding Path=DownloadingCount, StringFormat='Downloading - {0}', FallbackValue='Downloading - 0'}" />
+                    <TextBlock Text="{Binding Path=DownloadingCount, StringFormat='Downloading - {0}', FallbackValue='Downloading - 0'}"
+                               Foreground="White" />
                 </Expander.Header>
 
                 <st:StackPanel x:Name="stackPanelDownloading"
@@ -41,7 +43,8 @@
 
             <Expander IsExpanded="True">
                 <Expander.Header>
-                    <TextBlock Text="{Binding Path=CompletedCount, StringFormat='Completed - {0}', FallbackValue='Completed - 0'}" />
+                    <TextBlock Text="{Binding Path=CompletedCount, StringFormat='Completed - {0}', FallbackValue='Completed - 0'}"
+                               Foreground="White" />
                 </Expander.Header>
 
                 <st:StackPanel x:Name="stackPanelCompleted"

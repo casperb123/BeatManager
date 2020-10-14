@@ -1,7 +1,7 @@
 ﻿using BeatManager.Properties;
 using BeatManager.UserControls;
 using BeatManager.UserControls.Navigation;
-using BeatSaverApi.Entities;
+using BeatSaver.Entities;
 using GitHubUpdater;
 using MahApps.Metro.Controls.Dialogs;
 using System;
@@ -85,13 +85,13 @@ namespace BeatManager.ViewModels
             CheckForUpdates();
         }
 
-        private void BeatSaverApi_DownloadFailed(object sender, BeatSaverApi.Events.DownloadFailedEventArgs e)
+        private void BeatSaverApi_DownloadFailed(object sender, BeatSaver.Events.DownloadFailedEventArgs e)
         {
             if (MainWindow.userControlMain.Content != DownloadsUserControl)
                 Downloads++;
         }
 
-        private void BeatSaverApi_DownloadStarted(object sender, BeatSaverApi.Events.DownloadStartedEventArgs e)
+        private void BeatSaverApi_DownloadStarted(object sender, BeatSaver.Events.DownloadStartedEventArgs e)
         {
             if (MainWindow.userControlMain.Content != DownloadsUserControl)
                 Downloads++;

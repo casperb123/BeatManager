@@ -1,5 +1,5 @@
 ﻿using BeatManager.UserControls;
-using BeatSaverApi.Entities;
+using BeatSaver.Entities;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;

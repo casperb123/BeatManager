@@ -136,7 +136,7 @@
                     <mah:ToggleSwitch x:Name="toggleSwitchOneClick"
                                       Grid.Column="1"
                                       Visibility="{Binding Path=IsRunningAsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                      IsOn="{Binding Path=BeatSaverOneClickInstaller, Source={x:Static entities:Settings.CurrentSettings}}"
+                                      IsOn="{Binding Path=BeatSaver.OneClickInstaller, Source={x:Static entities:Settings.CurrentSettings}}"
                                       OnContent="Enabled"
                                       OffContent="Disabled"
                                       Toggled="ToggleSwitchOneClick_Toggled" />

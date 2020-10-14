@@ -15,20 +15,10 @@ namespace BeatManager.Entities
         private int color;
         private bool beatSaberCopy;
         private bool checkForUpdates;
-        private bool beatSaverOneClickInstaller;
+        private BeatSaver beatSaver;
 
         public static Settings CurrentSettings;
         public static string SettingsFilePath;
-
-        public bool BeatSaverOneClickInstaller
-        {
-            get { return beatSaverOneClickInstaller; }
-            set
-            {
-                beatSaverOneClickInstaller = value;
-                OnPropertyChanged(nameof(BeatSaverOneClickInstaller));
-            }
-        }
 
         public bool BeatSaberCopy
         {
@@ -87,6 +77,16 @@ namespace BeatManager.Entities
             }
         }
 
+        public BeatSaver BeatSaver
+        {
+            get { return beatSaver; }
+            set
+            {
+                beatSaver = value;
+                OnPropertyChanged(nameof(BeatSaver));
+            }
+        }
+
         [JsonIgnore]
         public string CustomLevelsPath
         {
@@ -131,6 +131,7 @@ namespace BeatManager.Entities
             BeatSaberCopy = true;
             CheckForUpdates = true;
             NotifyUpdates = true;
+            BeatSaver = new BeatSaver();
         }
 
         public void Save()
@@ -160,6 +161,29 @@ namespace BeatManager.Entities
                 settings.Save();
 
             return settings;
+        }
+    }
+
+    public class BeatSaver : INotifyPropertyChanged
+    {
+        private bool oneClickInstaller;
+
+        public bool OneClickInstaller
+        {
+            get { return oneClickInstaller; }
+            set
+            {
+                oneClickInstaller = value;
+                OnPropertyChanged(nameof(OneClickInstaller));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(string prop)
+        {
+            if (!string.IsNullOrWhiteSpace(prop))
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 }

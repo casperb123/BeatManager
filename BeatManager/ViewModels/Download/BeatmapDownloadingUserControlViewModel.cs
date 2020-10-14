@@ -1,5 +1,5 @@
-﻿using BeatSaverApi.Entities;
-using BeatSaverApi.Events;
+﻿using BeatSaver.Entities;
+using BeatSaver.Events;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

@@ -61,7 +61,7 @@ namespace BeatManager.UserControls
             if (!IsLoaded || !ViewModel.IsRunningAsAdmin)
                 return;
 
-            await ViewModel.ToggleOneClick(OneClickType.BeatSaver, Settings.CurrentSettings.BeatSaverOneClickInstaller);
+            await ViewModel.ToggleOneClick(OneClickType.BeatSaver, Settings.CurrentSettings.BeatSaver.OneClickInstaller);
         }
 
         private async void ButtonRunAsAdmin_Click(object sender, RoutedEventArgs e)
@@ -78,7 +78,7 @@ namespace BeatManager.UserControls
             if (!IsLoaded)
                 return;
 
-            if (Settings.CurrentSettings.BeatSaverOneClickInstaller)
+            if (Settings.CurrentSettings.BeatSaver.OneClickInstaller)
                 await ViewModel.ToggleOneClick(OneClickType.BeatSaver, true);
         }
 

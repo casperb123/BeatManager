@@ -126,7 +126,7 @@ namespace BeatManager
             ViewModel.IsLoaded = true;
 
             if (string.IsNullOrWhiteSpace(Settings.CurrentSettings.RootPath) || !Directory.Exists(Settings.CurrentSettings.RootPath) ||
-                Settings.CurrentSettings.BeatSaverOneClickInstaller && !ViewModel.SettingsUserControl.ViewModel.IsBeatSaverOneClick &&
+                Settings.CurrentSettings.BeatSaver.OneClickInstaller && !ViewModel.SettingsUserControl.ViewModel.IsBeatSaverOneClick &&
                 ViewModel.SettingsUserControl.ViewModel.IsRunningAsAdmin)
             {
                 radioButtonSettings.IsChecked = true;

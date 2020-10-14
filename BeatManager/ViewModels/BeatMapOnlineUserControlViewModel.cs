@@ -1,6 +1,6 @@
 ﻿using BeatManager.UserControls;
-using BeatSaverApi.Entities;
-using BeatSaverApi.Events;
+using BeatSaver.Entities;
+using BeatSaver.Events;
 using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;

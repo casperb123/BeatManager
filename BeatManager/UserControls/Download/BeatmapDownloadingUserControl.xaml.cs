@@ -1,5 +1,5 @@
 ﻿using BeatManager.ViewModels.Download;
-using BeatSaverApi.Entities;
+using BeatSaver.Entities;
 using System.Windows.Controls;
 
 namespace BeatManager.UserControls.Download

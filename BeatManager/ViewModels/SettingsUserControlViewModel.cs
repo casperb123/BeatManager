@@ -69,7 +69,7 @@ namespace BeatManager.ViewModels
 
             if (IsRunningAsAdmin)
             {
-                if (Settings.CurrentSettings.BeatSaverOneClickInstaller)
+                if (Settings.CurrentSettings.BeatSaver.OneClickInstaller)
                 {
                     var (beatSaverCallback, beatSaverMessage) = CheckOneClick(OneClickType.BeatSaver);
 

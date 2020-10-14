@@ -1,7 +1,7 @@
 ﻿using BeatManager.UserControls;
 using BeatManager.UserControls.Download;
-using BeatSaverApi.Entities;
-using BeatSaverApi.Events;
+using BeatSaver.Entities;
+using BeatSaver.Events;
 using System.ComponentModel;
 
 namespace BeatManager.ViewModels

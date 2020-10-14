@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\BeatSaverApi\BeatSaverApi\BeatSaverApi.csproj" />
+    <ProjectReference Include="..\..\BeatSaverApi\BeatSaverApi\BeatSaver.csproj" />
   </ItemGroup>
 
 </Project>

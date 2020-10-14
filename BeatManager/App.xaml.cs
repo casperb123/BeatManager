@@ -1,5 +1,5 @@
 ﻿using BeatManager.Entities;
-using BeatSaverApi;
+using BeatSaver;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace BeatManager
     /// </summary>
     public partial class App : Application
     {
-        public static BeatSaver BeatSaverApi;
+        public static BeatSaverApi BeatSaverApi;
         public static List<SupportedMod> SupportedMods { get; private set; }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -63,7 +63,7 @@ namespace BeatManager
                 Directory.CreateDirectory(appDataPath);
 
             Settings.CurrentSettings = Settings.GetSettings();
-            BeatSaverApi = new BeatSaver(Settings.CurrentSettings.CustomLevelsPath);
+            BeatSaverApi = new BeatSaver.BeatSaverApi(Settings.CurrentSettings.CustomLevelsPath);
             GetSupportedMods();
 
             base.OnStartup(e);

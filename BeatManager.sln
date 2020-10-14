@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeatManager", "BeatManager\BeatManager.csproj", "{AA79998B-9FF2-4DD1-80A9-42EC286E5918}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeatSaver", "..\BeatSaverApi\BeatSaverApi\BeatSaver.csproj", "{09A700F2-B6EB-48AA-A864-C673D1D06383}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeatSaver", "..\BeatSaver\BeatSaver\BeatSaver.csproj", "{09A700F2-B6EB-48AA-A864-C673D1D06383}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeatManager.Entities", "BeatManager.Entities\BeatManager.Entities.csproj", "{52EA5B68-F52C-4071-8403-5807DC7BB236}"
 EndProject

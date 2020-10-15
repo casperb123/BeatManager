@@ -16,7 +16,7 @@ namespace BeatManager
     /// </summary>
     public partial class App : Application
     {
-        public static BeatSaverApi BeatSaverApi;
+        public static BeatSaverApi BeatSaverApi { get; private set; }
         public static List<SupportedMod> SupportedMods { get; private set; }
 
         protected override void OnStartup(StartupEventArgs e)

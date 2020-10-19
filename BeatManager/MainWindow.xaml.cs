@@ -2,13 +2,13 @@
 using BeatManager.ViewModels;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
-using Octokit;
 using System;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using Version = GitHubUpdater.Version;
 
 namespace BeatManager
@@ -67,6 +67,18 @@ namespace BeatManager
                 Instance.textBlockLoadingDescription.Visibility = Visibility.Collapsed;
                 Instance.progressRingLoading.IsActive = false;
             }
+        }
+
+        public static void ExpandCover(string source)
+        {
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            image.UriSource = new Uri(source);
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.EndInit();
+
+            Instance.imageCoverImage.Source = image;
+            Instance.gridCoverImage.Visibility = Visibility.Visible;
         }
 
         private void RadioButtonHome_Checked(object sender, RoutedEventArgs e)
@@ -170,6 +182,16 @@ namespace BeatManager
                 else if (userControlMain.Content == ViewModel.OnlineDetailsUserControl)
                     ViewModel.OnlineDetailsUserControl.ViewModel.Back();
             }
+        }
+
+        private void GridCoverImage_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            gridCoverImage.Visibility = Visibility.Hidden;
+        }
+
+        private void ButtonCloseCoverImage_Click(object sender, RoutedEventArgs e)
+        {
+            gridCoverImage.Visibility = Visibility.Hidden;
         }
     }
 }

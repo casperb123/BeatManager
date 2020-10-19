@@ -73,5 +73,10 @@ namespace BeatManager.UserControls
                     e.Row.Foreground = new SolidColorBrush(Color.FromRgb(0, 200, 0));
             }
         }
+
+        private void ButtonExpandCover_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.ExpandCover(ViewModel.Beatmap.CoverImagePath);
+        }
     }
 }

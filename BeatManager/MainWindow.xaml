@@ -118,14 +118,59 @@
             <UserControl x:Name="userControlNavigation" />
         </StackPanel>
 
-        <ScrollViewer x:Name="scrollViewer"
-                      Grid.Column="1"
-                      HorizontalScrollBarVisibility="Disabled"
-                      VerticalScrollBarVisibility="Auto">
-            <UserControl x:Name="userControlMain"
-                         MaxWidth="1400"
-                         Margin="30,5" />
-        </ScrollViewer>
+        <Grid Grid.Column="1">
+            <ScrollViewer x:Name="scrollViewer"
+                          HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Auto">
+                <UserControl x:Name="userControlMain"
+                             MaxWidth="1400" />
+            </ScrollViewer>
+
+            <Grid x:Name="gridCoverImage"
+                  Visibility="Hidden"
+                  Opacity="0"
+                  MouseUp="GridCoverImage_MouseUp">
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Style.Triggers>
+                            <Trigger Property="Visibility"
+                                     Value="Visible">
+                                <Trigger.EnterActions>
+                                    
+                                </Trigger.EnterActions>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+
+                <Grid.Background>
+                    <SolidColorBrush Color="Black"
+                                     Opacity=".5" />
+                </Grid.Background>
+
+                <st:StackPanel Margin="50"
+                               VerticalAlignment="Center"
+                               MarginBetweenChildren="10">
+                    <Image x:Name="imageCoverImage"
+                           Width="500"
+                           Height="500" />
+                    <Button x:Name="buttonCloseCoverImage"
+                            HorizontalAlignment="Center"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Foreground="White"
+                            Width="42"
+                            Height="42"
+                            Cursor="Hand"
+                            Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                            Click="ButtonCloseCoverImage_Click">
+                        <icons:PackIconMaterial Kind="Close"
+                                                Width="22"
+                                                Height="22" />
+                    </Button>
+                </st:StackPanel>
+            </Grid>
+        </Grid>
 
         <Rectangle x:Name="rectangleLoading"
                    Grid.ColumnSpan="2"

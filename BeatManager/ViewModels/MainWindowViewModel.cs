@@ -274,6 +274,7 @@ namespace BeatManager.ViewModels
             else
             {
                 MainWindow.userControlMain.Content = LocalUserControl;
+                LocalDetailsUserControl.ViewModel.CloseBigCover();
 
                 if (!localBeatmapsLoaded ||
                     OnlineSongChanged ||

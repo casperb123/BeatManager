@@ -79,6 +79,7 @@ namespace BeatManager.ViewModels
         {
             mainWindow.ViewModel.ShowLocalDetails = false;
             mainWindow.userControlMain.Content = mainWindow.ViewModel.LocalUserControl;
+            CloseBigCover();
         }
 
         private void CreateDifficultySets()
@@ -179,6 +180,7 @@ namespace BeatManager.ViewModels
         public void CloseBigCover()
         {
             userControl.gridCoverImage.Visibility = Visibility.Hidden;
+            userControl.gridCoverImage.Opacity = 0;
         }
     }
 }

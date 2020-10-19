@@ -394,6 +394,7 @@
                                                     <DoubleAnimation Storyboard.TargetName="gridCoverImage"
                                                                      Storyboard.TargetProperty="Opacity"
                                                                      Duration="0:0:.15"
+                                                                     From="0"
                                                                      To="1" />
                                                 </Storyboard>
                                             </BeginStoryboard>
@@ -826,6 +827,7 @@
                         <Storyboard>
                             <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                              Duration="0:0:.15"
+                                             From="1"
                                              To="0"
                                              Completed="DoubleAnimation_CloseCover" />
                         </Storyboard>
@@ -861,6 +863,7 @@
                                     <DoubleAnimation Storyboard.TargetName="gridCoverImage"
                                                      Storyboard.TargetProperty="Opacity"
                                                      Duration="0:0:.15"
+                                                     From="1"
                                                      To="0"
                                                      Completed="DoubleAnimation_CloseCover" />
                                 </Storyboard>

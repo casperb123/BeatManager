@@ -1,8 +1,10 @@
 ﻿using BeatManager.Entities;
 using BeatManager.ViewModels;
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace BeatManager.UserControls
@@ -74,9 +76,14 @@ namespace BeatManager.UserControls
             }
         }
 
-        private void ButtonExpandCover_Click(object sender, RoutedEventArgs e)
+        private void ButtonBigCover_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.ExpandCover(ViewModel.Beatmap.CoverImagePath);
+            ViewModel.OpenBigCover();
+        }
+
+        private void DoubleAnimation_CloseCover(object sender, EventArgs e)
+        {
+            ViewModel.CloseBigCover();
         }
     }
 }

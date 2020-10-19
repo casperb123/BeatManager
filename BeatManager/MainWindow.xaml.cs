@@ -69,18 +69,6 @@ namespace BeatManager
             }
         }
 
-        public static void ExpandCover(string source)
-        {
-            BitmapImage image = new BitmapImage();
-            image.BeginInit();
-            image.UriSource = new Uri(source);
-            image.CacheOption = BitmapCacheOption.OnLoad;
-            image.EndInit();
-
-            Instance.imageCoverImage.Source = image;
-            Instance.gridCoverImage.Visibility = Visibility.Visible;
-        }
-
         private void RadioButtonHome_Checked(object sender, RoutedEventArgs e)
         {
             userControlNavigation.Content = null;
@@ -182,16 +170,6 @@ namespace BeatManager
                 else if (userControlMain.Content == ViewModel.OnlineDetailsUserControl)
                     ViewModel.OnlineDetailsUserControl.ViewModel.Back();
             }
-        }
-
-        private void GridCoverImage_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            gridCoverImage.Visibility = Visibility.Hidden;
-        }
-
-        private void ButtonCloseCoverImage_Click(object sender, RoutedEventArgs e)
-        {
-            gridCoverImage.Visibility = Visibility.Hidden;
         }
     }
 }

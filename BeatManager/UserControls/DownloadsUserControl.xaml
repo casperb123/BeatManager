@@ -7,50 +7,53 @@
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="1*" />
-        </Grid.RowDefinitions>
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                  VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
 
-        <Label Content="Downloads"
-               FontSize="45"
-               Margin="0,0,0,30" />
+            <Label Content="Downloads"
+                   FontSize="45"
+                   Margin="0,0,0,30" />
 
-        <st:StackPanel Grid.Row="1"
-                       MarginBetweenChildren="10">
-            <Expander IsExpanded="True">
-                <Expander.Header>
-                    <TextBlock Text="{Binding Path=FailedCount, StringFormat='Failed - {0}', FallbackValue='Failed - 0'}"
-                               Foreground="White" />
-                </Expander.Header>
+            <st:StackPanel Grid.Row="1"
+                           MarginBetweenChildren="10">
+                <Expander IsExpanded="True">
+                    <Expander.Header>
+                        <TextBlock Text="{Binding Path=FailedCount, StringFormat='Failed - {0}', FallbackValue='Failed - 0'}"
+                                   Foreground="White" />
+                    </Expander.Header>
 
-                <st:StackPanel x:Name="stackPanelFailed"
-                               MarginBetweenChildren="10"
-                               Margin="5" />
-            </Expander>
+                    <st:StackPanel x:Name="stackPanelFailed"
+                                   MarginBetweenChildren="10"
+                                   Margin="5" />
+                </Expander>
 
-            <Expander IsExpanded="True">
-                <Expander.Header>
-                    <TextBlock Text="{Binding Path=DownloadingCount, StringFormat='Downloading - {0}', FallbackValue='Downloading - 0'}"
-                               Foreground="White" />
-                </Expander.Header>
+                <Expander IsExpanded="True">
+                    <Expander.Header>
+                        <TextBlock Text="{Binding Path=DownloadingCount, StringFormat='Downloading - {0}', FallbackValue='Downloading - 0'}"
+                                   Foreground="White" />
+                    </Expander.Header>
 
-                <st:StackPanel x:Name="stackPanelDownloading"
-                               MarginBetweenChildren="10"
-                               Margin="5" />
-            </Expander>
+                    <st:StackPanel x:Name="stackPanelDownloading"
+                                   MarginBetweenChildren="10"
+                                   Margin="5" />
+                </Expander>
 
-            <Expander IsExpanded="True">
-                <Expander.Header>
-                    <TextBlock Text="{Binding Path=CompletedCount, StringFormat='Completed - {0}', FallbackValue='Completed - 0'}"
-                               Foreground="White" />
-                </Expander.Header>
+                <Expander IsExpanded="True">
+                    <Expander.Header>
+                        <TextBlock Text="{Binding Path=CompletedCount, StringFormat='Completed - {0}', FallbackValue='Completed - 0'}"
+                                   Foreground="White" />
+                    </Expander.Header>
 
-                <st:StackPanel x:Name="stackPanelCompleted"
-                               MarginBetweenChildren="10"
-                               Margin="5" />
-            </Expander>
-        </st:StackPanel>
-    </Grid>
+                    <st:StackPanel x:Name="stackPanelCompleted"
+                                   MarginBetweenChildren="10"
+                                   Margin="5" />
+                </Expander>
+            </st:StackPanel>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

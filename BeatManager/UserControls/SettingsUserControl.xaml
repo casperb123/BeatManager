@@ -27,127 +27,130 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="1*" />
-        </Grid.RowDefinitions>
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                  VerticalScrollBarVisibility="Auto">
+        <Grid Margin="30,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
 
-        <Label Content="Settings"
-               FontSize="45"
-               Margin="0,0,0,30" />
+            <Label Content="Settings"
+                   FontSize="45"
+                   Margin="0,0,0,30" />
 
-        <st:AutoGrid Rows="auto,auto"
-                     Columns="1*"
-                     Grid.Row="1">
-            <GroupBox Header="Global">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="400" />
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                    </Grid.RowDefinitions>
+            <st:AutoGrid Rows="auto,auto"
+                         Columns="1*"
+                         Grid.Row="1">
+                <GroupBox Header="Global">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="400" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
 
-                    <Label Content="Beat Saber Version"
-                           VerticalContentAlignment="Center"
-                           Margin="0,0,5,0" />
-                    <mah:ToggleSwitch x:Name="toggleSwitchVersion"
-                                      OnContent="Copy"
-                                      OffContent="Original"
-                                      Grid.Column="1"
-                                      Margin="0,2.5,0,0"
-                                      IsOn="{Binding Path=BeatSaberCopy, Source={x:Static entities:Settings.CurrentSettings}}"
-                                      Toggled="ToggleSwitchVersion_Toggled" />
+                        <Label Content="Beat Saber Version"
+                               VerticalContentAlignment="Center"
+                               Margin="0,0,5,0" />
+                        <mah:ToggleSwitch x:Name="toggleSwitchVersion"
+                                          OnContent="Copy"
+                                          OffContent="Original"
+                                          Grid.Column="1"
+                                          Margin="0,2.5,0,0"
+                                          IsOn="{Binding Path=BeatSaberCopy, Source={x:Static entities:Settings.CurrentSettings}}"
+                                          Toggled="ToggleSwitchVersion_Toggled" />
 
-                    <Label Content="Root Path"
-                           VerticalContentAlignment="Center"
-                           Grid.Row="1"
-                           Margin="0,0,5,0" />
-                    <TextBox x:Name="textBoxSongsPath"
-                             Text="{Binding Path=RootPath, Source={x:Static entities:Settings.CurrentSettings}}"
-                             Grid.Row="1"
-                             Grid.Column="1"
-                             IsReadOnly="True"
-                             Margin="0,2.5,0,2.5" />
-                    <Button x:Name="buttonDetectPath"
-                            Content="Detect Path"
-                            Margin="5, 2.5,0,2.5"
-                            Grid.Column="2"
-                            Grid.Row="1"
-                            Click="ButtonDetectPath_Click" />
+                        <Label Content="Root Path"
+                               VerticalContentAlignment="Center"
+                               Grid.Row="1"
+                               Margin="0,0,5,0" />
+                        <TextBox x:Name="textBoxSongsPath"
+                                 Text="{Binding Path=RootPath, Source={x:Static entities:Settings.CurrentSettings}}"
+                                 Grid.Row="1"
+                                 Grid.Column="1"
+                                 IsReadOnly="True"
+                                 Margin="0,2.5,0,2.5" />
+                        <Button x:Name="buttonDetectPath"
+                                Content="Detect Path"
+                                Margin="5, 2.5,0,2.5"
+                                Grid.Column="2"
+                                Grid.Row="1"
+                                Click="ButtonDetectPath_Click" />
 
-                    <Label Content="Theme"
-                           VerticalContentAlignment="Center"
-                           Grid.Row="2"
-                           Margin="0,0,5,0" />
-                    <ComboBox x:Name="comboBoxTheme"
-                              Grid.Row="2"
-                              Grid.Column="1"
-                              Margin="0,2.5,0,2.5"
-                              SelectedIndex="{Binding Path=Theme, Source={x:Static entities:Settings.CurrentSettings}}"
-                              SelectionChanged="ComboBoxThemeSettings_SelectionChanged" />
+                        <Label Content="Theme"
+                               VerticalContentAlignment="Center"
+                               Grid.Row="2"
+                               Margin="0,0,5,0" />
+                        <ComboBox x:Name="comboBoxTheme"
+                                  Grid.Row="2"
+                                  Grid.Column="1"
+                                  Margin="0,2.5,0,2.5"
+                                  SelectedIndex="{Binding Path=Theme, Source={x:Static entities:Settings.CurrentSettings}}"
+                                  SelectionChanged="ComboBoxThemeSettings_SelectionChanged" />
 
-                    <Label Content="Color"
-                           VerticalContentAlignment="Center"
-                           Grid.Row="3"
-                           Margin="0,0,5,0" />
-                    <ComboBox x:Name="comboBoxColor"
-                              Grid.Row="3"
-                              Grid.Column="1"
-                              Margin="0,2.5,0,0"
-                              SelectedIndex="{Binding Path=Color, Source={x:Static entities:Settings.CurrentSettings}}"
-                              SelectionChanged="ComboBoxThemeSettings_SelectionChanged" />
+                        <Label Content="Color"
+                               VerticalContentAlignment="Center"
+                               Grid.Row="3"
+                               Margin="0,0,5,0" />
+                        <ComboBox x:Name="comboBoxColor"
+                                  Grid.Row="3"
+                                  Grid.Column="1"
+                                  Margin="0,2.5,0,0"
+                                  SelectedIndex="{Binding Path=Color, Source={x:Static entities:Settings.CurrentSettings}}"
+                                  SelectionChanged="ComboBoxThemeSettings_SelectionChanged" />
 
-                    <Label Content="Check for updates"
-                           VerticalContentAlignment="Center"
-                           Grid.Row="4"
-                           Margin="0,0,5,0" />
-                    <mah:ToggleSwitch x:Name="toggleSwitchCheckForUpdates"
-                                      Grid.Row="4"
-                                      Grid.Column="1"
-                                      ToolTip="Check for updates"
-                                      ToolTipService.BetweenShowDelay="0"
-                                      ToolTipService.InitialShowDelay="0"
-                                      Margin="0,2.5,0,0"
-                                      IsOn="{Binding Path=CheckForUpdates, Source={x:Static entities:Settings.CurrentSettings}}" />
-                </Grid>
-            </GroupBox>
+                        <Label Content="Check for updates"
+                               VerticalContentAlignment="Center"
+                               Grid.Row="4"
+                               Margin="0,0,5,0" />
+                        <mah:ToggleSwitch x:Name="toggleSwitchCheckForUpdates"
+                                          Grid.Row="4"
+                                          Grid.Column="1"
+                                          ToolTip="Check for updates"
+                                          ToolTipService.BetweenShowDelay="0"
+                                          ToolTipService.InitialShowDelay="0"
+                                          Margin="0,2.5,0,0"
+                                          IsOn="{Binding Path=CheckForUpdates, Source={x:Static entities:Settings.CurrentSettings}}" />
+                    </Grid>
+                </GroupBox>
 
-            <GroupBox Header="BeatSaver"
-                      Grid.Row="1">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="400" />
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
+                <GroupBox Header="BeatSaver"
+                          Grid.Row="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="400" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
 
-                    <Label Content="One click installer"
-                           VerticalContentAlignment="Center"
-                           Margin="0,0,5,0" />
+                        <Label Content="One click installer"
+                               VerticalContentAlignment="Center"
+                               Margin="0,0,5,0" />
 
-                    <mah:ToggleSwitch x:Name="toggleSwitchOneClick"
-                                      Grid.Column="1"
-                                      Visibility="{Binding Path=IsRunningAsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                      IsOn="{Binding Path=BeatSaver.OneClickInstaller, Source={x:Static entities:Settings.CurrentSettings}}"
-                                      OnContent="Enabled"
-                                      OffContent="Disabled"
-                                      Toggled="ToggleSwitchOneClick_Toggled" />
-                    <Button x:Name="buttonRestartAsAdmin"
-                            Grid.Column="1"
-                            Content="Restart as administrator"
-                            HorizontalAlignment="Left"
-                            Visibility="{Binding Path=IsRunningAsAdmin, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
-                            Click="ButtonRestartAsAdmin_Click" />
-                </Grid>
-            </GroupBox>
-        </st:AutoGrid>
-    </Grid>
+                        <mah:ToggleSwitch x:Name="toggleSwitchOneClick"
+                                          Grid.Column="1"
+                                          Visibility="{Binding Path=IsRunningAsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                          IsOn="{Binding Path=BeatSaver.OneClickInstaller, Source={x:Static entities:Settings.CurrentSettings}}"
+                                          OnContent="Enabled"
+                                          OffContent="Disabled"
+                                          Toggled="ToggleSwitchOneClick_Toggled" />
+                        <Button x:Name="buttonRestartAsAdmin"
+                                Grid.Column="1"
+                                Content="Restart as administrator"
+                                HorizontalAlignment="Left"
+                                Visibility="{Binding Path=IsRunningAsAdmin, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+                                Click="ButtonRestartAsAdmin_Click" />
+                    </Grid>
+                </GroupBox>
+            </st:AutoGrid>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

@@ -170,5 +170,15 @@ namespace BeatManager.ViewModels
             await mainWindow.ShowMessageAsync("Beatmap Invalid", $"The current beatmap has the following errors:\n" +
                                                                  $"{errorsText}");
         }
+
+        public void OpenBigCover()
+        {
+            userControl.gridCoverImage.Visibility = Visibility.Visible;
+        }
+
+        public void CloseBigCover()
+        {
+            userControl.gridCoverImage.Visibility = Visibility.Hidden;
+        }
     }
 }

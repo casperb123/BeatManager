@@ -828,7 +828,6 @@
                         HorizontalAlignment="Center"
                         Background="Transparent"
                         BorderThickness="0"
-                        Foreground="White"
                         Width="42"
                         Height="42"
                         Cursor="Hand"

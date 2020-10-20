@@ -36,19 +36,6 @@
             <Setter Property="FontSize"
                     Value="15" />
         </Style>
-        <Style TargetType="Button"
-               BasedOn="{StaticResource MahApps.Styles.Button.Circle}">
-            <Setter Property="ToolTipService.BetweenShowDelay"
-                    Value="0" />
-            <Setter Property="ToolTipService.InitialShowDelay"
-                    Value="0" />
-            <Setter Property="Background"
-                    Value="Transparent" />
-            <Setter Property="BorderThickness"
-                    Value="0" />
-            <Setter Property="Cursor"
-                    Value="Hand" />
-        </Style>
 
         <Style x:Key="ToggleButtonDifficultySet"
                TargetType="ToggleButton"
@@ -341,6 +328,7 @@
                                 Height="35"
                                 Margin="0,10,0,0"
                                 ToolTip="Back"
+                                Style="{DynamicResource TransparentCircleButton}"
                                 Click="ButtonBack_Click">
                             <icons:PackIconMaterial Kind="ArrowLeft"
                                                     Width="18"
@@ -358,6 +346,7 @@
                                 Height="35"
                                 Margin="10,10,0,0"
                                 ToolTip="Beatmap invalid"
+                                Style="{DynamicResource TransparentCircleButton}"
                                 Visibility="{Binding Path=Beatmap.Errors, Converter={StaticResource NullToVisibilityConverter}}"
                                 Click="ButtonInvalid_Click">
                             <Button.Background>
@@ -553,6 +542,7 @@
                                     ToolTip="Delete the beatmap"
                                     Cursor="Hand"
                                     Foreground="#ff4040"
+                                    Style="{DynamicResource TransparentCircleButton}"
                                     Click="ButtonDeleteBeatmap_Click">
                                 <icons:PackIconMaterial Kind="DeleteForever"
                                                         Width="18"
@@ -562,6 +552,7 @@
                                     Width="35"
                                     Height="35"
                                     ToolTip="Refresh the data"
+                                    Style="{DynamicResource TransparentCircleButton}"
                                     Click="ButtonRefreshData_Click">
                                 <icons:PackIconMaterial Kind="Refresh"
                                                         Width="18"
@@ -571,6 +562,7 @@
                                     Width="35"
                                     Height="35"
                                     ToolTip="Open folder"
+                                    Style="{DynamicResource TransparentCircleButton}"
                                     Click="ButtonOpenFolder_Click">
                                 <icons:PackIconMaterial Kind="Folder"
                                                         Width="18"
@@ -580,6 +572,7 @@
                                     Width="35"
                                     Height="35"
                                     ToolTip="Preview beatmap"
+                                    Style="{DynamicResource TransparentCircleButton}"
                                     Visibility="{Binding Path=Beatmap.OnlineBeatmap, Converter={StaticResource NullToVisibilityConverter}}"
                                     Click="ButtonPreviewBeatmap_Click">
                                 <icons:PackIconMaterial Kind="Eye"
@@ -590,6 +583,7 @@
                                     Width="35"
                                     Height="35"
                                     ToolTip="Open on beatsaver"
+                                    Style="{DynamicResource TransparentCircleButton}"
                                     Visibility="{Binding Path=Beatmap.OnlineBeatmap, Converter={StaticResource NullToVisibilityConverter}}"
                                     Click="ButtonOpenOnBeatsaver_Click">
                                 <icons:PackIconMaterial Kind="Link"
@@ -826,12 +820,9 @@
                        Source="{Binding Path=Beatmap.CoverImagePath, Converter={StaticResource ImageSourceToBitmapConverter}}" />
                 <Button x:Name="buttonCloseCoverImage"
                         HorizontalAlignment="Center"
-                        Background="Transparent"
-                        BorderThickness="0"
                         Width="42"
                         Height="42"
-                        Cursor="Hand"
-                        Style="{DynamicResource MahApps.Styles.Button.Circle}">
+                        Style="{DynamicResource TransparentCircleButton}">
                     <Button.Triggers>
                         <EventTrigger RoutedEvent="Button.Click">
                             <BeginStoryboard>

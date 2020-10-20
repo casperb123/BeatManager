@@ -12,6 +12,32 @@
                 <!-- Theme setting -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            
+            <!-- Global Styles -->
+            <Style x:Key="TransparentCircleButton"
+                   TargetType="Button"
+                   BasedOn="{StaticResource MahApps.Styles.Button.Circle}">
+                <Setter Property="Background"
+                        Value="Transparent" />
+                <Setter Property="BorderThickness"
+                        Value="0" />
+                <Setter Property="ToolTipService.BetweenShowDelay"
+                        Value="0" />
+                <Setter Property="ToolTipService.InitialShowDelay"
+                        Value="0" />
+                <Setter Property="Cursor"
+                        Value="Hand" />
+            </Style>
+            <Style x:Key="CircleToggleButton"
+                   TargetType="ToggleButton"
+                   BasedOn="{StaticResource MahApps.Styles.ToggleButton.Circle}">
+                <Setter Property="ToolTipService.BetweenShowDelay"
+                        Value="0" />
+                <Setter Property="ToolTipService.InitialShowDelay"
+                        Value="0" />
+                <Setter Property="Cursor"
+                        Value="Hand" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

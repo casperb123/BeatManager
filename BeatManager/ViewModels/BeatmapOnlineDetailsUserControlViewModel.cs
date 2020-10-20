@@ -74,7 +74,7 @@ namespace BeatManager.ViewModels
             foreach (Characteristic characteristic in Beatmap.Metadata.Characteristics)
             {
                 RadioButton radioButton = XamlReader.Parse(XamlWriter.Save(userControl.radioButtonDifficultyTemplate)) as RadioButton;
-                radioButton.Style = userControl.Resources[$"ToggleButtonDifficultySet"] as Style;
+                radioButton.Style = App.Instance.Resources[$"ToggleButtonDifficultySet"] as Style;
 
                 radioButton.Content = characteristic.Name;
                 radioButton.ToolTip = characteristic.Name;

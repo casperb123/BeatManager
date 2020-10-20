@@ -89,7 +89,7 @@ namespace BeatManager.ViewModels
             foreach (LocalBeatmapDetails beatmapDetails in Beatmap.Details)
             {
                 RadioButton radioButton = XamlReader.Parse(XamlWriter.Save(userControl.radioButtonDifficultyTemplate)) as RadioButton;
-                radioButton.Style = userControl.Resources[$"ToggleButtonDifficultySet"] as Style;
+                radioButton.Style = App.Instance.Resources[$"ToggleButtonDifficultySet"] as Style;
 
                 radioButton.Content = beatmapDetails.CharacteristicName;
                 radioButton.ToolTip = beatmapDetails.CharacteristicName;
@@ -109,7 +109,7 @@ namespace BeatManager.ViewModels
             foreach (LocalBeatmapDetail beatmapDetail in BeatmapDetails.BeatmapDetails)
             {
                 RadioButton radioButton = XamlReader.Parse(XamlWriter.Save(userControl.radioButtonDifficultyTemplate)) as RadioButton;
-                radioButton.Style = userControl.Resources[$"ToggleButtonDifficulty{beatmapDetail.DifficultyBeatmap.Difficulty}"] as Style;
+                radioButton.Style = App.Instance.Resources[$"ToggleButtonDifficulty{beatmapDetail.DifficultyBeatmap.Difficulty}"] as Style;
                 string difficulty = beatmapDetail.DifficultyBeatmap.Difficulty;
 
                 if (difficulty == "ExpertPlus")

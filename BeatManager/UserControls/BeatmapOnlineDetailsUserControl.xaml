@@ -5,332 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             xmlns:converters="clr-namespace:BeatManager.Converters"
              xmlns:st="http://schemas.spicytaco.io/"
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="1088">
-    <UserControl.Resources>
-        <converters:ImageSourceToBitmapConverter x:Key="ImageSourceToBitmapConverter" />
-        <converters:BooleanToVisiblityConverter x:Key="BooleanToVisibilityConverter" />
-        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
-        <converters:DateTimeConverter x:Key="DateTimeConverter" />
-        <converters:FloatToPercentageConverter x:Key="FloatToPercentageConverter" />
-        <converters:AddCommasConverter x:Key="AddCommasConverter" />
-        <converters:TimeSpanToStringConverter x:Key="TimeSpanToStringConverter" />
-        <converters:InverseNullToVisibilityConverter x:Key="InverseNullToVisibilityConverter" />
-        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
-        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
-
-        <Style TargetType="TextBox"
-               BasedOn="{StaticResource MahApps.Styles.TextBox}">
-            <Setter Property="IsReadOnly"
-                    Value="True" />
-            <Setter Property="Background"
-                    Value="{x:Null}" />
-            <Setter Property="BorderThickness"
-                    Value="0" />
-            <Setter Property="FontSize"
-                    Value="15" />
-            <Setter Property="HorizontalAlignment"
-                    Value="Left" />
-        </Style>
-        <Style TargetType="Label"
-               BasedOn="{StaticResource MahApps.Styles.Label}">
-            <Setter Property="FontSize"
-                    Value="15" />
-        </Style>
-
-        <Style x:Key="ToggleButtonDifficultySet"
-               TargetType="ToggleButton"
-               BasedOn="{StaticResource MahApps.Styles.ToggleButton}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="RadioButton">
-                        <Border BorderBrush="{TemplateBinding BorderBrush}"
-                                Background="{TemplateBinding Background}"
-                                ToolTip="{TemplateBinding ToolTip}"
-                                Padding="4"
-                                BorderThickness="0">
-                            <ContentPresenter Content="{TemplateBinding Content}"
-                                              HorizontalAlignment="Center"
-                                              VerticalAlignment="Center" />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            
-            <Setter Property="FontSize"
-                    Value="14" />
-            <Setter Property="FontWeight"
-                    Value="Regular" />
-            <Setter Property="Cursor"
-                    Value="Hand" />
-            <Setter Property="ToolTipService.BetweenShowDelay"
-                    Value="0" />
-            <Setter Property="ToolTipService.InitialShowDelay"
-                    Value="0" />
-
-            <Style.Triggers>
-                <Trigger Property="IsChecked"
-                         Value="True">
-                    <Setter Property="Foreground"
-                            Value="White" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="ToggleButtonDifficultyEasy"
-               TargetType="ToggleButton"
-               BasedOn="{StaticResource MahApps.Styles.ToggleButton.Flat}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="RadioButton">
-                        <Border BorderBrush="{TemplateBinding BorderBrush}"
-                                Background="{TemplateBinding Background}"
-                                Padding="{TemplateBinding Padding}"
-                                ToolTip="{TemplateBinding ToolTip}">
-                            <ContentPresenter Content="{TemplateBinding Content}"
-                                              HorizontalAlignment="Center"
-                                              VerticalAlignment="Center" />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            
-            <Setter Property="Cursor"
-                    Value="Hand" />
-            <Setter Property="ToolTipService.BetweenShowDelay"
-                    Value="0" />
-            <Setter Property="ToolTipService.InitialShowDelay"
-                    Value="0" />
-
-            <Style.Triggers>
-                <Trigger Property="IsChecked"
-                         Value="True">
-                    <Setter Property="Background"
-                            Value="#3cb371" />
-                </Trigger>
-                <Trigger Property="IsChecked"
-                         Value="False">
-                    <Setter Property="Background"
-                            Value="#4d3cb371" />
-                    <Setter Property="Foreground"
-                            Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                </Trigger>
-                <Trigger Property="IsMouseOver"
-                         Value="True">
-                    <Setter Property="Background"
-                            Value="#3cb371" />
-                </Trigger>
-                <Trigger Property="IsPressed"
-                         Value="True">
-                    <Setter Property="Background"
-                            Value="#48c17e" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="ToggleButtonDifficultyNormal"
-               TargetType="{x:Type RadioButton}"
-               BasedOn="{StaticResource  MahApps.Styles.ToggleButton.Flat}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="RadioButton">
-                        <Border BorderBrush="{TemplateBinding BorderBrush}"
-                                Background="{TemplateBinding Background}"
-                                Padding="{TemplateBinding Padding}"
-                                ToolTip="{TemplateBinding ToolTip}">
-                            <ContentPresenter Content="{TemplateBinding Content}"
-                                              HorizontalAlignment="Center"
-                                              VerticalAlignment="Center" />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            
-            <Setter Property="Cursor"
-                    Value="Hand" />
-            <Setter Property="ToolTipService.BetweenShowDelay"
-                    Value="0" />
-            <Setter Property="ToolTipService.InitialShowDelay"
-                    Value="0" />
-
-            <Style.Triggers>
-                <Trigger Property="IsChecked"
-                         Value="True">
-                    <Setter Property="Background"
-                            Value="#59b0f4" />
-                </Trigger>
-                <Trigger Property="IsChecked"
-                         Value="False">
-                    <Setter Property="Background"
-                            Value="#4d59b0f4" />
-                    <Setter Property="Foreground"
-                            Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                </Trigger>
-                <Trigger Property="IsMouseOver"
-                         Value="True">
-                    <Setter Property="Background"
-                            Value="#59b0f4" />
-                </Trigger>
-                <Trigger Property="IsPressed"
-                         Value="True">
-                    <Setter Property="Background"
-                            Value="#69b7f5" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="ToggleButtonDifficultyHard"
-               TargetType="{x:Type RadioButton}"
-               BasedOn="{StaticResource  MahApps.Styles.ToggleButton.Flat}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="RadioButton">
-                        <Border BorderBrush="{TemplateBinding BorderBrush}"
-                                Background="{TemplateBinding Background}"
-                                Padding="{TemplateBinding Padding}"
-                                ToolTip="{TemplateBinding ToolTip}">
-                            <ContentPresenter Content="{TemplateBinding Content}"
-                                              HorizontalAlignment="Center"
-                                              VerticalAlignment="Center" />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            
-            <Setter Property="Cursor"
-                    Value="Hand" />
-            <Setter Property="ToolTipService.BetweenShowDelay"
-                    Value="0" />
-            <Setter Property="ToolTipService.InitialShowDelay"
-                    Value="0" />
-
-            <Style.Triggers>
-                <Trigger Property="IsChecked"
-                         Value="True">
-                    <Setter Property="Background"
-                            Value="#ff6347" />
-                </Trigger>
-                <Trigger Property="IsChecked"
-                         Value="False">
-                    <Setter Property="Background"
-                            Value="#4dff6347" />
-                    <Setter Property="Foreground"
-                            Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                </Trigger>
-                <Trigger Property="IsMouseOver"
-                         Value="True">
-                    <Setter Property="Background"
-                            Value="#ff6347" />
-                </Trigger>
-                <Trigger Property="IsPressed"
-                         Value="True">
-                    <Setter Property="Background"
-                            Value="#ff7259" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="ToggleButtonDifficultyExpert"
-               TargetType="{x:Type RadioButton}"
-               BasedOn="{StaticResource  MahApps.Styles.ToggleButton.Flat}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="RadioButton">
-                        <Border BorderBrush="{TemplateBinding BorderBrush}"
-                                Background="{TemplateBinding Background}"
-                                Padding="{TemplateBinding Padding}"
-                                ToolTip="{TemplateBinding ToolTip}">
-                            <ContentPresenter Content="{TemplateBinding Content}"
-                                              HorizontalAlignment="Center"
-                                              VerticalAlignment="Center" />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            
-            <Setter Property="Cursor"
-                    Value="Hand" />
-            <Setter Property="ToolTipService.BetweenShowDelay"
-                    Value="0" />
-            <Setter Property="ToolTipService.InitialShowDelay"
-                    Value="0" />
-
-            <Style.Triggers>
-                <Trigger Property="IsChecked"
-                         Value="True">
-                    <Setter Property="Background"
-                            Value="#bf2a42" />
-                </Trigger>
-                <Trigger Property="IsChecked"
-                         Value="False">
-                    <Setter Property="Background"
-                            Value="#4dbf2a42" />
-                    <Setter Property="Foreground"
-                            Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                </Trigger>
-                <Trigger Property="IsMouseOver"
-                         Value="True">
-                    <Setter Property="Background"
-                            Value="#bf2a42" />
-                </Trigger>
-                <Trigger Property="IsPressed"
-                         Value="True">
-                    <Setter Property="Background"
-                            Value="#d2324c" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="ToggleButtonDifficultyExpertPlus"
-               TargetType="{x:Type RadioButton}"
-               BasedOn="{StaticResource  MahApps.Styles.ToggleButton.Flat}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="RadioButton">
-                        <Border BorderBrush="{TemplateBinding BorderBrush}"
-                                Background="{TemplateBinding Background}"
-                                Padding="{TemplateBinding Padding}"
-                                ToolTip="{TemplateBinding ToolTip}">
-                            <ContentPresenter Content="{TemplateBinding Content}"
-                                              HorizontalAlignment="Center"
-                                              VerticalAlignment="Center" />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            
-            <Setter Property="Cursor"
-                    Value="Hand" />
-            <Setter Property="ToolTipService.BetweenShowDelay"
-                    Value="0" />
-            <Setter Property="ToolTipService.InitialShowDelay"
-                    Value="0" />
-
-            <Style.Triggers>
-                <Trigger Property="IsChecked"
-                         Value="True">
-                    <Setter Property="Background"
-                            Value="#8f48db" />
-                </Trigger>
-                <Trigger Property="IsChecked"
-                         Value="False">
-                    <Setter Property="Background"
-                            Value="#4d8f48db" />
-                    <Setter Property="Foreground"
-                            Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                </Trigger>
-                <Trigger Property="IsMouseOver"
-                         Value="True">
-                    <Setter Property="Background"
-                            Value="#8f48db" />
-                </Trigger>
-                <Trigger Property="IsPressed"
-                         Value="True">
-                    <Setter Property="Background"
-                            Value="#9a5ade" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </UserControl.Resources>
-
     <Grid>
         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                       VerticalScrollBarVisibility="Auto">
@@ -499,8 +177,8 @@
                                             Visibility="{Binding Path=Beatmap.Difficulties.Easy, Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <Label Content="Easy"
                                                Foreground="White"
-                                               FontSize="15"
-                                               Margin="5,0" />
+                                               Margin="5,0"
+                                               Style="{DynamicResource LabelDetails}" />
                                     </Border>
                                     <Border CornerRadius="15"
                                             Background="#59b0f4"
@@ -511,8 +189,8 @@
                                             Visibility="{Binding Path=Beatmap.Difficulties.Normal, Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <Label Content="Normal"
                                                Foreground="White"
-                                               FontSize="15"
-                                               Margin="5,0" />
+                                               Margin="5,0"
+                                               Style="{DynamicResource LabelDetails}" />
                                     </Border>
                                     <Border CornerRadius="15"
                                             Background="Tomato"
@@ -523,8 +201,8 @@
                                             Visibility="{Binding Path=Beatmap.Difficulties.Hard, Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <Label Content="Hard"
                                                Foreground="White"
-                                               FontSize="15"
-                                               Margin="5,0" />
+                                               Margin="5,0"
+                                               Style="{DynamicResource LabelDetails}" />
                                     </Border>
                                     <Border CornerRadius="15"
                                             Background="#bf2a42"
@@ -535,8 +213,8 @@
                                             Visibility="{Binding Path=Beatmap.Difficulties.Expert, Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <Label Content="Expert"
                                                Foreground="White"
-                                               FontSize="15"
-                                               Margin="5,0" />
+                                               Margin="5,0"
+                                               Style="{DynamicResource LabelDetails}" />
                                     </Border>
                                     <Border CornerRadius="15"
                                             Background="#8f48db"
@@ -547,8 +225,8 @@
                                             Visibility="{Binding Path=Beatmap.Difficulties.ExpertPlus, Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <Label Content="Expert+"
                                                Foreground="White"
-                                               FontSize="15"
-                                               Margin="5,0" />
+                                               Margin="5,0"
+                                               Style="{DynamicResource LabelDetails}" />
                                     </Border>
                                 </StackPanel>
                             </st:AutoGrid>
@@ -645,67 +323,93 @@
                                 <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
 
-                            <st:AutoGrid Columns="auto,1*"
+                            <st:AutoGrid Columns="auto,auto"
                                          Rows="auto,auto,auto,auto,auto,auto,auto"
                                          ChildMargin="2.5,0"
                                          Margin="0,0,2.5,0">
                                 <Label Content="Name"
-                                       HorizontalContentAlignment="Right" />
-                                <TextBox Text="{Binding Path=Beatmap.Metadata.SongName}" />
+                                       HorizontalContentAlignment="Right"
+                                       Style="{DynamicResource LabelDetails}" />
+                                <TextBox Text="{Binding Path=Beatmap.Metadata.SongName}"
+                                         Style="{DynamicResource TextBoxDetails}" />
 
                                 <Label Content="Subname"
-                                       HorizontalContentAlignment="Right" />
-                                <TextBox Text="{Binding Path=Beatmap.Metadata.SongSubName, TargetNullValue=-}" />
+                                       HorizontalContentAlignment="Right"
+                                       Style="{DynamicResource LabelDetails}" />
+                                <TextBox Text="{Binding Path=Beatmap.Metadata.SongSubName, TargetNullValue=-}"
+                                         Style="{DynamicResource TextBoxDetails}" />
 
                                 <Label Content="Artist"
-                                       HorizontalContentAlignment="Right" />
-                                <TextBox Text="{Binding Path=Beatmap.Metadata.SongAuthorName, TargetNullValue=-}" />
+                                       HorizontalContentAlignment="Right"
+                                       Style="{DynamicResource LabelDetails}" />
+                                <TextBox Text="{Binding Path=Beatmap.Metadata.SongAuthorName, TargetNullValue=-}"
+                                         Style="{DynamicResource TextBoxDetails}" />
 
                                 <Label Content="Mapper"
-                                       HorizontalContentAlignment="Right" />
-                                <TextBox Text="{Binding Path=Beatmap.Metadata.LevelAuthorName}" />
+                                       HorizontalContentAlignment="Right"
+                                       Style="{DynamicResource LabelDetails}" />
+                                <TextBox Text="{Binding Path=Beatmap.Metadata.LevelAuthorName}"
+                                         Style="{DynamicResource TextBoxDetails}" />
 
                                 <Label Content="Duration"
-                                       HorizontalContentAlignment="Right" />
-                                <Label Content="{Binding Path=Beatmap.Metadata.DurationTimeSpan, Converter={StaticResource TimeSpanToStringConverter}}" />
+                                       HorizontalContentAlignment="Right"
+                                       Style="{DynamicResource LabelDetails}" />
+                                <Label Content="{Binding Path=Beatmap.Metadata.DurationTimeSpan, Converter={StaticResource TimeSpanToStringConverter}}"
+                                       Style="{DynamicResource LabelDetails}" />
 
                                 <Label Content="BPM"
-                                       HorizontalContentAlignment="Right" />
-                                <Label Content="{Binding Path=Beatmap.Metadata.BeatsPerMinute}" />
+                                       HorizontalContentAlignment="Right"
+                                       Style="{DynamicResource LabelDetails}" />
+                                <Label Content="{Binding Path=Beatmap.Metadata.BeatsPerMinute}"
+                                       Style="{DynamicResource LabelDetails}" />
 
                                 <Label Content="Key"
-                                       HorizontalContentAlignment="Right" />
-                                <TextBox Text="{Binding Path=Beatmap.Key}" />
+                                       HorizontalContentAlignment="Right"
+                                       Style="{DynamicResource LabelDetails}" />
+                                <TextBox Text="{Binding Path=Beatmap.Key}"
+                                         Style="{DynamicResource TextBoxDetails}" />
                             </st:AutoGrid>
 
-                            <st:AutoGrid Columns="auto,1*"
+                            <st:AutoGrid Columns="auto,auto"
                                          Rows="auto,auto,auto,auto,auto,auto"
                                          ChildMargin="2.5,0"
                                          Grid.Column="1"
                                          Margin="2.5,0,0,0">
                                 <Label Content="Uploaded"
-                                       HorizontalContentAlignment="Right" />
-                                <Label Content="{Binding Path=Beatmap.Uploaded, Converter={StaticResource DateTimeConverter}}" />
+                                       HorizontalContentAlignment="Right"
+                                       Style="{DynamicResource LabelDetails}" />
+                                <Label Content="{Binding Path=Beatmap.Uploaded, Converter={StaticResource DateTimeConverter}}"
+                                       Style="{DynamicResource LabelDetails}" />
 
                                 <Label Content="Downloads"
-                                       HorizontalContentAlignment="Right" />
-                                <Label Content="{Binding Path=Beatmap.Stats.Downloads, Converter={StaticResource AddCommasConverter}}" />
+                                       HorizontalContentAlignment="Right"
+                                       Style="{DynamicResource LabelDetails}" />
+                                <Label Content="{Binding Path=Beatmap.Stats.Downloads, Converter={StaticResource AddCommasConverter}}"
+                                       Style="{DynamicResource LabelDetails}" />
 
                                 <Label Content="Plays"
-                                       HorizontalContentAlignment="Right" />
-                                <Label Content="{Binding Path=Beatmap.Stats.Plays, Converter={StaticResource AddCommasConverter}}" />
+                                       HorizontalContentAlignment="Right"
+                                       Style="{DynamicResource LabelDetails}" />
+                                <Label Content="{Binding Path=Beatmap.Stats.Plays, Converter={StaticResource AddCommasConverter}}"
+                                       Style="{DynamicResource LabelDetails}" />
 
                                 <Label Content="Up votes"
-                                       HorizontalContentAlignment="Right" />
-                                <Label Content="{Binding Path=Beatmap.Stats.UpVotes, Converter={StaticResource AddCommasConverter}}" />
+                                       HorizontalContentAlignment="Right"
+                                       Style="{DynamicResource LabelDetails}" />
+                                <Label Content="{Binding Path=Beatmap.Stats.UpVotes, Converter={StaticResource AddCommasConverter}}"
+                                       Style="{DynamicResource LabelDetails}" />
 
                                 <Label Content="Down votes"
-                                       HorizontalContentAlignment="Right" />
-                                <Label Content="{Binding Path=Beatmap.Stats.DownVotes, Converter={StaticResource AddCommasConverter}}" />
+                                       HorizontalContentAlignment="Right"
+                                       Style="{DynamicResource LabelDetails}" />
+                                <Label Content="{Binding Path=Beatmap.Stats.DownVotes, Converter={StaticResource AddCommasConverter}}"
+                                       Style="{DynamicResource LabelDetails}" />
 
                                 <Label Content="Rating"
-                                       HorizontalContentAlignment="Right" />
-                                <Label Content="{Binding Path=Beatmap.Stats.Rating, Converter={StaticResource FloatToPercentageConverter}}" />
+                                       HorizontalContentAlignment="Right"
+                                       Style="{DynamicResource LabelDetails}" />
+                                <Label Content="{Binding Path=Beatmap.Stats.Rating, Converter={StaticResource FloatToPercentageConverter}}"
+                                       Style="{DynamicResource LabelDetails}" />
                             </st:AutoGrid>
                         </Grid>
 
@@ -713,7 +417,8 @@
                                   IsExpanded="True"
                                   Margin="0,0,0,10">
                             <TextBox Text="{Binding Path=Beatmap.Description}"
-                                     TextWrapping="Wrap" />
+                                     TextWrapping="Wrap"
+                                     Style="{DynamicResource TextBoxDetails}" />
                         </Expander>
 
                         <GroupBox Header="Difficulties">
@@ -778,36 +483,50 @@
                                                  ChildMargin="2.5,0"
                                                  st:StackPanel.Fill="Fill">
                                         <Label Content="Notes"
-                                               HorizontalContentAlignment="Right" />
-                                        <Label Content="{Binding Path=Difficulty.Notes, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
+                                               HorizontalContentAlignment="Right"
+                                               Style="{DynamicResource LabelDetails}" />
+                                        <Label Content="{Binding Path=Difficulty.Notes, Mode=OneWay, Converter={StaticResource AddCommasConverter}}"
+                                               Style="{DynamicResource LabelDetails}" />
 
                                         <Label Content="Bombs"
-                                               HorizontalContentAlignment="Right" />
-                                        <Label Content="{Binding Path=Difficulty.Bombs, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
+                                               HorizontalContentAlignment="Right"
+                                               Style="{DynamicResource LabelDetails}" />
+                                        <Label Content="{Binding Path=Difficulty.Bombs, Mode=OneWay, Converter={StaticResource AddCommasConverter}}"
+                                               Style="{DynamicResource LabelDetails}" />
 
                                         <Label Content="Obstacles"
-                                               HorizontalContentAlignment="Right" />
-                                        <Label Content="{Binding Path=Difficulty.Obstacles, Mode=OneWay, Converter={StaticResource AddCommasConverter}}" />
+                                               HorizontalContentAlignment="Right"
+                                               Style="{DynamicResource LabelDetails}" />
+                                        <Label Content="{Binding Path=Difficulty.Obstacles, Mode=OneWay, Converter={StaticResource AddCommasConverter}}"
+                                               Style="{DynamicResource LabelDetails}" />
                                     </st:AutoGrid>
                                     <st:AutoGrid Columns="auto,1*"
                                                  Rows="auto,auto,auto,auto"
                                                  ChildMargin="2.5,0"
                                                  st:StackPanel.Fill="Fill">
                                         <Label Content="Note Movement Speed"
-                                               HorizontalContentAlignment="Right" />
-                                        <Label Content="{Binding Path=Difficulty.NoteJumpMovementSpeed, Converter={StaticResource AddCommasConverter}}" />
+                                               HorizontalContentAlignment="Right"
+                                               Style="{DynamicResource LabelDetails}" />
+                                        <Label Content="{Binding Path=Difficulty.NoteJumpMovementSpeed, Converter={StaticResource AddCommasConverter}}"
+                                               Style="{DynamicResource LabelDetails}" />
 
                                         <Label Content="Note Start Offset"
-                                               HorizontalContentAlignment="Right" />
-                                        <Label Content="{Binding Path=Difficulty.NoteJumpStartBeatOffset, Converter={StaticResource AddCommasConverter}}" />
+                                               HorizontalContentAlignment="Right"
+                                               Style="{DynamicResource LabelDetails}" />
+                                        <Label Content="{Binding Path=Difficulty.NoteJumpStartBeatOffset, Converter={StaticResource AddCommasConverter}}"
+                                               Style="{DynamicResource LabelDetails}" />
 
                                         <Label Content="Half Jump Duration"
-                                               HorizontalContentAlignment="Right" />
-                                        <Label Content="{Binding Path=Difficulty.HalfJumpDuration, Converter={StaticResource AddCommasConverter}}" />
+                                               HorizontalContentAlignment="Right"
+                                               Style="{DynamicResource LabelDetails}" />
+                                        <Label Content="{Binding Path=Difficulty.HalfJumpDuration, Converter={StaticResource AddCommasConverter}}"
+                                               Style="{DynamicResource LabelDetails}" />
 
                                         <Label Content="Jump Distance"
-                                               HorizontalContentAlignment="Right" />
-                                        <Label Content="{Binding Path=Difficulty.JumpDistance, Converter={StaticResource AddCommasConverter}}" />
+                                               HorizontalContentAlignment="Right"
+                                               Style="{DynamicResource LabelDetails}" />
+                                        <Label Content="{Binding Path=Difficulty.JumpDistance, Converter={StaticResource AddCommasConverter}}"
+                                               Style="{DynamicResource LabelDetails}" />
                                     </st:AutoGrid>
                                 </st:StackPanel>
                             </st:AutoGrid>

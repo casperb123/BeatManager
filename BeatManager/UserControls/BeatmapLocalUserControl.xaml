@@ -3,24 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:converters="clr-namespace:BeatManager.Converters"
              xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:st="http://schemas.spicytaco.io/"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
-    <UserControl.Resources>
-        <converters:BooleanToVisiblityConverter x:Key="BooleanToVisibilityConverter" />
-        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
-        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
-        <converters:ImageSourceToBitmapConverter x:Key="ImageSourceToBitmapConverter" />
-        <converters:NullToBooleanConverter x:Key="NullToBooleanConverter" />
-        <converters:AddCommasConverter x:Key="AddCommasConverter" />
-        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
-        <converters:InverseNullToVisibilityConverter x:Key="InverseNullToVisibilityConverter" />
-    </UserControl.Resources>
-
     <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                   VerticalScrollBarVisibility="Auto">
         <Grid Margin="30,5"

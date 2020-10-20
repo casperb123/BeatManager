@@ -16,6 +16,7 @@ namespace BeatManager
     /// </summary>
     public partial class App : Application
     {
+        public static App Instance { get; private set; }
         public static BeatSaverApi BeatSaverApi { get; private set; }
         public static List<SupportedMod> SupportedMods { get; private set; }
 
@@ -51,6 +52,7 @@ namespace BeatManager
                 }
             }
 
+            Instance = this;
             SupportedMods = new List<SupportedMod>();
 
             string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);

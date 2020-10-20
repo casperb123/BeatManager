@@ -18,18 +18,6 @@
                  MouseDown="MetroWindow_MouseDown">
     <mah:MetroWindow.Resources>
         <converters:BadgeConverter x:Key="BadgeConverter" />
-
-        <Style TargetType="RadioButton"
-               BasedOn="{StaticResource MahApps.Styles.ToggleButton.Circle}">
-            <Setter Property="ToolTipService.BetweenShowDelay"
-                    Value="0" />
-            <Setter Property="ToolTipService.InitialShowDelay"
-                    Value="0" />
-            <Setter Property="GroupName"
-                    Value="NavigationButtons" />
-            <Setter Property="Cursor"
-                    Value="Hand" />
-        </Style>
     </mah:MetroWindow.Resources>
 
     <mah:MetroWindow.RightWindowCommands>
@@ -60,6 +48,8 @@
                                  Width="40"
                                  Height="40"
                                  ToolTip="Home"
+                                 GroupName="NavigationButtons"
+                                 Style="{DynamicResource CircleToggleButton}"
                                  Checked="RadioButtonHome_Checked">
                         <icons:PackIconFontAwesome Kind="HomeSolid"
                                                    Width="20"
@@ -70,6 +60,8 @@
                                  Width="40"
                                  Height="40"
                                  ToolTip="Beatmaps"
+                                 GroupName="NavigationButtons"
+                                 Style="{DynamicResource CircleToggleButton}"
                                  Checked="RadioButtonBeatmaps_Checked">
                         <icons:PackIconMaterial Kind="PlaylistMusic"
                                                 Width="20"
@@ -85,6 +77,8 @@
                                      Width="40"
                                      Height="40"
                                      ToolTip="Downloads"
+                                     GroupName="NavigationButtons"
+                                     Style="{DynamicResource CircleToggleButton}"
                                      Checked="RadioButtonDownloads_Checked">
                             <icons:PackIconMaterialDesign Kind="CloudDownload"
                                                           Width="20"
@@ -97,6 +91,8 @@
                                  Width="40"
                                  Height="40"
                                  ToolTip="Settings"
+                                 GroupName="NavigationButtons"
+                                 Style="{DynamicResource CircleToggleButton}"
                                  Checked="RadioButtonSettings_Checked">
                         <icons:PackIconMaterialDesign Kind="Settings"
                                                       Width="20"

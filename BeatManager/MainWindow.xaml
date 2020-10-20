@@ -119,7 +119,6 @@
         </StackPanel>
 
         <UserControl x:Name="userControlMain"
-                     MaxWidth="1400"
                      Grid.Column="1" />
 
         <Rectangle x:Name="rectangleLoading"

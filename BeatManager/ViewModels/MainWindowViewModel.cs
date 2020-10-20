@@ -322,6 +322,7 @@ namespace BeatManager.ViewModels
                 }
 
                 MainWindow.userControlMain.Content = OnlineUserControl;
+                OnlineDetailsUserControl.ViewModel.CloseBigCover();
             }
         }
 

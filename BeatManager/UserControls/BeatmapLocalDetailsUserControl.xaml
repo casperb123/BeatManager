@@ -296,23 +296,21 @@
             <Grid>
                 <Grid VerticalAlignment="Top"
                       Height="300">
-                    <Rectangle Height="290"
-                               VerticalAlignment="Top">
+                    <Rectangle Margin="0,-5,0,10">
                         <Rectangle.Fill>
                             <ImageBrush ImageSource="{Binding Path=Beatmap.CoverImagePath, Converter={StaticResource ImageSourceToBitmapConverter}}"
                                         Stretch="UniformToFill" />
                         </Rectangle.Fill>
                         <Rectangle.Effect>
-                            <BlurEffect Radius="10" />
+                            <BlurEffect Radius="12" />
                         </Rectangle.Effect>
                     </Rectangle>
-
                     <Grid>
                         <Grid.Background>
                             <LinearGradientBrush StartPoint="0,0"
                                                  EndPoint="0,1">
                                 <LinearGradientBrush.GradientStops>
-                                    <GradientStop Color="#55000000" />
+                                    <GradientStop Color="#00000000" />
                                     <GradientStop Color="{DynamicResource MahApps.Colors.ThemeBackground}"
                                                   Offset="1" />
                                 </LinearGradientBrush.GradientStops>
@@ -321,7 +319,8 @@
                     </Grid>
                 </Grid>
 
-                <StackPanel Margin="30,5">
+                <StackPanel Margin="30,5"
+                            MaxWidth="1350">
                     <StackPanel Orientation="Horizontal"
                                 Margin="0,0,0,30">
                         <Button x:Name="buttonBack"
@@ -458,16 +457,16 @@
                                          VerticalAlignment="Center"
                                          Grid.Column="1">
                                 <TextBlock TextWrapping="WrapWithOverflow">
-                            <Run Text="{Binding Path=Beatmap.SongName}"
-                                    FontSize="35" />
-                            <Run Text=" " />
-                            <Run Text="{Binding Path=Beatmap.SongSubName}"
-                                    FontSize="25">
-                                <Run.Foreground>
-                                    <SolidColorBrush Color="{DynamicResource MahApps.Colors.ThemeForeground}"
-                                                     Opacity=".5" />
-                                </Run.Foreground>
-                            </Run>
+                                    <Run Text="{Binding Path=Beatmap.SongName}"
+                                            FontSize="35" />
+                                    <Run Text=" " />
+                                    <Run Text="{Binding Path=Beatmap.SongSubName}"
+                                         FontSize="25">
+                                        <Run.Foreground>
+                                            <SolidColorBrush Color="{DynamicResource MahApps.Colors.ThemeForeground}"
+                                                             Opacity=".5" />
+                                        </Run.Foreground>
+                                    </Run>
                                 </TextBlock>
 
                                 <TextBlock Text="{Binding Path=Beatmap.LevelAuthorName}"

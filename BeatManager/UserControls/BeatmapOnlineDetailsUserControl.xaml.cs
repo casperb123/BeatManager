@@ -1,4 +1,5 @@
 ﻿using BeatManager.ViewModels;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -76,6 +77,16 @@ namespace BeatManager.UserControls
         private void RadioButtonExpertPlusDifficulty_Checked(object sender, RoutedEventArgs e)
         {
             ViewModel.Difficulty = ViewModel.Characteristic.Difficulties.ExpertPlus;
+        }
+
+        private void ButtonBigCover_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.OpenBigCover();
+        }
+
+        private void DoubleAnimation_CloseCover(object sender, EventArgs e)
+        {
+            ViewModel.CloseBigCover();
         }
     }
 }

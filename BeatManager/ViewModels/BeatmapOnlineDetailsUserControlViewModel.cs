@@ -138,5 +138,16 @@ namespace BeatManager.ViewModels
                 Verb = "open"
             });
         }
+
+        public void OpenBigCover()
+        {
+            userControl.gridCoverImage.Visibility = Visibility.Visible;
+        }
+
+        public void CloseBigCover()
+        {
+            userControl.gridCoverImage.Visibility = Visibility.Hidden;
+            userControl.gridCoverImage.Opacity = 0;
+        }
     }
 }

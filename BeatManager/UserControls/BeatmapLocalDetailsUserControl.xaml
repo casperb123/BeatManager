@@ -36,6 +36,19 @@
             <Setter Property="FontSize"
                     Value="15" />
         </Style>
+        <Style TargetType="Button"
+               BasedOn="{StaticResource MahApps.Styles.Button.Circle}">
+            <Setter Property="ToolTipService.BetweenShowDelay"
+                    Value="0" />
+            <Setter Property="ToolTipService.InitialShowDelay"
+                    Value="0" />
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Setter Property="BorderThickness"
+                    Value="0" />
+            <Setter Property="Cursor"
+                    Value="Hand" />
+        </Style>
 
         <Style x:Key="ToggleButtonDifficultySet"
                TargetType="ToggleButton"
@@ -302,7 +315,7 @@
                                         Stretch="UniformToFill" />
                         </Rectangle.Fill>
                         <Rectangle.Effect>
-                            <BlurEffect Radius="12" />
+                            <BlurEffect Radius="10" />
                         </Rectangle.Effect>
                     </Rectangle>
                     <Grid>
@@ -324,17 +337,14 @@
                     <StackPanel Orientation="Horizontal"
                                 Margin="0,0,0,30">
                         <Button x:Name="buttonBack"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                 Width="35"
                                 Height="35"
                                 Margin="0,10,0,0"
-                                Cursor="Hand"
+                                ToolTip="Back"
                                 Click="ButtonBack_Click">
                             <icons:PackIconMaterial Kind="ArrowLeft"
-                                                    Width="20"
-                                                    Height="20" />
+                                                    Width="18"
+                                                    Height="18" />
                         </Button>
 
                         <Label x:Name="labelTitle"
@@ -344,14 +354,10 @@
 
                         <Button x:Name="buttonInvalid"
                                 BorderThickness="0"
-                                Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                 Width="35"
                                 Height="35"
                                 Margin="10,10,0,0"
                                 ToolTip="Beatmap invalid"
-                                ToolTipService.BetweenShowDelay="0"
-                                ToolTipService.InitialShowDelay="0"
-                                Cursor="Hand"
                                 Visibility="{Binding Path=Beatmap.Errors, Converter={StaticResource NullToVisibilityConverter}}"
                                 Click="ButtonInvalid_Click">
                             <Button.Background>
@@ -359,8 +365,8 @@
                                                  Opacity=".2" />
                             </Button.Background>
                             <icons:PackIconMaterial Kind="ExclamationThick"
-                                                    Width="20"
-                                                    Height="20"
+                                                    Width="18"
+                                                    Height="18"
                                                     Foreground="Red" />
                         </Button>
                     </StackPanel>
@@ -458,7 +464,7 @@
                                          Grid.Column="1">
                                 <TextBlock TextWrapping="WrapWithOverflow">
                                     <Run Text="{Binding Path=Beatmap.SongName}"
-                                            FontSize="35" />
+                                         FontSize="35" />
                                     <Run Text=" " />
                                     <Run Text="{Binding Path=Beatmap.SongSubName}"
                                          FontSize="25">
@@ -540,83 +546,55 @@
 
                         <st:StackPanel Orientation="Horizontal"
                                        Margin="0,0,0,20"
-                                       MarginBetweenChildren="5">
+                                       MarginBetweenChildren="2">
                             <Button x:Name="buttonDeleteBeatmap"
-                                    Background="Transparent"
-                                    BorderThickness="0"
-                                    Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                     Width="35"
                                     Height="35"
                                     ToolTip="Delete the beatmap"
-                                    ToolTipService.BetweenShowDelay="0"
-                                    ToolTipService.InitialShowDelay="0"
                                     Cursor="Hand"
+                                    Foreground="#ff4040"
                                     Click="ButtonDeleteBeatmap_Click">
                                 <icons:PackIconMaterial Kind="DeleteForever"
-                                                        Width="20"
-                                                        Height="20" />
+                                                        Width="18"
+                                                        Height="18" />
                             </Button>
                             <Button x:Name="buttonRefreshData"
-                                    Background="Transparent"
-                                    BorderThickness="0"
-                                    Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                     Width="35"
                                     Height="35"
                                     ToolTip="Refresh the data"
-                                    ToolTipService.BetweenShowDelay="0"
-                                    ToolTipService.InitialShowDelay="0"
-                                    Cursor="Hand"
                                     Click="ButtonRefreshData_Click">
                                 <icons:PackIconMaterial Kind="Refresh"
-                                                        Width="20"
-                                                        Height="20" />
+                                                        Width="18"
+                                                        Height="18" />
                             </Button>
                             <Button x:Name="buttonOpenFolder"
-                                    Background="Transparent"
-                                    BorderThickness="0"
-                                    Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                     Width="35"
                                     Height="35"
                                     ToolTip="Open folder"
-                                    ToolTipService.BetweenShowDelay="0"
-                                    ToolTipService.InitialShowDelay="0"
-                                    Cursor="Hand"
                                     Click="ButtonOpenFolder_Click">
                                 <icons:PackIconMaterial Kind="Folder"
-                                                        Width="20"
-                                                        Height="20" />
+                                                        Width="18"
+                                                        Height="18" />
                             </Button>
                             <Button x:Name="buttonPreviewBeatmap"
-                                    Background="Transparent"
-                                    BorderThickness="0"
-                                    Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                     Width="35"
                                     Height="35"
                                     ToolTip="Preview beatmap"
-                                    ToolTipService.BetweenShowDelay="0"
-                                    ToolTipService.InitialShowDelay="0"
-                                    Cursor="Hand"
                                     Visibility="{Binding Path=Beatmap.OnlineBeatmap, Converter={StaticResource NullToVisibilityConverter}}"
                                     Click="ButtonPreviewBeatmap_Click">
                                 <icons:PackIconMaterial Kind="Eye"
-                                                        Width="20"
-                                                        Height="20" />
+                                                        Width="18"
+                                                        Height="18" />
                             </Button>
                             <Button x:Name="buttonOpenOnBeatsaver"
-                                    Background="Transparent"
-                                    BorderThickness="0"
-                                    Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                     Width="35"
                                     Height="35"
                                     ToolTip="Open on beatsaver"
-                                    ToolTipService.BetweenShowDelay="0"
-                                    ToolTipService.InitialShowDelay="0"
-                                    Cursor="Hand"
                                     Visibility="{Binding Path=Beatmap.OnlineBeatmap, Converter={StaticResource NullToVisibilityConverter}}"
                                     Click="ButtonOpenOnBeatsaver_Click">
                                 <icons:PackIconMaterial Kind="Link"
-                                                        Width="20"
-                                                        Height="20" />
+                                                        Width="18"
+                                                        Height="18" />
                             </Button>
                         </st:StackPanel>
 

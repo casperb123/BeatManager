@@ -18,6 +18,18 @@
                  MouseDown="MetroWindow_MouseDown">
     <mah:MetroWindow.Resources>
         <converters:BadgeConverter x:Key="BadgeConverter" />
+
+        <Style TargetType="RadioButton"
+               BasedOn="{StaticResource MahApps.Styles.ToggleButton.Circle}">
+            <Setter Property="ToolTipService.BetweenShowDelay"
+                    Value="0" />
+            <Setter Property="ToolTipService.InitialShowDelay"
+                    Value="0" />
+            <Setter Property="GroupName"
+                    Value="NavigationButtons" />
+            <Setter Property="Cursor"
+                    Value="Hand" />
+        </Style>
     </mah:MetroWindow.Resources>
 
     <mah:MetroWindow.RightWindowCommands>
@@ -48,11 +60,6 @@
                                  Width="40"
                                  Height="40"
                                  ToolTip="Home"
-                                 ToolTipService.BetweenShowDelay="0"
-                                 ToolTipService.InitialShowDelay="0"
-                                 Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
-                                 GroupName="NavigationButtons"
-                                 Cursor="Hand"
                                  Checked="RadioButtonHome_Checked">
                         <icons:PackIconFontAwesome Kind="HomeSolid"
                                                    Width="20"
@@ -63,11 +70,6 @@
                                  Width="40"
                                  Height="40"
                                  ToolTip="Beatmaps"
-                                 ToolTipService.BetweenShowDelay="0"
-                                 ToolTipService.InitialShowDelay="0"
-                                 Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
-                                 GroupName="NavigationButtons"
-                                 Cursor="Hand"
                                  Checked="RadioButtonBeatmaps_Checked">
                         <icons:PackIconMaterial Kind="PlaylistMusic"
                                                 Width="20"
@@ -83,11 +85,6 @@
                                      Width="40"
                                      Height="40"
                                      ToolTip="Downloads"
-                                     ToolTipService.BetweenShowDelay="0"
-                                     ToolTipService.InitialShowDelay="0"
-                                     Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
-                                     GroupName="NavigationButtons"
-                                     Cursor="Hand"
                                      Checked="RadioButtonDownloads_Checked">
                             <icons:PackIconMaterialDesign Kind="CloudDownload"
                                                           Width="20"
@@ -100,11 +97,6 @@
                                  Width="40"
                                  Height="40"
                                  ToolTip="Settings"
-                                 ToolTipService.BetweenShowDelay="0"
-                                 ToolTipService.InitialShowDelay="0"
-                                 Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
-                                 GroupName="NavigationButtons"
-                                 Cursor="Hand"
                                  Checked="RadioButtonSettings_Checked">
                         <icons:PackIconMaterialDesign Kind="Settings"
                                                       Width="20"

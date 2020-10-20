@@ -40,6 +40,19 @@
             <Setter Property="FontSize"
                     Value="15" />
         </Style>
+        <Style TargetType="Button"
+               BasedOn="{StaticResource MahApps.Styles.Button.Circle}">
+            <Setter Property="ToolTipService.BetweenShowDelay"
+                    Value="0" />
+            <Setter Property="ToolTipService.InitialShowDelay"
+                    Value="0" />
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Setter Property="BorderThickness"
+                    Value="0" />
+            <Setter Property="Cursor"
+                    Value="Hand" />
+        </Style>
 
         <Style x:Key="ToggleButtonDifficultySet"
                TargetType="ToggleButton"
@@ -49,6 +62,7 @@
                     <ControlTemplate TargetType="RadioButton">
                         <Border BorderBrush="{TemplateBinding BorderBrush}"
                                 Background="{TemplateBinding Background}"
+                                ToolTip="{TemplateBinding ToolTip}"
                                 Padding="4"
                                 BorderThickness="0">
                             <ContentPresenter Content="{TemplateBinding Content}"
@@ -58,12 +72,18 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            
             <Setter Property="FontSize"
                     Value="14" />
             <Setter Property="FontWeight"
                     Value="Regular" />
             <Setter Property="Cursor"
                     Value="Hand" />
+            <Setter Property="ToolTipService.BetweenShowDelay"
+                    Value="0" />
+            <Setter Property="ToolTipService.InitialShowDelay"
+                    Value="0" />
+
             <Style.Triggers>
                 <Trigger Property="IsChecked"
                          Value="True">
@@ -80,7 +100,8 @@
                     <ControlTemplate TargetType="RadioButton">
                         <Border BorderBrush="{TemplateBinding BorderBrush}"
                                 Background="{TemplateBinding Background}"
-                                Padding="{TemplateBinding Padding}">
+                                Padding="{TemplateBinding Padding}"
+                                ToolTip="{TemplateBinding ToolTip}">
                             <ContentPresenter Content="{TemplateBinding Content}"
                                               HorizontalAlignment="Center"
                                               VerticalAlignment="Center" />
@@ -88,8 +109,13 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            
             <Setter Property="Cursor"
                     Value="Hand" />
+            <Setter Property="ToolTipService.BetweenShowDelay"
+                    Value="0" />
+            <Setter Property="ToolTipService.InitialShowDelay"
+                    Value="0" />
 
             <Style.Triggers>
                 <Trigger Property="IsChecked"
@@ -124,7 +150,8 @@
                     <ControlTemplate TargetType="RadioButton">
                         <Border BorderBrush="{TemplateBinding BorderBrush}"
                                 Background="{TemplateBinding Background}"
-                                Padding="{TemplateBinding Padding}">
+                                Padding="{TemplateBinding Padding}"
+                                ToolTip="{TemplateBinding ToolTip}">
                             <ContentPresenter Content="{TemplateBinding Content}"
                                               HorizontalAlignment="Center"
                                               VerticalAlignment="Center" />
@@ -132,8 +159,13 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            
             <Setter Property="Cursor"
                     Value="Hand" />
+            <Setter Property="ToolTipService.BetweenShowDelay"
+                    Value="0" />
+            <Setter Property="ToolTipService.InitialShowDelay"
+                    Value="0" />
 
             <Style.Triggers>
                 <Trigger Property="IsChecked"
@@ -168,7 +200,8 @@
                     <ControlTemplate TargetType="RadioButton">
                         <Border BorderBrush="{TemplateBinding BorderBrush}"
                                 Background="{TemplateBinding Background}"
-                                Padding="{TemplateBinding Padding}">
+                                Padding="{TemplateBinding Padding}"
+                                ToolTip="{TemplateBinding ToolTip}">
                             <ContentPresenter Content="{TemplateBinding Content}"
                                               HorizontalAlignment="Center"
                                               VerticalAlignment="Center" />
@@ -176,8 +209,13 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            
             <Setter Property="Cursor"
                     Value="Hand" />
+            <Setter Property="ToolTipService.BetweenShowDelay"
+                    Value="0" />
+            <Setter Property="ToolTipService.InitialShowDelay"
+                    Value="0" />
 
             <Style.Triggers>
                 <Trigger Property="IsChecked"
@@ -212,7 +250,8 @@
                     <ControlTemplate TargetType="RadioButton">
                         <Border BorderBrush="{TemplateBinding BorderBrush}"
                                 Background="{TemplateBinding Background}"
-                                Padding="{TemplateBinding Padding}">
+                                Padding="{TemplateBinding Padding}"
+                                ToolTip="{TemplateBinding ToolTip}">
                             <ContentPresenter Content="{TemplateBinding Content}"
                                               HorizontalAlignment="Center"
                                               VerticalAlignment="Center" />
@@ -220,8 +259,13 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            
             <Setter Property="Cursor"
                     Value="Hand" />
+            <Setter Property="ToolTipService.BetweenShowDelay"
+                    Value="0" />
+            <Setter Property="ToolTipService.InitialShowDelay"
+                    Value="0" />
 
             <Style.Triggers>
                 <Trigger Property="IsChecked"
@@ -256,7 +300,8 @@
                     <ControlTemplate TargetType="RadioButton">
                         <Border BorderBrush="{TemplateBinding BorderBrush}"
                                 Background="{TemplateBinding Background}"
-                                Padding="{TemplateBinding Padding}">
+                                Padding="{TemplateBinding Padding}"
+                                ToolTip="{TemplateBinding ToolTip}">
                             <ContentPresenter Content="{TemplateBinding Content}"
                                               HorizontalAlignment="Center"
                                               VerticalAlignment="Center" />
@@ -264,8 +309,13 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            
             <Setter Property="Cursor"
                     Value="Hand" />
+            <Setter Property="ToolTipService.BetweenShowDelay"
+                    Value="0" />
+            <Setter Property="ToolTipService.InitialShowDelay"
+                    Value="0" />
 
             <Style.Triggers>
                 <Trigger Property="IsChecked"
@@ -306,7 +356,7 @@
                                         Stretch="UniformToFill" />
                         </Rectangle.Fill>
                         <Rectangle.Effect>
-                            <BlurEffect Radius="12" />
+                            <BlurEffect Radius="10" />
                         </Rectangle.Effect>
                     </Rectangle>
                     <Grid>
@@ -328,17 +378,14 @@
                     <StackPanel Orientation="Horizontal"
                                 Margin="0,0,0,30">
                         <Button x:Name="buttonBack"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                 Width="35"
                                 Height="35"
                                 Margin="0,5,0,0"
-                                Cursor="Hand"
+                                ToolTip="Back"
                                 Click="ButtonBack_Click">
                             <icons:PackIconMaterial Kind="ArrowLeft"
-                                                    Width="20"
-                                                    Height="20" />
+                                                    Width="18"
+                                                    Height="18" />
                         </Button>
 
                         <Label Content="Beatmap Information"
@@ -519,121 +566,84 @@
                             </st:AutoGrid>
                         </Grid>
 
-                        <StackPanel Orientation="Horizontal"
-                                    Margin="0,0,0,20">
+                        <st:StackPanel Orientation="Horizontal"
+                                       Margin="0,0,0,20"
+                                       MarginBetweenChildren="2">
                             <Grid>
                                 <Grid Visibility="{Binding Path=Beatmap.IsDownloading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
                                     <Button x:Name="buttonDownloadBeatmap"
                                             Tag="{Binding Path=Beatmap.Key}"
                                             ToolTip="Download song"
-                                            ToolTipService.BetweenShowDelay="0"
-                                            ToolTipService.InitialShowDelay="0"
-                                            Background="Transparent"
-                                            BorderThickness="0"
-                                            Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                             Width="35"
                                             Height="35"
-                                            Cursor="Hand"
+                                            Foreground="#2ec92e"
                                             Visibility="{Binding Path=Beatmap.IsDownloaded, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
                                             IsEnabled="{Binding Path=Beatmap.IsDownloaded, Converter={StaticResource InverseBooleanConverter}}"
                                             Click="ButtonDownloadBeatmap_Click">
                                         <icons:PackIconMaterial Kind="Download"
-                                                                Width="20"
-                                                                Height="20" />
+                                                                Width="18"
+                                                                Height="18" />
                                     </Button>
                                     <Button x:Name="buttonDeleteBeatmap"
                                             Tag="{Binding Path=Beatmap.Key}"
                                             ToolTip="Delete song"
-                                            ToolTipService.BetweenShowDelay="0"
-                                            ToolTipService.InitialShowDelay="0"
-                                            Background="Transparent"
-                                            BorderThickness="0"
-                                            Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                             Width="35"
                                             Height="35"
-                                            Cursor="Hand"
+                                            Foreground="#ff4040"
                                             Visibility="{Binding Path=Beatmap.IsDownloaded, Converter={StaticResource BooleanToVisibilityConverter}}"
                                             IsEnabled="{Binding Path=Beatmap.IsDownloaded}"
                                             Click="ButtonDeleteBeatmap_Click">
                                         <icons:PackIconMaterial Kind="DeleteForever"
-                                                                Width="20"
-                                                                Height="20" />
+                                                                Width="18"
+                                                                Height="18" />
                                     </Button>
                                 </Grid>
                                 <Grid Width="35"
                                       Height="35">
-                                    <mah:ProgressRing Width="20"
-                                                      Height="20"
+                                    <mah:ProgressRing Width="18"
+                                                      Height="18"
                                                       IsActive="{Binding Path=Beatmap.IsDownloading}"
                                                       IsEnabled="{Binding Path=Beatmap.IsDownloading}" />
                                 </Grid>
                             </Grid>
                             <Button x:Name="buttonRefreshData"
-                                    Background="Transparent"
-                                    BorderThickness="0"
-                                    Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                     Width="35"
                                     Height="35"
                                     ToolTip="Refresh the data"
-                                    ToolTipService.BetweenShowDelay="0"
-                                    ToolTipService.InitialShowDelay="0"
-                                    Margin="2.5,0,2.5,0"
-                                    Cursor="Hand"
                                     Click="ButtonRefreshData_Click">
                                 <icons:PackIconMaterial Kind="Refresh"
-                                                        Width="20"
-                                                        Height="20" />
+                                                        Width="18"
+                                                        Height="18" />
                             </Button>
                             <Button x:Name="buttonOpenFolder"
-                                    Background="Transparent"
-                                    BorderThickness="0"
-                                    Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                     Width="35"
                                     Height="35"
                                     ToolTip="Open folder"
-                                    ToolTipService.BetweenShowDelay="0"
-                                    ToolTipService.InitialShowDelay="0"
-                                    Margin="2.5,0,2.5,0"
-                                    Cursor="Hand"
                                     Visibility="{Binding Path=Beatmap.IsDownloaded, Converter={StaticResource BooleanToVisibilityConverter}}"
                                     Click="ButtonOpenFolder_Click">
                                 <icons:PackIconMaterial Kind="Folder"
-                                                        Width="20"
-                                                        Height="20" />
+                                                        Width="18"
+                                                        Height="18" />
                             </Button>
                             <Button x:Name="buttonPreviewBeatmap"
-                                    Background="Transparent"
-                                    BorderThickness="0"
-                                    Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                     Width="35"
                                     Height="35"
                                     ToolTip="Preview beatmap"
-                                    ToolTipService.BetweenShowDelay="0"
-                                    ToolTipService.InitialShowDelay="0"
-                                    Margin="2.5,0,2.5,0"
-                                    Cursor="Hand"
                                     Click="ButtonPreviewBeatmap_Click">
                                 <icons:PackIconMaterial Kind="Eye"
-                                                        Width="20"
-                                                        Height="20" />
+                                                        Width="18"
+                                                        Height="18" />
                             </Button>
                             <Button x:Name="buttonOpenOnBeatsaver"
-                                    Background="Transparent"
-                                    BorderThickness="0"
-                                    Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                     Width="35"
                                     Height="35"
                                     ToolTip="Open on beatsaver"
-                                    ToolTipService.BetweenShowDelay="0"
-                                    ToolTipService.InitialShowDelay="0"
-                                    Margin="2.5,0,0,0"
-                                    Cursor="Hand"
                                     Click="ButtonOpenOnBeatsaver_Click">
                                 <icons:PackIconMaterial Kind="Link"
-                                                        Width="20"
-                                                        Height="20" />
+                                                        Width="18"
+                                                        Height="18" />
                             </Button>
-                        </StackPanel>
+                        </st:StackPanel>
 
                         <Grid Margin="0,0,0,30">
                             <Grid.ColumnDefinitions>
@@ -731,6 +741,7 @@
                                                  Content="Easy"
                                                  Visibility="{Binding Path=Characteristic.Difficulties.Easy, Converter={StaticResource NullToVisibilityConverter}}"
                                                  Style="{DynamicResource ToggleButtonDifficultyEasy}"
+                                                 ToolTip="Easy"
                                                  Checked="RadioButtonEasyDifficulty_Checked" />
                                     <RadioButton x:Name="radioButtonNormalDifficulty"
                                                  st:StackPanel.Fill="Fill"
@@ -738,6 +749,7 @@
                                                  Content="Normal"
                                                  Visibility="{Binding Path=Characteristic.Difficulties.Normal, Converter={StaticResource NullToVisibilityConverter}}"
                                                  Style="{DynamicResource ToggleButtonDifficultyNormal}"
+                                                 ToolTip="Normal"
                                                  Checked="RadioButtonNormalDifficulty_Checked" />
                                     <RadioButton x:Name="radioButtonHardDifficulty"
                                                  st:StackPanel.Fill="Fill"
@@ -745,6 +757,7 @@
                                                  Content="Hard"
                                                  Visibility="{Binding Path=Characteristic.Difficulties.Hard, Converter={StaticResource NullToVisibilityConverter}}"
                                                  Style="{DynamicResource ToggleButtonDifficultyHard}"
+                                                 ToolTip="Hard"
                                                  Checked="RadioButtonHardDifficulty_Checked" />
                                     <RadioButton x:Name="radioButtonExpertDifficulty"
                                                  st:StackPanel.Fill="Fill"
@@ -752,6 +765,7 @@
                                                  Content="Expert"
                                                  Visibility="{Binding Path=Characteristic.Difficulties.Expert, Converter={StaticResource NullToVisibilityConverter}}"
                                                  Style="{DynamicResource ToggleButtonDifficultyExpert}"
+                                                 ToolTip="Expert"
                                                  Checked="RadioButtonExpertDifficulty_Checked" />
                                     <RadioButton x:Name="radioButtonExpertPlusDifficulty"
                                                  st:StackPanel.Fill="Fill"
@@ -759,6 +773,7 @@
                                                  Content="Expert+"
                                                  Visibility="{Binding Path=Characteristic.Difficulties.ExpertPlus, Converter={StaticResource NullToVisibilityConverter}}"
                                                  Style="{DynamicResource ToggleButtonDifficultyExpertPlus}"
+                                                 ToolTip="Expert+"
                                                  Checked="RadioButtonExpertPlusDifficulty_Checked" />
                                 </st:StackPanel>
 

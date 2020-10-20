@@ -92,6 +92,7 @@ namespace BeatManager.ViewModels
                 radioButton.Style = userControl.Resources[$"ToggleButtonDifficultySet"] as Style;
 
                 radioButton.Content = beatmapDetails.CharacteristicName;
+                radioButton.ToolTip = beatmapDetails.CharacteristicName;
                 radioButton.Visibility = Visibility.Visible;
                 radioButton.Checked += (s, e) => BeatmapDetails = beatmapDetails;
 
@@ -109,12 +110,17 @@ namespace BeatManager.ViewModels
             {
                 RadioButton radioButton = XamlReader.Parse(XamlWriter.Save(userControl.radioButtonDifficultyTemplate)) as RadioButton;
                 radioButton.Style = userControl.Resources[$"ToggleButtonDifficulty{beatmapDetail.DifficultyBeatmap.Difficulty}"] as Style;
+                string difficulty = beatmapDetail.DifficultyBeatmap.Difficulty;
 
-                if (beatmapDetail.DifficultyBeatmap.Difficulty == "ExpertPlus")
-                    radioButton.Content = "Expert+";
+                if (difficulty == "ExpertPlus")
+                    difficulty = "Expert+";
+
+                if (string.IsNullOrWhiteSpace(beatmapDetail.DifficultyBeatmap.CustomData.DifficultyLabel))
+                    radioButton.Content = difficulty;
                 else
-                    radioButton.Content = beatmapDetail.DifficultyBeatmap.Difficulty;
+                    radioButton.Content = beatmapDetail.DifficultyBeatmap.CustomData.DifficultyLabel;
 
+                radioButton.ToolTip = difficulty;
                 radioButton.Visibility = Visibility.Visible;
                 radioButton.Checked += (s, e) => BeatmapDetail = beatmapDetail;
 

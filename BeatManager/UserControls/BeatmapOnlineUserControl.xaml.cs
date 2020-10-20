@@ -178,5 +178,18 @@ namespace BeatManager.UserControls
         {
             ViewModel.DeleteSongs(ViewModel.SelectedSongs.Where(x => x.IsDownloaded).ToList());
         }
+
+        private void ButtonReloadData_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(ViewModel.CurrentSearchQuery) &&
+                (ViewModel.CurrentMapSort == MapSort.Search ||
+                ViewModel.CurrentMapSort == MapSort.SearchKey ||
+                ViewModel.CurrentMapSort == MapSort.SearchHash))
+            {
+                ViewModel.GetBeatmaps(ViewModel.CurrentSearchQuery, ViewModel.OnlineBeatmaps.CurrentPage);
+            }
+            else
+                ViewModel.GetBeatmaps(ViewModel.CurrentMapSort, ViewModel.OnlineBeatmaps.CurrentPage);
+        }
     }
 }

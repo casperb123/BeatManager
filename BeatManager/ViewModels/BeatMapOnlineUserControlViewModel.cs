@@ -51,6 +51,9 @@ namespace BeatManager.ViewModels
                 OnPropertyChanged(nameof(SearchWatermark));
             }
         }
+
+        public string CurrentSearchQuery { get; private set; }
+
         public List<OnlineBeatmap> SelectedSongs { get; set; }
         public int SelectedSongsToDeleteCount
         {
@@ -197,6 +200,7 @@ namespace BeatManager.ViewModels
                 userControl.radioButtonSearch.IsChecked = true;
             }
 
+            CurrentSearchQuery = query;
             GetBeatmaps(query);
         }
 

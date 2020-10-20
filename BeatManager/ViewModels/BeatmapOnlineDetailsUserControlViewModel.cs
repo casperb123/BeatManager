@@ -77,6 +77,7 @@ namespace BeatManager.ViewModels
                 radioButton.Style = userControl.Resources[$"ToggleButtonDifficultySet"] as Style;
 
                 radioButton.Content = characteristic.Name;
+                radioButton.ToolTip = characteristic.Name;
                 radioButton.Visibility = Visibility.Visible;
                 radioButton.Checked += (s, e) => Characteristic = characteristic;
 

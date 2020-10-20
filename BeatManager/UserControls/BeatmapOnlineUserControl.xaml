@@ -407,12 +407,13 @@
                                                 Width="30"
                                                 Height="30"
                                                 Cursor="Hand"
+                                                Foreground="#2ec92e"
                                                 Visibility="{Binding Path=IsDownloaded, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
                                                 IsEnabled="{Binding Path=IsDownloaded, Converter={StaticResource InverseBooleanConverter}}"
                                                 Click="Map_Download">
-                                            <icons:PackIconMaterial Kind="DownloadCircle"
-                                                                    Width="20"
-                                                                    Height="20" />
+                                            <icons:PackIconMaterial Kind="Download"
+                                                                    Width="13"
+                                                                    Height="13" />
                                         </Button>
                                         <Button Tag="{Binding Path=Key}"
                                                 ToolTip="Delete song"
@@ -424,12 +425,13 @@
                                                 Width="30"
                                                 Height="30"
                                                 Cursor="Hand"
+                                                Foreground="#ff4040"
                                                 Visibility="{Binding Path=IsDownloaded, Converter={StaticResource BooleanToVisibilityConverter}}"
                                                 IsEnabled="{Binding Path=IsDownloaded}"
                                                 Click="Map_Delete">
-                                            <icons:PackIconMaterial Kind="DeleteCircle"
-                                                                    Width="20"
-                                                                    Height="20" />
+                                            <icons:PackIconMaterial Kind="DeleteForever"
+                                                                    Width="13"
+                                                                    Height="13" />
                                         </Button>
                                     </Grid>
                                     <Grid Width="30"
@@ -452,9 +454,9 @@
                                             Height="30"
                                             Cursor="Hand"
                                             Click="Map_Details">
-                                        <icons:PackIconMaterial Kind="ArrowRightCircle"
-                                                                Width="20"
-                                                                Height="20" />
+                                        <icons:PackIconMaterial Kind="ArrowRight"
+                                                                Width="13"
+                                                                Height="13" />
                                     </Button>
                                 </Grid>
                             </DataTemplate>
@@ -468,6 +470,22 @@
                         HorizontalAlignment="Right"
                         Grid.Row="3"
                         Grid.ColumnSpan="2">
+                <Button x:Name="buttonReloadData"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                        Width="30"
+                        Height="30"
+                        Cursor="Hand"
+                        ToolTip="Reload Beatmaps"
+                        ToolTipService.BetweenShowDelay="0"
+                        ToolTipService.InitialShowDelay="0"
+                        Click="ButtonReloadData_Click">
+                    <icons:PackIconMaterial Kind="Refresh"
+                                            Width="13"
+                                            Height="13" />
+                </Button>
+                
                 <Label VerticalContentAlignment="Center">
                     <Label.Content>
                         <TextBlock>
@@ -484,8 +502,8 @@
                 </Label>
 
                 <Button x:Name="buttonFirstPage"
-                        Width="35"
-                        Height="35"
+                        Width="30"
+                        Height="30"
                         Background="Transparent"
                         BorderThickness="0"
                         ToolTip="First page"
@@ -495,13 +513,13 @@
                         Cursor="Hand"
                         Style="{DynamicResource MahApps.Styles.Button.Circle}"
                         Click="ButtonFirstPage_Click">
-                    <icons:PackIconFontAwesome Kind="ArrowAltCircleLeftSolid"
-                                               Width="25"
-                                               Height="25" />
+                    <icons:PackIconMaterial Kind="ArrowLeftBold"
+                                            Width="13"
+                                            Height="13" />
                 </Button>
                 <Button x:Name="buttonPreviousPage"
-                        Width="35"
-                        Height="35"
+                        Width="30"
+                        Height="30"
                         Background="Transparent"
                         BorderThickness="0"
                         ToolTip="Previous page"
@@ -511,13 +529,13 @@
                         Cursor="Hand"
                         Style="{DynamicResource MahApps.Styles.Button.Circle}"
                         Click="ButtonPreviousPage_Click">
-                    <icons:PackIconFontAwesome Kind="ArrowAltCircleLeftRegular"
-                                               Width="25"
-                                               Height="25" />
+                    <icons:PackIconMaterial Kind="ArrowLeft"
+                                            Width="13"
+                                            Height="13" />
                 </Button>
                 <Button x:Name="buttonNextPage"
-                        Width="35"
-                        Height="35"
+                        Width="30"
+                        Height="30"
                         Background="Transparent"
                         BorderThickness="0"
                         ToolTip="Next page"
@@ -527,13 +545,13 @@
                         Cursor="Hand"
                         Style="{DynamicResource MahApps.Styles.Button.Circle}"
                         Click="ButtonNextPage_Click">
-                    <icons:PackIconFontAwesome Kind="ArrowAltCircleRightRegular"
-                                               Width="25"
-                                               Height="25" />
+                    <icons:PackIconMaterial Kind="ArrowRight"
+                                            Width="13"
+                                            Height="13" />
                 </Button>
                 <Button x:Name="buttonLastPage"
-                        Width="35"
-                        Height="35"
+                        Width="30"
+                        Height="30"
                         Background="Transparent"
                         BorderThickness="0"
                         ToolTip="Last page"
@@ -543,9 +561,9 @@
                         Cursor="Hand"
                         Style="{DynamicResource MahApps.Styles.Button.Circle}"
                         Click="ButtonLastPage_Click">
-                    <icons:PackIconFontAwesome Kind="ArrowAltCircleRightSolid"
-                                               Width="25"
-                                               Height="25" />
+                    <icons:PackIconMaterial Kind="ArrowRightBold"
+                                            Width="13"
+                                            Height="13" />
                 </Button>
             </StackPanel>
         </Grid>

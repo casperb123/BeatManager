@@ -25,81 +25,85 @@
                    Grid.ColumnSpan="2"
                    Margin="0,0,0,30" />
 
-            <st:StackPanel Orientation="Horizontal"
-                           MarginBetweenChildren="10"
+            <st:StackPanel MarginBetweenChildren="5"
                            Grid.Row="1">
-                <st:StackPanel x:Name="stackPanelOptions"
-                               Orientation="Horizontal"
-                               MarginBetweenChildren="5"
-                               st:StackPanel.Fill="Fill">
-                    <st:StackPanel>
-                        <Label Content="Sort"
-                               HorizontalContentAlignment="Center" />
-                        <ComboBox x:Name="comboBoxSort"
-                                  Style="{DynamicResource CustomComboBox}"
-                                  ItemsSource="{Binding Path=SortTypes, Mode=OneWay}"
-                                  SelectedItem="{Binding Path=CurrentSort}" />
-                    </st:StackPanel>
-                    <st:StackPanel>
-                        <Label Content="Sort Direction"
-                               HorizontalContentAlignment="Center" />
-                        <ComboBox x:Name="comboBoxSortDirection"
-                                  Style="{DynamicResource CustomComboBox}"
-                                  ItemsSource="{Binding Path=SortDirectionTypes, Mode=OneWay}"
-                                  SelectedItem="{Binding Path=CurrentSortDirection}" />
+                <st:StackPanel Orientation="Horizontal"
+                               MarginBetweenChildren="10">
+                    <st:StackPanel x:Name="stackPanelOptions"
+                                   Orientation="Horizontal"
+                                   MarginBetweenChildren="5"
+                                   st:StackPanel.Fill="Fill">
+                        <st:StackPanel>
+                            <Label Content="Sort"
+                                   HorizontalContentAlignment="Center" />
+                            <ComboBox x:Name="comboBoxSort"
+                                      Style="{DynamicResource CustomComboBox}"
+                                      ItemsSource="{Binding Path=SortTypes, Mode=OneWay}"
+                                      SelectedItem="{Binding Path=CurrentSort}" />
+                        </st:StackPanel>
+                        <st:StackPanel>
+                            <Label Content="Sort Direction"
+                                   HorizontalContentAlignment="Center" />
+                            <ComboBox x:Name="comboBoxSortDirection"
+                                      Style="{DynamicResource CustomComboBox}"
+                                      ItemsSource="{Binding Path=SortDirectionTypes, Mode=OneWay}"
+                                      SelectedItem="{Binding Path=CurrentSortDirection}" />
+                        </st:StackPanel>
+
+                        <st:StackPanel st:StackPanel.Fill="Fill">
+                            <Label Content="Author"
+                                   HorizontalContentAlignment="Center" />
+                            <TextBox x:Name="textBoxFilterAuthor"
+                                     mah:TextBoxHelper.Watermark="Author"
+                                     Text="{Binding Path=FilterAuthor.Text}" />
+                        </st:StackPanel>
+                        <st:StackPanel st:StackPanel.Fill="Fill">
+                            <Label Content="Name"
+                                   HorizontalContentAlignment="Center" />
+                            <TextBox x:Name="textBoxFilterName"
+                                     mah:TextBoxHelper.Watermark="Name"
+                                     Text="{Binding Path=FilterName.Text}" />
+                        </st:StackPanel>
+                        <st:StackPanel st:StackPanel.Fill="Fill">
+                            <Label Content="Tag"
+                                   HorizontalContentAlignment="Center" />
+                            <TextBox x:Name="textBoxFilterTag"
+                                     mah:TextBoxHelper.Watermark="Tag"
+                                     Text="{Binding Path=FilterTag.Text}" />
+                        </st:StackPanel>
+                        <st:StackPanel st:StackPanel.Fill="Fill">
+                            <Label Content="Hash"
+                                   HorizontalContentAlignment="Center" />
+                            <TextBox x:Name="textBoxFilterHash"
+                                     mah:TextBoxHelper.Watermark="Hash"
+                                     Text="{Binding Path=FilterHash.Text}" />
+                        </st:StackPanel>
+                        <st:StackPanel st:StackPanel.Fill="Fill">
+                            <Label Content="Discord ID"
+                                   HorizontalContentAlignment="Center" />
+                            <TextBox x:Name="textBoxFilterDiscordId"
+                                     mah:TextBoxHelper.Watermark="Discord ID"
+                                     Text="{Binding Path=FilterDiscordId.Text}" />
+                        </st:StackPanel>
+                        <st:StackPanel st:StackPanel.Fill="Fill">
+                            <Label Content="ID"
+                                   HorizontalContentAlignment="Center" />
+                            <TextBox x:Name="textBoxFilterId"
+                                     mah:TextBoxHelper.Watermark="Id"
+                                     Text="{Binding Path=FilterId.Text}" />
+                        </st:StackPanel>
                     </st:StackPanel>
 
-                    <st:StackPanel st:StackPanel.Fill="Fill">
-                        <Label Content="Author"
-                               HorizontalContentAlignment="Center" />
-                        <TextBox x:Name="textBoxFilterAuthor"
-                                 mah:TextBoxHelper.Watermark="Author"
-                                 Text="{Binding Path=FilterAuthor.Text}" />
-                    </st:StackPanel>
-                    <st:StackPanel st:StackPanel.Fill="Fill">
-                        <Label Content="Name"
-                               HorizontalContentAlignment="Center" />
-                        <TextBox x:Name="textBoxFilterName"
-                                 mah:TextBoxHelper.Watermark="Name"
-                                 Text="{Binding Path=FilterName.Text}" />
-                    </st:StackPanel>
-                    <st:StackPanel st:StackPanel.Fill="Fill">
-                        <Label Content="Tag"
-                               HorizontalContentAlignment="Center" />
-                        <TextBox x:Name="textBoxFilterTag"
-                                 mah:TextBoxHelper.Watermark="Tag"
-                                 Text="{Binding Path=FilterTag.Text}" />
-                    </st:StackPanel>
-                    <st:StackPanel st:StackPanel.Fill="Fill">
-                        <Label Content="Hash"
-                               HorizontalContentAlignment="Center" />
-                        <TextBox x:Name="textBoxFilterHash"
-                                 mah:TextBoxHelper.Watermark="Hash"
-                                 Text="{Binding Path=FilterHash.Text}" />
-                    </st:StackPanel>
-                    <st:StackPanel st:StackPanel.Fill="Fill">
-                        <Label Content="Discord ID"
-                               HorizontalContentAlignment="Center" />
-                        <TextBox x:Name="textBoxFilterDiscordId"
-                                 mah:TextBoxHelper.Watermark="Discord ID"
-                                 Text="{Binding Path=FilterDiscordId.Text}" />
-                    </st:StackPanel>
-                    <st:StackPanel st:StackPanel.Fill="Fill">
-                        <Label Content="ID"
-                               HorizontalContentAlignment="Center" />
-                        <TextBox x:Name="textBoxFilterId"
-                                 mah:TextBoxHelper.Watermark="Id"
-                                 Text="{Binding Path=FilterId.Text}" />
-                    </st:StackPanel>
+                    <Button x:Name="buttonSearch"
+                            Grid.Column="1"
+                            Width="35"
+                            Cursor="Hand"
+                            VerticalAlignment="Bottom">
+                        <icons:PackIconFontAwesome Kind="SearchSolid" />
+                    </Button>
                 </st:StackPanel>
-
-                <Button x:Name="buttonSearch"
-                        Grid.Column="1"
-                        Width="35"
-                        Cursor="Hand"
-                        VerticalAlignment="Bottom">
-                    <icons:PackIconFontAwesome Kind="SearchSolid" />
-                </Button>
+                
+                
             </st:StackPanel>
 
             <DataGrid x:Name="dataGridModels"

@@ -27,6 +27,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\BeatSaver\BeatSaver\BeatSaver.csproj" />
     <ProjectReference Include="..\..\GitHubUpdater\GitHubUpdater\GitHubUpdater.csproj" />
+    <ProjectReference Include="..\..\ModelSaber\ModelSaber\ModelSaber.csproj" />
     <ProjectReference Include="..\BeatManager.Entities\BeatManager.Entities.csproj" />
   </ItemGroup>
 

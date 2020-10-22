@@ -80,13 +80,29 @@ namespace BeatManager
             userControlNavigation.Content = ViewModel.NavigationBeatmapsUserControl;
 
             if (ViewModel.NavigationBeatmapsUserControl.ViewModel.LocalPage)
-                ViewModel.ShowLocalPage();
+                ViewModel.ShowLocalBeatmapsPage();
             else if (ViewModel.NavigationBeatmapsUserControl.ViewModel.OnlinePage)
-                ViewModel.ShowOnlinePage();
+                ViewModel.ShowOnlineBeatmapsPage();
             else
             {
                 ViewModel.NavigationBeatmapsUserControl.ViewModel.LocalPage = true;
-                ViewModel.ShowLocalPage();
+                ViewModel.ShowLocalBeatmapsPage();
+            }
+        }
+
+        private void RadioButtonSabers_Checked(object sender, RoutedEventArgs e)
+        {
+            userControlNavigation.Content = ViewModel.NavigationSabersUserControl;
+
+            if (ViewModel.NavigationSabersUserControl.ViewModel.LocalPage)
+            {
+                // show local sabers page
+            }
+            else if (ViewModel.NavigationSabersUserControl.ViewModel.OnlinePage)
+                ViewModel.ShowOnlineSabersPage();
+            else
+            {
+                // show local sabers page
             }
         }
 
@@ -102,8 +118,8 @@ namespace BeatManager
 
         private async void MetroWindow_Closing(object sender, CancelEventArgs e)
         {
-            if (ViewModel.OnlineUserControl.ViewModel.OnlineBeatmaps != null &&
-                ViewModel.OnlineUserControl.ViewModel.OnlineBeatmaps.Maps.Any(x => x.IsDownloading))
+            if (ViewModel.BeatmapOnlineUserControl.ViewModel.OnlineBeatmaps != null &&
+                ViewModel.BeatmapOnlineUserControl.ViewModel.OnlineBeatmaps.Maps.Any(x => x.IsDownloading))
             {
                 e.Cancel = true;
                 await this.ShowMessageAsync("Song(s) downloading", "You can't close the application while a song is downloading");
@@ -165,10 +181,10 @@ namespace BeatManager
         {
             if (e.ChangedButton == MouseButton.XButton1)
             {
-                if (userControlMain.Content == ViewModel.LocalDetailsUserControl)
-                    ViewModel.LocalDetailsUserControl.ViewModel.Back();
-                else if (userControlMain.Content == ViewModel.OnlineDetailsUserControl)
-                    ViewModel.OnlineDetailsUserControl.ViewModel.Back();
+                if (userControlMain.Content == ViewModel.BeatmapLocalDetailsUserControl)
+                    ViewModel.BeatmapLocalDetailsUserControl.ViewModel.Back();
+                else if (userControlMain.Content == ViewModel.BeatmapOnlineDetailsUserControl)
+                    ViewModel.BeatmapOnlineDetailsUserControl.ViewModel.Back();
             }
         }
     }

@@ -7,7 +7,7 @@ namespace BeatManager.Entities.ModelSaber
 {
     public class Filter : INotifyPropertyChanged
     {
-        private string type;
+        private FilterType type;
         private string text;
 
         public string Text
@@ -20,7 +20,7 @@ namespace BeatManager.Entities.ModelSaber
             }
         }
 
-        public string Type
+        public FilterType Type
         {
             get { return type; }
             set
@@ -30,9 +30,10 @@ namespace BeatManager.Entities.ModelSaber
             }
         }
 
-        public Filter(string type)
+        public Filter(FilterType type, string text)
         {
             Type = type;
+            Text = text;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

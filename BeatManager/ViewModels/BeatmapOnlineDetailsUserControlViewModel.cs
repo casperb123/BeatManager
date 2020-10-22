@@ -63,8 +63,8 @@ namespace BeatManager.ViewModels
 
         public void Back()
         {
-            mainWindow.ViewModel.ShowOnlineDetails = false;
-            mainWindow.userControlMain.Content = mainWindow.ViewModel.OnlineUserControl;
+            mainWindow.ViewModel.ShowOnlineBeatmapDetails = false;
+            mainWindow.userControlMain.Content = mainWindow.ViewModel.BeatmapOnlineUserControl;
         }
 
         private void CreateDifficultySets()
@@ -97,17 +97,17 @@ namespace BeatManager.ViewModels
 
         public void DownloadSong()
         {
-            mainWindow.ViewModel.OnlineUserControl.ViewModel.DownloadSong(Beatmap.Key);
+            mainWindow.ViewModel.BeatmapOnlineUserControl.ViewModel.DownloadSong(Beatmap.Key);
         }
 
         public void DeleteSong()
         {
-            mainWindow.ViewModel.OnlineUserControl.ViewModel.DeleteSong(Beatmap.Key);
+            mainWindow.ViewModel.BeatmapOnlineUserControl.ViewModel.DeleteSong(Beatmap.Key);
         }
 
         public void RefreshData()
         {
-            mainWindow.ViewModel.OnlineUserControl.ViewModel.BeatmapDetails(Beatmap.Key, false);
+            mainWindow.ViewModel.BeatmapOnlineUserControl.ViewModel.BeatmapDetails(Beatmap.Key, false);
         }
 
         public void OpenFolder()

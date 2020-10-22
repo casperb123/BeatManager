@@ -9,7 +9,7 @@ namespace BeatManager.UserControls.Navigation
     /// </summary>
     public partial class NavigationBeatmapsUserControl : UserControl
     {
-        public NavigationBeatmapsUserControlViewModel ViewModel;
+        public readonly NavigationBeatmapsUserControlViewModel ViewModel;
 
         public NavigationBeatmapsUserControl()
         {

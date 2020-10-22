@@ -77,8 +77,8 @@ namespace BeatManager.ViewModels
 
         public void Back()
         {
-            mainWindow.ViewModel.ShowLocalDetails = false;
-            mainWindow.userControlMain.Content = mainWindow.ViewModel.LocalUserControl;
+            mainWindow.ViewModel.ShowLocalBeatmapDetails = false;
+            mainWindow.userControlMain.Content = mainWindow.ViewModel.BeatmapLocalUserControl;
             CloseBigCover();
         }
 
@@ -132,13 +132,13 @@ namespace BeatManager.ViewModels
 
         public void DeleteSong()
         {
-            mainWindow.ViewModel.LocalUserControl.ViewModel.DeleteSong(Beatmap.Identifier);
-            mainWindow.userControlMain.Content = mainWindow.ViewModel.LocalUserControl;
+            mainWindow.ViewModel.BeatmapLocalUserControl.ViewModel.DeleteSong(Beatmap.Identifier);
+            mainWindow.userControlMain.Content = mainWindow.ViewModel.BeatmapLocalUserControl;
         }
 
         public void RefreshData()
         {
-            mainWindow.ViewModel.LocalUserControl.ViewModel.BeatmapDetails(Beatmap.Identifier, false);
+            mainWindow.ViewModel.BeatmapLocalUserControl.ViewModel.BeatmapDetails(Beatmap.Identifier, false);
         }
 
         public void OpenFolder()

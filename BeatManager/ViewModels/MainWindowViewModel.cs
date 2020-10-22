@@ -22,22 +22,28 @@ namespace BeatManager.ViewModels
 
         public readonly MainWindow MainWindow;
         public readonly MainWindowViewModel ViewModel;
-        public readonly BeatmapLocalUserControl LocalUserControl;
-        public readonly BeatmapOnlineUserControl OnlineUserControl;
+        public readonly BeatmapLocalUserControl BeatmapLocalUserControl;
+        public readonly BeatmapOnlineUserControl BeatmapOnlineUserControl;
         public readonly SettingsUserControl SettingsUserControl;
-        public readonly BeatmapLocalDetailsUserControl LocalDetailsUserControl;
-        public readonly BeatmapOnlineDetailsUserControl OnlineDetailsUserControl;
+        public readonly BeatmapLocalDetailsUserControl BeatmapLocalDetailsUserControl;
+        public readonly BeatmapOnlineDetailsUserControl BeatmapOnlineDetailsUserControl;
+        public readonly SaberOnlineUserControl SaberOnlineUserControl;
         public readonly NavigationBeatmapsUserControl NavigationBeatmapsUserControl;
+        public readonly NavigationSabersUserControl NavigationSabersUserControl;
         public readonly DownloadsUserControl DownloadsUserControl;
 
-        public bool ShowLocalDetails;
-        public bool ShowOnlineDetails;
+        public bool ShowLocalBeatmapDetails;
+        public bool ShowOnlineBeatmapDetails;
+        public bool ShowLocalSaberDetails;
+        public bool ShowOnlineSaberDetails;
         public bool UpdateAvailable;
         public bool UpdateDownloaded;
         public readonly Updater Updater;
         public bool IsLoaded;
-        public bool OnlineSongChanged;
-        public bool LocalSongChanged;
+        public bool OnlineBeatmapChanged;
+        public bool LocalBeatmapChanged;
+        public bool OnlineSaberChanged;
+        public bool LocalSaberChanged;
 
         public int Downloads
         {
@@ -60,16 +66,21 @@ namespace BeatManager.ViewModels
         public MainWindowViewModel(MainWindow mainWindow)
         {
             MainWindow = mainWindow;
-            LocalUserControl = new BeatmapLocalUserControl(mainWindow);
-            OnlineUserControl = new BeatmapOnlineUserControl(mainWindow);
+            BeatmapLocalUserControl = new BeatmapLocalUserControl(mainWindow);
+            BeatmapOnlineUserControl = new BeatmapOnlineUserControl(mainWindow);
             SettingsUserControl = new SettingsUserControl(mainWindow);
-            LocalDetailsUserControl = new BeatmapLocalDetailsUserControl(mainWindow);
-            OnlineDetailsUserControl = new BeatmapOnlineDetailsUserControl(mainWindow);
+            BeatmapLocalDetailsUserControl = new BeatmapLocalDetailsUserControl(mainWindow);
+            BeatmapOnlineDetailsUserControl = new BeatmapOnlineDetailsUserControl(mainWindow);
+            SaberOnlineUserControl = new SaberOnlineUserControl(mainWindow);
             NavigationBeatmapsUserControl = new NavigationBeatmapsUserControl();
+            NavigationSabersUserControl = new NavigationSabersUserControl();
+            
             DownloadsUserControl = new DownloadsUserControl();
 
-            NavigationBeatmapsUserControl.ViewModel.LocalEvent += NavigationBeatmapsUserControl_LocalEvent;
-            NavigationBeatmapsUserControl.ViewModel.OnlineEvent += NavigationBeatmapsUserControl_OnlineEvent;
+            NavigationBeatmapsUserControl.ViewModel.LocalEvent += NavigationBeatmaps_LocalEvent;
+            NavigationBeatmapsUserControl.ViewModel.OnlineEvent += NavigationBeatmaps_OnlineEvent;
+            NavigationSabersUserControl.ViewModel.LocalEvent += NavigationSabers_LocalEvent;
+            NavigationSabersUserControl.ViewModel.OnlineEvent += NavigationSabers_OnlineEvent;
 
             App.BeatSaverApi.DownloadStarted += BeatSaverApi_DownloadStarted;
             App.BeatSaverApi.DownloadFailed += BeatSaverApi_DownloadFailed;
@@ -97,14 +108,24 @@ namespace BeatManager.ViewModels
                 Downloads++;
         }
 
-        private void NavigationBeatmapsUserControl_LocalEvent(object sender, EventArgs e)
+        private void NavigationBeatmaps_LocalEvent(object sender, EventArgs e)
         {
-            ShowLocalPage();
+            ShowLocalBeatmapsPage();
         }
 
-        private void NavigationBeatmapsUserControl_OnlineEvent(object sender, EventArgs e)
+        private void NavigationBeatmaps_OnlineEvent(object sender, EventArgs e)
         {
-            ShowOnlinePage();
+            ShowOnlineBeatmapsPage();
+        }
+
+        private void NavigationSabers_OnlineEvent(object sender, EventArgs e)
+        {
+            ShowOnlineSabersPage();
+        }
+
+        private void NavigationSabers_LocalEvent(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private async void CheckForUpdates()
@@ -264,65 +285,90 @@ namespace BeatManager.ViewModels
             }
         }
 
-        public void ShowLocalPage()
+        public void ShowLocalBeatmapsPage()
         {
-            if (MainWindow.userControlMain.Content == LocalDetailsUserControl)
-                ShowLocalDetails = false;
+            if (MainWindow.userControlMain.Content == BeatmapLocalDetailsUserControl)
+                ShowLocalBeatmapDetails = false;
 
-            if (ShowLocalDetails && !SettingsUserControl.ViewModel.SongsPathChanged)
-                MainWindow.userControlMain.Content = LocalDetailsUserControl;
+            if (ShowLocalBeatmapDetails && !SettingsUserControl.ViewModel.SongsPathChanged)
+                MainWindow.userControlMain.Content = BeatmapLocalDetailsUserControl;
             else
             {
-                MainWindow.userControlMain.Content = LocalUserControl;
-                LocalDetailsUserControl.ViewModel.CloseBigCover();
+                MainWindow.userControlMain.Content = BeatmapLocalUserControl;
+                BeatmapLocalDetailsUserControl.ViewModel.CloseBigCover();
 
                 if (!localBeatmapsLoaded ||
-                    OnlineSongChanged ||
+                    OnlineBeatmapChanged ||
                     SettingsUserControl.ViewModel.SongsPathChanged)
                 {
                     localBeatmapsLoaded = true;
-                    OnlineSongChanged = false;
+                    OnlineBeatmapChanged = false;
 
-                    if (LocalUserControl.ViewModel.LocalBeatmaps is null || SettingsUserControl.ViewModel.SongsPathChanged)
-                        LocalUserControl.ViewModel.GetBeatmaps();
+                    if (BeatmapLocalUserControl.ViewModel.LocalBeatmaps is null || SettingsUserControl.ViewModel.SongsPathChanged)
+                        BeatmapLocalUserControl.ViewModel.GetBeatmaps();
                     else
-                        LocalUserControl.ViewModel.GetBeatmaps(LocalUserControl.ViewModel.LocalBeatmaps);
+                        BeatmapLocalUserControl.ViewModel.GetBeatmaps(BeatmapLocalUserControl.ViewModel.LocalBeatmaps);
 
                     SettingsUserControl.ViewModel.SongsPathChanged = false;
                 }
             }
         }
 
-        public void ShowOnlinePage()
+        public void ShowOnlineBeatmapsPage()
         {
-            if (MainWindow.userControlMain.Content == OnlineDetailsUserControl)
-                ShowOnlineDetails = false;
+            if (MainWindow.userControlMain.Content == BeatmapOnlineDetailsUserControl)
+                ShowOnlineBeatmapDetails = false;
 
-            if (ShowOnlineDetails && !SettingsUserControl.ViewModel.SongsPathChanged)
-                MainWindow.userControlMain.Content = OnlineDetailsUserControl;
+            if (ShowOnlineBeatmapDetails && !SettingsUserControl.ViewModel.SongsPathChanged)
+                MainWindow.userControlMain.Content = BeatmapOnlineDetailsUserControl;
             else
             {
-                if (!OnlineUserControl.ViewModel.IsLoaded)
+                if (!BeatmapOnlineUserControl.ViewModel.IsLoaded)
                 {
-                    OnlineUserControl.radioButtonHot.IsChecked = true;
-                    OnlineUserControl.ViewModel.IsLoaded = true;
+                    BeatmapOnlineUserControl.radioButtonHot.IsChecked = true;
+                    BeatmapOnlineUserControl.ViewModel.IsLoaded = true;
                 }
-                else if (LocalSongChanged)
+                else if (LocalBeatmapChanged)
                 {
-                    if (OnlineUserControl.ViewModel.OnlineBeatmaps != null)
+                    if (BeatmapOnlineUserControl.ViewModel.OnlineBeatmaps != null)
                     {
-                        MapSort mapSort = OnlineUserControl.ViewModel.CurrentMapSort;
+                        MapSort mapSort = BeatmapOnlineUserControl.ViewModel.CurrentMapSort;
                         if (mapSort == MapSort.Search)
-                            OnlineUserControl.ViewModel.GetBeatmaps(OnlineUserControl.textBoxSearch.Text, OnlineUserControl.ViewModel.OnlineBeatmaps.CurrentPage);
+                            BeatmapOnlineUserControl.ViewModel.GetBeatmaps(BeatmapOnlineUserControl.textBoxSearch.Text, BeatmapOnlineUserControl.ViewModel.OnlineBeatmaps.CurrentPage);
                         else
-                            OnlineUserControl.ViewModel.GetBeatmaps(mapSort, OnlineUserControl.ViewModel.OnlineBeatmaps.CurrentPage);
+                            BeatmapOnlineUserControl.ViewModel.GetBeatmaps(mapSort, BeatmapOnlineUserControl.ViewModel.OnlineBeatmaps.CurrentPage);
                     }
 
-                    LocalSongChanged = false;
+                    LocalBeatmapChanged = false;
                 }
 
-                MainWindow.userControlMain.Content = OnlineUserControl;
-                OnlineDetailsUserControl.ViewModel.CloseBigCover();
+                MainWindow.userControlMain.Content = BeatmapOnlineUserControl;
+                BeatmapOnlineDetailsUserControl.ViewModel.CloseBigCover();
+            }
+        }
+
+        public void ShowOnlineSabersPage()
+        {
+            if (ShowOnlineSaberDetails && !SettingsUserControl.ViewModel.SongsPathChanged)
+            {
+                // Show online saber details
+            }
+            else
+            {
+                if (!SaberOnlineUserControl.ViewModel.IsLoaded)
+                {
+                    SaberOnlineUserControl.ViewModel.GetSabers();
+                    SaberOnlineUserControl.ViewModel.IsLoaded = true;
+                }
+                else if (LocalSaberChanged)
+                {
+                    if (SaberOnlineUserControl.ViewModel.OnlineModels != null)
+                        SaberOnlineUserControl.ViewModel.GetSabers(SaberOnlineUserControl.ViewModel.OnlineModels.CurrentPage);
+
+                    LocalSaberChanged = false;
+                }
+
+                MainWindow.userControlMain.Content = SaberOnlineUserControl;
             }
         }
 
@@ -350,13 +396,13 @@ namespace BeatManager.ViewModels
 
                     if (isValid)
                     {
-                        OnlineSongChanged = true;
-                        if (OnlineUserControl.ViewModel.OnlineBeatmaps != null && OnlineUserControl.ViewModel.OnlineBeatmaps.Maps.Any(x => x.Key == key))
-                            LocalSongChanged = true;
-                        if (MainWindow.userControlMain.Content == LocalUserControl || MainWindow.userControlMain.Content == LocalDetailsUserControl)
-                            ShowLocalPage();
-                        else if (MainWindow.userControlMain.Content == OnlineUserControl || MainWindow.userControlMain.Content == OnlineDetailsUserControl)
-                            ShowOnlinePage();
+                        OnlineBeatmapChanged = true;
+                        if (BeatmapOnlineUserControl.ViewModel.OnlineBeatmaps != null && BeatmapOnlineUserControl.ViewModel.OnlineBeatmaps.Maps.Any(x => x.Key == key))
+                            LocalBeatmapChanged = true;
+                        if (MainWindow.userControlMain.Content == BeatmapLocalUserControl || MainWindow.userControlMain.Content == BeatmapLocalDetailsUserControl)
+                            ShowLocalBeatmapsPage();
+                        else if (MainWindow.userControlMain.Content == BeatmapOnlineUserControl || MainWindow.userControlMain.Content == BeatmapOnlineDetailsUserControl)
+                            ShowOnlineBeatmapsPage();
                     }
                 }
                 catch (InvalidOperationException e)

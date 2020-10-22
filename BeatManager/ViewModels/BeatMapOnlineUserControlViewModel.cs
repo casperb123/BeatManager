@@ -108,7 +108,7 @@ namespace BeatManager.ViewModels
             if (!OnlineBeatmaps.Maps.Any(x => x.IsDownloading) && !App.BeatSaverApi.Downloading.Any())
                 MainWindow.radioButtonSettings.IsEnabled = true;
 
-            MainWindow.ViewModel.OnlineSongChanged = true;
+            MainWindow.ViewModel.OnlineBeatmapChanged = true;
             UpdatePageButtons();
         }
 
@@ -133,7 +133,7 @@ namespace BeatManager.ViewModels
                 catch (Exception e)
                 {
                     string description = e.Message;
-                    if (e.InnerException != null || !e.Message.Contains(e.InnerException.Message))
+                    if (e.InnerException != null && !e.Message.Contains(e.InnerException.Message))
                         description += $" ({e.InnerException.Message})";
 
                     await MainWindow.ShowMessageAsync("Online Beatmaps", description);
@@ -343,40 +343,40 @@ namespace BeatManager.ViewModels
         public void DeleteSong(string key)
         {
             OnlineBeatmap onlineBeatmap = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
-            LocalBeatmap localBeatmap = MainWindow.ViewModel.LocalUserControl.ViewModel.LocalBeatmaps?.Maps.FirstOrDefault(x => x.Identifier.Value == onlineBeatmap.Key || x.Identifier.Value == onlineBeatmap.Hash);
+            LocalBeatmap localBeatmap = MainWindow.ViewModel.BeatmapLocalUserControl.ViewModel.LocalBeatmaps?.Maps.FirstOrDefault(x => x.Identifier.Value == onlineBeatmap.Key || x.Identifier.Value == onlineBeatmap.Hash);
 
             if (localBeatmap != null)
-                MainWindow.ViewModel.LocalUserControl.ViewModel.LocalBeatmaps.Maps.Remove(localBeatmap);
+                MainWindow.ViewModel.BeatmapLocalUserControl.ViewModel.LocalBeatmaps.Maps.Remove(localBeatmap);
 
             App.BeatSaverApi.DeleteSong(onlineBeatmap);
-            MainWindow.ViewModel.OnlineSongChanged = true;
+            MainWindow.ViewModel.OnlineBeatmapChanged = true;
         }
 
         public void DeleteSongs(ICollection<OnlineBeatmap> songs)
         {
             foreach (OnlineBeatmap onlineBeatmap in songs)
             {
-                LocalBeatmap localBeatmap = MainWindow.ViewModel.LocalUserControl.ViewModel.LocalBeatmaps?.Maps.FirstOrDefault(x => x.Identifier.Value == onlineBeatmap.Key || x.Identifier.Value == onlineBeatmap.Hash);
+                LocalBeatmap localBeatmap = MainWindow.ViewModel.BeatmapLocalUserControl.ViewModel.LocalBeatmaps?.Maps.FirstOrDefault(x => x.Identifier.Value == onlineBeatmap.Key || x.Identifier.Value == onlineBeatmap.Hash);
 
                 if (localBeatmap != null)
-                    MainWindow.ViewModel.LocalUserControl.ViewModel.LocalBeatmaps.Maps.Remove(localBeatmap);
+                    MainWindow.ViewModel.BeatmapLocalUserControl.ViewModel.LocalBeatmaps.Maps.Remove(localBeatmap);
 
                 App.BeatSaverApi.DeleteSong(onlineBeatmap);
             }
 
             if (songs.Count > 0)
-                MainWindow.ViewModel.OnlineSongChanged = true;
+                MainWindow.ViewModel.OnlineBeatmapChanged = true;
         }
 
         public void BeatmapDetails(string key, bool changePage = true)
         {
-            MainWindow.ViewModel.ShowOnlineDetails = true;
+            MainWindow.ViewModel.ShowOnlineBeatmapDetails = true;
             OnlineBeatmap beatmap = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
-            MainWindow.ViewModel.OnlineDetailsUserControl.ViewModel.Beatmap = beatmap;
+            MainWindow.ViewModel.BeatmapOnlineDetailsUserControl.ViewModel.Beatmap = beatmap;
             if (changePage)
-                MainWindow.userControlMain.Content = MainWindow.ViewModel.OnlineDetailsUserControl;
+                MainWindow.userControlMain.Content = MainWindow.ViewModel.BeatmapOnlineDetailsUserControl;
 
-            MainWindow.ViewModel.OnlineUserControl.dataGridMaps.UnselectAll();
+            MainWindow.ViewModel.BeatmapOnlineUserControl.dataGridMaps.UnselectAll();
         }
     }
 }

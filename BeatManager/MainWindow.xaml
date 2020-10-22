@@ -67,6 +67,18 @@
                                                 Width="20"
                                                 Height="20" />
                     </RadioButton>
+
+                    <RadioButton x:Name="radioButtonSabers"
+                                 Width="40"
+                                 Height="40"
+                                 ToolTip="Sabers"
+                                 GroupName="NavigationButtons"
+                                 Style="{DynamicResource CircleToggleButton}"
+                                 Checked="RadioButtonSabers_Checked">
+                        <icons:PackIconMaterial Kind="Lightbulb"
+                                                Width="20"
+                                                Height="20" />
+                    </RadioButton>
                 </st:StackPanel>
 
                 <st:StackPanel VerticalAlignment="Bottom"

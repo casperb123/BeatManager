@@ -66,13 +66,10 @@ namespace BeatManager.Entities
 
                 if (!string.IsNullOrWhiteSpace(value) && Directory.Exists(value))
                 {
-                    string dataPath = $@"{value}\Beat Saber_Data";
-                    string customLevelsPath = $@"{dataPath}\CustomLevels";
-
-                    if (!Directory.Exists(dataPath))
-                        Directory.CreateDirectory(dataPath);
-                    if (!Directory.Exists(customLevelsPath))
-                        Directory.CreateDirectory(customLevelsPath);
+                    if (!Directory.Exists(CustomLevelsPath))
+                        Directory.CreateDirectory(CustomLevelsPath);
+                    if (!Directory.Exists(CustomSabersPath))
+                        Directory.CreateDirectory(CustomSabersPath);
                 }
             }
         }
@@ -90,13 +87,19 @@ namespace BeatManager.Entities
         [JsonIgnore]
         public string CustomLevelsPath
         {
-            get { return $@"{RootPath}\Beat Saber_Data\CustomLevels"; }
+            get { return Path.Combine(RootPath, "Beat Saber_Data", "CustomLevels"); }
         }
 
         [JsonIgnore]
         public string PluginsPath
         {
-            get { return $@"{RootPath}\Plugins"; }
+            get { return Path.Combine(RootPath, "Plugins"); }
+        }
+
+        [JsonIgnore]
+        public string CustomSabersPath
+        {
+            get { return Path.Combine(RootPath, "CustomSabers"); }
         }
 
         [JsonIgnore]

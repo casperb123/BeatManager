@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="BeatManager.UserControls.Navigation.NavigationSabersUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:st="http://schemas.spicytaco.io/"
+             xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="60">
+    <Grid>
+        <Grid.Background>
+            <SolidColorBrush Color="Black"
+                             Opacity=".1" />
+        </Grid.Background>
+
+        <st:StackPanel Margin="10"
+                       MarginBetweenChildren="5">
+            <RadioButton x:Name="radioButtonLocal"
+                         Width="40"
+                         Height="40"
+                         ToolTip="Local Beatmaps"
+                         Style="{DynamicResource CircleToggleButton}"
+                         GroupName="NavigationButtonsBeatmaps"
+                         IsChecked="{Binding Path=LocalPage}"
+                         IsEnabled="False"
+                         Click="RadioButtonLocal_Click">
+                <icons:PackIconFontAwesome Kind="LaptopSolid"
+                                           Width="20"
+                                           Height="20"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center" />
+            </RadioButton>
+
+            <RadioButton x:Name="radioButtonOnline"
+                         Width="40"
+                         Height="40"
+                         ToolTip="Online Beatmaps"
+                         Style="{DynamicResource CircleToggleButton}"
+                         GroupName="NavigationButtonsBeatmaps"
+                         IsChecked="{Binding Path=OnlinePage}"
+                         Click="RadioButtonOnline_Click">
+                <icons:PackIconFontAwesome Kind="GlobeSolid"
+                                           Width="20"
+                                           Height="20"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center" />
+            </RadioButton>
+        </st:StackPanel>
+    </Grid>
+</UserControl>

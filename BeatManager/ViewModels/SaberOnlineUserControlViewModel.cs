@@ -7,13 +7,13 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace BeatManager.ViewModels
 {
     public class SaberOnlineUserControlViewModel : INotifyPropertyChanged
     {
         private readonly SaberOnlineUserControl userControl;
-        private OnlineModels tempOnlineModels;
         private OnlineModels onlineModels;
 
         private int selectedModelsToDownload;
@@ -119,14 +119,7 @@ namespace BeatManager.ViewModels
             {
                 try
                 {
-                    tempOnlineModels = await App.ModelSaberApi.GetOnlineSabers(CurrentSort, SortDescending, Filters, page);
-                    OnlineModels = new OnlineModels
-                    {
-                        LastPage = tempOnlineModels.LastPage,
-                        PrevPage = tempOnlineModels.PrevPage,
-                        NextPage = tempOnlineModels.NextPage
-                    };
-                    UpdateSabers();
+                    OnlineModels = await App.ModelSaberApi.GetOnlineSabers(CurrentSort, SortDescending, Filters, page);
                 }
                 catch (Exception e)
                 {
@@ -145,7 +138,6 @@ namespace BeatManager.ViewModels
             {
                 userControl.buttonFirstPage.IsEnabled = false;
                 userControl.buttonPreviousPage.IsEnabled = false;
-                userControl.buttonLastPage.IsEnabled = false;
                 userControl.buttonNextPage.IsEnabled = false;
                 return;
             }
@@ -161,47 +153,30 @@ namespace BeatManager.ViewModels
                 userControl.buttonPreviousPage.IsEnabled = false;
             }
             if (OnlineModels != null && OnlineModels.NextPage.HasValue)
-            {
-                userControl.buttonLastPage.IsEnabled = true;
                 userControl.buttonNextPage.IsEnabled = true;
-            }
             else
-            {
-                userControl.buttonLastPage.IsEnabled = false;
                 userControl.buttonNextPage.IsEnabled = false;
-            }
         }
 
         public void NextPage()
         {
-            App.ModelSaberApi.ChangeOnlinePage(OnlineModels, OnlineModels.NextPage.Value);
-            UpdateSabers();
+            GetSabers(OnlineModels.NextPage.Value);
         }
 
         public void PreviousPage()
         {
-            App.ModelSaberApi.ChangeOnlinePage(OnlineModels, OnlineModels.PrevPage.Value);
-            UpdateSabers();
+            GetSabers(OnlineModels.PrevPage.Value);
         }
 
         public void FirstPage()
         {
-            App.ModelSaberApi.ChangeOnlinePage(OnlineModels, 0);
-            UpdateSabers();
+            GetSabers(0);
         }
 
-        public void LastPage()
+        public void ChangeSortDirection()
         {
-            App.ModelSaberApi.ChangeOnlinePage(OnlineModels, OnlineModels.LastPage);
-            UpdateSabers();
-        }
-
-        private void UpdateSabers()
-        {
-            OnlineModels.Models = new ObservableCollection<OnlineModel>(tempOnlineModels.Models.Where(x => x.Page == onlineModels.CurrentPage));
-            userControl.dataGridModels.UnselectAll();
-            userControl.dataGridModels.Items.Refresh();
-            UpdatePageButtons();
+            SortDescending = !SortDescending;
+            GetSabers();
         }
     }
 }

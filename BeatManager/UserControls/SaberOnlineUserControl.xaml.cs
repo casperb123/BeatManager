@@ -35,21 +35,20 @@ namespace BeatManager.UserControls
             ViewModel.UpdatePageButtons();
         }
 
-        private void DataGridModels_LoadingRow(object sender, DataGridRowEventArgs e)
-        {
-            OnlineModel onlineModel = (OnlineModel)e.Row.Item;
-            if (onlineModel.Page != ViewModel.OnlineModels.CurrentPage)
-                e.Row.Visibility = Visibility.Collapsed;
-        }
-
         private void ComboBoxSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (!ViewModel.IsLoaded)
+                return;
 
+            ViewModel.GetSabers();
         }
 
         private void ButtonSortDirection_Click(object sender, RoutedEventArgs e)
         {
+            if (!ViewModel.IsLoaded)
+                return;
 
+            ViewModel.ChangeSortDirection();
         }
 
         private void Saber_Download(object sender, RoutedEventArgs e)
@@ -85,11 +84,6 @@ namespace BeatManager.UserControls
         private void ButtonNextPage_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.NextPage();
-        }
-
-        private void ButtonLastPage_Click(object sender, RoutedEventArgs e)
-        {
-            ViewModel.LastPage();
         }
     }
 }

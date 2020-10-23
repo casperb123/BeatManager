@@ -112,7 +112,6 @@
                       CanUserResizeColumns="False"
                       VerticalScrollBarVisibility="Auto"
                       HorizontalScrollBarVisibility="Disabled"
-                      VirtualizingPanel.IsVirtualizing="False"
                       TargetUpdated="DataGridModels_TargetUpdated"
                       LoadingRow="DataGridModels_LoadingRow">
                 <DataGrid.Columns>
@@ -185,6 +184,8 @@
                                             ToolTipService.InitialShowDelay="0"
                                             Visibility="{Binding Path=StatusBool, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <icons:PackIconMaterial Kind="Check"
+                                                                Width="15"
+                                                                Height="15"
                                                                 HorizontalAlignment="Center"
                                                                 VerticalAlignment="Center" />
                                     </Border>
@@ -197,6 +198,8 @@
                                             ToolTipService.InitialShowDelay="0"
                                             Visibility="{Binding Path=StatusBool, IsAsync=True, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
                                         <icons:PackIconMaterial Kind="Close"
+                                                                Width="15"
+                                                                Height="15"
                                                                 HorizontalAlignment="Center"
                                                                 VerticalAlignment="Center" />
                                     </Border>

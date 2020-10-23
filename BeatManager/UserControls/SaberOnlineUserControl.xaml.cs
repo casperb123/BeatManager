@@ -69,27 +69,27 @@ namespace BeatManager.UserControls
 
         private void ButtonReloadData_Click(object sender, RoutedEventArgs e)
         {
-
+            ViewModel.GetSabers(ViewModel.OnlineModels.CurrentPage);
         }
 
         private void ButtonFirstPage_Click(object sender, RoutedEventArgs e)
         {
-
+            ViewModel.FirstPage();
         }
 
         private void ButtonPreviousPage_Click(object sender, RoutedEventArgs e)
         {
-
+            ViewModel.PreviousPage();
         }
 
         private void ButtonNextPage_Click(object sender, RoutedEventArgs e)
         {
-
+            ViewModel.NextPage();
         }
 
         private void ButtonLastPage_Click(object sender, RoutedEventArgs e)
         {
-
+            ViewModel.LastPage();
         }
     }
 }

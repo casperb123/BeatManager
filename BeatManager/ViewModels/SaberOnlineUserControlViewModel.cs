@@ -1,21 +1,19 @@
-﻿using BeatManager.Entities.ModelSaber;
-using BeatManager.UserControls;
+﻿using BeatManager.UserControls;
 using MahApps.Metro.Controls.Dialogs;
 using ModelSaber.Entities;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Documents;
-using System.Windows.Media;
 
 namespace BeatManager.ViewModels
 {
     public class SaberOnlineUserControlViewModel : INotifyPropertyChanged
     {
         private readonly SaberOnlineUserControl userControl;
+        private OnlineModels tempOnlineModels;
         private OnlineModels onlineModels;
 
         private int selectedModelsToDownload;
@@ -121,7 +119,14 @@ namespace BeatManager.ViewModels
             {
                 try
                 {
-                    OnlineModels = await App.ModelSaberApi.GetOnlineSaberModels(CurrentSort, SortDescending, Filters, page);
+                    tempOnlineModels = await App.ModelSaberApi.GetOnlineSabers(CurrentSort, SortDescending, Filters, page);
+                    OnlineModels = new OnlineModels
+                    {
+                        LastPage = tempOnlineModels.LastPage,
+                        PrevPage = tempOnlineModels.PrevPage,
+                        NextPage = tempOnlineModels.NextPage
+                    };
+                    UpdateSabers();
                 }
                 catch (Exception e)
                 {
@@ -165,6 +170,38 @@ namespace BeatManager.ViewModels
                 userControl.buttonLastPage.IsEnabled = false;
                 userControl.buttonNextPage.IsEnabled = false;
             }
+        }
+
+        public void NextPage()
+        {
+            App.ModelSaberApi.ChangeOnlinePage(OnlineModels, OnlineModels.NextPage.Value);
+            UpdateSabers();
+        }
+
+        public void PreviousPage()
+        {
+            App.ModelSaberApi.ChangeOnlinePage(OnlineModels, OnlineModels.PrevPage.Value);
+            UpdateSabers();
+        }
+
+        public void FirstPage()
+        {
+            App.ModelSaberApi.ChangeOnlinePage(OnlineModels, 0);
+            UpdateSabers();
+        }
+
+        public void LastPage()
+        {
+            App.ModelSaberApi.ChangeOnlinePage(OnlineModels, OnlineModels.LastPage);
+            UpdateSabers();
+        }
+
+        private void UpdateSabers()
+        {
+            OnlineModels.Models = new ObservableCollection<OnlineModel>(tempOnlineModels.Models.Where(x => x.Page == onlineModels.CurrentPage));
+            userControl.dataGridModels.UnselectAll();
+            userControl.dataGridModels.Items.Refresh();
+            UpdatePageButtons();
         }
     }
 }

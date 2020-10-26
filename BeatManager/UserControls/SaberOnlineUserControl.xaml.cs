@@ -26,7 +26,7 @@ namespace BeatManager.UserControls
         public SaberOnlineUserControl(MainWindow mainWindow)
         {
             InitializeComponent();
-            SaberUserControl = new ModelSaberOnlineUserControl(mainWindow);
+            SaberUserControl = new ModelSaberOnlineUserControl(mainWindow, ModelType.Saber);
             userControlMain.Content = SaberUserControl;
         }
     }

@@ -1,4 +1,5 @@
 ﻿using BeatManager.UserControls.ModelSaber;
+using Ionic.Zip;
 using MahApps.Metro.Controls.Dialogs;
 using ModelSaber.Entities;
 using System;
@@ -13,6 +14,7 @@ namespace BeatManager.ViewModels.ModelSaber
     {
         private readonly ModelSaberOnlineUserControl userControl;
         private OnlineModels onlineModels;
+        private readonly ModelType modelType;
 
         private int selectedModelsToDownload;
         private int selectedModelsToDelete;
@@ -97,10 +99,11 @@ namespace BeatManager.ViewModels.ModelSaber
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
-        public ModelSaberOnlineUserControlViewModel(MainWindow mainWindow, ModelSaberOnlineUserControl userControl)
+        public ModelSaberOnlineUserControlViewModel(MainWindow mainWindow, ModelSaberOnlineUserControl userControl, ModelType modelType)
         {
             MainWindow = mainWindow;
             this.userControl = userControl;
+            this.modelType = modelType;
 
             SelectedModels = new List<OnlineModel>();
             SortTypes = Enum.GetValues(typeof(Sort)).Cast<Sort>().ToList();
@@ -217,6 +220,90 @@ namespace BeatManager.ViewModels.ModelSaber
             userControl.stackPanelFilters.Children.Remove(filterUserControl);
 
             GetSabers();
+        }
+
+        public async Task DownloadModel(int id)
+        {
+            try
+            {
+                MainWindow.radioButtonSettings.IsEnabled = false;
+                OnlineModel onlineModel = OnlineModels.Models.FirstOrDefault(x => x.Id == id);
+                await App.ModelSaberApi.DownloadModel(onlineModel, modelType);
+            }
+            catch (InvalidOperationException e)
+            {
+                MainWindow.ToggleLoading(false);
+                string errorMessage = e.Message;
+                if (e.InnerException != null && !e.Message.Contains(e.InnerException.Message))
+                    errorMessage += $" ({e.InnerException.Message})";
+
+                await MainWindow.ShowMessageAsync("Downloading failed", "Downloading the song failed with the following error\n\n" +
+                                                                        "Error:\n" +
+                                                                        $"{errorMessage}");
+            }
+            catch (Exception e)
+            {
+                MainWindow.ToggleLoading(false);
+                string errorMessage = e.Message;
+                if (e.InnerException != null && !e.Message.Contains(e.InnerException.Message))
+                    errorMessage += $" ({e.InnerException.Message})";
+
+                MessageDialogResult result = await MainWindow.ShowMessageAsync("Downloading failed", "Downloading the song failed, would you like to try again?\n\n" +
+                                                                                                     "Error:\n" +
+                                                                                                     $"{errorMessage}", MessageDialogStyle.AffirmativeAndNegative);
+
+                if (result == MessageDialogResult.Affirmative)
+                    await DownloadModel(id);
+            }
+        }
+
+        public async Task DownloadModels(List<OnlineModel> models)
+        {
+            MainWindow.radioButtonSettings.IsEnabled = false;
+
+            foreach (OnlineModel model in models)
+            {
+                try
+                {
+                    _ = App.ModelSaberApi.DownloadModel(model, modelType);
+                }
+                catch (InvalidOperationException e)
+                {
+                    MainWindow.ToggleLoading(false);
+                    string errorMessage = e.Message;
+                    if (e.InnerException != null && !e.Message.Contains(e.InnerException.Message))
+                        errorMessage += $" ({e.InnerException.Message})";
+
+                    await MainWindow.ShowMessageAsync("Downloading failed", "Downloading the song failed with the following error\n\n" +
+                                                                            "Error:\n" +
+                                                                            $"{errorMessage}");
+                }
+                catch (Exception e)
+                {
+                    MainWindow.ToggleLoading(false);
+                    string errorMessage = e.Message;
+                    if (e.InnerException != null && !e.Message.Contains(e.InnerException.Message))
+                        errorMessage += $" ({e.InnerException.Message})";
+
+                    MessageDialogResult result = await MainWindow.ShowMessageAsync("Downloading failed", "Downloading the song failed, would you like to try again?\n\n" +
+                                                                                                         "Error:\n" +
+                                                                                                         $"{errorMessage}", MessageDialogStyle.AffirmativeAndNegative);
+
+                    if (result == MessageDialogResult.Affirmative)
+                        await DownloadModel(model.Id);
+                }
+            }
+        }
+
+        public void DeleteModel(int id)
+        {
+            OnlineModel onlineModel = OnlineModels.Models.FirstOrDefault(x => x.Id == id);
+            LocalModel localModel = null;
+
+            if (localModel != null)
+            {
+                // remove local model
+            }
         }
     }
 }

@@ -148,7 +148,7 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="Author"
-                                    Width=".5*"
+                                    Width=".7*"
                                     IsReadOnly="True"
                                     Binding="{Binding Path=Author, IsAsync=True, FallbackValue='...'}">
                     <DataGridTextColumn.ElementStyle>

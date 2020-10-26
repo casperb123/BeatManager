@@ -23,10 +23,10 @@ namespace BeatManager.UserControls.ModelSaber
     {
         public readonly ModelSaberOnlineUserControlViewModel ViewModel;
 
-        public ModelSaberOnlineUserControl(MainWindow mainWindow)
+        public ModelSaberOnlineUserControl(MainWindow mainWindow, ModelType modelType)
         {
             InitializeComponent();
-            ViewModel = new ModelSaberOnlineUserControlViewModel(mainWindow, this);
+            ViewModel = new ModelSaberOnlineUserControlViewModel(mainWindow, this, modelType);
             DataContext = ViewModel;
         }
 
@@ -83,14 +83,16 @@ namespace BeatManager.UserControls.ModelSaber
             }
         }
 
-        private void Saber_Download(object sender, RoutedEventArgs e)
+        private async void Saber_Download(object sender, RoutedEventArgs e)
         {
-
+            int id = int.Parse(((Button)sender).Tag.ToString());
+            await ViewModel.DownloadModel(id);
         }
 
         private void Saber_Delete(object sender, RoutedEventArgs e)
         {
-
+            int id = int.Parse(((Button)sender).Tag.ToString());
+            ViewModel.DeleteModel(id);
         }
 
         private void Saber_Details(object sender, RoutedEventArgs e)

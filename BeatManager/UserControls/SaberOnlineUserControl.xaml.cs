@@ -1,4 +1,5 @@
-﻿using BeatManager.ViewModels;
+﻿using BeatManager.UserControls.ModelSaber;
+using BeatManager.ViewModels;
 using ModelSaber.Entities;
 using System;
 using System.Collections.Generic;
@@ -20,70 +21,13 @@ namespace BeatManager.UserControls
     /// </summary>
     public partial class SaberOnlineUserControl : UserControl
     {
-        public readonly SaberOnlineUserControlViewModel ViewModel;
+        public readonly ModelSaberOnlineUserControl SaberUserControl;
 
         public SaberOnlineUserControl(MainWindow mainWindow)
         {
             InitializeComponent();
-            ViewModel = new SaberOnlineUserControlViewModel(mainWindow, this);
-            DataContext = ViewModel;
-        }
-
-        private void DataGridModels_TargetUpdated(object sender, DataTransferEventArgs e)
-        {
-            MainWindow.ToggleLoading(false);
-            ViewModel.UpdatePageButtons();
-        }
-
-        private void ComboBoxSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (!ViewModel.IsLoaded)
-                return;
-
-            ViewModel.GetSabers();
-        }
-
-        private void ButtonSortDirection_Click(object sender, RoutedEventArgs e)
-        {
-            if (!ViewModel.IsLoaded)
-                return;
-
-            ViewModel.ChangeSortDirection();
-        }
-
-        private void Saber_Download(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Saber_Delete(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Saber_Details(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ButtonReloadData_Click(object sender, RoutedEventArgs e)
-        {
-            ViewModel.GetSabers(ViewModel.OnlineModels.CurrentPage);
-        }
-
-        private void ButtonFirstPage_Click(object sender, RoutedEventArgs e)
-        {
-            ViewModel.FirstPage();
-        }
-
-        private void ButtonPreviousPage_Click(object sender, RoutedEventArgs e)
-        {
-            ViewModel.PreviousPage();
-        }
-
-        private void ButtonNextPage_Click(object sender, RoutedEventArgs e)
-        {
-            ViewModel.NextPage();
+            SaberUserControl = new ModelSaberOnlineUserControl(mainWindow);
+            userControlMain.Content = SaberUserControl;
         }
     }
 }

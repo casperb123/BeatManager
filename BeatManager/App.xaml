@@ -63,6 +63,12 @@
                 <Setter Property="Cursor"
                         Value="Hand" />
             </Style>
+            <Style x:Key="CustomButtonFlat"
+                   TargetType="Button"
+                   BasedOn="{StaticResource MahApps.Styles.Button.Flat}">
+                <Setter Property="Cursor"
+                        Value="Hand" />
+            </Style>
             <Style x:Key="CustomToggleSwitch"
                    TargetType="mah:ToggleSwitch"
                    BasedOn="{StaticResource MahApps.Styles.ToggleSwitch}">

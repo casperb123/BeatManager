@@ -1,19 +1,17 @@
-﻿using BeatManager.UserControls;
+﻿using BeatManager.UserControls.ModelSaber;
 using MahApps.Metro.Controls.Dialogs;
 using ModelSaber.Entities;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Threading;
 
-namespace BeatManager.ViewModels
+namespace BeatManager.ViewModels.ModelSaber
 {
-    public class SaberOnlineUserControlViewModel : INotifyPropertyChanged
+    public class ModelSaberOnlineUserControlViewModel : INotifyPropertyChanged
     {
-        private readonly SaberOnlineUserControl userControl;
+        private readonly ModelSaberOnlineUserControl userControl;
         private OnlineModels onlineModels;
 
         private int selectedModelsToDownload;
@@ -99,12 +97,12 @@ namespace BeatManager.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
-        public SaberOnlineUserControlViewModel(MainWindow mainWindow, SaberOnlineUserControl userControl)
+        public ModelSaberOnlineUserControlViewModel(MainWindow mainWindow, ModelSaberOnlineUserControl userControl)
         {
             MainWindow = mainWindow;
             this.userControl = userControl;
-            SelectedModels = new List<OnlineModel>();
 
+            SelectedModels = new List<OnlineModel>();
             SortTypes = Enum.GetValues(typeof(Sort)).Cast<Sort>().ToList();
             Filters = new List<Filter>();
             FilterTypes = Enum.GetValues(typeof(FilterType)).Cast<FilterType>().ToList();
@@ -139,6 +137,7 @@ namespace BeatManager.ViewModels
                 userControl.buttonFirstPage.IsEnabled = false;
                 userControl.buttonPreviousPage.IsEnabled = false;
                 userControl.buttonNextPage.IsEnabled = false;
+                userControl.buttonLastPage.IsEnabled = false;
                 return;
             }
 
@@ -153,29 +152,70 @@ namespace BeatManager.ViewModels
                 userControl.buttonPreviousPage.IsEnabled = false;
             }
             if (OnlineModels != null && OnlineModels.NextPage.HasValue)
+            {
                 userControl.buttonNextPage.IsEnabled = true;
+                userControl.buttonLastPage.IsEnabled = true;
+            }
             else
+            {
                 userControl.buttonNextPage.IsEnabled = false;
+                userControl.buttonLastPage.IsEnabled = false;
+            }
         }
 
         public void NextPage()
         {
-            GetSabers(OnlineModels.NextPage.Value);
+            App.ModelSaberApi.ChangeOnlinePage(OnlineModels, OnlineModels.NextPage.Value);
+            UpdateModels();
         }
 
         public void PreviousPage()
         {
-            GetSabers(OnlineModels.PrevPage.Value);
+            App.ModelSaberApi.ChangeOnlinePage(OnlineModels, OnlineModels.PrevPage.Value);
+            UpdateModels();
         }
 
         public void FirstPage()
         {
-            GetSabers(0);
+            App.ModelSaberApi.ChangeOnlinePage(OnlineModels, 0);
+            UpdateModels();
+        }
+
+        public void LastPage()
+        {
+            App.ModelSaberApi.ChangeOnlinePage(OnlineModels, OnlineModels.LastPage);
+            UpdateModels();
+        }
+
+        private void UpdateModels()
+        {
+            userControl.dataGridModels.UnselectAll();
+            userControl.dataGridModels.Items.Refresh();
+            UpdatePageButtons();
         }
 
         public void ChangeSortDirection()
         {
             SortDescending = !SortDescending;
+            GetSabers();
+        }
+
+        public void AddFilter(Filter filter)
+        {
+            Filters.Add(filter);
+            ModelSaberOnlineFilterUserControl filterUserControl = new ModelSaberOnlineFilterUserControl(filter);
+            filterUserControl.RemoveEvent += (s, e) => RemoveFilter(filterUserControl);
+            userControl.stackPanelFilters.Children.Add(filterUserControl);
+            userControl.textBoxFilterSearch.Clear();
+
+            GetSabers();
+        }
+
+        public void RemoveFilter(ModelSaberOnlineFilterUserControl filterUserControl)
+        {
+            Filters.Remove(filterUserControl.Filter);
+            userControl.stackPanelFilters.Children.Remove(filterUserControl);
+
             GetSabers();
         }
     }

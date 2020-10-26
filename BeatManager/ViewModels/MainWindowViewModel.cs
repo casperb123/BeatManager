@@ -355,15 +355,15 @@ namespace BeatManager.ViewModels
             }
             else
             {
-                if (!SaberOnlineUserControl.ViewModel.IsLoaded)
+                if (!SaberOnlineUserControl.SaberUserControl.ViewModel.IsLoaded)
                 {
-                    SaberOnlineUserControl.ViewModel.GetSabers();
-                    SaberOnlineUserControl.ViewModel.IsLoaded = true;
+                    SaberOnlineUserControl.SaberUserControl.ViewModel.GetSabers();
+                    SaberOnlineUserControl.SaberUserControl.ViewModel.IsLoaded = true;
                 }
                 else if (LocalSaberChanged)
                 {
-                    if (SaberOnlineUserControl.ViewModel.OnlineModels != null)
-                        SaberOnlineUserControl.ViewModel.GetSabers(SaberOnlineUserControl.ViewModel.OnlineModels.CurrentPage);
+                    if (SaberOnlineUserControl.SaberUserControl.ViewModel.OnlineModels != null)
+                        SaberOnlineUserControl.SaberUserControl.ViewModel.GetSabers(SaberOnlineUserControl.SaberUserControl.ViewModel.OnlineModels.CurrentPage);
 
                     LocalSaberChanged = false;
                 }

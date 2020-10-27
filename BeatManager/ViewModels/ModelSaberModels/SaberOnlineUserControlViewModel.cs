@@ -2,13 +2,14 @@
 using Ionic.Zip;
 using MahApps.Metro.Controls.Dialogs;
 using ModelSaber.Entities;
+using ModelSaber.Events;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BeatManager.ViewModels.ModelSaber
+namespace BeatManager.ViewModels.ModelSaberModels
 {
     public class SaberOnlineUserControlViewModel : INotifyPropertyChanged
     {
@@ -109,6 +110,30 @@ namespace BeatManager.ViewModels.ModelSaber
             SortTypes = Enum.GetValues(typeof(Sort)).Cast<Sort>().ToList();
             Filters = new List<Filter>();
             FilterTypes = Enum.GetValues(typeof(FilterType)).Cast<FilterType>().ToList();
+
+            App.ModelSaberApi.DownloadCompleted += ModelSaberApi_DownloadCompleted;
+        }
+
+        private void ModelSaberApi_DownloadCompleted(object sender, DownloadCompletedEventArgs e)
+        {
+            if (OnlineModels is null)
+                return;
+
+            if (!OnlineModels.Models.Contains(e.Model))
+            {
+                OnlineModel onlineModel = OnlineModels.Models.FirstOrDefault(x => x.Id == e.Model.Id);
+                if (onlineModel != null)
+                {
+                    onlineModel.IsDownloading = e.Model.IsDownloading;
+                    onlineModel.IsDownloaded = e.Model.IsDownloaded;
+                }
+            }
+
+            if (!OnlineModels.Models.Any(x => x.IsDownloading) && !App.ModelSaberApi.Downloading.Any())
+                MainWindow.radioButtonSettings.IsEnabled = true;
+
+            MainWindow.ViewModel.OnlineSaberChanged = true;
+            UpdatePageButtons();
         }
 
         public void GetSabers(int page = 0)

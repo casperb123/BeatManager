@@ -22,9 +22,13 @@ namespace BeatManager.UserControls.Download
     {
         public readonly ModelSaberFailedUserControlViewModel ViewModel;
 
-        public ModelSaberFailedUserControl(OnlineModel model, string message)
+        public ModelSaberFailedUserControl(OnlineModel model, Exception exception)
         {
             InitializeComponent();
+            string message = exception.Message;
+            if (exception.InnerException != null && !exception.Message.Contains(exception.InnerException.Message))
+                message += $" ({exception.InnerException.Message})";
+
             ViewModel = new ModelSaberFailedUserControlViewModel(model, message);
             DataContext = ViewModel;
         }

@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BeatManager.ViewModels.ModelSaber
+namespace BeatManager.ViewModels.ModelSaberModels
 {
     public class SaberLocalUserControlViewModel : INotifyPropertyChanged
     {

@@ -87,6 +87,9 @@ namespace BeatManager.ViewModels
             App.BeatSaverApi.DownloadStarted += BeatSaverApi_DownloadStarted;
             App.BeatSaverApi.DownloadFailed += BeatSaverApi_DownloadFailed;
 
+            App.ModelSaberApi.DownloadStarted += ModelSaberApi_DownloadStarted;
+            App.ModelSaberApi.DownloadFailed += ModelSaberApi_DownloadFailed;
+
             Updater = new Updater("casperb123", "BeatManager", Resources.GitHubToken);
             Updater.UpdateAvailable += Updater_UpdateAvailable;
             Updater.DownloadingStarted += Updater_DownloadingStarted;
@@ -105,6 +108,18 @@ namespace BeatManager.ViewModels
         }
 
         private void BeatSaverApi_DownloadStarted(object sender, BeatSaver.Events.DownloadStartedEventArgs e)
+        {
+            if (MainWindow.userControlMain.Content != DownloadsUserControl)
+                Downloads++;
+        }
+
+        private void ModelSaberApi_DownloadFailed(object sender, global::ModelSaber.Events.DownloadFailedEventArgs e)
+        {
+            if (MainWindow.userControlMain.Content != DownloadsUserControl)
+                Downloads++;
+        }
+
+        private void ModelSaberApi_DownloadStarted(object sender, global::ModelSaber.Events.DownloadStartedEventArgs e)
         {
             if (MainWindow.userControlMain.Content != DownloadsUserControl)
                 Downloads++;

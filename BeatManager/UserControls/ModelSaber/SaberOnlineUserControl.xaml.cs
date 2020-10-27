@@ -1,4 +1,4 @@
-﻿using BeatManager.ViewModels.ModelSaber;
+﻿using BeatManager.ViewModels.ModelSaberModels;
 using ModelSaber.Entities;
 using System;
 using System.Collections.Generic;

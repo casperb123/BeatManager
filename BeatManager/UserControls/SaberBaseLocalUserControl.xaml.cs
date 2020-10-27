@@ -1,6 +1,4 @@
 ﻿using BeatManager.UserControls.ModelSaber;
-using BeatManager.ViewModels;
-using ModelSaber.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,17 +15,16 @@ using System.Windows.Shapes;
 namespace BeatManager.UserControls
 {
     /// <summary>
-    /// Interaction logic for ModelOnlineUserControl.xaml
+    /// Interaction logic for SaberLocalUserControl.xaml
     /// </summary>
-    public partial class SaberOnlineUserControl : UserControl
+    public partial class SaberBaseLocalUserControl : UserControl
     {
-        public readonly ModelSaberOnlineUserControl SaberUserControl;
+        public readonly SaberLocalUserControl UserControl;
 
-        public SaberOnlineUserControl(MainWindow mainWindow)
+        public SaberBaseLocalUserControl(MainWindow mainWindow)
         {
             InitializeComponent();
-            SaberUserControl = new ModelSaberOnlineUserControl(mainWindow, ModelType.Saber);
-            userControlMain.Content = SaberUserControl;
+            UserControl = new SaberLocalUserControl(mainWindow);
         }
     }
 }

@@ -1,11 +1,11 @@
-﻿using BeatSaver.Entities;
+﻿using ModelSaber.Entities;
 using System.ComponentModel;
 
 namespace BeatManager.ViewModels.Download
 {
-    public class BeatmapDownloadingUserControlViewModel : INotifyPropertyChanged
+    public class ModelSaberDownloadingUserControlViewModel : INotifyPropertyChanged
     {
-        private OnlineBeatmap beatmap;
+        private OnlineModel model;
         private string downloadTimeLeft;
         private string downloadTimeSpent;
         private int progressPercent;
@@ -42,13 +42,13 @@ namespace BeatManager.ViewModels.Download
             }
         }
 
-        public OnlineBeatmap Beatmap
+        public OnlineModel Model
         {
-            get { return beatmap; }
+            get { return model; }
             set
             {
-                beatmap = value;
-                OnPropertyChanged(nameof(Beatmap));
+                model = value;
+                OnPropertyChanged(nameof(Model));
             }
         }
 
@@ -60,9 +60,9 @@ namespace BeatManager.ViewModels.Download
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
-        public BeatmapDownloadingUserControlViewModel(OnlineBeatmap beatmap)
+        public ModelSaberDownloadingUserControlViewModel(OnlineModel model)
         {
-            Beatmap = beatmap;
+            Model = model;
         }
     }
 }

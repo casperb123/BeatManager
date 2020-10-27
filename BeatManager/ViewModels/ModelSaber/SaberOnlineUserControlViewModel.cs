@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace BeatManager.ViewModels.ModelSaber
 {
-    public class ModelSaberOnlineUserControlViewModel : INotifyPropertyChanged
+    public class SaberOnlineUserControlViewModel : INotifyPropertyChanged
     {
-        private readonly ModelSaberOnlineUserControl userControl;
+        private readonly SaberOnlineUserControl userControl;
         private OnlineModels onlineModels;
         private readonly ModelType modelType;
 
@@ -99,7 +99,7 @@ namespace BeatManager.ViewModels.ModelSaber
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
-        public ModelSaberOnlineUserControlViewModel(MainWindow mainWindow, ModelSaberOnlineUserControl userControl, ModelType modelType)
+        public SaberOnlineUserControlViewModel(MainWindow mainWindow, SaberOnlineUserControl userControl, ModelType modelType)
         {
             MainWindow = mainWindow;
             this.userControl = userControl;
@@ -206,7 +206,7 @@ namespace BeatManager.ViewModels.ModelSaber
         public void AddFilter(Filter filter)
         {
             Filters.Add(filter);
-            ModelSaberOnlineFilterUserControl filterUserControl = new ModelSaberOnlineFilterUserControl(filter);
+            SaberOnlineFilterUserControl filterUserControl = new SaberOnlineFilterUserControl(filter);
             filterUserControl.RemoveEvent += (s, e) => RemoveFilter(filterUserControl);
             userControl.stackPanelFilters.Children.Add(filterUserControl);
             userControl.textBoxFilterSearch.Clear();
@@ -214,7 +214,7 @@ namespace BeatManager.ViewModels.ModelSaber
             GetSabers();
         }
 
-        public void RemoveFilter(ModelSaberOnlineFilterUserControl filterUserControl)
+        public void RemoveFilter(SaberOnlineFilterUserControl filterUserControl)
         {
             Filters.Remove(filterUserControl.Filter);
             userControl.stackPanelFilters.Children.Remove(filterUserControl);
@@ -298,12 +298,29 @@ namespace BeatManager.ViewModels.ModelSaber
         public void DeleteModel(int id)
         {
             OnlineModel onlineModel = OnlineModels.Models.FirstOrDefault(x => x.Id == id);
-            LocalModel localModel = null;
+            LocalModel localModel = MainWindow.ViewModel.SaberLocalUserControl.UserControl.ViewModel.LocalModels.Models.FirstOrDefault(x => x.Name == onlineModel.Name);
 
             if (localModel != null)
+                MainWindow.ViewModel.SaberLocalUserControl.UserControl.ViewModel.LocalModels.Models.Remove(localModel);
+
+            App.ModelSaberApi.DeleteModel(onlineModel);
+            MainWindow.ViewModel.OnlineSaberChanged = true;
+        }
+
+        public void DeleteModels(List<OnlineModel> models)
+        {
+            foreach (OnlineModel model in models)
             {
-                // remove local model
+                LocalModel localModel = MainWindow.ViewModel.SaberLocalUserControl.UserControl.ViewModel.LocalModels?.Models.FirstOrDefault(x => x.Name == model.Name);
+
+                if (localModel != null)
+                    MainWindow.ViewModel.SaberLocalUserControl.UserControl.ViewModel.LocalModels.Models.Remove(localModel);
+
+                App.ModelSaberApi.DeleteModel(model);
             }
+
+            if (models.Count > 0)
+                MainWindow.ViewModel.OnlineSaberChanged = true;
         }
     }
 }

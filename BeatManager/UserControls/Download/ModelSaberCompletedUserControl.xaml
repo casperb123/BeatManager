@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="BeatManager.UserControls.Download.BeatmapCompletedUserControl"
+﻿<UserControl x:Class="BeatManager.UserControls.Download.ModelSaberCompletedUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -18,28 +18,21 @@
                 CornerRadius="100"
                 Margin="0,0,15,0">
             <Border.Background>
-                <ImageBrush ImageSource="{Binding Path=Beatmap.RealCoverURL, Mode=OneWay}" />
+                <ImageBrush ImageSource="{Binding Path=Model.RealThumbnail, Mode=OneWay}" />
             </Border.Background>
         </Border>
 
         <st:StackPanel MarginBetweenChildren="5"
                        Grid.Column="1"
                        VerticalAlignment="Center">
-            <TextBlock Text="Beatmap"
+            <TextBlock Text="{Binding Path=Model.Type, FallbackValue='Type'}"
                        FontSize="18"
                        FontWeight="Bold" />
-            
-            <TextBlock TextWrapping="Wrap"
+
+            <TextBlock Text="{Binding Path=Model.Name, FallbackValue='Model name'}"
+                       TextWrapping="Wrap"
                        FontSize="12"
-                       FontWeight="Bold">
-                <Run Text="{Binding Path=Beatmap.Metadata.SongName}" />
-                <Run Text="{Binding Path=Beatmap.Metadata.SongSubName}">
-                    <Run.Foreground>
-                        <SolidColorBrush Color="{DynamicResource MahApps.Colors.ThemeForeground}"
-                                         Opacity=".5" />
-                    </Run.Foreground>
-                </Run>
-            </TextBlock>
+                       FontWeight="Bold" />
 
             <TextBlock Text="{Binding Path=Downloaded, FallbackValue='0 kB'}"
                        FontSize="12" />

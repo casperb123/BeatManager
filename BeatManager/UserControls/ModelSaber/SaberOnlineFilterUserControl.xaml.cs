@@ -18,13 +18,13 @@ namespace BeatManager.UserControls.ModelSaber
     /// <summary>
     /// Interaction logic for ModelSaberOnlineFilterUserControl.xaml
     /// </summary>
-    public partial class ModelSaberOnlineFilterUserControl : UserControl
+    public partial class SaberOnlineFilterUserControl : UserControl
     {
         public Filter Filter { get; set; }
 
         public event EventHandler<ModelSaberFilterRemoveEventArgs> RemoveEvent;
 
-        public ModelSaberOnlineFilterUserControl(Filter filter)
+        public SaberOnlineFilterUserControl(Filter filter)
         {
             InitializeComponent();
             DataContext = this;

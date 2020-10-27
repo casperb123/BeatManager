@@ -27,7 +27,8 @@ namespace BeatManager.ViewModels
         public readonly SettingsUserControl SettingsUserControl;
         public readonly BeatmapLocalDetailsUserControl BeatmapLocalDetailsUserControl;
         public readonly BeatmapOnlineDetailsUserControl BeatmapOnlineDetailsUserControl;
-        public readonly SaberOnlineUserControl SaberOnlineUserControl;
+        public readonly SaberBaseOnlineUserControl SaberOnlineUserControl;
+        public readonly SaberBaseLocalUserControl SaberLocalUserControl;
         public readonly NavigationBeatmapsUserControl NavigationBeatmapsUserControl;
         public readonly NavigationSabersUserControl NavigationSabersUserControl;
         public readonly DownloadsUserControl DownloadsUserControl;
@@ -71,7 +72,8 @@ namespace BeatManager.ViewModels
             SettingsUserControl = new SettingsUserControl(mainWindow);
             BeatmapLocalDetailsUserControl = new BeatmapLocalDetailsUserControl(mainWindow);
             BeatmapOnlineDetailsUserControl = new BeatmapOnlineDetailsUserControl(mainWindow);
-            SaberOnlineUserControl = new SaberOnlineUserControl(mainWindow);
+            SaberOnlineUserControl = new SaberBaseOnlineUserControl(mainWindow);
+            SaberLocalUserControl = new SaberBaseLocalUserControl(mainWindow);
             NavigationBeatmapsUserControl = new NavigationBeatmapsUserControl();
             NavigationSabersUserControl = new NavigationSabersUserControl();
             

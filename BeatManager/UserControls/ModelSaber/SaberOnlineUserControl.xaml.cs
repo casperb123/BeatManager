@@ -19,14 +19,14 @@ namespace BeatManager.UserControls.ModelSaber
     /// <summary>
     /// Interaction logic for ModelSaberOnlineUserControl.xaml
     /// </summary>
-    public partial class ModelSaberOnlineUserControl : UserControl
+    public partial class SaberOnlineUserControl : UserControl
     {
-        public readonly ModelSaberOnlineUserControlViewModel ViewModel;
+        public readonly SaberOnlineUserControlViewModel ViewModel;
 
-        public ModelSaberOnlineUserControl(MainWindow mainWindow, ModelType modelType)
+        public SaberOnlineUserControl(MainWindow mainWindow, ModelType modelType)
         {
             InitializeComponent();
-            ViewModel = new ModelSaberOnlineUserControlViewModel(mainWindow, this, modelType);
+            ViewModel = new SaberOnlineUserControlViewModel(mainWindow, this, modelType);
             DataContext = ViewModel;
         }
 

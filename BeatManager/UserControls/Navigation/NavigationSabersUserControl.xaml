@@ -23,7 +23,6 @@
                          Style="{DynamicResource CircleToggleButton}"
                          GroupName="NavigationButtonsBeatmaps"
                          IsChecked="{Binding Path=LocalPage}"
-                         IsEnabled="False"
                          Click="RadioButtonLocal_Click">
                 <icons:PackIconFontAwesome Kind="LaptopSolid"
                                            Width="20"

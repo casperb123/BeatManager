@@ -22,10 +22,10 @@ namespace BeatManager.UserControls.Download
     {
         public readonly ModelSaberCompletedUserControlViewModel ViewModel;
 
-        public ModelSaberCompletedUserControl(OnlineModel model)
+        public ModelSaberCompletedUserControl(OnlineModel model, string downloaded)
         {
             InitializeComponent();
-            ViewModel = new ModelSaberCompletedUserControlViewModel(model);
+            ViewModel = new ModelSaberCompletedUserControlViewModel(model, downloaded);
             DataContext = ViewModel;
         }
     }

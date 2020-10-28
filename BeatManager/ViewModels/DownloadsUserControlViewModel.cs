@@ -94,7 +94,6 @@ namespace BeatManager.ViewModels
                 return;
 
             BeatmapCompletedUserControl completedUserControl = new BeatmapCompletedUserControl(e.Beatmap, downloadingUserControl.ViewModel.ToDownload);
-            completedUserControl.ViewModel.Downloaded = downloadingUserControl.ViewModel.ToDownload;
 
             userControl.stackPanelDownloading.Children.Remove(downloadingUserControl);
             DownloadingCount--;
@@ -144,17 +143,35 @@ namespace BeatManager.ViewModels
 
         private void ModelSaberApi_DownloadCompleted(object sender, ModelSaber.Events.DownloadCompletedEventArgs e)
         {
-            throw new System.NotImplementedException();
+            ModelSaberDownloadingUserControl downloadingUserControl = GetDownloadingModelSaber(e.Model);
+            if (downloadingUserControl is null)
+                return;
+
+            ModelSaberCompletedUserControl completedUserControl = new ModelSaberCompletedUserControl(e.Model, downloadingUserControl.ViewModel.ToDownload);
+
+            userControl.stackPanelDownloading.Children.Remove(downloadingUserControl);
+            DownloadingCount--;
+            userControl.stackPanelCompleted.Children.Insert(0, completedUserControl);
+            CompletedCount++;
         }
 
         private void ModelSaberApi_DownloadProgressed(object sender, ModelSaber.Events.DownloadProgressedEventArgs e)
         {
-            throw new System.NotImplementedException();
+            ModelSaberDownloadingUserControl downloadingUserControl = GetDownloadingModelSaber(e.Model);
+            if (downloadingUserControl is null)
+                return;
+
+            downloadingUserControl.ViewModel.ToDownload = e.ToDownload;
+            downloadingUserControl.ViewModel.DownloadTimeLeft = $"Estimated time left: {e.TimeLeft} ({e.Downloaded} of {e.ToDownload} downloaded)";
+            downloadingUserControl.ViewModel.DownloadTimeSpent = $"Time spent: {e.TimeSpent}";
+            downloadingUserControl.ViewModel.ProgressPercent = e.ProgressPercent;
         }
 
         private void ModelSaberApi_DownloadStarted(object sender, ModelSaber.Events.DownloadStartedEventArgs e)
         {
-            throw new System.NotImplementedException();
+            ModelSaberDownloadingUserControl downloadingUserControl = new ModelSaberDownloadingUserControl(e.Model);
+            userControl.stackPanelDownloading.Children.Insert(0, downloadingUserControl);
+            DownloadingCount++;
         }
 
         private BeatmapDownloadingUserControl GetDownloadingBeatmap(OnlineBeatmap beatmap)

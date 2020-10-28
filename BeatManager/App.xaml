@@ -349,6 +349,7 @@
             <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
             <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
             <converters:NullToBooleanConverter x:Key="NullToBooleanConverter" />
+            <converters:ToStringConverter x:Key="ToStringConverter" />
             <!--#endregion-->
         </ResourceDictionary>
     </Application.Resources>

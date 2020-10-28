@@ -16,7 +16,6 @@ namespace BeatManager.ViewModels
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-        private bool localBeatmapsLoaded = false;
         private ProgressDialogController progressDialog;
         private int downloads;
 
@@ -142,7 +141,7 @@ namespace BeatManager.ViewModels
 
         private void NavigationSabers_LocalEvent(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            ShowLocalSabersPage();
         }
 
         private async void CheckForUpdates()
@@ -314,11 +313,11 @@ namespace BeatManager.ViewModels
                 MainWindow.userControlMain.Content = BeatmapLocalUserControl;
                 BeatmapLocalDetailsUserControl.ViewModel.CloseBigCover();
 
-                if (!localBeatmapsLoaded ||
+                if (!BeatmapLocalUserControl.ViewModel.IsLoaded ||
                     OnlineBeatmapChanged ||
                     SettingsUserControl.ViewModel.SongsPathChanged)
                 {
-                    localBeatmapsLoaded = true;
+                    BeatmapLocalUserControl.ViewModel.IsLoaded = true;
                     OnlineBeatmapChanged = false;
 
                     if (BeatmapLocalUserControl.ViewModel.LocalBeatmaps is null || SettingsUserControl.ViewModel.SongsPathChanged)
@@ -366,26 +365,60 @@ namespace BeatManager.ViewModels
 
         public void ShowOnlineSabersPage()
         {
+            //if (MainWindow.userControlMain.Content == BeatmapOnlineDetailsUserControl)
+            //    ShowOnlineBeatmapDetails = false;
+
             if (ShowOnlineSaberDetails && !SettingsUserControl.ViewModel.SongsPathChanged)
             {
                 // Show online saber details
             }
             else
             {
-                if (!SaberOnlineUserControl.SaberUserControl.ViewModel.IsLoaded)
+                if (!SaberOnlineUserControl.UserControl.ViewModel.IsLoaded)
                 {
-                    SaberOnlineUserControl.SaberUserControl.ViewModel.GetSabers();
-                    SaberOnlineUserControl.SaberUserControl.ViewModel.IsLoaded = true;
+                    SaberOnlineUserControl.UserControl.ViewModel.GetSabers();
+                    SaberOnlineUserControl.UserControl.ViewModel.IsLoaded = true;
                 }
                 else if (LocalSaberChanged)
                 {
-                    if (SaberOnlineUserControl.SaberUserControl.ViewModel.OnlineModels != null)
-                        SaberOnlineUserControl.SaberUserControl.ViewModel.GetSabers(SaberOnlineUserControl.SaberUserControl.ViewModel.OnlineModels.CurrentPage);
+                    if (SaberOnlineUserControl.UserControl.ViewModel.OnlineModels != null)
+                        SaberOnlineUserControl.UserControl.ViewModel.GetSabers();
 
                     LocalSaberChanged = false;
                 }
 
                 MainWindow.userControlMain.Content = SaberOnlineUserControl;
+            }
+        }
+
+        public void ShowLocalSabersPage()
+        {
+            //if (MainWindow.userControlMain.Content == BeatmapLocalDetailsUserControl)
+            //    ShowLocalBeatmapDetails = false;
+
+            if (ShowLocalSaberDetails && !SettingsUserControl.ViewModel.SongsPathChanged)
+            {
+                //MainWindow.userControlMain.Content = BeatmapLocalDetailsUserControl;
+            }
+            else
+            {
+                MainWindow.userControlMain.Content = SaberLocalUserControl;
+                //BeatmapLocalDetailsUserControl.ViewModel.CloseBigCover();
+
+                if (!SaberLocalUserControl.UserControl.ViewModel.IsLoaded ||
+                    OnlineSaberChanged ||
+                    SettingsUserControl.ViewModel.SongsPathChanged)
+                {
+                    SaberLocalUserControl.UserControl.ViewModel.IsLoaded = true;
+                    OnlineSaberChanged = false;
+
+                    if (SaberLocalUserControl.UserControl.ViewModel.LocalModels is null || SettingsUserControl.ViewModel.SongsPathChanged)
+                        SaberLocalUserControl.UserControl.ViewModel.GetSabers();
+                    else
+                        SaberLocalUserControl.UserControl.ViewModel.GetSabers(SaberLocalUserControl.UserControl.ViewModel.LocalModels);
+
+                    SettingsUserControl.ViewModel.SongsPathChanged = false;
+                }
             }
         }
 

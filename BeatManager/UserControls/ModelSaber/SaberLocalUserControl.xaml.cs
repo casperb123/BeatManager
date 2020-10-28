@@ -45,11 +45,37 @@ namespace BeatManager.UserControls.ModelSaber
         private void Saber_Delete(object sender, RoutedEventArgs e)
         {
             string name = ((Button)sender).Tag.ToString();
+            ViewModel.DeleteModel(name);
         }
 
         private void Saber_Details(object sender, RoutedEventArgs e)
         {
             string name = ((Button)sender).Tag.ToString();
+        }
+
+        private void ButtonReloadData_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.GetSabers(ViewModel.LocalModels);
+        }
+
+        private void ButtonFirstPage_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.FirstPage();
+        }
+
+        private void ButtonPreviousPage_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.PreviousPage();
+        }
+
+        private void ButtonNextPage_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.NextPage();
+        }
+
+        private void ButtonLastPage_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.LastPage();
         }
     }
 }

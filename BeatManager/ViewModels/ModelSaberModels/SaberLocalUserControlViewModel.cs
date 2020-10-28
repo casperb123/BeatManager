@@ -71,7 +71,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
             SelectedModels = new List<LocalModel>();
         }
 
-        public void GetSabers()
+        public void GetSabers(LocalModels localModels = null)
         {
             MainWindow.ToggleLoading(true, "Loading online sabers");
 
@@ -79,7 +79,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
             {
                 try
                 {
-                    LocalModels = await App.ModelSaberApi.GetLocalSabers();
+                    LocalModels = App.ModelSaberApi.GetLocalSabers(localModels);
                 }
                 catch (Exception e)
                 {
@@ -159,7 +159,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
         public void DeleteModel(string name)
         {
             LocalModel localModel = LocalModels.Models.FirstOrDefault(x => x.Name == name);
-            OnlineModel onlineModel = MainWindow.ViewModel.SaberOnlineUserControl.SaberUserControl.ViewModel.OnlineModels?.Models.FirstOrDefault(x => x.Name == name);
+            OnlineModel onlineModel = MainWindow.ViewModel.SaberOnlineUserControl.UserControl.ViewModel.OnlineModels?.Models.FirstOrDefault(x => x.Name == name);
 
             App.ModelSaberApi.DeleteModel(localModel);
             LocalModels.Models.Remove(localModel);
@@ -180,7 +180,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
                 LocalModels.Models.Remove(model);
                 App.ModelSaberApi.DeleteModel(model);
 
-                OnlineModel onlineModel = MainWindow.ViewModel.SaberOnlineUserControl.SaberUserControl.ViewModel.OnlineModels?.Models.FirstOrDefault(x => x.Name == model.Name);
+                OnlineModel onlineModel = MainWindow.ViewModel.SaberOnlineUserControl.UserControl.ViewModel.OnlineModels?.Models.FirstOrDefault(x => x.Name == model.Name);
                 if (onlineModel != null)
                     onlineModels.Add(onlineModel);
             }

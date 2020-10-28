@@ -16,6 +16,7 @@ namespace BeatManager.ViewModels
 
         public readonly MainWindow MainWindow;
         public bool SongDeleted;
+        public bool IsLoaded;
 
         public LocalBeatmaps LocalBeatmaps
         {

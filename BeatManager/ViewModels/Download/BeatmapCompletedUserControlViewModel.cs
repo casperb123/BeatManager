@@ -39,9 +39,10 @@ namespace BeatManager.ViewModels.Download
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
-        public BeatmapCompletedUserControlViewModel(OnlineBeatmap beatmap)
+        public BeatmapCompletedUserControlViewModel(OnlineBeatmap beatmap, string downloaded)
         {
             Beatmap = beatmap;
+            Downloaded = downloaded;
         }
     }
 }

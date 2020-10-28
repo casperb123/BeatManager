@@ -36,9 +36,10 @@ namespace BeatManager.ViewModels.Download
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
-        public ModelSaberCompletedUserControlViewModel(OnlineModel model)
+        public ModelSaberCompletedUserControlViewModel(OnlineModel model, string downloaded)
         {
             Model = model;
+            Downloaded = downloaded;
         }
     }
 }

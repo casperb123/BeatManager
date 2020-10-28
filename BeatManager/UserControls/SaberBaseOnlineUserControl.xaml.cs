@@ -21,13 +21,13 @@ namespace BeatManager.UserControls
     /// </summary>
     public partial class SaberBaseOnlineUserControl : UserControl
     {
-        public readonly SaberOnlineUserControl SaberUserControl;
+        public readonly SaberOnlineUserControl UserControl;
 
         public SaberBaseOnlineUserControl(MainWindow mainWindow)
         {
             InitializeComponent();
-            SaberUserControl = new SaberOnlineUserControl(mainWindow, ModelType.Saber);
-            userControlMain.Content = SaberUserControl;
+            UserControl = new SaberOnlineUserControl(mainWindow, ModelType.Saber);
+            userControlMain.Content = UserControl;
         }
     }
 }

@@ -136,7 +136,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
             UpdatePageButtons();
         }
 
-        public void GetSabers(int page = 0)
+        public void GetSabers(OnlineModels onlineModels = null)
         {
             string sortDirection = SortDescending ? "Descending" : "Ascending";
             MainWindow.ToggleLoading(true, "Loading online sabers", $"Sorting by: {CurrentSort} - {sortDirection}");
@@ -145,7 +145,10 @@ namespace BeatManager.ViewModels.ModelSaberModels
             {
                 try
                 {
-                    OnlineModels = await App.ModelSaberApi.GetOnlineSabers(CurrentSort, SortDescending, Filters, page);
+                    if (onlineModels is null)
+                        OnlineModels = await App.ModelSaberApi.GetOnlineSabers(CurrentSort, SortDescending, Filters);
+                    else
+                        OnlineModels = await App.ModelSaberApi.GetOnlineSabers(CurrentSort, SortDescending, Filters, onlineModels);
                 }
                 catch (Exception e)
                 {
@@ -194,32 +197,26 @@ namespace BeatManager.ViewModels.ModelSaberModels
         public void NextPage()
         {
             App.ModelSaberApi.ChangeOnlinePage(OnlineModels, OnlineModels.NextPage.Value);
-            UpdateModels();
+            GetSabers(OnlineModels);
         }
 
         public void PreviousPage()
         {
             App.ModelSaberApi.ChangeOnlinePage(OnlineModels, OnlineModels.PrevPage.Value);
-            UpdateModels();
+            GetSabers(OnlineModels);
         }
 
         public void FirstPage()
         {
             App.ModelSaberApi.ChangeOnlinePage(OnlineModels, 0);
-            UpdateModels();
+            GetSabers(OnlineModels);
         }
 
         public void LastPage()
         {
-            App.ModelSaberApi.ChangeOnlinePage(OnlineModels, OnlineModels.LastPage);
-            UpdateModels();
-        }
 
-        private void UpdateModels()
-        {
-            userControl.dataGridModels.UnselectAll();
-            userControl.dataGridModels.Items.Refresh();
-            UpdatePageButtons();
+            App.ModelSaberApi.ChangeOnlinePage(OnlineModels, OnlineModels.LastPage);
+            GetSabers(OnlineModels);
         }
 
         public void ChangeSortDirection()

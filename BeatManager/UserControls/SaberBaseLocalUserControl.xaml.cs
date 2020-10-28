@@ -25,6 +25,7 @@ namespace BeatManager.UserControls
         {
             InitializeComponent();
             UserControl = new SaberLocalUserControl(mainWindow);
+            userControlMain.Content = UserControl;
         }
     }
 }

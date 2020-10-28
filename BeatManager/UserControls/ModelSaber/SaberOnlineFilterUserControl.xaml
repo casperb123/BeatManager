@@ -19,7 +19,7 @@
 
         <st:StackPanel Orientation="Horizontal"
                        MarginBetweenChildren="5"
-                       Margin="6,3,13,3">
+                       Margin="5,3,13,3">
             <Button x:Name="buttonRemove"
                     Style="{DynamicResource TransparentCircleButton}"
                     Width="22"

@@ -108,9 +108,8 @@
                   CanUserResizeColumns="False"
                   VerticalScrollBarVisibility="Disabled"
                   HorizontalScrollBarVisibility="Disabled"
-                  VirtualizingPanel.IsVirtualizing="False"
-                  TargetUpdated="DataGridModels_TargetUpdated"
-                  LoadingRow="DataGridModels_LoadingRow">
+                  VirtualizingPanel.IsVirtualizing="True"
+                  TargetUpdated="DataGridModels_TargetUpdated">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Cover">
                     <DataGridTemplateColumn.CellTemplate>
@@ -243,7 +242,8 @@
                                     </Button>
                                 </Grid>
                                 <Grid Width="30"
-                                      Height="30">
+                                      Height="30"
+                                      Visibility="{Binding Path=IsDownloading, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <mah:ProgressRing Width="20"
                                                       Height="20"
                                                       IsActive="{Binding Path=IsDownloading}"

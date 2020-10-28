@@ -36,13 +36,6 @@ namespace BeatManager.UserControls.ModelSaber
             ViewModel.UpdatePageButtons();
         }
 
-        private void DataGridModels_LoadingRow(object sender, DataGridRowEventArgs e)
-        {
-            OnlineModel onlineModel = (OnlineModel)e.Row.Item;
-            if (onlineModel.Page != ViewModel.OnlineModels.CurrentPage)
-                e.Row.Visibility = Visibility.Collapsed;
-        }
-
         private void ComboBoxSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!ViewModel.IsLoaded)
@@ -102,7 +95,7 @@ namespace BeatManager.UserControls.ModelSaber
 
         private void ButtonReloadData_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.GetSabers(ViewModel.OnlineModels.CurrentPage);
+            ViewModel.GetSabers();
         }
 
         private void ButtonFirstPage_Click(object sender, RoutedEventArgs e)

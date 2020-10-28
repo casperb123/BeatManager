@@ -95,14 +95,13 @@ namespace BeatManager
             userControlNavigation.Content = ViewModel.NavigationSabersUserControl;
 
             if (ViewModel.NavigationSabersUserControl.ViewModel.LocalPage)
-            {
-                // show local sabers page
-            }
+                ViewModel.ShowLocalSabersPage();
             else if (ViewModel.NavigationSabersUserControl.ViewModel.OnlinePage)
                 ViewModel.ShowOnlineSabersPage();
             else
             {
-                // show local sabers page
+                ViewModel.NavigationSabersUserControl.ViewModel.LocalPage = true;
+                ViewModel.ShowLocalSabersPage();
             }
         }
 

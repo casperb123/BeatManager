@@ -14,7 +14,7 @@ namespace BeatManager.UserControls.Download
         public BeatmapCompletedUserControl(OnlineBeatmap beatmap, string downloaded)
         {
             InitializeComponent();
-            ViewModel = new BeatmapCompletedUserControlViewModel(beatmap);
+            ViewModel = new BeatmapCompletedUserControlViewModel(beatmap, downloaded);
             DataContext = ViewModel;
         }
     }

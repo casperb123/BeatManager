@@ -144,7 +144,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
             {
                 try
                 {
-                    OnlineModels = await App.ModelSaberApi.GetOnlineSabers(CurrentSort, SortDescending, Filters, onlineModels);
+                    OnlineModels = await App.ModelSaberApi.GetOnlineModels(ModelType.Saber, CurrentSort, SortDescending, Filters, onlineModels);
                 }
                 catch (Exception e)
                 {

@@ -77,7 +77,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
             {
                 try
                 {
-                    LocalModels = App.ModelSaberApi.GetLocalSabers(localModels);
+                    LocalModels = App.ModelSaberApi.GetLocalModels(ModelType.Saber, localModels);
                 }
                 catch (Exception e)
                 {

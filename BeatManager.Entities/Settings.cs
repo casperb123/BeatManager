@@ -66,10 +66,10 @@ namespace BeatManager.Entities
 
                 if (!string.IsNullOrWhiteSpace(value) && Directory.Exists(value))
                 {
-                    if (!Directory.Exists(CustomLevelsPath))
-                        Directory.CreateDirectory(CustomLevelsPath);
-                    if (!Directory.Exists(CustomSabersPath))
-                        Directory.CreateDirectory(CustomSabersPath);
+                    Directory.CreateDirectory(CustomLevelsPath);
+                    Directory.CreateDirectory(CustomSabersPath);
+                    Directory.CreateDirectory(CustomPlatformsPath);
+                    Directory.CreateDirectory(CustomNotesPath);
                 }
             }
         }
@@ -100,6 +100,18 @@ namespace BeatManager.Entities
         public string CustomSabersPath
         {
             get { return Path.Combine(RootPath, "CustomSabers"); }
+        }
+
+        [JsonIgnore]
+        public string CustomPlatformsPath
+        {
+            get { return Path.Combine(RootPath, "CustomPlatforms"); }
+        }
+
+        [JsonIgnore]
+        public string CustomNotesPath
+        {
+            get { return Path.Combine(RootPath, "CustomNotes"); }
         }
 
         [JsonIgnore]

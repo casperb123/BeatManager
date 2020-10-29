@@ -1,12 +1,10 @@
-﻿using BeatManager.UserControls;
-using BeatManager.UserControls.ModelSaber;
+﻿using BeatManager.UserControls.ModelSaber;
 using MahApps.Metro.Controls.Dialogs;
 using ModelSaber.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BeatManager.ViewModels.ModelSaberModels

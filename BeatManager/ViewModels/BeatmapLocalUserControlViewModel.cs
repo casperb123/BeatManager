@@ -1,6 +1,5 @@
 ﻿using BeatManager.UserControls;
 using BeatSaver.Entities;
-using BeatSaver.Events;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;

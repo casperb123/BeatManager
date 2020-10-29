@@ -1,5 +1,4 @@
 ﻿using BeatManager.UserControls.ModelSaber;
-using Ionic.Zip;
 using MahApps.Metro.Controls.Dialogs;
 using ModelSaber.Entities;
 using ModelSaber.Events;
@@ -145,10 +144,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
             {
                 try
                 {
-                    if (onlineModels is null)
-                        OnlineModels = await App.ModelSaberApi.GetOnlineSabers(CurrentSort, SortDescending, Filters);
-                    else
-                        OnlineModels = await App.ModelSaberApi.GetOnlineSabers(CurrentSort, SortDescending, Filters, onlineModels);
+                    OnlineModels = await App.ModelSaberApi.GetOnlineSabers(CurrentSort, SortDescending, Filters, onlineModels);
                 }
                 catch (Exception e)
                 {

@@ -1,5 +1,4 @@
 ﻿using BeatSaver.Entities;
-using System;
 using System.ComponentModel;
 
 namespace BeatManager.ViewModels.Download

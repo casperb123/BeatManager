@@ -349,7 +349,7 @@
             <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
             <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
             <converters:NullToBooleanConverter x:Key="NullToBooleanConverter" />
-            <converters:ToStringConverter x:Key="ToStringConverter" />
+            <converters:StringTitleCaseConverter x:Key="StringTitleCaseConverter" />
             <!--#endregion-->
         </ResourceDictionary>
     </Application.Resources>

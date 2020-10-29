@@ -79,8 +79,7 @@
                              st:StackPanel.Fill="Fill"
                              KeyDown="TextBoxFilterSearch_KeyDown" />
                     <Button x:Name="buttonAddFilter"
-                            Background="#3cb371"
-                            Style="{DynamicResource CustomButtonFlat}"
+                            Style="{DynamicResource CustomButton}"
                             Click="ButtonAddFilter_Click">
                         <icons:PackIconMaterial Kind="Plus"
                                                 Height="14"

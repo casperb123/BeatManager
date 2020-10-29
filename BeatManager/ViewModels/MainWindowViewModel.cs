@@ -44,6 +44,12 @@ namespace BeatManager.ViewModels
         public bool LocalBeatmapChanged;
         public bool OnlineSaberChanged;
         public bool LocalSaberChanged;
+        public bool OnlineAvatarChanged;
+        public bool LocalAvatarChanged;
+        public bool OnlinePlatformChanged;
+        public bool LocalPlatformChanged;
+        public bool OnlineBloqChanged;
+        public bool LocalBloqChanged;
 
         public int Downloads
         {

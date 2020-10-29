@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace BeatManager.ViewModels.ModelSaberModels
 {
-    public class SaberOnlineUserControlViewModel : INotifyPropertyChanged
+    public class ModelSaberOnlineUserControlViewModel : INotifyPropertyChanged
     {
-        private readonly SaberOnlineUserControl userControl;
+        private readonly ModelSaberOnlineUserControl userControl;
         private OnlineModels onlineModels;
         private readonly ModelType modelType;
 
@@ -99,7 +99,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
-        public SaberOnlineUserControlViewModel(MainWindow mainWindow, SaberOnlineUserControl userControl, ModelType modelType)
+        public ModelSaberOnlineUserControlViewModel(MainWindow mainWindow, ModelSaberOnlineUserControl userControl, ModelType modelType)
         {
             MainWindow = mainWindow;
             this.userControl = userControl;
@@ -224,7 +224,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
         public void AddFilter(Filter filter)
         {
             Filters.Add(filter);
-            SaberOnlineFilterUserControl filterUserControl = new SaberOnlineFilterUserControl(filter);
+            ModelSaberOnlineFilterUserControl filterUserControl = new ModelSaberOnlineFilterUserControl(filter);
             filterUserControl.RemoveEvent += (s, e) => RemoveFilter(filterUserControl);
             userControl.wrapPanelFilters.Children.Add(filterUserControl);
             userControl.textBoxFilterSearch.Clear();
@@ -232,7 +232,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
             GetSabers();
         }
 
-        public void RemoveFilter(SaberOnlineFilterUserControl filterUserControl)
+        public void RemoveFilter(ModelSaberOnlineFilterUserControl filterUserControl)
         {
             Filters.Remove(filterUserControl.Filter);
             userControl.wrapPanelFilters.Children.Remove(filterUserControl);
@@ -322,7 +322,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
                 MainWindow.ViewModel.SaberLocalUserControl.UserControl.ViewModel.LocalModels.Models.Remove(localModel);
 
             App.ModelSaberApi.DeleteModel(onlineModel);
-            MainWindow.ViewModel.OnlineSaberChanged = true;
+            TriggerChange();
         }
 
         public void DeleteModels(List<OnlineModel> models)
@@ -338,7 +338,30 @@ namespace BeatManager.ViewModels.ModelSaberModels
             }
 
             if (models.Count > 0)
-                MainWindow.ViewModel.OnlineSaberChanged = true;
+                TriggerChange();
+        }
+
+        private void TriggerChange()
+        {
+            switch (modelType)
+            {
+                case ModelType.None:
+                    break;
+                case ModelType.Saber:
+                    MainWindow.ViewModel.OnlineSaberChanged = true;
+                    break;
+                case ModelType.Avatar:
+                    MainWindow.ViewModel.OnlineAvatarChanged = true;
+                    break;
+                case ModelType.Platform:
+                    MainWindow.ViewModel.OnlinePlatformChanged = true;
+                    break;
+                case ModelType.Bloq:
+                    MainWindow.ViewModel.OnlineBloqChanged = true;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

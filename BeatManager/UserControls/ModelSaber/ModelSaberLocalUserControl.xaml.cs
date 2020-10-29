@@ -9,14 +9,14 @@ namespace BeatManager.UserControls.ModelSaber
     /// <summary>
     /// Interaction logic for SaberLocalUserControl.xaml
     /// </summary>
-    public partial class SaberLocalUserControl : UserControl
+    public partial class ModelSaberLocalUserControl : UserControl
     {
-        public readonly SaberLocalUserControlViewModel ViewModel;
+        public readonly ModelSaberLocalUserControlViewModel ViewModel;
 
-        public SaberLocalUserControl(MainWindow mainWindow)
+        public ModelSaberLocalUserControl(MainWindow mainWindow, ModelType modelType)
         {
             InitializeComponent();
-            ViewModel = new SaberLocalUserControlViewModel(mainWindow, this, ModelType.Saber);
+            ViewModel = new ModelSaberLocalUserControlViewModel(mainWindow, this, modelType);
             DataContext = ViewModel;
         }
 
@@ -33,13 +33,13 @@ namespace BeatManager.UserControls.ModelSaber
                 e.Row.Visibility = Visibility.Collapsed;
         }
 
-        private void Saber_Delete(object sender, RoutedEventArgs e)
+        private void Model_Delete(object sender, RoutedEventArgs e)
         {
             string name = ((Button)sender).Tag.ToString();
             ViewModel.DeleteModel(name);
         }
 
-        private void Saber_Details(object sender, RoutedEventArgs e)
+        private void Model_Details(object sender, RoutedEventArgs e)
         {
             string name = ((Button)sender).Tag.ToString();
         }

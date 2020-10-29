@@ -81,7 +81,7 @@
                     <DataGridTextColumn Header="Song Name"
                                         Width="1*"
                                         IsReadOnly="True"
-                                        Binding="{Binding Path=FullSongName, IsAsync=True, FallbackValue=...}">
+                                        Binding="{Binding Path=FullSongName, IsAsync=True, FallbackValue='...'}">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock"
                                    BasedOn="{StaticResource MahApps.Styles.TextBlock}">
@@ -101,7 +101,7 @@
                     <DataGridTextColumn Header="Artist"
                                         Width=".4*"
                                         IsReadOnly="True"
-                                        Binding="{Binding Path=SongAuthorName, IsAsync=True, FallbackValue=..., TargetNullValue=-}">
+                                        Binding="{Binding Path=SongAuthorName, IsAsync=True, FallbackValue=..., TargetNullValue='-'}">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock"
                                    BasedOn="{StaticResource MahApps.Styles.TextBlock}">
@@ -110,7 +110,7 @@
                                 <Setter Property="Margin"
                                         Value="10,0,0,0" />
                                 <Setter Property="ToolTip"
-                                        Value="{Binding Path=SongAuthorName, IsAsync=True}" />
+                                        Value="{Binding Path=SongAuthorName, IsAsync=True, TargetNullValue=''}" />
                                 <Setter Property="ToolTipService.BetweenShowDelay"
                                         Value="0" />
                                 <Setter Property="ToolTipService.InitialShowDelay"
@@ -121,7 +121,7 @@
                     <DataGridTextColumn Header="Mapper"
                                         Width=".4*"
                                         IsReadOnly="True"
-                                        Binding="{Binding Path=LevelAuthorName, IsAsync=True, FallbackValue=..., TargetNullValue=-}">
+                                        Binding="{Binding Path=LevelAuthorName, IsAsync=True, FallbackValue='...', TargetNullValue='-'}">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock"
                                    BasedOn="{StaticResource MahApps.Styles.TextBlock}">
@@ -130,7 +130,7 @@
                                 <Setter Property="Margin"
                                         Value="10,0,0,0" />
                                 <Setter Property="ToolTip"
-                                        Value="{Binding Path=LevelAuthorName, IsAsync=True, FallbackValue=...}" />
+                                        Value="{Binding Path=LevelAuthorName, IsAsync=True, TargetNullValue=''}" />
                                 <Setter Property="ToolTipService.BetweenShowDelay"
                                         Value="0" />
                                 <Setter Property="ToolTipService.InitialShowDelay"
@@ -193,7 +193,7 @@
                     <DataGridTextColumn Header="Downloads"
                                         IsReadOnly="True"
                                         MinWidth="110"
-                                        Binding="{Binding Path=OnlineBeatmap.Stats.Downloads, Converter={StaticResource AddCommasConverter}, IsAsync=True, FallbackValue=..., TargetNullValue=...}">
+                                        Binding="{Binding Path=OnlineBeatmap.Stats.Downloads, Converter={StaticResource AddCommasConverter}, IsAsync=True, FallbackValue='...', TargetNullValue='-'}">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock"
                                    BasedOn="{StaticResource MahApps.Styles.TextBlock}">
@@ -202,7 +202,7 @@
                                 <Setter Property="Margin"
                                         Value="10,0,0,0" />
                                 <Setter Property="ToolTip"
-                                        Value="{Binding Path=OnlineBeatmap.Stats.Downloads, Converter={StaticResource AddCommasConverter}, IsAsync=True}" />
+                                        Value="{Binding Path=OnlineBeatmap.Stats.Downloads, Converter={StaticResource AddCommasConverter}, IsAsync=True, TargetNullValue=''}" />
                                 <Setter Property="ToolTipService.BetweenShowDelay"
                                         Value="0" />
                                 <Setter Property="ToolTipService.InitialShowDelay"

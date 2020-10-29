@@ -1,4 +1,5 @@
 ﻿using BeatManager.UserControls.ModelSaber;
+using ModelSaber.Entities;
 using System.Windows.Controls;
 
 namespace BeatManager.UserControls
@@ -8,12 +9,12 @@ namespace BeatManager.UserControls
     /// </summary>
     public partial class SaberBaseLocalUserControl : UserControl
     {
-        public readonly SaberLocalUserControl UserControl;
+        public readonly ModelSaberLocalUserControl UserControl;
 
         public SaberBaseLocalUserControl(MainWindow mainWindow)
         {
             InitializeComponent();
-            UserControl = new SaberLocalUserControl(mainWindow);
+            UserControl = new ModelSaberLocalUserControl(mainWindow, ModelType.Saber);
             userControlMain.Content = UserControl;
         }
     }

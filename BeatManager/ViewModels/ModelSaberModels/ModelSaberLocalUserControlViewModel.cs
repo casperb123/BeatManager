@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace BeatManager.ViewModels.ModelSaberModels
 {
-    public class SaberLocalUserControlViewModel : INotifyPropertyChanged
+    public class ModelSaberLocalUserControlViewModel : INotifyPropertyChanged
     {
-        private readonly SaberLocalUserControl userControl;
+        private readonly ModelSaberLocalUserControl userControl;
         private LocalModels localModels;
         private readonly ModelType modelType;
 
@@ -60,7 +60,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
-        public SaberLocalUserControlViewModel(MainWindow mainWindow, SaberLocalUserControl userControl, ModelType modelType)
+        public ModelSaberLocalUserControlViewModel(MainWindow mainWindow, ModelSaberLocalUserControl userControl, ModelType modelType)
         {
             MainWindow = mainWindow;
             this.userControl = userControl;
@@ -77,7 +77,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
             {
                 try
                 {
-                    LocalModels = App.ModelSaberApi.GetLocalModels(ModelType.Saber, localModels);
+                    LocalModels = App.ModelSaberApi.GetLocalModels(modelType, localModels);
                 }
                 catch (Exception e)
                 {
@@ -162,7 +162,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
             App.ModelSaberApi.DeleteModel(localModel);
             LocalModels.Models.Remove(localModel);
             if (onlineModel is null)
-                MainWindow.ViewModel.LocalSaberChanged = true;
+                TriggerChange();
             else
                 onlineModel.IsDownloaded = false;
 
@@ -186,9 +186,32 @@ namespace BeatManager.ViewModels.ModelSaberModels
             if (onlineModels.Count == models.Count)
                 onlineModels.ForEach(x => x.IsDownloaded = false);
             else
-                MainWindow.ViewModel.LocalSaberChanged = true;
+                TriggerChange();
 
             LocalModels = App.ModelSaberApi.RefreshLocalPages(LocalModels);
+        }
+
+        private void TriggerChange()
+        {
+            switch (modelType)
+            {
+                case ModelType.None:
+                    break;
+                case ModelType.Saber:
+                    MainWindow.ViewModel.LocalSaberChanged = true;
+                    break;
+                case ModelType.Avatar:
+                    MainWindow.ViewModel.LocalAvatarChanged = true;
+                    break;
+                case ModelType.Platform:
+                    MainWindow.ViewModel.LocalPlatformChanged = true;
+                    break;
+                case ModelType.Bloq:
+                    MainWindow.ViewModel.LocalBloqChanged = true;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

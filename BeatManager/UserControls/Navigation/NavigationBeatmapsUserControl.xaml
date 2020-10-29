@@ -22,7 +22,7 @@
                          ToolTip="Local Beatmaps"
                          Style="{DynamicResource CircleToggleButton}"
                          GroupName="NavigationButtonsBeatmaps"
-                         IsChecked="{Binding Path=LocalPage}"
+                         IsChecked="{Binding Path=LocalPage, Mode=OneWay}"
                          Click="RadioButtonLocal_Click">
                 <icons:PackIconFontAwesome Kind="LaptopSolid"
                                            Width="20"
@@ -37,7 +37,7 @@
                          ToolTip="Online Beatmaps"
                          Style="{DynamicResource CircleToggleButton}"
                          GroupName="NavigationButtonsBeatmaps"
-                         IsChecked="{Binding Path=OnlinePage}"
+                         IsChecked="{Binding Path=OnlinePage, Mode=OneWay}"
                          Click="RadioButtonOnline_Click">
                 <icons:PackIconFontAwesome Kind="GlobeSolid"
                                            Width="20"

@@ -312,6 +312,7 @@ namespace BeatManager.ViewModels
             if (MainWindow.userControlMain.Content == BeatmapLocalDetailsUserControl)
                 ShowLocalBeatmapDetails = false;
 
+            NavigationBeatmapsUserControl.radioButtonLocal.IsChecked = true;
             if (ShowLocalBeatmapDetails && !SettingsUserControl.ViewModel.SongsPathChanged)
                 MainWindow.userControlMain.Content = BeatmapLocalDetailsUserControl;
             else
@@ -341,6 +342,7 @@ namespace BeatManager.ViewModels
             if (MainWindow.userControlMain.Content == BeatmapOnlineDetailsUserControl)
                 ShowOnlineBeatmapDetails = false;
 
+            NavigationBeatmapsUserControl.radioButtonOnline.IsChecked = true;
             if (ShowOnlineBeatmapDetails && !SettingsUserControl.ViewModel.SongsPathChanged)
                 MainWindow.userControlMain.Content = BeatmapOnlineDetailsUserControl;
             else
@@ -374,6 +376,7 @@ namespace BeatManager.ViewModels
             //if (MainWindow.userControlMain.Content == BeatmapOnlineDetailsUserControl)
             //    ShowOnlineBeatmapDetails = false;
 
+            NavigationSabersUserControl.radioButtonOnline.IsChecked = true;
             if (ShowOnlineSaberDetails && !SettingsUserControl.ViewModel.SongsPathChanged)
             {
                 // Show online saber details
@@ -402,6 +405,7 @@ namespace BeatManager.ViewModels
             //if (MainWindow.userControlMain.Content == BeatmapLocalDetailsUserControl)
             //    ShowLocalBeatmapDetails = false;
 
+            NavigationSabersUserControl.radioButtonLocal.IsChecked = true;
             if (ShowLocalSaberDetails && !SettingsUserControl.ViewModel.SongsPathChanged)
             {
                 //MainWindow.userControlMain.Content = BeatmapLocalDetailsUserControl;

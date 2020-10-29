@@ -40,11 +40,15 @@ namespace BeatManager.ViewModels.Navigation
 
         public void Local()
         {
+            LocalPage = true;
+            OnlinePage = false;
             LocalEvent?.Invoke(this, EventArgs.Empty);
         }
 
         public void Online()
         {
+            OnlinePage = true;
+            LocalPage = false;
             OnlineEvent?.Invoke(this, EventArgs.Empty);
         }
     }

@@ -88,10 +88,9 @@
                     </Button>
                 </st:StackPanel>
 
-                <st:StackPanel x:Name="stackPanelFilters"
-                               Orientation="Horizontal"
-                               MarginBetweenChildren="5"
-                               Margin="0,10,0,0" />
+                <WrapPanel x:Name="wrapPanelFilters"
+                           Orientation="Horizontal"
+                           Margin="0,7.5,0,0" />
             </StackPanel>
         </Grid>
 

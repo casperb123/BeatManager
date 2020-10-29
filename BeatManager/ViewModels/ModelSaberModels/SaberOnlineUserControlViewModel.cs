@@ -226,7 +226,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
             Filters.Add(filter);
             SaberOnlineFilterUserControl filterUserControl = new SaberOnlineFilterUserControl(filter);
             filterUserControl.RemoveEvent += (s, e) => RemoveFilter(filterUserControl);
-            userControl.stackPanelFilters.Children.Add(filterUserControl);
+            userControl.wrapPanelFilters.Children.Add(filterUserControl);
             userControl.textBoxFilterSearch.Clear();
 
             GetSabers();
@@ -235,7 +235,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
         public void RemoveFilter(SaberOnlineFilterUserControl filterUserControl)
         {
             Filters.Remove(filterUserControl.Filter);
-            userControl.stackPanelFilters.Children.Remove(filterUserControl);
+            userControl.wrapPanelFilters.Children.Remove(filterUserControl);
 
             GetSabers();
         }

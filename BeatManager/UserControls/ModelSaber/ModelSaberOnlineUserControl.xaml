@@ -48,12 +48,12 @@
                                 Click="ButtonSortDirection_Click">
                             <Grid>
                                 <icons:PackIconMaterial Kind="ArrowDown"
-                                                        Height="12"
-                                                        Width="12"
+                                                        Height="14"
+                                                        Width="14"
                                                         Visibility="{Binding Path=SortDescending, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                 <icons:PackIconMaterial Kind="ArrowUp"
-                                                        Height="12"
-                                                        Width="12"
+                                                        Height="14"
+                                                        Width="14"
                                                         Visibility="{Binding Path=SortDescending, Converter={StaticResource InverseBooleanToVisibilityConverter}}" />
                             </Grid>
                         </Button>

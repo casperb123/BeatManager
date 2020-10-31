@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="clr-namespace:BeatManager.Converters"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -80,6 +81,13 @@
                    BasedOn="{StaticResource MahApps.Styles.ComboBox}">
                 <Setter Property="Cursor"
                         Value="Hand" />
+            </Style>
+            <Style x:Key="CustomIconMaterial"
+                   TargetType="icons:PackIconMaterial">
+                <Setter Property="Width"
+                        Value="13" />
+                <Setter Property="Height"
+                        Value="13" />
             </Style>
             <!--#endregion-->
 

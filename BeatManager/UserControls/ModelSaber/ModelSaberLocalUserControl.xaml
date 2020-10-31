@@ -142,8 +142,7 @@
                                     </Button.ToolTip>
 
                                     <icons:PackIconMaterial Kind="DeleteForever"
-                                                            Width="13"
-                                                            Height="13" />
+                                                            Style="{DynamicResource CustomIconMaterial}" />
                                 </Button>
                                 <Button Tag="{Binding Path=Name}"
                                         Grid.Column="1"
@@ -156,8 +155,7 @@
                                     </Button.ToolTip>
 
                                     <icons:PackIconMaterial Kind="ArrowRight"
-                                                            Width="13"
-                                                            Height="13" />
+                                                            Style="{DynamicResource CustomIconMaterial}" />
                                 </Button>
                             </Grid>
                         </DataTemplate>
@@ -177,8 +175,7 @@
                     ToolTip="Reload Beatmaps"
                     Click="ButtonReloadData_Click">
                 <icons:PackIconMaterial Kind="Refresh"
-                                        Width="13"
-                                        Height="13" />
+                                        Style="{DynamicResource CustomIconMaterial}" />
             </Button>
 
             <Label VerticalContentAlignment="Center">
@@ -203,8 +200,7 @@
                     Style="{DynamicResource TransparentCircleButton}"
                     Click="ButtonFirstPage_Click">
                 <icons:PackIconMaterial Kind="ArrowLeftBold"
-                                        Width="13"
-                                        Height="13" />
+                                        Style="{DynamicResource CustomIconMaterial}" />
             </Button>
             <Button x:Name="buttonPreviousPage"
                     Width="30"
@@ -214,8 +210,7 @@
                     Style="{DynamicResource TransparentCircleButton}"
                     Click="ButtonPreviousPage_Click">
                 <icons:PackIconMaterial Kind="ArrowLeft"
-                                        Width="13"
-                                        Height="13" />
+                                        Style="{DynamicResource CustomIconMaterial}" />
             </Button>
             <Button x:Name="buttonNextPage"
                     Width="30"
@@ -225,8 +220,7 @@
                     Style="{DynamicResource TransparentCircleButton}"
                     Click="ButtonNextPage_Click">
                 <icons:PackIconMaterial Kind="ArrowRight"
-                                        Width="13"
-                                        Height="13" />
+                                        Style="{DynamicResource CustomIconMaterial}" />
             </Button>
             <Button x:Name="buttonLastPage"
                     Width="30"
@@ -236,8 +230,7 @@
                     Style="{DynamicResource TransparentCircleButton}"
                     Click="ButtonLastPage_Click">
                 <icons:PackIconMaterial Kind="ArrowRightBold"
-                                        Width="13"
-                                        Height="13" />
+                                        Style="{DynamicResource CustomIconMaterial}" />
             </Button>
         </StackPanel>
     </Grid>

@@ -30,68 +30,61 @@
                            Orientation="Horizontal"
                            MarginBetweenChildren="5"
                            Margin="0,0,20,0">
-                <StackPanel>
-                    <Label Content="Sort"
-                           HorizontalContentAlignment="Center" />
-
-                    <st:StackPanel Orientation="Horizontal"
-                                   MarginBetweenChildren="5">
-                        <ComboBox x:Name="comboBoxSort"
-                                  Style="{DynamicResource CustomComboBox}"
-                                  Width="70"
-                                  ItemsSource="{Binding Path=SortTypes, Mode=OneWay}"
-                                  SelectedItem="{Binding Path=CurrentSort}"
-                                  SelectionChanged="ComboBoxSort_SelectionChanged" />
-                        <Button x:Name="buttonSortDirection"
-                                VerticalAlignment="Bottom"
-                                Style="{DynamicResource CustomButton}"
-                                Click="ButtonSortDirection_Click">
-                            <Grid>
-                                <icons:PackIconMaterial Kind="ArrowDown"
-                                                        Style="{DynamicResource CustomIconMaterial}"
-                                                        Visibility="{Binding Path=SortDescending, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                <icons:PackIconMaterial Kind="ArrowUp"
-                                                        Style="{DynamicResource CustomIconMaterial}"
-                                                        Visibility="{Binding Path=SortDescending, Converter={StaticResource InverseBooleanToVisibilityConverter}}" />
-                            </Grid>
-                        </Button>
-                    </st:StackPanel>
-                </StackPanel>
-            </st:StackPanel>
-
-            <StackPanel Grid.Column="1"
-                        Margin="20,0,0,0">
-                <Label Content="Search"
-                       HorizontalContentAlignment="Center" />
-
-                <st:StackPanel st:StackPanel.Fill="Fill"
-                               Orientation="Horizontal"
-                               MarginBetweenChildren="10">
-                    <ComboBox x:Name="comboBoxFilters"
-                              Width="85"
-                              ItemsSource="{Binding Path=FilterTypes, Mode=OneWay}"
-                              SelectedItem="{Binding Path=CurrentFilterType}" />
-                    <TextBox x:Name="textBoxFilterSearch"
-                             mah:TextBoxHelper.Watermark="Filter search"
-                             VerticalAlignment="Center"
-                             st:StackPanel.Fill="Fill"
-                             KeyDown="TextBoxFilterSearch_KeyDown" />
-                    <Button x:Name="buttonAddFilter"
+                <st:StackPanel Orientation="Horizontal"
+                               MarginBetweenChildren="5">
+                    <ComboBox x:Name="comboBoxSort"
+                              Style="{DynamicResource CustomComboBox}"
+                              Width="70"
+                              ItemsSource="{Binding Path=SortTypes, Mode=OneWay}"
+                              SelectedItem="{Binding Path=CurrentSort}"
+                              SelectionChanged="ComboBoxSort_SelectionChanged" />
+                    <Button x:Name="buttonSortDirection"
+                            VerticalAlignment="Bottom"
                             Style="{DynamicResource CustomButton}"
-                            Click="ButtonAddFilter_Click">
-                        <icons:PackIconMaterial Kind="Plus"
-                                                Style="{DynamicResource CustomIconMaterial}" />
+                            Click="ButtonSortDirection_Click">
+                        <Grid>
+                            <icons:PackIconMaterial Kind="ArrowDown"
+                                                    Style="{DynamicResource CustomIconMaterial}"
+                                                    Visibility="{Binding Path=SortDescending, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <icons:PackIconMaterial Kind="ArrowUp"
+                                                    Style="{DynamicResource CustomIconMaterial}"
+                                                    Visibility="{Binding Path=SortDescending, Converter={StaticResource InverseBooleanToVisibilityConverter}}" />
+                        </Grid>
                     </Button>
                 </st:StackPanel>
+            </st:StackPanel>
 
-                <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                              VerticalScrollBarVisibility="Auto"
-                              Margin="0,7.5,0,0"
-                              MaxHeight="100">
-                    <WrapPanel x:Name="wrapPanelFilters"
-                               Orientation="Horizontal" />
-                </ScrollViewer>
-            </StackPanel>
+            <st:StackPanel st:StackPanel.Fill="Fill"
+                           Orientation="Horizontal"
+                           MarginBetweenChildren="10"
+                           Grid.Column="1"
+                           Margin="20,0,0,0">
+                <ComboBox x:Name="comboBoxFilters"
+                          Width="85"
+                          ItemsSource="{Binding Path=FilterTypes, Mode=OneWay}"
+                          SelectedItem="{Binding Path=CurrentFilterType}" />
+                <TextBox x:Name="textBoxFilterSearch"
+                         mah:TextBoxHelper.Watermark="Filter search"
+                         VerticalAlignment="Center"
+                         st:StackPanel.Fill="Fill"
+                         KeyDown="TextBoxFilterSearch_KeyDown" />
+                <Button x:Name="buttonAddFilter"
+                        Style="{DynamicResource CustomButton}"
+                        Click="ButtonAddFilter_Click">
+                    <icons:PackIconMaterial Kind="Plus"
+                                            Style="{DynamicResource CustomIconMaterial}" />
+                </Button>
+            </st:StackPanel>
+
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Auto"
+                          Margin="17.5,7.5,0,0"
+                          MaxHeight="100"
+                          Grid.Column="1"
+                          Grid.Row="1">
+                <WrapPanel x:Name="wrapPanelFilters"
+                           Orientation="Horizontal" />
+            </ScrollViewer>
         </Grid>
 
         <DataGrid x:Name="dataGridModels"

@@ -22,6 +22,19 @@ namespace BeatManager.UserControls.BeatSaver
             DataContext = ViewModel;
         }
 
+        private void ButtonBigCover_Click(object sender, RoutedEventArgs e)
+        {
+            string key = ((Button)sender).Tag.ToString();
+
+            ViewModel.Beatmap = ViewModel.OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
+            ViewModel.OpenBigCover();
+        }
+
+        private void DoubleAnimation_CloseCover(object sender, System.EventArgs e)
+        {
+            ViewModel.CloseBigCover();
+        }
+
         private void Map_Download(object sender, RoutedEventArgs e)
         {
             string songKey = ((Button)sender).Tag.ToString();

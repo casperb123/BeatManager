@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BeatManager.ViewModels.BeatSaverModels
 {
@@ -14,6 +15,7 @@ namespace BeatManager.ViewModels.BeatSaverModels
     {
         private readonly BeatmapOnlineUserControl userControl;
         private OnlineBeatmaps onlineBeatmaps;
+        private OnlineBeatmap beatmap;
 
         private int selectedSongsToDownloadCount;
         private int selectedSongsToDeleteCount;
@@ -69,6 +71,16 @@ namespace BeatManager.ViewModels.BeatSaverModels
             {
                 selectedSongsToDownloadCount = value;
                 OnPropertyChanged(nameof(SelectedSongsToDownloadCount));
+            }
+        }
+
+        public OnlineBeatmap Beatmap
+        {
+            get { return beatmap; }
+            set
+            {
+                beatmap = value;
+                OnPropertyChanged(nameof(Beatmap));
             }
         }
         public OnlineBeatmaps OnlineBeatmaps
@@ -377,6 +389,17 @@ namespace BeatManager.ViewModels.BeatSaverModels
                 MainWindow.userControlMain.Content = MainWindow.ViewModel.BeatmapOnlineDetailsUserControl;
 
             MainWindow.ViewModel.BeatmapOnlineUserControl.dataGridMaps.UnselectAll();
+        }
+
+        public void OpenBigCover()
+        {
+            userControl.gridCoverImage.Visibility = Visibility.Visible;
+        }
+
+        public void CloseBigCover()
+        {
+            userControl.gridCoverImage.Visibility = Visibility.Hidden;
+            userControl.gridCoverImage.Opacity = 0;
         }
     }
 }

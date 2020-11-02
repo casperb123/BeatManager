@@ -75,10 +75,7 @@
                                 <Image x:Name="imageCover"
                                        Source="{Binding Path=Beatmap.RealCoverURL}" />
                                 <Button x:Name="buttonBigCover"
-                                        BorderThickness="0"
-                                        Foreground="White"
-                                        Opacity="0"
-                                        Cursor="Hand"
+                                        Style="{DynamicResource CustomButtonCover}"
                                         Click="ButtonBigCover_Click">
                                     <Button.Triggers>
                                         <EventTrigger RoutedEvent="Button.Click">
@@ -93,54 +90,6 @@
                                             </BeginStoryboard>
                                         </EventTrigger>
                                     </Button.Triggers>
-
-                                    <Button.Style>
-                                        <Style TargetType="Button">
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="Button">
-                                                        <Border BorderBrush="{TemplateBinding BorderBrush}"
-                                                                Background="{TemplateBinding Background}"
-                                                                Margin="{TemplateBinding Margin}"
-                                                                Padding="{TemplateBinding Padding}"
-                                                                BorderThickness="0"
-                                                                Opacity="{TemplateBinding Opacity}">
-                                                            <ContentPresenter Content="{TemplateBinding Content}"
-                                                                              HorizontalAlignment="Center"
-                                                                              VerticalAlignment="Center" />
-                                                        </Border>
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                            <Setter Property="Background">
-                                                <Setter.Value>
-                                                    <SolidColorBrush Color="Black"
-                                                                     Opacity=".5" />
-                                                </Setter.Value>
-                                            </Setter>
-                                            <Style.Triggers>
-                                                <EventTrigger RoutedEvent="Control.MouseEnter">
-                                                    <BeginStoryboard>
-                                                        <Storyboard>
-                                                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                                                             Duration="0:0:.15"
-                                                                             To="1" />
-                                                        </Storyboard>
-                                                    </BeginStoryboard>
-                                                </EventTrigger>
-                                                <EventTrigger RoutedEvent="Control.MouseLeave">
-                                                    <BeginStoryboard>
-                                                        <Storyboard>
-                                                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                                                             Duration="0:0:.15"
-                                                                             To="0" />
-                                                        </Storyboard>
-                                                    </BeginStoryboard>
-                                                </EventTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
-
                                     <icons:PackIconMaterial Kind="ArrowExpandAll"
                                                             Width="25"
                                                             Height="25" />

@@ -1,5 +1,6 @@
 ﻿using BeatManager.ViewModels.BeatSaverModels;
 using BeatSaver.Entities;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -24,6 +25,19 @@ namespace BeatManager.UserControls.BeatSaver
         {
             MainWindow.ToggleLoading(false);
             ViewModel.UpdatePageButtons();
+        }
+
+        private void ButtonBigCover_Click(object sender, RoutedEventArgs e)
+        {
+            LocalIdentifier identifier = ((Button)sender).Tag as LocalIdentifier;
+
+            ViewModel.Beatmap = ViewModel.LocalBeatmaps.Maps.FirstOrDefault(x => x.Identifier == identifier);
+            ViewModel.OpenBigCover();
+        }
+
+        private void DoubleAnimation_CloseCover(object sender, System.EventArgs e)
+        {
+            ViewModel.CloseBigCover();
         }
 
         private void Map_Delete(object sender, RoutedEventArgs e)

@@ -1,5 +1,6 @@
 ﻿using BeatManager.ViewModels.ModelSaberModels;
 using ModelSaber.Entities;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -67,6 +68,32 @@ namespace BeatManager.UserControls.ModelSaber
         private void ButtonLastPage_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.LastPage();
+        }
+
+        private void DataGridModels_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ViewModel.SelectedModels.Clear();
+            foreach (LocalModel model in dataGridModels.SelectedItems)
+                ViewModel.SelectedModels.Add(model);
+        }
+
+        private void ContextMenuDataGridModels_Opened(object sender, RoutedEventArgs e)
+        {
+            int modelsToDelete = ViewModel.SelectedModels.Count();
+            ViewModel.SelectedModelsToDelete = modelsToDelete;
+
+            if (modelsToDelete == 0)
+            {
+                menuItemDataGridModelsDelete.Visibility = Visibility.Collapsed;
+                contextMenuDataGridModels.IsOpen = false;
+            }
+            else
+                menuItemDataGridModelsDelete.Visibility = Visibility.Visible;
+        }
+
+        private void MenuItemDataGridModelsDelete_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.DeleteModels(ViewModel.SelectedModels.ToList());
         }
     }
 }

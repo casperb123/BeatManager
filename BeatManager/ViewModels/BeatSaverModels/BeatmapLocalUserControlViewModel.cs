@@ -4,18 +4,30 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BeatManager.ViewModels.BeatSaverModels
 {
     public class BeatmapLocalUserControlViewModel : INotifyPropertyChanged
     {
         private LocalBeatmaps localBeatmaps;
+        private LocalBeatmap beatmap;
         private readonly BeatmapLocalUserControl userControl;
         private int selectedSongsCount;
 
         public readonly MainWindow MainWindow;
         public bool SongDeleted;
         public bool IsLoaded;
+
+        public LocalBeatmap Beatmap
+        {
+            get { return beatmap; }
+            set
+            {
+                beatmap = value;
+                OnPropertyChanged(nameof(Beatmap));
+            }
+        }
 
         public LocalBeatmaps LocalBeatmaps
         {
@@ -186,6 +198,17 @@ namespace BeatManager.ViewModels.BeatSaverModels
                 MainWindow.userControlMain.Content = MainWindow.ViewModel.BeatmapLocalDetailsUserControl;
 
             MainWindow.ViewModel.BeatmapLocalUserControl.dataGridMaps.UnselectAll();
+        }
+
+        public void OpenBigCover()
+        {
+            userControl.gridCoverImage.Visibility = Visibility.Visible;
+        }
+
+        public void CloseBigCover()
+        {
+            userControl.gridCoverImage.Visibility = Visibility.Hidden;
+            userControl.gridCoverImage.Opacity = 0;
         }
     }
 }

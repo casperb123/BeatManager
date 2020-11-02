@@ -246,7 +246,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
             {
                 MainWindow.radioButtonSettings.IsEnabled = false;
                 OnlineModel onlineModel = OnlineModels.Models.FirstOrDefault(x => x.Id == id);
-                await App.ModelSaberApi.DownloadModel(onlineModel, ModelType);
+                await App.ModelSaberApi.DownloadModel(onlineModel);
             }
             catch (InvalidOperationException e)
             {
@@ -283,7 +283,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
             {
                 try
                 {
-                    _ = App.ModelSaberApi.DownloadModel(model, ModelType);
+                    _ = App.ModelSaberApi.DownloadModel(model).ConfigureAwait(false);
                 }
                 catch (InvalidOperationException e)
                 {

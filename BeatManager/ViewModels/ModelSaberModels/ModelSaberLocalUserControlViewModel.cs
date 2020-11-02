@@ -13,7 +13,6 @@ namespace BeatManager.ViewModels.ModelSaberModels
     {
         private readonly ModelSaberLocalUserControl userControl;
         private LocalModels localModels;
-        private readonly ModelType modelType;
 
         private int selectedModelsToDownload;
         private int selectedModelsToDelete;
@@ -21,6 +20,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
         public MainWindow MainWindow { get; private set; }
         public bool ModelChanged { get; private set; }
         public bool IsLoaded { get; set; }
+        public ModelType ModelType { get; private set; }
 
         public List<LocalModel> SelectedModels { get; set; }
         public int SelectedModelsToDownload
@@ -64,7 +64,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
         {
             MainWindow = mainWindow;
             this.userControl = userControl;
-            this.modelType = modelType;
+            ModelType = modelType;
 
             SelectedModels = new List<LocalModel>();
         }
@@ -77,7 +77,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
             {
                 try
                 {
-                    LocalModels = App.ModelSaberApi.GetLocalModels(modelType, localModels);
+                    LocalModels = App.ModelSaberApi.GetLocalModels(ModelType, localModels);
                 }
                 catch (Exception e)
                 {
@@ -193,7 +193,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
 
         private void TriggerChange()
         {
-            switch (modelType)
+            switch (ModelType)
             {
                 case ModelType.None:
                     break;

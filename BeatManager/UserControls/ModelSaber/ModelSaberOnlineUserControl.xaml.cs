@@ -1,4 +1,5 @@
 ﻿using BeatManager.ViewModels.ModelSaberModels;
+using Ionic.Zip;
 using ModelSaber.Entities;
 using System.Linq;
 using System.Windows;
@@ -108,6 +109,45 @@ namespace BeatManager.UserControls.ModelSaber
         private void ButtonLastPage_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.LastPage();
+        }
+
+        private void DataGridModels_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ViewModel.SelectedModels.Clear();
+            foreach (OnlineModel model in dataGridModels.SelectedItems)
+                ViewModel.SelectedModels.Add(model);
+        }
+
+        private void ContextMenuDataGridModels_Opened(object sender, RoutedEventArgs e)
+        {
+            int modelsToDownload = ViewModel.SelectedModels.Where(x => !x.IsDownloaded).Count();
+            int modelsToDelete = ViewModel.SelectedModels.Where(x => x.IsDownloaded).Count();
+
+            ViewModel.SelectedModelsToDownload = modelsToDownload;
+            ViewModel.SelectedModelsToDelete = modelsToDelete;
+
+            if (modelsToDownload == 0)
+                menuItemDataGridModelsDownload.Visibility = Visibility.Collapsed;
+            else
+                menuItemDataGridModelsDownload.Visibility = Visibility.Visible;
+
+            if (modelsToDelete == 0)
+                menuItemDataGridModelsDelete.Visibility = Visibility.Collapsed;
+            else
+                menuItemDataGridModelsDelete.Visibility = Visibility.Visible;
+
+            if (modelsToDownload == 0 && modelsToDelete == 0)
+                contextMenuDataGridModels.IsOpen = false;
+        }
+
+        private async void MenuItemDataGridModelsDownload_Click(object sender, RoutedEventArgs e)
+        {
+            await ViewModel.DownloadModels(ViewModel.SelectedModels.Where(x => !x.IsDownloaded).ToList());
+        }
+
+        private void MenuItemDataGridModelsDelete_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.DeleteModels(ViewModel.SelectedModels.Where(x => x.IsDownloaded).ToList());
         }
     }
 }

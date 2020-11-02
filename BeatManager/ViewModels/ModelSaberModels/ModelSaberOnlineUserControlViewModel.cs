@@ -14,7 +14,6 @@ namespace BeatManager.ViewModels.ModelSaberModels
     {
         private readonly ModelSaberOnlineUserControl userControl;
         private OnlineModels onlineModels;
-        private readonly ModelType modelType;
 
         private int selectedModelsToDownload;
         private int selectedModelsToDelete;
@@ -22,6 +21,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
         private bool sortDescending;
         private FilterType currentFilterType;
 
+        public ModelType ModelType { get; private set; }
         public List<Sort> SortTypes { get; private set; }
         public List<Filter> Filters { get; private set; }
         public List<FilterType> FilterTypes { get; private set; }
@@ -103,7 +103,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
         {
             MainWindow = mainWindow;
             this.userControl = userControl;
-            this.modelType = modelType;
+            ModelType = modelType;
 
             SelectedModels = new List<OnlineModel>();
             SortTypes = Enum.GetValues(typeof(Sort)).Cast<Sort>().ToList();
@@ -246,7 +246,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
             {
                 MainWindow.radioButtonSettings.IsEnabled = false;
                 OnlineModel onlineModel = OnlineModels.Models.FirstOrDefault(x => x.Id == id);
-                await App.ModelSaberApi.DownloadModel(onlineModel, modelType);
+                await App.ModelSaberApi.DownloadModel(onlineModel, ModelType);
             }
             catch (InvalidOperationException e)
             {
@@ -283,7 +283,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
             {
                 try
                 {
-                    _ = App.ModelSaberApi.DownloadModel(model, modelType);
+                    _ = App.ModelSaberApi.DownloadModel(model, ModelType);
                 }
                 catch (InvalidOperationException e)
                 {
@@ -343,7 +343,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
 
         private void TriggerChange()
         {
-            switch (modelType)
+            switch (ModelType)
             {
                 case ModelType.None:
                     break;

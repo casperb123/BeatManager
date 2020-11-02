@@ -143,8 +143,6 @@ namespace BeatManager.UserControls.BeatSaver
             ViewModel.SelectedSongs.Clear();
             foreach (OnlineBeatmap song in dataGridMaps.SelectedItems)
                 ViewModel.SelectedSongs.Add(song);
-
-            ViewModel.SelectedSongsToDownloadCount = ViewModel.SelectedSongs.Count;
         }
 
         private void ContextMenuDataGridMaps_Opened(object sender, RoutedEventArgs e)

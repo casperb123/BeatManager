@@ -108,7 +108,50 @@
                   VerticalScrollBarVisibility="Disabled"
                   HorizontalScrollBarVisibility="Disabled"
                   VirtualizingPanel.IsVirtualizing="True"
-                  TargetUpdated="DataGridModels_TargetUpdated">
+                  TargetUpdated="DataGridModels_TargetUpdated"
+                  SelectionChanged="DataGridModels_SelectionChanged">
+            <DataGrid.ContextMenu>
+                <ContextMenu x:Name="contextMenuDataGridModels"
+                             Opened="ContextMenuDataGridModels_Opened">
+                    <MenuItem x:Name="menuItemDataGridModelsDownload"
+                              Click="MenuItemDataGridModelsDownload_Click">
+                        <MenuItem.Header>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="Download {0} {1}s">
+                                        <Binding Path="SelectedModelsToDownload" />
+                                        <Binding Path="ModelType"
+                                                 Mode="OneWay" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </MenuItem.Header>
+                        <MenuItem.Icon>
+                            <icons:PackIconMaterial Kind="Download"
+                                                    Margin="5,0,0,0" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="menuItemDataGridModelsDelete"
+                              Click="MenuItemDataGridModelsDelete_Click">
+                        <MenuItem.Header>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="Delete {0} {1}s">
+                                        <Binding Path="SelectedModelsToDelete" />
+                                        <Binding Path="ModelType"
+                                                 Mode="OneWay" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </MenuItem.Header>
+                        <MenuItem.Icon>
+                            <icons:PackIconMaterial Kind="Delete"
+                                                    Margin="5,0,0,0" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Cover">
                     <DataGridTemplateColumn.CellTemplate>

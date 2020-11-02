@@ -1,10 +1,12 @@
 ﻿using BeatManager.UserControls.BeatSaver;
 using BeatSaver.Entities;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
+using System.Windows.Media.Imaging;
 
 namespace BeatManager.ViewModels.BeatSaverModels
 {
@@ -142,13 +144,8 @@ namespace BeatManager.ViewModels.BeatSaverModels
 
         public void OpenBigCover()
         {
-            userControl.gridCoverImage.Visibility = Visibility.Visible;
-        }
-
-        public void CloseBigCover()
-        {
-            userControl.gridCoverImage.Visibility = Visibility.Hidden;
-            userControl.gridCoverImage.Opacity = 0;
+            BitmapImage image = new BitmapImage(new Uri(Beatmap.RealCoverURL));
+            mainWindow.ViewModel.OpenBigCover(image);
         }
     }
 }

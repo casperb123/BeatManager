@@ -185,5 +185,10 @@ namespace BeatManager
                     ViewModel.BeatmapOnlineDetailsUserControl.ViewModel.Back();
             }
         }
+
+        private void DoubleAnimation_CloseCover(object sender, EventArgs e)
+        {
+            ViewModel.CloseBigCover();
+        }
     }
 }

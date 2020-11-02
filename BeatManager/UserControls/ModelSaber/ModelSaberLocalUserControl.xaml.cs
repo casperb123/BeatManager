@@ -34,6 +34,12 @@ namespace BeatManager.UserControls.ModelSaber
                 e.Row.Visibility = Visibility.Collapsed;
         }
 
+        private void ButtonBigCover_Click(object sender, RoutedEventArgs e)
+        {
+            string name = ((Button)sender).Tag.ToString();
+            ViewModel.OpenBigCover(name);
+        }
+
         private void Model_Delete(object sender, RoutedEventArgs e)
         {
             string name = ((Button)sender).Tag.ToString();

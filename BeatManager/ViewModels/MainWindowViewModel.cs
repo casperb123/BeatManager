@@ -11,6 +11,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
 using Settings = BeatManager.Entities.Settings;
 using Version = GitHubUpdater.Version;
 
@@ -320,7 +323,6 @@ namespace BeatManager.ViewModels
             else
             {
                 MainWindow.userControlMain.Content = BeatmapLocalUserControl;
-                BeatmapLocalDetailsUserControl.ViewModel.CloseBigCover();
 
                 if (!BeatmapLocalUserControl.ViewModel.IsLoaded ||
                     OnlineBeatmapChanged ||
@@ -369,7 +371,6 @@ namespace BeatManager.ViewModels
                 }
 
                 MainWindow.userControlMain.Content = BeatmapOnlineUserControl;
-                BeatmapOnlineDetailsUserControl.ViewModel.CloseBigCover();
             }
         }
 
@@ -385,16 +386,14 @@ namespace BeatManager.ViewModels
             }
             else
             {
-                if (!SaberOnlineUserControl.UserControl.ViewModel.IsLoaded)
+                if (!SaberOnlineUserControl.ViewModel.IsLoaded)
                 {
-                    SaberOnlineUserControl.UserControl.ViewModel.GetSabers();
-                    SaberOnlineUserControl.UserControl.ViewModel.IsLoaded = true;
+                    SaberOnlineUserControl.ViewModel.GetSabers();
+                    SaberOnlineUserControl.ViewModel.IsLoaded = true;
                 }
                 else if (LocalSaberChanged)
                 {
-                    if (SaberOnlineUserControl.UserControl.ViewModel.OnlineModels != null)
-                        SaberOnlineUserControl.UserControl.ViewModel.GetSabers();
-
+                    SaberOnlineUserControl.ViewModel.GetSabers();
                     LocalSaberChanged = false;
                 }
 
@@ -417,17 +416,17 @@ namespace BeatManager.ViewModels
                 MainWindow.userControlMain.Content = SaberLocalUserControl;
                 //BeatmapLocalDetailsUserControl.ViewModel.CloseBigCover();
 
-                if (!SaberLocalUserControl.UserControl.ViewModel.IsLoaded ||
+                if (!SaberLocalUserControl.ViewModel.IsLoaded ||
                     OnlineSaberChanged ||
                     SettingsUserControl.ViewModel.SongsPathChanged)
                 {
-                    SaberLocalUserControl.UserControl.ViewModel.IsLoaded = true;
+                    SaberLocalUserControl.ViewModel.IsLoaded = true;
                     OnlineSaberChanged = false;
 
-                    if (SaberLocalUserControl.UserControl.ViewModel.LocalModels is null || SettingsUserControl.ViewModel.SongsPathChanged)
-                        SaberLocalUserControl.UserControl.ViewModel.GetSabers();
+                    if (SettingsUserControl.ViewModel.SongsPathChanged)
+                        SaberLocalUserControl.ViewModel.GetModels(false);
                     else
-                        SaberLocalUserControl.UserControl.ViewModel.GetSabers(SaberLocalUserControl.UserControl.ViewModel.LocalModels);
+                        SaberLocalUserControl.ViewModel.GetModels(true);
 
                     SettingsUserControl.ViewModel.SongsPathChanged = false;
                 }
@@ -493,6 +492,20 @@ namespace BeatManager.ViewModels
                         await DownloadSong(key);
                 }
             });
+        }
+
+        public void OpenBigCover(ImageSource image)
+        {
+            MainWindow.imageCoverImage.Source = image;
+            ((Storyboard)MainWindow.Resources["OpenCover"]).Begin();
+            MainWindow.gridCoverImage.Visibility = Visibility.Visible;
+        }
+
+        public void CloseBigCover()
+        {
+            ((Storyboard)MainWindow.Resources["CloseCover"]).Begin();
+            MainWindow.gridCoverImage.Visibility = Visibility.Hidden;
+            MainWindow.gridCoverImage.Opacity = 0;
         }
     }
 }

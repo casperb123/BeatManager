@@ -409,6 +409,23 @@
             <converters:NullToBooleanConverter x:Key="NullToBooleanConverter" />
             <converters:StringTitleCaseConverter x:Key="StringTitleCaseConverter" />
             <!--#endregion-->
+            
+            <!--#region Storyboards-->
+            <Storyboard x:Key="StoryBoardOpenCover">
+                <DoubleAnimation Storyboard.TargetName="gridCoverImage"
+                                 Storyboard.TargetProperty="Opacity"
+                                 Duration="0:0:.15"
+                                 From="0"
+                                 To="1" />
+            </Storyboard>
+            <Storyboard x:Key="StoryBoardCloseCover">
+                <DoubleAnimation Storyboard.TargetName="gridCoverImage"
+                                 Storyboard.TargetProperty="Opacity"
+                                 Duration="0:0:.15"
+                                 From="1"
+                                 To="0" />
+            </Storyboard>
+            <!--#endregion-->
         </ResourceDictionary>
     </Application.Resources>
 </Application>

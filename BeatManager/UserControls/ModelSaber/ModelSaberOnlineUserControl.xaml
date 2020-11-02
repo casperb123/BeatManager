@@ -156,6 +156,20 @@
                                     <Border.Background>
                                         <ImageBrush ImageSource="{Binding Path=RealThumbnail, Mode=OneWay, IsAsync=True}" />
                                     </Border.Background>
+                                    <Button x:Name="buttonBigCover"
+                                            Tag="{Binding Path=Id}"
+                                            Style="{DynamicResource CustomButtonCover}"
+                                            Click="ButtonBigCover_Click">
+                                        <Button.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius"
+                                                        Value="100" />
+                                            </Style>
+                                        </Button.Resources>
+                                        <icons:PackIconMaterial Kind="ArrowExpandAll"
+                                                                Width="14"
+                                                                Height="14" />
+                                    </Button>
                                 </Border>
                             </Grid>
                         </DataTemplate>

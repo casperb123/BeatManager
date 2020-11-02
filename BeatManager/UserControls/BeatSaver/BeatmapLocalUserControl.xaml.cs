@@ -30,14 +30,7 @@ namespace BeatManager.UserControls.BeatSaver
         private void ButtonBigCover_Click(object sender, RoutedEventArgs e)
         {
             LocalIdentifier identifier = ((Button)sender).Tag as LocalIdentifier;
-
-            ViewModel.Beatmap = ViewModel.LocalBeatmaps.Maps.FirstOrDefault(x => x.Identifier == identifier);
-            ViewModel.OpenBigCover();
-        }
-
-        private void DoubleAnimation_CloseCover(object sender, System.EventArgs e)
-        {
-            ViewModel.CloseBigCover();
+            ViewModel.OpenBigCover(identifier);
         }
 
         private void Map_Delete(object sender, RoutedEventArgs e)

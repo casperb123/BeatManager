@@ -25,14 +25,7 @@ namespace BeatManager.UserControls.BeatSaver
         private void ButtonBigCover_Click(object sender, RoutedEventArgs e)
         {
             string key = ((Button)sender).Tag.ToString();
-
-            ViewModel.Beatmap = ViewModel.OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
-            ViewModel.OpenBigCover();
-        }
-
-        private void DoubleAnimation_CloseCover(object sender, System.EventArgs e)
-        {
-            ViewModel.CloseBigCover();
+            ViewModel.OpenBigCover(key);
         }
 
         private void Map_Download(object sender, RoutedEventArgs e)

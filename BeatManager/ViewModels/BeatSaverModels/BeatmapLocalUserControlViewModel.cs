@@ -2,9 +2,11 @@
 using BeatSaver.Entities;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace BeatManager.ViewModels.BeatSaverModels
 {
@@ -200,15 +202,18 @@ namespace BeatManager.ViewModels.BeatSaverModels
             MainWindow.ViewModel.BeatmapLocalUserControl.dataGridMaps.UnselectAll();
         }
 
-        public void OpenBigCover()
+        public void OpenBigCover(LocalIdentifier identifier)
         {
-            userControl.gridCoverImage.Visibility = Visibility.Visible;
-        }
-
-        public void CloseBigCover()
-        {
-            userControl.gridCoverImage.Visibility = Visibility.Hidden;
-            userControl.gridCoverImage.Opacity = 0;
+            LocalBeatmap beatmap = LocalBeatmaps.Maps.FirstOrDefault(x => x.Identifier == identifier);
+            using (FileStream stream = File.OpenRead(beatmap.CoverImagePath))
+            {
+                BitmapImage image = new BitmapImage();
+                image.BeginInit();
+                image.StreamSource = stream;
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.EndInit();
+                MainWindow.ViewModel.OpenBigCover(image);
+            }
         }
     }
 }

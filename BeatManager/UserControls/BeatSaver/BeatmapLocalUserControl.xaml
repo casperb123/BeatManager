@@ -9,416 +9,345 @@
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
-    <Grid>
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                      VerticalScrollBarVisibility="Auto">
-            <Grid Margin="30,5"
-                  MaxWidth="1350">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                  VerticalScrollBarVisibility="Auto">
+        <Grid Margin="30,5"
+              MaxWidth="1350">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
 
-                <Label Content="Beatmap Local"
-                       FontSize="45"
-                       Margin="0,0,0,30" />
+            <Label Content="Beatmap Local"
+                   FontSize="45"
+                   Margin="0,0,0,30" />
 
-                <DataGrid x:Name="dataGridMaps"
-                          ItemsSource="{Binding Path=LocalBeatmaps.Maps, NotifyOnTargetUpdated=True}"
-                          Grid.Row="1"
-                          Margin="0,10,0,0"
-                          AutoGenerateColumns="False"
-                          SelectionMode="Extended"
-                          CanUserAddRows="False"
-                          CanUserDeleteRows="False"
-                          CanUserReorderColumns="False"
-                          CanUserResizeRows="False"
-                          CanUserResizeColumns="False"
-                          VerticalScrollBarVisibility="Auto"
-                          HorizontalScrollBarVisibility="Disabled"
-                          VirtualizingPanel.IsVirtualizing="False"
-                          TargetUpdated="DataGridMaps_TargetUpdated"
-                          SelectionChanged="DataGridMaps_SelectionChanged"
-                          LoadingRow="DataGridMaps_LoadingRow">
-                    <DataGrid.ContextMenu>
-                        <ContextMenu x:Name="contextMenuDataGridMaps"
-                                     Opened="ContextMenuDataGridMaps_Opened">
-                            <MenuItem x:Name="menuItemDataGridMapsDelete"
-                                      Click="MenuItemDataGridMapsDelete_Click">
-                                <MenuItem.Header>
-                                    <TextBlock>
-                                        <TextBlock.Text>
-                                            <MultiBinding StringFormat="Delete {0} songs">
-                                                <Binding Path="SelectedSongsCount" />
-                                            </MultiBinding>
-                                        </TextBlock.Text>
-                                    </TextBlock>
-                                </MenuItem.Header>
-                                <MenuItem.Icon>
-                                    <icons:PackIconMaterial Kind="Delete"
-                                                            Margin="5,0,0,0" />
-                                </MenuItem.Icon>
-                            </MenuItem>
-                        </ContextMenu>
-                    </DataGrid.ContextMenu>
+            <DataGrid x:Name="dataGridMaps"
+                      ItemsSource="{Binding Path=LocalBeatmaps.Maps, NotifyOnTargetUpdated=True}"
+                      Grid.Row="1"
+                      Margin="0,10,0,0"
+                      AutoGenerateColumns="False"
+                      SelectionMode="Extended"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      CanUserReorderColumns="False"
+                      CanUserResizeRows="False"
+                      CanUserResizeColumns="False"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled"
+                      VirtualizingPanel.IsVirtualizing="False"
+                      TargetUpdated="DataGridMaps_TargetUpdated"
+                      SelectionChanged="DataGridMaps_SelectionChanged"
+                      LoadingRow="DataGridMaps_LoadingRow">
+                <DataGrid.ContextMenu>
+                    <ContextMenu x:Name="contextMenuDataGridMaps"
+                                 Opened="ContextMenuDataGridMaps_Opened">
+                        <MenuItem x:Name="menuItemDataGridMapsDelete"
+                                  Click="MenuItemDataGridMapsDelete_Click">
+                            <MenuItem.Header>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="Delete {0} songs">
+                                            <Binding Path="SelectedSongsCount" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </MenuItem.Header>
+                            <MenuItem.Icon>
+                                <icons:PackIconMaterial Kind="Delete"
+                                                        Margin="5,0,0,0" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
 
-                    <DataGrid.Columns>
-                        <DataGridTemplateColumn Header="Cover">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Border Width="25"
-                                                Height="25"
-                                                CornerRadius="100">
-                                            <Border.Background>
-                                                <ImageBrush ImageSource="{Binding Path=CoverImagePath, Mode=OneWay, IsAsync=True, Converter={StaticResource ImageSourceToBitmapConverter}}" />
-                                            </Border.Background>
-                                            <Button x:Name="buttonBigCover"
-                                                    Tag="{Binding Path=Identifier}"
-                                                    Style="{DynamicResource CustomButtonCover}"
-                                                    Click="ButtonBigCover_Click">
-                                                <Button.Resources>
-                                                    <Style TargetType="Border">
-                                                        <Setter Property="CornerRadius"
-                                                                Value="100" />
-                                                    </Style>
-                                                </Button.Resources>
-                                                <Button.Triggers>
-                                                    <EventTrigger RoutedEvent="Button.Click">
-                                                        <BeginStoryboard>
-                                                            <Storyboard>
-                                                                <DoubleAnimation Storyboard.Target="{Binding ElementName=gridCoverImage}"
-                                                                                 Storyboard.TargetProperty="Opacity"
-                                                                                 Duration="0:0:.15"
-                                                                                 From="0"
-                                                                                 To="1" />
-                                                            </Storyboard>
-                                                        </BeginStoryboard>
-                                                    </EventTrigger>
-                                                </Button.Triggers>
-                                                <icons:PackIconMaterial Kind="ArrowExpandAll"
-                                                                        Width="14"
-                                                                        Height="14" />
-                                            </Button>
-                                        </Border>
-                                    </Grid>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Song Name"
-                                            Width="1*"
-                                            IsReadOnly="True"
-                                            Binding="{Binding Path=FullSongName, IsAsync=True, FallbackValue='...'}">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock"
-                                       BasedOn="{StaticResource MahApps.Styles.TextBlock}">
-                                    <Setter Property="TextTrimming"
-                                            Value="CharacterEllipsis" />
-                                    <Setter Property="Margin"
-                                            Value="10,0,0,0" />
-                                    <Setter Property="ToolTip"
-                                            Value="{Binding Path=FullSongName, Mode=OneWay, IsAsync=True}" />
-                                    <Setter Property="ToolTipService.BetweenShowDelay"
-                                            Value="0" />
-                                    <Setter Property="ToolTipService.InitialShowDelay"
-                                            Value="0" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="Artist"
-                                            Width=".4*"
-                                            IsReadOnly="True"
-                                            Binding="{Binding Path=SongAuthorName, IsAsync=True, FallbackValue=..., TargetNullValue='-'}">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock"
-                                       BasedOn="{StaticResource MahApps.Styles.TextBlock}">
-                                    <Setter Property="TextTrimming"
-                                            Value="CharacterEllipsis" />
-                                    <Setter Property="Margin"
-                                            Value="10,0,0,0" />
-                                    <Setter Property="ToolTip"
-                                            Value="{Binding Path=SongAuthorName, IsAsync=True, TargetNullValue=''}" />
-                                    <Setter Property="ToolTipService.BetweenShowDelay"
-                                            Value="0" />
-                                    <Setter Property="ToolTipService.InitialShowDelay"
-                                            Value="0" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="Mapper"
-                                            Width=".4*"
-                                            IsReadOnly="True"
-                                            Binding="{Binding Path=LevelAuthorName, IsAsync=True, FallbackValue='...', TargetNullValue='-'}">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock"
-                                       BasedOn="{StaticResource MahApps.Styles.TextBlock}">
-                                    <Setter Property="TextTrimming"
-                                            Value="CharacterEllipsis" />
-                                    <Setter Property="Margin"
-                                            Value="10,0,0,0" />
-                                    <Setter Property="ToolTip"
-                                            Value="{Binding Path=LevelAuthorName, IsAsync=True, TargetNullValue=''}" />
-                                    <Setter Property="ToolTipService.BetweenShowDelay"
-                                            Value="0" />
-                                    <Setter Property="ToolTipService.InitialShowDelay"
-                                            Value="0" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        <DataGridTemplateColumn Header="Difficulties"
-                                                IsReadOnly="True"
-                                                MinWidth="100">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <st:StackPanel Orientation="Horizontal"
-                                                   Margin="10,0,0,0"
-                                                   MarginBetweenChildren="-10">
-                                        <Border Width="25"
-                                                Height="25"
-                                                CornerRadius="100"
-                                                Background="#3cb371"
-                                                ToolTip="Easy"
-                                                ToolTipService.InitialShowDelay="0"
-                                                ToolTipService.BetweenShowDelay="0"
-                                                Visibility="{Binding Path=Easy, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                        <Border Width="25"
-                                                Height="25"
-                                                CornerRadius="100"
-                                                Background="#59b0f4"
-                                                ToolTip="Normal"
-                                                ToolTipService.InitialShowDelay="0"
-                                                ToolTipService.BetweenShowDelay="0"
-                                                Visibility="{Binding Path=Normal, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                        <Border Width="25"
-                                                Height="25"
-                                                CornerRadius="100"
-                                                Background="Tomato"
-                                                ToolTip="Hard"
-                                                ToolTipService.InitialShowDelay="0"
-                                                ToolTipService.BetweenShowDelay="0"
-                                                Visibility="{Binding Path=Hard, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                        <Border Width="25"
-                                                Height="25"
-                                                CornerRadius="100"
-                                                Background="#bf2a42"
-                                                ToolTip="Expert"
-                                                ToolTipService.InitialShowDelay="0"
-                                                ToolTipService.BetweenShowDelay="0"
-                                                Visibility="{Binding Path=Expert, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                        <Border Width="25"
-                                                Height="25"
-                                                CornerRadius="100"
-                                                Background="#8f48db"
-                                                ToolTip="Expert+"
-                                                ToolTipService.InitialShowDelay="0"
-                                                ToolTipService.BetweenShowDelay="0"
-                                                Visibility="{Binding Path=ExpertPlus, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                    </st:StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Downloads"
-                                            IsReadOnly="True"
-                                            MinWidth="110"
-                                            Binding="{Binding Path=OnlineBeatmap.Stats.Downloads, Converter={StaticResource AddCommasConverter}, IsAsync=True, FallbackValue='...', TargetNullValue='-'}">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock"
-                                       BasedOn="{StaticResource MahApps.Styles.TextBlock}">
-                                    <Setter Property="TextTrimming"
-                                            Value="CharacterEllipsis" />
-                                    <Setter Property="Margin"
-                                            Value="10,0,0,0" />
-                                    <Setter Property="ToolTip"
-                                            Value="{Binding Path=OnlineBeatmap.Stats.Downloads, Converter={StaticResource AddCommasConverter}, IsAsync=True, TargetNullValue=''}" />
-                                    <Setter Property="ToolTipService.BetweenShowDelay"
-                                            Value="0" />
-                                    <Setter Property="ToolTipService.InitialShowDelay"
-                                            Value="0" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        <DataGridTemplateColumn Header="Actions"
-                                                IsReadOnly="True">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="1*" />
-                                            <ColumnDefinition Width="1*" />
-                                        </Grid.ColumnDefinitions>
-
-                                        <Button Tag="{Binding Path=Identifier}"
-                                                ToolTip="Delete song"
-                                                Style="{DynamicResource TransparentCircleButton}"
-                                                Width="30"
-                                                Height="30"
-                                                Foreground="#ff4040"
-                                                Click="Map_Delete">
-                                            <icons:PackIconMaterial Kind="DeleteForever"
-                                                                    Width="13"
-                                                                    Height="13" />
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Cover">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Border Width="25"
+                                            Height="25"
+                                            CornerRadius="100">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding Path=CoverImagePath, Mode=OneWay, IsAsync=True, Converter={StaticResource ImageSourceToBitmapConverter}}" />
+                                        </Border.Background>
+                                        <Button x:Name="buttonBigCover"
+                                                Tag="{Binding Path=Identifier}"
+                                                Style="{DynamicResource CustomButtonCover}"
+                                                Click="ButtonBigCover_Click">
+                                            <Button.Resources>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="CornerRadius"
+                                                            Value="100" />
+                                                </Style>
+                                            </Button.Resources>
+                                            <icons:PackIconMaterial Kind="ArrowExpandAll"
+                                                                    Width="14"
+                                                                    Height="14" />
                                         </Button>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Song Name"
+                                        Width="1*"
+                                        IsReadOnly="True"
+                                        Binding="{Binding Path=FullSongName, IsAsync=True, FallbackValue='...'}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock"
+                                   BasedOn="{StaticResource MahApps.Styles.TextBlock}">
+                                <Setter Property="TextTrimming"
+                                        Value="CharacterEllipsis" />
+                                <Setter Property="Margin"
+                                        Value="10,0,0,0" />
+                                <Setter Property="ToolTip"
+                                        Value="{Binding Path=FullSongName, Mode=OneWay, IsAsync=True}" />
+                                <Setter Property="ToolTipService.BetweenShowDelay"
+                                        Value="0" />
+                                <Setter Property="ToolTipService.InitialShowDelay"
+                                        Value="0" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Artist"
+                                        Width=".4*"
+                                        IsReadOnly="True"
+                                        Binding="{Binding Path=SongAuthorName, IsAsync=True, FallbackValue=..., TargetNullValue='-'}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock"
+                                   BasedOn="{StaticResource MahApps.Styles.TextBlock}">
+                                <Setter Property="TextTrimming"
+                                        Value="CharacterEllipsis" />
+                                <Setter Property="Margin"
+                                        Value="10,0,0,0" />
+                                <Setter Property="ToolTip"
+                                        Value="{Binding Path=SongAuthorName, IsAsync=True, TargetNullValue=''}" />
+                                <Setter Property="ToolTipService.BetweenShowDelay"
+                                        Value="0" />
+                                <Setter Property="ToolTipService.InitialShowDelay"
+                                        Value="0" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Mapper"
+                                        Width=".4*"
+                                        IsReadOnly="True"
+                                        Binding="{Binding Path=LevelAuthorName, IsAsync=True, FallbackValue='...', TargetNullValue='-'}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock"
+                                   BasedOn="{StaticResource MahApps.Styles.TextBlock}">
+                                <Setter Property="TextTrimming"
+                                        Value="CharacterEllipsis" />
+                                <Setter Property="Margin"
+                                        Value="10,0,0,0" />
+                                <Setter Property="ToolTip"
+                                        Value="{Binding Path=LevelAuthorName, IsAsync=True, TargetNullValue=''}" />
+                                <Setter Property="ToolTipService.BetweenShowDelay"
+                                        Value="0" />
+                                <Setter Property="ToolTipService.InitialShowDelay"
+                                        Value="0" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTemplateColumn Header="Difficulties"
+                                            IsReadOnly="True"
+                                            MinWidth="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <st:StackPanel Orientation="Horizontal"
+                                               Margin="10,0,0,0"
+                                               MarginBetweenChildren="-10">
+                                    <Border Width="25"
+                                            Height="25"
+                                            CornerRadius="100"
+                                            Background="#3cb371"
+                                            ToolTip="Easy"
+                                            ToolTipService.InitialShowDelay="0"
+                                            ToolTipService.BetweenShowDelay="0"
+                                            Visibility="{Binding Path=Easy, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    <Border Width="25"
+                                            Height="25"
+                                            CornerRadius="100"
+                                            Background="#59b0f4"
+                                            ToolTip="Normal"
+                                            ToolTipService.InitialShowDelay="0"
+                                            ToolTipService.BetweenShowDelay="0"
+                                            Visibility="{Binding Path=Normal, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    <Border Width="25"
+                                            Height="25"
+                                            CornerRadius="100"
+                                            Background="Tomato"
+                                            ToolTip="Hard"
+                                            ToolTipService.InitialShowDelay="0"
+                                            ToolTipService.BetweenShowDelay="0"
+                                            Visibility="{Binding Path=Hard, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    <Border Width="25"
+                                            Height="25"
+                                            CornerRadius="100"
+                                            Background="#bf2a42"
+                                            ToolTip="Expert"
+                                            ToolTipService.InitialShowDelay="0"
+                                            ToolTipService.BetweenShowDelay="0"
+                                            Visibility="{Binding Path=Expert, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    <Border Width="25"
+                                            Height="25"
+                                            CornerRadius="100"
+                                            Background="#8f48db"
+                                            ToolTip="Expert+"
+                                            ToolTipService.InitialShowDelay="0"
+                                            ToolTipService.BetweenShowDelay="0"
+                                            Visibility="{Binding Path=ExpertPlus, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                </st:StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Downloads"
+                                        IsReadOnly="True"
+                                        MinWidth="110"
+                                        Binding="{Binding Path=OnlineBeatmap.Stats.Downloads, Converter={StaticResource AddCommasConverter}, IsAsync=True, FallbackValue='...', TargetNullValue='-'}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock"
+                                   BasedOn="{StaticResource MahApps.Styles.TextBlock}">
+                                <Setter Property="TextTrimming"
+                                        Value="CharacterEllipsis" />
+                                <Setter Property="Margin"
+                                        Value="10,0,0,0" />
+                                <Setter Property="ToolTip"
+                                        Value="{Binding Path=OnlineBeatmap.Stats.Downloads, Converter={StaticResource AddCommasConverter}, IsAsync=True, TargetNullValue=''}" />
+                                <Setter Property="ToolTipService.BetweenShowDelay"
+                                        Value="0" />
+                                <Setter Property="ToolTipService.InitialShowDelay"
+                                        Value="0" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTemplateColumn Header="Actions"
+                                            IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
 
-                                        <Button Tag="{Binding Path=Identifier}"
-                                                Grid.Column="1"
-                                                ToolTip="Song details"
-                                                Style="{DynamicResource TransparentCircleButton}"
-                                                Width="30"
-                                                Height="30"
-                                                Visibility="{Binding Path=Details, Converter={StaticResource NullToVisibilityConverter}}"
-                                                Click="Map_Details">
-                                            <icons:PackIconMaterial Kind="ArrowRight"
-                                                                    Width="13"
-                                                                    Height="13" />
-                                        </Button>
-                                        <Grid Width="30"
-                                              Height="30"
-                                              Grid.Column="1"
-                                              Visibility="{Binding Path=Details, Converter={StaticResource InverseNullToVisibilityConverter}}">
-                                            <mah:ProgressRing Width="20"
-                                                              Height="20"
-                                                              IsActive="{Binding Path=Details, Converter={StaticResource InverseNullToVisibilityConverter}}"
-                                                              IsEnabled="{Binding Path=Details, Converter={StaticResource NullToBooleanConverter}}" />
-                                        </Grid>
+                                    <Button Tag="{Binding Path=Identifier}"
+                                            ToolTip="Delete song"
+                                            Style="{DynamicResource TransparentCircleButton}"
+                                            Width="30"
+                                            Height="30"
+                                            Foreground="#ff4040"
+                                            Click="Map_Delete">
+                                        <icons:PackIconMaterial Kind="DeleteForever"
+                                                                Width="13"
+                                                                Height="13" />
+                                    </Button>
+
+                                    <Button Tag="{Binding Path=Identifier}"
+                                            Grid.Column="1"
+                                            ToolTip="Song details"
+                                            Style="{DynamicResource TransparentCircleButton}"
+                                            Width="30"
+                                            Height="30"
+                                            Visibility="{Binding Path=Details, Converter={StaticResource NullToVisibilityConverter}}"
+                                            Click="Map_Details">
+                                        <icons:PackIconMaterial Kind="ArrowRight"
+                                                                Width="13"
+                                                                Height="13" />
+                                    </Button>
+                                    <Grid Width="30"
+                                          Height="30"
+                                          Grid.Column="1"
+                                          Visibility="{Binding Path=Details, Converter={StaticResource InverseNullToVisibilityConverter}}">
+                                        <mah:ProgressRing Width="20"
+                                                          Height="20"
+                                                          IsActive="{Binding Path=Details, Converter={StaticResource InverseNullToVisibilityConverter}}"
+                                                          IsEnabled="{Binding Path=Details, Converter={StaticResource NullToBooleanConverter}}" />
                                     </Grid>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
 
-                <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Right"
-                            Grid.Row="2">
-                    <Button x:Name="buttonReloadData"
-                            Width="30"
-                            Height="30"
-                            ToolTip="Reload Beatmaps"
-                            Style="{DynamicResource TransparentCircleButton}"
-                            Click="ButtonReloadData_Click">
-                        <icons:PackIconMaterial Kind="Refresh"
-                                                Width="13"
-                                                Height="13" />
-                    </Button>
-
-                    <Label VerticalContentAlignment="Center">
-                        <Label.Content>
-                            <TextBlock>
-                                <TextBlock.Text>
-                                    <MultiBinding StringFormat="{}Page {0} of {1}">
-                                        <Binding Path="LocalBeatmaps.CurrentPageReal"
-                                                 FallbackValue="0" />
-                                        <Binding Path="LocalBeatmaps.LastPageReal"
-                                                 FallbackValue="0" />
-                                    </MultiBinding>
-                                </TextBlock.Text>
-                            </TextBlock>
-                        </Label.Content>
-                    </Label>
-
-                    <Button x:Name="buttonFirstPage"
-                            Width="30"
-                            Height="30"
-                            ToolTip="First page"
-                            IsEnabled="False"
-                            Style="{DynamicResource TransparentCircleButton}"
-                            Click="ButtonFirstPage_Click">
-                        <icons:PackIconMaterial Kind="ArrowLeftBold"
-                                                Width="13"
-                                                Height="13" />
-                    </Button>
-                    <Button x:Name="buttonPreviousPage"
-                            Width="30"
-                            Height="30"
-                            ToolTip="Previous page"
-                            IsEnabled="False"
-                            Style="{DynamicResource TransparentCircleButton}"
-                            Click="ButtonPreviousPage_Click">
-                        <icons:PackIconMaterial Kind="ArrowLeft"
-                                                Width="13"
-                                                Height="13" />
-                    </Button>
-                    <Button x:Name="buttonNextPage"
-                            Width="30"
-                            Height="30"
-                            ToolTip="Next page"
-                            IsEnabled="False"
-                            Style="{DynamicResource TransparentCircleButton}"
-                            Click="ButtonNextPage_Click">
-                        <icons:PackIconMaterial Kind="ArrowRight"
-                                                Width="13"
-                                                Height="13" />
-                    </Button>
-                    <Button x:Name="buttonLastPage"
-                            Width="30"
-                            Height="30"
-                            ToolTip="Last page"
-                            IsEnabled="False"
-                            Style="{DynamicResource TransparentCircleButton}"
-                            Click="ButtonLastPage_Click">
-                        <icons:PackIconMaterial Kind="ArrowRightBold"
-                                                Width="13"
-                                                Height="13" />
-                    </Button>
-                </StackPanel>
-            </Grid>
-        </ScrollViewer>
-
-        <Grid x:Name="gridCoverImage"
-              Visibility="Hidden"
-              Opacity="0">
-            <Grid.Triggers>
-                <EventTrigger RoutedEvent="Control.MouseUp">
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                             Duration="0:0:.15"
-                                             From="1"
-                                             To="0"
-                                             Completed="DoubleAnimation_CloseCover" />
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-            </Grid.Triggers>
-
-            <Grid.Background>
-                <SolidColorBrush Color="{DynamicResource MahApps.Colors.ThemeBackground}"
-                                 Opacity=".75" />
-            </Grid.Background>
-
-            <st:StackPanel Margin="50"
-                           VerticalAlignment="Center"
-                           MarginBetweenChildren="10">
-                <Image x:Name="imageCoverImage"
-                       Width="520"
-                       Height="520"
-                       Source="{Binding Path=Beatmap.CoverImagePath, Converter={StaticResource ImageSourceToBitmapConverter}}" />
-                <Button x:Name="buttonCloseCoverImage"
-                        HorizontalAlignment="Center"
-                        Width="42"
-                        Height="42"
-                        Style="{DynamicResource TransparentCircleButton}">
-                    <Button.Triggers>
-                        <EventTrigger RoutedEvent="Button.Click">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation Storyboard.TargetName="gridCoverImage"
-                                                     Storyboard.TargetProperty="Opacity"
-                                                     Duration="0:0:.15"
-                                                     From="1"
-                                                     To="0"
-                                                     Completed="DoubleAnimation_CloseCover" />
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </Button.Triggers>
-
-                    <icons:PackIconMaterial Kind="Close"
-                                            Width="22"
-                                            Height="22" />
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Grid.Row="2">
+                <Button x:Name="buttonReloadData"
+                        Width="30"
+                        Height="30"
+                        ToolTip="Reload Beatmaps"
+                        Style="{DynamicResource TransparentCircleButton}"
+                        Click="ButtonReloadData_Click">
+                    <icons:PackIconMaterial Kind="Refresh"
+                                            Width="13"
+                                            Height="13" />
                 </Button>
-            </st:StackPanel>
+
+                <Label VerticalContentAlignment="Center">
+                    <Label.Content>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}Page {0} of {1}">
+                                    <Binding Path="LocalBeatmaps.CurrentPageReal"
+                                             FallbackValue="0" />
+                                    <Binding Path="LocalBeatmaps.LastPageReal"
+                                             FallbackValue="0" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </Label.Content>
+                </Label>
+
+                <Button x:Name="buttonFirstPage"
+                        Width="30"
+                        Height="30"
+                        ToolTip="First page"
+                        IsEnabled="False"
+                        Style="{DynamicResource TransparentCircleButton}"
+                        Click="ButtonFirstPage_Click">
+                    <icons:PackIconMaterial Kind="ArrowLeftBold"
+                                            Width="13"
+                                            Height="13" />
+                </Button>
+                <Button x:Name="buttonPreviousPage"
+                        Width="30"
+                        Height="30"
+                        ToolTip="Previous page"
+                        IsEnabled="False"
+                        Style="{DynamicResource TransparentCircleButton}"
+                        Click="ButtonPreviousPage_Click">
+                    <icons:PackIconMaterial Kind="ArrowLeft"
+                                            Width="13"
+                                            Height="13" />
+                </Button>
+                <Button x:Name="buttonNextPage"
+                        Width="30"
+                        Height="30"
+                        ToolTip="Next page"
+                        IsEnabled="False"
+                        Style="{DynamicResource TransparentCircleButton}"
+                        Click="ButtonNextPage_Click">
+                    <icons:PackIconMaterial Kind="ArrowRight"
+                                            Width="13"
+                                            Height="13" />
+                </Button>
+                <Button x:Name="buttonLastPage"
+                        Width="30"
+                        Height="30"
+                        ToolTip="Last page"
+                        IsEnabled="False"
+                        Style="{DynamicResource TransparentCircleButton}"
+                        Click="ButtonLastPage_Click">
+                    <icons:PackIconMaterial Kind="ArrowRightBold"
+                                            Width="13"
+                                            Height="13" />
+                </Button>
+            </StackPanel>
         </Grid>
-    </Grid>
+    </ScrollViewer>
 </UserControl>

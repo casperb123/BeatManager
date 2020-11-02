@@ -4,8 +4,10 @@ using ModelSaber.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace BeatManager.ViewModels.ModelSaberModels
 {
@@ -157,7 +159,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
         public void DeleteModel(string name)
         {
             LocalModel localModel = LocalModels.Models.FirstOrDefault(x => x.Name == name);
-            OnlineModel onlineModel = MainWindow.ViewModel.SaberOnlineUserControl.UserControl.ViewModel.OnlineModels?.Models.FirstOrDefault(x => x.Name == name);
+            OnlineModel onlineModel = MainWindow.ViewModel.SaberOnlineUserControl.ViewModel.GetModel(name);
 
             App.ModelSaberApi.DeleteModel(localModel);
             LocalModels.Models.Remove(localModel);
@@ -178,7 +180,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
                 LocalModels.Models.Remove(model);
                 App.ModelSaberApi.DeleteModel(model);
 
-                OnlineModel onlineModel = MainWindow.ViewModel.SaberOnlineUserControl.UserControl.ViewModel.OnlineModels?.Models.FirstOrDefault(x => x.Name == model.Name);
+                OnlineModel onlineModel = MainWindow.ViewModel.SaberOnlineUserControl.ViewModel.GetModel(model.Name);
                 if (onlineModel != null)
                     onlineModels.Add(onlineModel);
             }
@@ -212,6 +214,16 @@ namespace BeatManager.ViewModels.ModelSaberModels
                 default:
                     break;
             }
+        }
+
+        public void OpenBigCover(string name)
+        {
+            LocalModel model = LocalModels.Models.FirstOrDefault(x => x.Name == name);
+            if (model.OnlineModel is null)
+                return;
+
+            BitmapImage image = new BitmapImage(new Uri(model.OnlineModel.RealThumbnail));
+            MainWindow.ViewModel.OpenBigCover(image);
         }
     }
 }

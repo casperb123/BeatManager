@@ -1,5 +1,4 @@
 ﻿using BeatManager.ViewModels.ModelSaberModels;
-using Ionic.Zip;
 using ModelSaber.Entities;
 using System.Linq;
 using System.Windows;
@@ -16,10 +15,10 @@ namespace BeatManager.UserControls.ModelSaber
     {
         public readonly ModelSaberOnlineUserControlViewModel ViewModel;
 
-        public ModelSaberOnlineUserControl(MainWindow mainWindow, ModelType modelType)
+        public ModelSaberOnlineUserControl(MainWindow mainWindow, ModelSaberBaseOnlineUserControl baseUserControl, ModelType modelType)
         {
             InitializeComponent();
-            ViewModel = new ModelSaberOnlineUserControlViewModel(mainWindow, this, modelType);
+            ViewModel = new ModelSaberOnlineUserControlViewModel(mainWindow, this, baseUserControl, modelType);
             DataContext = ViewModel;
         }
 
@@ -31,7 +30,7 @@ namespace BeatManager.UserControls.ModelSaber
 
         private void ComboBoxSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!ViewModel.IsLoaded)
+            if (!ViewModel.BaseUserControl.ViewModel.IsLoaded)
                 return;
 
             ViewModel.GetSabers();
@@ -39,7 +38,7 @@ namespace BeatManager.UserControls.ModelSaber
 
         private void ButtonSortDirection_Click(object sender, RoutedEventArgs e)
         {
-            if (!ViewModel.IsLoaded)
+            if (!ViewModel.BaseUserControl.ViewModel.IsLoaded)
                 return;
 
             ViewModel.ChangeSortDirection();
@@ -67,6 +66,12 @@ namespace BeatManager.UserControls.ModelSaber
             {
                 ViewModel.AddFilter(new Filter(ViewModel.CurrentFilterType, filterText));
             }
+        }
+
+        private void ButtonBigCover_Click(object sender, RoutedEventArgs e)
+        {
+            int id = int.Parse(((Button)sender).Tag.ToString());
+            ViewModel.OpenBigCover(id);
         }
 
         private async void Saber_Download(object sender, RoutedEventArgs e)

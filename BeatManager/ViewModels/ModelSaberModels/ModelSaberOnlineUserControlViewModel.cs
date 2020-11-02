@@ -1,4 +1,5 @@
 ﻿using BeatManager.UserControls.ModelSaber;
+using BeatSaver.Entities;
 using MahApps.Metro.Controls.Dialogs;
 using ModelSaber.Entities;
 using ModelSaber.Events;
@@ -7,6 +8,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace BeatManager.ViewModels.ModelSaberModels
 {
@@ -21,6 +25,8 @@ namespace BeatManager.ViewModels.ModelSaberModels
         private bool sortDescending;
         private FilterType currentFilterType;
 
+        public readonly ModelSaberBaseOnlineUserControl BaseUserControl;
+
         public ModelType ModelType { get; private set; }
         public List<Sort> SortTypes { get; private set; }
         public List<Filter> Filters { get; private set; }
@@ -28,7 +34,6 @@ namespace BeatManager.ViewModels.ModelSaberModels
 
         public MainWindow MainWindow { get; private set; }
         public bool ModelChanged { get; private set; }
-        public bool IsLoaded { get; set; }
 
         public FilterType CurrentFilterType
         {
@@ -99,10 +104,11 @@ namespace BeatManager.ViewModels.ModelSaberModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
-        public ModelSaberOnlineUserControlViewModel(MainWindow mainWindow, ModelSaberOnlineUserControl userControl, ModelType modelType)
+        public ModelSaberOnlineUserControlViewModel(MainWindow mainWindow, ModelSaberOnlineUserControl userControl, ModelSaberBaseOnlineUserControl baseUserControl, ModelType modelType)
         {
             MainWindow = mainWindow;
             this.userControl = userControl;
+            BaseUserControl = baseUserControl;
             ModelType = modelType;
 
             SelectedModels = new List<OnlineModel>();
@@ -316,10 +322,10 @@ namespace BeatManager.ViewModels.ModelSaberModels
         public void DeleteModel(int id)
         {
             OnlineModel onlineModel = OnlineModels.Models.FirstOrDefault(x => x.Id == id);
-            LocalModel localModel = MainWindow.ViewModel.SaberLocalUserControl.UserControl.ViewModel.LocalModels.Models.FirstOrDefault(x => x.Name == onlineModel.Name);
+            LocalModel localModel = MainWindow.ViewModel.SaberLocalUserControl.ViewModel.GetModel(onlineModel.Name);
 
             if (localModel != null)
-                MainWindow.ViewModel.SaberLocalUserControl.UserControl.ViewModel.LocalModels.Models.Remove(localModel);
+                MainWindow.ViewModel.SaberLocalUserControl.ViewModel.RemoveModel(localModel);
 
             App.ModelSaberApi.DeleteModel(onlineModel);
             TriggerChange();
@@ -329,10 +335,10 @@ namespace BeatManager.ViewModels.ModelSaberModels
         {
             foreach (OnlineModel model in models)
             {
-                LocalModel localModel = MainWindow.ViewModel.SaberLocalUserControl.UserControl.ViewModel.LocalModels?.Models.FirstOrDefault(x => x.Name == model.Name);
+                LocalModel localModel = MainWindow.ViewModel.SaberLocalUserControl.ViewModel.GetModel(model.Name);
 
                 if (localModel != null)
-                    MainWindow.ViewModel.SaberLocalUserControl.UserControl.ViewModel.LocalModels.Models.Remove(localModel);
+                    MainWindow.ViewModel.SaberLocalUserControl.ViewModel.RemoveModel(localModel);
 
                 App.ModelSaberApi.DeleteModel(model);
             }
@@ -362,6 +368,13 @@ namespace BeatManager.ViewModels.ModelSaberModels
                 default:
                     break;
             }
+        }
+
+        public void OpenBigCover(int id)
+        {
+            OnlineModel model = OnlineModels.Models.FirstOrDefault(x => x.Id == id);
+            BitmapImage image = new BitmapImage(new Uri(model.RealThumbnail));
+            MainWindow.ViewModel.OpenBigCover(image);
         }
     }
 }

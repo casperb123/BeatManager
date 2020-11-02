@@ -3,10 +3,12 @@ using BeatSaver.Entities;
 using MahApps.Metro.Controls.Dialogs;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
+using System.Windows.Media.Imaging;
 
 namespace BeatManager.ViewModels.BeatSaverModels
 {
@@ -79,7 +81,6 @@ namespace BeatManager.ViewModels.BeatSaverModels
         {
             mainWindow.ViewModel.ShowLocalBeatmapDetails = false;
             mainWindow.userControlMain.Content = mainWindow.ViewModel.BeatmapLocalUserControl;
-            CloseBigCover();
         }
 
         private void CreateDifficultySets()
@@ -180,13 +181,15 @@ namespace BeatManager.ViewModels.BeatSaverModels
 
         public void OpenBigCover()
         {
-            userControl.gridCoverImage.Visibility = Visibility.Visible;
-        }
-
-        public void CloseBigCover()
-        {
-            userControl.gridCoverImage.Visibility = Visibility.Hidden;
-            userControl.gridCoverImage.Opacity = 0;
+            using (FileStream stream = File.OpenRead(Beatmap.CoverImagePath))
+            {
+                BitmapImage image = new BitmapImage();
+                image.BeginInit();
+                image.StreamSource = stream;
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.EndInit();
+                mainWindow.ViewModel.OpenBigCover(image);
+            }
         }
     }
 }

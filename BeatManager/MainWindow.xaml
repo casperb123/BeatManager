@@ -18,6 +18,21 @@
                  MouseDown="MetroWindow_MouseDown">
     <mah:MetroWindow.Resources>
         <converters:BadgeConverter x:Key="BadgeConverter" />
+
+        <Storyboard x:Key="OpenCover">
+            <DoubleAnimation Storyboard.Target="{Binding ElementName=gridCoverImage}"
+                             Storyboard.TargetProperty="Opacity"
+                             Duration="0:0:.15"
+                             From="0"
+                             To="1" />
+        </Storyboard>
+        <Storyboard x:Key="CloseCover">
+            <DoubleAnimation Storyboard.Target="{Binding ElementName=gridCoverImage}"
+                             Storyboard.TargetProperty="Opacity"
+                             Duration="0:0:.15"
+                             From="1"
+                             To="0" />
+        </Storyboard>
     </mah:MetroWindow.Resources>
 
     <mah:MetroWindow.RightWindowCommands>
@@ -120,6 +135,61 @@
 
         <UserControl x:Name="userControlMain"
                      Grid.Column="1" />
+        <Grid x:Name="gridCoverImage"
+              Visibility="Hidden"
+              Opacity="0"
+              Grid.Column="1">
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="Control.MouseUp">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             Duration="0:0:.15"
+                                             From="1"
+                                             To="0"
+                                             Completed="DoubleAnimation_CloseCover" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Grid.Triggers>
+
+            <Grid.Background>
+                <SolidColorBrush Color="{DynamicResource MahApps.Colors.ThemeBackground}"
+                                 Opacity=".75" />
+            </Grid.Background>
+
+            <st:StackPanel Margin="50"
+                           VerticalAlignment="Center"
+                           MarginBetweenChildren="10">
+                <Image x:Name="imageCoverImage"
+                       Width="520"
+                       Height="520" />
+                <Button x:Name="buttonCloseCoverImage"
+                        HorizontalAlignment="Center"
+                        Width="42"
+                        Height="42"
+                        Style="{DynamicResource TransparentCircleButton}">
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.Target="{Binding ElementName=gridCoverImage}"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     Duration="0:0:.15"
+                                                     From="1"
+                                                     To="0"
+                                                     Completed="DoubleAnimation_CloseCover" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Button.Triggers>
+
+                    <icons:PackIconMaterial Kind="Close"
+                                            Width="22"
+                                            Height="22" />
+                </Button>
+            </st:StackPanel>
+        </Grid>
 
         <Rectangle x:Name="rectangleLoading"
                    Grid.ColumnSpan="2"

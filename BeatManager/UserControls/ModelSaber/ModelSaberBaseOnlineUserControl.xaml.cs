@@ -1,4 +1,6 @@
-﻿using ModelSaber.Entities;
+﻿using BeatManager.ViewModels.ModelSaberModels;
+using ModelSaber.Entities;
+using System;
 using System.Windows.Controls;
 
 namespace BeatManager.UserControls.ModelSaber
@@ -8,13 +10,13 @@ namespace BeatManager.UserControls.ModelSaber
     /// </summary>
     public partial class ModelSaberBaseOnlineUserControl : UserControl
     {
-        public readonly ModelSaberOnlineUserControl UserControl;
+        public readonly ModelSaberBaseOnlineUserControlViewModel ViewModel;
 
         public ModelSaberBaseOnlineUserControl(MainWindow mainWindow)
         {
             InitializeComponent();
-            UserControl = new ModelSaberOnlineUserControl(mainWindow, ModelType.Saber);
-            userControlMain.Content = UserControl;
+            ViewModel = new ModelSaberBaseOnlineUserControlViewModel(mainWindow, this);
+            DataContext = ViewModel;
         }
     }
 }

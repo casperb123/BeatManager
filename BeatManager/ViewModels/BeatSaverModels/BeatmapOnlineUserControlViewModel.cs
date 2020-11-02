@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace BeatManager.ViewModels.BeatSaverModels
 {
@@ -391,15 +392,11 @@ namespace BeatManager.ViewModels.BeatSaverModels
             MainWindow.ViewModel.BeatmapOnlineUserControl.dataGridMaps.UnselectAll();
         }
 
-        public void OpenBigCover()
+        public void OpenBigCover(string key)
         {
-            userControl.gridCoverImage.Visibility = Visibility.Visible;
-        }
-
-        public void CloseBigCover()
-        {
-            userControl.gridCoverImage.Visibility = Visibility.Hidden;
-            userControl.gridCoverImage.Opacity = 0;
+            OnlineBeatmap beatmap = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
+            BitmapImage image = new BitmapImage(new Uri(beatmap.RealCoverURL));
+            MainWindow.ViewModel.OpenBigCover(image);
         }
     }
 }

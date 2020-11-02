@@ -83,10 +83,5 @@ namespace BeatManager.UserControls.BeatSaver
         {
             ViewModel.OpenBigCover();
         }
-
-        private void DoubleAnimation_CloseCover(object sender, EventArgs e)
-        {
-            ViewModel.CloseBigCover();
-        }
     }
 }

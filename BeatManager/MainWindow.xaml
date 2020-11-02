@@ -154,8 +154,8 @@
             </Grid.Triggers>
 
             <Grid.Background>
-                <SolidColorBrush Color="{DynamicResource MahApps.Colors.ThemeBackground}"
-                                 Opacity=".75" />
+                <SolidColorBrush Color="Black"
+                                 Opacity=".7" />
             </Grid.Background>
 
             <st:StackPanel Margin="50"
@@ -168,7 +168,8 @@
                         HorizontalAlignment="Center"
                         Width="42"
                         Height="42"
-                        Style="{DynamicResource TransparentCircleButton}">
+                        Style="{DynamicResource TransparentCircleButton}"
+                        Foreground="White">
                     <Button.Triggers>
                         <EventTrigger RoutedEvent="Button.Click">
                             <BeginStoryboard>

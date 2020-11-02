@@ -1,4 +1,4 @@
-﻿using BeatManager.ViewModels;
+﻿using BeatManager.ViewModels.BeatSaverModels;
 using BeatSaver.Entities;
 using System.Linq;
 using System.Windows;
@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 
-namespace BeatManager.UserControls
+namespace BeatManager.UserControls.BeatSaver
 {
     /// <summary>
     /// Interaction logic for BeatmapOnlineUserControl.xaml

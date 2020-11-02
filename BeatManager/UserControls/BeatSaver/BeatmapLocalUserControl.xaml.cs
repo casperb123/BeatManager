@@ -1,10 +1,10 @@
-﻿using BeatManager.ViewModels;
+﻿using BeatManager.ViewModels.BeatSaverModels;
 using BeatSaver.Entities;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace BeatManager.UserControls
+namespace BeatManager.UserControls.BeatSaver
 {
     /// <summary>
     /// Interaction logic for BeatmapLocalUserControl.xaml

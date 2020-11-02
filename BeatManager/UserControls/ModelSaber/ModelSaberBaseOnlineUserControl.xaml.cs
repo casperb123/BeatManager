@@ -1,17 +1,16 @@
-﻿using BeatManager.UserControls.ModelSaber;
-using ModelSaber.Entities;
+﻿using ModelSaber.Entities;
 using System.Windows.Controls;
 
-namespace BeatManager.UserControls
+namespace BeatManager.UserControls.ModelSaber
 {
     /// <summary>
     /// Interaction logic for ModelOnlineUserControl.xaml
     /// </summary>
-    public partial class SaberBaseOnlineUserControl : UserControl
+    public partial class ModelSaberBaseOnlineUserControl : UserControl
     {
         public readonly ModelSaberOnlineUserControl UserControl;
 
-        public SaberBaseOnlineUserControl(MainWindow mainWindow)
+        public ModelSaberBaseOnlineUserControl(MainWindow mainWindow)
         {
             InitializeComponent();
             UserControl = new ModelSaberOnlineUserControl(mainWindow, ModelType.Saber);

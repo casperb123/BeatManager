@@ -1,5 +1,7 @@
 ﻿using BeatManager.Properties;
 using BeatManager.UserControls;
+using BeatManager.UserControls.BeatSaver;
+using BeatManager.UserControls.ModelSaber;
 using BeatManager.UserControls.Navigation;
 using BeatSaver.Entities;
 using GitHubUpdater;
@@ -26,8 +28,8 @@ namespace BeatManager.ViewModels
         public readonly SettingsUserControl SettingsUserControl;
         public readonly BeatmapLocalDetailsUserControl BeatmapLocalDetailsUserControl;
         public readonly BeatmapOnlineDetailsUserControl BeatmapOnlineDetailsUserControl;
-        public readonly SaberBaseOnlineUserControl SaberOnlineUserControl;
-        public readonly SaberBaseLocalUserControl SaberLocalUserControl;
+        public readonly ModelSaberBaseOnlineUserControl SaberOnlineUserControl;
+        public readonly ModelSaberBaseLocalUserControl SaberLocalUserControl;
         public readonly NavigationBeatmapsUserControl NavigationBeatmapsUserControl;
         public readonly NavigationSabersUserControl NavigationSabersUserControl;
         public readonly DownloadsUserControl DownloadsUserControl;
@@ -77,8 +79,8 @@ namespace BeatManager.ViewModels
             SettingsUserControl = new SettingsUserControl(mainWindow);
             BeatmapLocalDetailsUserControl = new BeatmapLocalDetailsUserControl(mainWindow);
             BeatmapOnlineDetailsUserControl = new BeatmapOnlineDetailsUserControl(mainWindow);
-            SaberOnlineUserControl = new SaberBaseOnlineUserControl(mainWindow);
-            SaberLocalUserControl = new SaberBaseLocalUserControl(mainWindow);
+            SaberOnlineUserControl = new ModelSaberBaseOnlineUserControl(mainWindow);
+            SaberLocalUserControl = new ModelSaberBaseLocalUserControl(mainWindow);
             NavigationBeatmapsUserControl = new NavigationBeatmapsUserControl();
             NavigationSabersUserControl = new NavigationSabersUserControl();
             

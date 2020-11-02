@@ -1,11 +1,11 @@
-﻿using BeatManager.UserControls;
+﻿using BeatManager.UserControls.BeatSaver;
 using BeatSaver.Entities;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BeatManager.ViewModels
+namespace BeatManager.ViewModels.BeatSaverModels
 {
     public class BeatmapLocalUserControlViewModel : INotifyPropertyChanged
     {

@@ -1,4 +1,4 @@
-﻿using BeatManager.UserControls;
+﻿using BeatManager.UserControls.BeatSaver;
 using BeatSaver.Entities;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
 
-namespace BeatManager.ViewModels
+namespace BeatManager.ViewModels.BeatSaverModels
 {
     public class BeatmapOnlineDetailsUserControlViewModel : INotifyPropertyChanged
     {

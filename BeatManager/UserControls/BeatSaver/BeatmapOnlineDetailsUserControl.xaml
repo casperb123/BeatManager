@@ -1,13 +1,14 @@
-﻿<UserControl x:Class="BeatManager.UserControls.BeatmapLocalDetailsUserControl"
+﻿<UserControl x:Class="BeatManager.UserControls.BeatSaver.BeatmapOnlineDetailsUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:st="http://schemas.spicytaco.io/"
              mc:Ignorable="d"
              d:DesignWidth="800"
-             d:DesignHeight="1500">
+             d:DesignHeight="1088">
     <Grid>
         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                       VerticalScrollBarVisibility="Auto">
@@ -16,7 +17,7 @@
                       Height="300">
                     <Rectangle Margin="0,-5,0,10">
                         <Rectangle.Fill>
-                            <ImageBrush ImageSource="{Binding Path=Beatmap.CoverImagePath, Converter={StaticResource ImageSourceToBitmapConverter}}"
+                            <ImageBrush ImageSource="{Binding Path=Beatmap.RealCoverURL}"
                                         Stretch="UniformToFill" />
                         </Rectangle.Fill>
                         <Rectangle.Effect>
@@ -44,7 +45,7 @@
                         <Button x:Name="buttonBack"
                                 Width="35"
                                 Height="35"
-                                Margin="0,10,0,0"
+                                Margin="0,5,0,0"
                                 ToolTip="Back"
                                 Style="{DynamicResource TransparentCircleButton}"
                                 Click="ButtonBack_Click">
@@ -53,29 +54,9 @@
                                                     Height="18" />
                         </Button>
 
-                        <Label x:Name="labelTitle"
-                               Content="Beatmap Information"
+                        <Label Content="Beatmap Information"
                                FontSize="45"
                                Margin="10,0,0,0" />
-
-                        <Button x:Name="buttonInvalid"
-                                BorderThickness="0"
-                                Width="35"
-                                Height="35"
-                                Margin="10,10,0,0"
-                                ToolTip="Beatmap invalid"
-                                Style="{DynamicResource TransparentCircleButton}"
-                                Visibility="{Binding Path=Beatmap.Errors, Converter={StaticResource NullToVisibilityConverter}}"
-                                Click="ButtonInvalid_Click">
-                            <Button.Background>
-                                <SolidColorBrush Color="Red"
-                                                 Opacity=".2" />
-                            </Button.Background>
-                            <icons:PackIconMaterial Kind="ExclamationThick"
-                                                    Width="18"
-                                                    Height="18"
-                                                    Foreground="Red" />
-                        </Button>
                     </StackPanel>
 
                     <st:AutoGrid x:Name="gridMain"
@@ -92,7 +73,7 @@
                                   Height="200"
                                   Margin="0,0,25,0">
                                 <Image x:Name="imageCover"
-                                       Source="{Binding Path=Beatmap.CoverImagePath, Converter={StaticResource ImageSourceToBitmapConverter}}" />
+                                       Source="{Binding Path=Beatmap.RealCoverURL}" />
                                 <Button x:Name="buttonBigCover"
                                         BorderThickness="0"
                                         Foreground="White"
@@ -170,19 +151,19 @@
                                          VerticalAlignment="Center"
                                          Grid.Column="1">
                                 <TextBlock TextWrapping="WrapWithOverflow">
-                                    <Run Text="{Binding Path=Beatmap.SongName}"
+                                    <Run Text="{Binding Path=Beatmap.Metadata.SongName}"
                                          FontSize="35" />
                                     <Run Text=" " />
-                                    <Run Text="{Binding Path=Beatmap.SongSubName}"
+                                    <Run Text="{Binding Path=Beatmap.Metadata.SongSubName}"
                                          FontSize="25">
                                         <Run.Foreground>
                                             <SolidColorBrush Color="{DynamicResource MahApps.Colors.ThemeForeground}"
                                                              Opacity=".5" />
-                                        </Run.Foreground>
+                                        </Run.Foreground>   
                                     </Run>
                                 </TextBlock>
 
-                                <TextBlock Text="{Binding Path=Beatmap.LevelAuthorName}"
+                                <TextBlock Text="{Binding Path=Beatmap.Metadata.LevelAuthorName}"
                                            FontSize="25"
                                            Margin="0,0,0,10" />
 
@@ -193,7 +174,7 @@
                                             ToolTipService.InitialShowDelay="0"
                                             ToolTipService.BetweenShowDelay="0"
                                             Margin="0,0,4,0"
-                                            Visibility="{Binding Path=Beatmap.Easy, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                            Visibility="{Binding Path=Beatmap.Difficulties.Easy, Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <Label Content="Easy"
                                                Foreground="White"
                                                Margin="5,0"
@@ -205,7 +186,7 @@
                                             ToolTipService.InitialShowDelay="0"
                                             ToolTipService.BetweenShowDelay="0"
                                             Margin="4,0,4,0"
-                                            Visibility="{Binding Path=Beatmap.Normal, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                            Visibility="{Binding Path=Beatmap.Difficulties.Normal, Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <Label Content="Normal"
                                                Foreground="White"
                                                Margin="5,0"
@@ -217,7 +198,7 @@
                                             ToolTipService.InitialShowDelay="0"
                                             ToolTipService.BetweenShowDelay="0"
                                             Margin="4,0,4,0"
-                                            Visibility="{Binding Path=Beatmap.Hard, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                            Visibility="{Binding Path=Beatmap.Difficulties.Hard, Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <Label Content="Hard"
                                                Foreground="White"
                                                Margin="5,0"
@@ -229,7 +210,7 @@
                                             ToolTipService.InitialShowDelay="0"
                                             ToolTipService.BetweenShowDelay="0"
                                             Margin="4,0,4,0"
-                                            Visibility="{Binding Path=Beatmap.Expert, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                            Visibility="{Binding Path=Beatmap.Difficulties.Expert, Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <Label Content="Expert"
                                                Foreground="White"
                                                Margin="5,0"
@@ -241,7 +222,7 @@
                                             ToolTipService.InitialShowDelay="0"
                                             ToolTipService.BetweenShowDelay="0"
                                             Margin="4,0,0,0"
-                                            Visibility="{Binding Path=Beatmap.ExpertPlus, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                            Visibility="{Binding Path=Beatmap.Difficulties.ExpertPlus, Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <Label Content="Expert+"
                                                Foreground="White"
                                                Margin="5,0"
@@ -254,18 +235,45 @@
                         <st:StackPanel Orientation="Horizontal"
                                        Margin="0,0,0,20"
                                        MarginBetweenChildren="2">
-                            <Button x:Name="buttonDeleteBeatmap"
-                                    Width="35"
-                                    Height="35"
-                                    ToolTip="Delete the beatmap"
-                                    Cursor="Hand"
-                                    Foreground="#ff4040"
-                                    Style="{DynamicResource TransparentCircleButton}"
-                                    Click="ButtonDeleteBeatmap_Click">
-                                <icons:PackIconMaterial Kind="DeleteForever"
-                                                        Width="18"
-                                                        Height="18" />
-                            </Button>
+                            <Grid>
+                                <Grid Visibility="{Binding Path=Beatmap.IsDownloading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+                                    <Button x:Name="buttonDownloadBeatmap"
+                                            Tag="{Binding Path=Beatmap.Key}"
+                                            ToolTip="Download song"
+                                            Width="35"
+                                            Height="35"
+                                            Foreground="#2ec92e"
+                                            Style="{DynamicResource TransparentCircleButton}"
+                                            Visibility="{Binding Path=Beatmap.IsDownloaded, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+                                            IsEnabled="{Binding Path=Beatmap.IsDownloaded, Converter={StaticResource InverseBooleanConverter}}"
+                                            Click="ButtonDownloadBeatmap_Click">
+                                        <icons:PackIconMaterial Kind="Download"
+                                                                Width="18"
+                                                                Height="18" />
+                                    </Button>
+                                    <Button x:Name="buttonDeleteBeatmap"
+                                            Tag="{Binding Path=Beatmap.Key}"
+                                            ToolTip="Delete song"
+                                            Width="35"
+                                            Height="35"
+                                            Foreground="#ff4040"
+                                            Style="{DynamicResource TransparentCircleButton}"
+                                            Visibility="{Binding Path=Beatmap.IsDownloaded, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                            IsEnabled="{Binding Path=Beatmap.IsDownloaded}"
+                                            Click="ButtonDeleteBeatmap_Click">
+                                        <icons:PackIconMaterial Kind="DeleteForever"
+                                                                Width="18"
+                                                                Height="18" />
+                                    </Button>
+                                </Grid>
+                                <Grid Width="35"
+                                      Height="35">
+                                    <mah:ProgressRing Width="18"
+                                                      Height="18"
+                                                      IsActive="{Binding Path=Beatmap.IsDownloading}"
+                                                      IsEnabled="{Binding Path=Beatmap.IsDownloading}" />
+                                </Grid>
+                            </Grid>
                             <Button x:Name="buttonRefreshData"
                                     Width="35"
                                     Height="35"
@@ -281,6 +289,7 @@
                                     Height="35"
                                     ToolTip="Open folder"
                                     Style="{DynamicResource TransparentCircleButton}"
+                                    Visibility="{Binding Path=Beatmap.IsDownloaded, Converter={StaticResource BooleanToVisibilityConverter}}"
                                     Click="ButtonOpenFolder_Click">
                                 <icons:PackIconMaterial Kind="Folder"
                                                         Width="18"
@@ -291,7 +300,6 @@
                                     Height="35"
                                     ToolTip="Preview beatmap"
                                     Style="{DynamicResource TransparentCircleButton}"
-                                    Visibility="{Binding Path=Beatmap.OnlineBeatmap, Converter={StaticResource NullToVisibilityConverter}}"
                                     Click="ButtonPreviewBeatmap_Click">
                                 <icons:PackIconMaterial Kind="Eye"
                                                         Width="18"
@@ -302,7 +310,6 @@
                                     Height="35"
                                     ToolTip="Open on beatsaver"
                                     Style="{DynamicResource TransparentCircleButton}"
-                                    Visibility="{Binding Path=Beatmap.OnlineBeatmap, Converter={StaticResource NullToVisibilityConverter}}"
                                     Click="ButtonOpenOnBeatsaver_Click">
                                 <icons:PackIconMaterial Kind="Link"
                                                         Width="18"
@@ -323,43 +330,43 @@
                                 <Label Content="Name"
                                        HorizontalContentAlignment="Right"
                                        Style="{DynamicResource LabelDetails}" />
-                                <TextBox Text="{Binding Path=Beatmap.SongName, FallbackValue='...', TargetNullValue='-'}"
+                                <TextBox Text="{Binding Path=Beatmap.Metadata.SongName}"
                                          Style="{DynamicResource TextBoxDetails}" />
 
                                 <Label Content="Subname"
                                        HorizontalContentAlignment="Right"
                                        Style="{DynamicResource LabelDetails}" />
-                                <TextBox Text="{Binding Path=Beatmap.SongSubName, FallbackValue='...', TargetNullValue='-'}"
+                                <TextBox Text="{Binding Path=Beatmap.Metadata.SongSubName, TargetNullValue=-}"
                                          Style="{DynamicResource TextBoxDetails}" />
 
                                 <Label Content="Artist"
                                        HorizontalContentAlignment="Right"
                                        Style="{DynamicResource LabelDetails}" />
-                                <TextBox Text="{Binding Path=Beatmap.SongAuthorName, FallbackValue='...', TargetNullValue='-'}"
+                                <TextBox Text="{Binding Path=Beatmap.Metadata.SongAuthorName, TargetNullValue=-}"
                                          Style="{DynamicResource TextBoxDetails}" />
 
                                 <Label Content="Mapper"
                                        HorizontalContentAlignment="Right"
                                        Style="{DynamicResource LabelDetails}" />
-                                <TextBox Text="{Binding Path=Beatmap.LevelAuthorName, FallbackValue='...', TargetNullValue='-'}"
+                                <TextBox Text="{Binding Path=Beatmap.Metadata.LevelAuthorName}"
                                          Style="{DynamicResource TextBoxDetails}" />
 
                                 <Label Content="Duration"
                                        HorizontalContentAlignment="Right"
                                        Style="{DynamicResource LabelDetails}" />
-                                <Label Content="{Binding Path=Beatmap.Duration, FallbackValue='...', TargetNullValue='-', Converter={StaticResource TimeSpanToStringConverter}}"
+                                <Label Content="{Binding Path=Beatmap.Metadata.DurationTimeSpan, Converter={StaticResource TimeSpanToStringConverter}}"
                                        Style="{DynamicResource LabelDetails}" />
 
                                 <Label Content="BPM"
                                        HorizontalContentAlignment="Right"
                                        Style="{DynamicResource LabelDetails}" />
-                                <Label Content="{Binding Path=Beatmap.BeatsPerMinute, FallbackValue='...'}"
+                                <Label Content="{Binding Path=Beatmap.Metadata.BeatsPerMinute}"
                                        Style="{DynamicResource LabelDetails}" />
 
                                 <Label Content="Key"
                                        HorizontalContentAlignment="Right"
                                        Style="{DynamicResource LabelDetails}" />
-                                <TextBox Text="{Binding Path=Beatmap.OnlineBeatmap.Key, FallbackValue='...', TargetNullValue='-'}"
+                                <TextBox Text="{Binding Path=Beatmap.Key}"
                                          Style="{DynamicResource TextBoxDetails}" />
                             </st:AutoGrid>
 
@@ -371,37 +378,37 @@
                                 <Label Content="Uploaded"
                                        HorizontalContentAlignment="Right"
                                        Style="{DynamicResource LabelDetails}" />
-                                <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Uploaded, Converter={StaticResource DateTimeConverter}, FallbackValue='-'}"
+                                <Label Content="{Binding Path=Beatmap.Uploaded, Converter={StaticResource DateTimeConverter}}"
                                        Style="{DynamicResource LabelDetails}" />
 
                                 <Label Content="Downloads"
                                        HorizontalContentAlignment="Right"
                                        Style="{DynamicResource LabelDetails}" />
-                                <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.Downloads, Converter={StaticResource AddCommasConverter}, FallbackValue='-'}"
+                                <Label Content="{Binding Path=Beatmap.Stats.Downloads, Converter={StaticResource AddCommasConverter}}"
                                        Style="{DynamicResource LabelDetails}" />
 
                                 <Label Content="Plays"
                                        HorizontalContentAlignment="Right"
                                        Style="{DynamicResource LabelDetails}" />
-                                <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.Plays, Converter={StaticResource AddCommasConverter}, FallbackValue='-'}"
+                                <Label Content="{Binding Path=Beatmap.Stats.Plays, Converter={StaticResource AddCommasConverter}}"
                                        Style="{DynamicResource LabelDetails}" />
 
                                 <Label Content="Up votes"
                                        HorizontalContentAlignment="Right"
                                        Style="{DynamicResource LabelDetails}" />
-                                <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.UpVotes, Converter={StaticResource AddCommasConverter}, FallbackValue='-'}"
+                                <Label Content="{Binding Path=Beatmap.Stats.UpVotes, Converter={StaticResource AddCommasConverter}}"
                                        Style="{DynamicResource LabelDetails}" />
 
                                 <Label Content="Down votes"
                                        HorizontalContentAlignment="Right"
                                        Style="{DynamicResource LabelDetails}" />
-                                <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.DownVotes, Converter={StaticResource AddCommasConverter}, FallbackValue='-'}"
+                                <Label Content="{Binding Path=Beatmap.Stats.DownVotes, Converter={StaticResource AddCommasConverter}}"
                                        Style="{DynamicResource LabelDetails}" />
 
                                 <Label Content="Rating"
                                        HorizontalContentAlignment="Right"
                                        Style="{DynamicResource LabelDetails}" />
-                                <Label Content="{Binding Path=Beatmap.OnlineBeatmap.Stats.Rating, Converter={StaticResource FloatToPercentageConverter}, FallbackValue='-'}"
+                                <Label Content="{Binding Path=Beatmap.Stats.Rating, Converter={StaticResource FloatToPercentageConverter}}"
                                        Style="{DynamicResource LabelDetails}" />
                             </st:AutoGrid>
                         </Grid>
@@ -409,7 +416,7 @@
                         <Expander Header="Description"
                                   IsExpanded="True"
                                   Margin="0,0,0,10">
-                            <TextBox Text="{Binding Path=Beatmap.OnlineBeatmap.Description}"
+                            <TextBox Text="{Binding Path=Beatmap.Description}"
                                      TextWrapping="Wrap"
                                      Style="{DynamicResource TextBoxDetails}" />
                         </Expander>
@@ -426,122 +433,101 @@
                                                Orientation="Horizontal" />
                                 <st:StackPanel x:Name="stackPanelDifficulties"
                                                Orientation="Horizontal"
-                                               Margin="0,0,0,10" />
+                                               Margin="0,0,0,10">
+                                    <RadioButton x:Name="radioButtonEasyDifficulty"
+                                                 st:StackPanel.Fill="Fill"
+                                                 HorizontalContentAlignment="Center"
+                                                 Content="Easy"
+                                                 Visibility="{Binding Path=Characteristic.Difficulties.Easy, Converter={StaticResource NullToVisibilityConverter}}"
+                                                 Style="{DynamicResource ToggleButtonDifficultyEasy}"
+                                                 ToolTip="Easy"
+                                                 Checked="RadioButtonEasyDifficulty_Checked" />
+                                    <RadioButton x:Name="radioButtonNormalDifficulty"
+                                                 st:StackPanel.Fill="Fill"
+                                                 HorizontalContentAlignment="Center"
+                                                 Content="Normal"
+                                                 Visibility="{Binding Path=Characteristic.Difficulties.Normal, Converter={StaticResource NullToVisibilityConverter}}"
+                                                 Style="{DynamicResource ToggleButtonDifficultyNormal}"
+                                                 ToolTip="Normal"
+                                                 Checked="RadioButtonNormalDifficulty_Checked" />
+                                    <RadioButton x:Name="radioButtonHardDifficulty"
+                                                 st:StackPanel.Fill="Fill"
+                                                 HorizontalContentAlignment="Center"
+                                                 Content="Hard"
+                                                 Visibility="{Binding Path=Characteristic.Difficulties.Hard, Converter={StaticResource NullToVisibilityConverter}}"
+                                                 Style="{DynamicResource ToggleButtonDifficultyHard}"
+                                                 ToolTip="Hard"
+                                                 Checked="RadioButtonHardDifficulty_Checked" />
+                                    <RadioButton x:Name="radioButtonExpertDifficulty"
+                                                 st:StackPanel.Fill="Fill"
+                                                 HorizontalContentAlignment="Center"
+                                                 Content="Expert"
+                                                 Visibility="{Binding Path=Characteristic.Difficulties.Expert, Converter={StaticResource NullToVisibilityConverter}}"
+                                                 Style="{DynamicResource ToggleButtonDifficultyExpert}"
+                                                 ToolTip="Expert"
+                                                 Checked="RadioButtonExpertDifficulty_Checked" />
+                                    <RadioButton x:Name="radioButtonExpertPlusDifficulty"
+                                                 st:StackPanel.Fill="Fill"
+                                                 HorizontalContentAlignment="Center"
+                                                 Content="Expert+"
+                                                 Visibility="{Binding Path=Characteristic.Difficulties.ExpertPlus, Converter={StaticResource NullToVisibilityConverter}}"
+                                                 Style="{DynamicResource ToggleButtonDifficultyExpertPlus}"
+                                                 ToolTip="Expert+"
+                                                 Checked="RadioButtonExpertPlusDifficulty_Checked" />
+                                </st:StackPanel>
 
-                                <st:StackPanel MarginBetweenChildren="10">
-                                    <st:StackPanel Orientation="Horizontal"
-                                                   MarginBetweenChildren="10">
-                                        <st:AutoGrid Columns="auto,1*"
-                                                     Rows="auto,auto,auto,auto"
-                                                     ChildMargin="2.5,0"
-                                                     st:StackPanel.Fill="Fill">
-                                            <Label Content="Bombs"
-                                                   HorizontalContentAlignment="Right"
-                                                   Style="{DynamicResource LabelDetails}" />
-                                            <Label Content="{Binding Path=BeatmapDetail.BombsCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}"
-                                                   Style="{DynamicResource LabelDetails}" />
+                                <st:StackPanel Orientation="Horizontal"
+                                               MarginBetweenChildren="10">
+                                    <st:AutoGrid Columns="auto,1*"
+                                                 Rows="auto,auto,auto,auto"
+                                                 ChildMargin="2.5,0"
+                                                 st:StackPanel.Fill="Fill">
+                                        <Label Content="Notes"
+                                               HorizontalContentAlignment="Right"
+                                               Style="{DynamicResource LabelDetails}" />
+                                        <Label Content="{Binding Path=Difficulty.Notes, Mode=OneWay, Converter={StaticResource AddCommasConverter}}"
+                                               Style="{DynamicResource LabelDetails}" />
 
-                                            <Label Content="Notes"
-                                                   HorizontalContentAlignment="Right"
-                                                   Style="{DynamicResource LabelDetails}" />
-                                            <Label Content="{Binding Path=BeatmapDetail.NotesCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}"
-                                                   Style="{DynamicResource LabelDetails}" />
+                                        <Label Content="Bombs"
+                                               HorizontalContentAlignment="Right"
+                                               Style="{DynamicResource LabelDetails}" />
+                                        <Label Content="{Binding Path=Difficulty.Bombs, Mode=OneWay, Converter={StaticResource AddCommasConverter}}"
+                                               Style="{DynamicResource LabelDetails}" />
 
-                                            <Label Content="Obstacles"
-                                                   HorizontalContentAlignment="Right"
-                                                   Style="{DynamicResource LabelDetails}" />
-                                            <Label Content="{Binding Path=BeatmapDetail.ObstaclesCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}"
-                                                   Style="{DynamicResource LabelDetails}" />
+                                        <Label Content="Obstacles"
+                                               HorizontalContentAlignment="Right"
+                                               Style="{DynamicResource LabelDetails}" />
+                                        <Label Content="{Binding Path=Difficulty.Obstacles, Mode=OneWay, Converter={StaticResource AddCommasConverter}}"
+                                               Style="{DynamicResource LabelDetails}" />
+                                    </st:AutoGrid>
+                                    <st:AutoGrid Columns="auto,1*"
+                                                 Rows="auto,auto,auto,auto"
+                                                 ChildMargin="2.5,0"
+                                                 st:StackPanel.Fill="Fill">
+                                        <Label Content="Note Movement Speed"
+                                               HorizontalContentAlignment="Right"
+                                               Style="{DynamicResource LabelDetails}" />
+                                        <Label Content="{Binding Path=Difficulty.NoteJumpMovementSpeed, Converter={StaticResource AddCommasConverter}}"
+                                               Style="{DynamicResource LabelDetails}" />
 
-                                            <Label Content="Events"
-                                                   HorizontalContentAlignment="Right"
-                                                   Style="{DynamicResource LabelDetails}" />
-                                            <Label Content="{Binding Path=BeatmapDetail.EventsCount, Mode=OneWay, Converter={StaticResource AddCommasConverter}}"
-                                                   Style="{DynamicResource LabelDetails}" />
-                                        </st:AutoGrid>
-                                        <st:AutoGrid Columns="auto,1*"
-                                                     Rows="auto,auto,auto,auto"
-                                                     ChildMargin="2.5,0"
-                                                     st:StackPanel.Fill="Fill">
-                                            <Label Content="Note Movement Speed"
-                                                   HorizontalContentAlignment="Right"
-                                                   Style="{DynamicResource LabelDetails}" />
-                                            <Label Content="{Binding Path=BeatmapDetail.DifficultyBeatmap.NoteJumpMovementSpeed, Converter={StaticResource AddCommasConverter}}"
-                                                   Style="{DynamicResource LabelDetails}" />
+                                        <Label Content="Note Start Offset"
+                                               HorizontalContentAlignment="Right"
+                                               Style="{DynamicResource LabelDetails}" />
+                                        <Label Content="{Binding Path=Difficulty.NoteJumpStartBeatOffset, Converter={StaticResource AddCommasConverter}}"
+                                               Style="{DynamicResource LabelDetails}" />
 
-                                            <Label Content="Note Start Offset"
-                                                   HorizontalContentAlignment="Right"
-                                                   Style="{DynamicResource LabelDetails}" />
-                                            <Label Content="{Binding Path=BeatmapDetail.DifficultyBeatmap.NoteJumpStartBeatOffset, Converter={StaticResource AddCommasConverter}}"
-                                                   Style="{DynamicResource LabelDetails}" />
+                                        <Label Content="Half Jump Duration"
+                                               HorizontalContentAlignment="Right"
+                                               Style="{DynamicResource LabelDetails}" />
+                                        <Label Content="{Binding Path=Difficulty.HalfJumpDuration, Converter={StaticResource AddCommasConverter}}"
+                                               Style="{DynamicResource LabelDetails}" />
 
-                                            <Label Content="Half Jump Duration"
-                                                   HorizontalContentAlignment="Right"
-                                                   Style="{DynamicResource LabelDetails}" />
-                                            <Label Content="{Binding Path=BeatmapDetail.HalfJumpDuration, Converter={StaticResource AddCommasConverter}}"
-                                                   Style="{DynamicResource LabelDetails}" />
-
-                                            <Label Content="Jump Distance"
-                                                   HorizontalContentAlignment="Right"
-                                                   Style="{DynamicResource LabelDetails}" />
-                                            <Label Content="{Binding Path=BeatmapDetail.JumpDistance, Converter={StaticResource AddCommasConverter}}"
-                                                   Style="{DynamicResource LabelDetails}" />
-                                        </st:AutoGrid>
-                                    </st:StackPanel>
-
-                                    <GroupBox Header="Mod Requirements"
-                                              MaxHeight="200">
-                                        <Grid>
-                                            <Label x:Name="labelRequirements"
-                                                   Content="No requirements found"
-                                                   Visibility="Collapsed"
-                                                   FontSize="15" />
-
-                                            <DataGrid x:Name="dataGridDifficultyRequirements"
-                                                      ItemsSource="{Binding Path=BeatmapDetail.DifficultyBeatmap.CustomData.RequiredMods, Mode=OneWay}"
-                                                      AutoGenerateColumns="False"
-                                                      SelectionMode="Single"
-                                                      CanUserAddRows="False"
-                                                      CanUserDeleteRows="False"
-                                                      CanUserReorderColumns="False"
-                                                      CanUserResizeRows="False"
-                                                      CanUserResizeColumns="False"
-                                                      VerticalScrollBarVisibility="Auto"
-                                                      HorizontalScrollBarVisibility="Disabled"
-                                                      VirtualizingPanel.IsVirtualizing="False"
-                                                      LoadingRow="DataGridDifficultyRequirements_LoadingRow">
-                                                <DataGrid.RowStyle>
-                                                    <Style TargetType="DataGridRow">
-                                                        <Setter Property="IsHitTestVisible"
-                                                                Value="False" />
-                                                    </Style>
-                                                </DataGrid.RowStyle>
-
-                                                <DataGrid.Columns>
-                                                    <DataGridTextColumn Header="Name"
-                                                                        Width="1*"
-                                                                        IsReadOnly="True"
-                                                                        Binding="{Binding}">
-                                                        <DataGridTextColumn.ElementStyle>
-                                                            <Style TargetType="TextBlock"
-                                                                   BasedOn="{StaticResource MahApps.Styles.TextBlock}">
-                                                                <Setter Property="TextTrimming"
-                                                                        Value="CharacterEllipsis" />
-                                                                <Setter Property="Margin"
-                                                                        Value="10,0,0,0" />
-                                                                <Setter Property="ToolTip"
-                                                                        Value="{Binding Path=SongAuthorName, IsAsync=True}" />
-                                                                <Setter Property="ToolTipService.BetweenShowDelay"
-                                                                        Value="0" />
-                                                                <Setter Property="ToolTipService.InitialShowDelay"
-                                                                        Value="0" />
-                                                            </Style>
-                                                        </DataGridTextColumn.ElementStyle>
-                                                    </DataGridTextColumn>
-                                                </DataGrid.Columns>
-                                            </DataGrid>
-                                        </Grid>
-                                    </GroupBox>
+                                        <Label Content="Jump Distance"
+                                               HorizontalContentAlignment="Right"
+                                               Style="{DynamicResource LabelDetails}" />
+                                        <Label Content="{Binding Path=Difficulty.JumpDistance, Converter={StaticResource AddCommasConverter}}"
+                                               Style="{DynamicResource LabelDetails}" />
+                                    </st:AutoGrid>
                                 </st:StackPanel>
                             </st:AutoGrid>
                         </GroupBox>
@@ -578,7 +564,7 @@
                 <Image x:Name="imageCoverImage"
                        Width="520"
                        Height="520"
-                       Source="{Binding Path=Beatmap.CoverImagePath, Converter={StaticResource ImageSourceToBitmapConverter}}" />
+                       Source="{Binding Path=Beatmap.RealCoverURL}" />
                 <Button x:Name="buttonCloseCoverImage"
                         HorizontalAlignment="Center"
                         Width="42"

@@ -1,4 +1,4 @@
-﻿using BeatManager.UserControls;
+﻿using BeatManager.UserControls.BeatSaver;
 using BeatSaver.Entities;
 using BeatSaver.Events;
 using MahApps.Metro.Controls.Dialogs;
@@ -8,7 +8,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BeatManager.ViewModels
+namespace BeatManager.ViewModels.BeatSaverModels
 {
     public class BeatmapOnlineUserControlViewModel : INotifyPropertyChanged
     {

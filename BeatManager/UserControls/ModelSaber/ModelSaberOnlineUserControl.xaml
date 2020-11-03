@@ -9,14 +9,24 @@
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
-    <Grid>
+    <Grid Margin="30,5"
+          MaxWidth="1350">
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <Grid>
+        <Label FontSize="45"
+               Grid.ColumnSpan="2"
+               Margin="0,0,0,30">
+            <Label.Content>
+                <TextBlock Text="{Binding Path=ModelType, FallbackValue='Model Online', StringFormat='{}{0} Online'}" />
+            </Label.Content>
+        </Label>
+
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="1*" />
@@ -89,7 +99,7 @@
 
         <DataGrid x:Name="dataGridModels"
                   ItemsSource="{Binding Path=OnlineModels.Models, NotifyOnTargetUpdated=True}"
-                  Grid.Row="1"
+                  Grid.Row="2"
                   Margin="0,10,0,0"
                   AutoGenerateColumns="False"
                   SelectionMode="Extended"
@@ -339,7 +349,7 @@
         <StackPanel x:Name="stackPanelNavigation"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"
-                    Grid.Row="2">
+                    Grid.Row="3">
             <Button x:Name="buttonReloadData"
                     Style="{DynamicResource TransparentCircleButton}"
                     Width="30"

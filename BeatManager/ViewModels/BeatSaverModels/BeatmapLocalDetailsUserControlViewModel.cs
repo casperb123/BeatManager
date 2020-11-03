@@ -1,6 +1,7 @@
 ﻿using BeatManager.UserControls.BeatSaver;
 using BeatSaver.Entities;
 using MahApps.Metro.Controls.Dialogs;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -19,6 +20,17 @@ namespace BeatManager.ViewModels.BeatSaverModels
         private LocalBeatmap beatmap;
         private LocalBeatmapDetails beatmapDetails;
         private LocalBeatmapDetail beatmapDetail;
+        private BitmapImage coverImage;
+
+        public BitmapImage CoverImage
+        {
+            get { return coverImage; }
+            set
+            {
+                coverImage = value;
+                OnPropertyChanged(nameof(CoverImage));
+            }
+        }
 
         public LocalBeatmapDetail BeatmapDetail
         {
@@ -60,6 +72,15 @@ namespace BeatManager.ViewModels.BeatSaverModels
                 beatmap = value;
                 OnPropertyChanged(nameof(Beatmap));
                 CreateDifficultySets();
+                using (FileStream stream = File.OpenRead(value.CoverImagePath))
+                {
+                    BitmapImage image = new BitmapImage();
+                    image.BeginInit();
+                    image.StreamSource = stream;
+                    image.CacheOption = BitmapCacheOption.OnLoad;
+                    image.EndInit();
+                    CoverImage = image;
+                }
             }
         }
 
@@ -79,7 +100,6 @@ namespace BeatManager.ViewModels.BeatSaverModels
 
         public void Back()
         {
-            mainWindow.ViewModel.ShowLocalBeatmapDetails = false;
             mainWindow.userControlMain.Content = mainWindow.ViewModel.BeatmapLocalUserControl;
         }
 
@@ -181,15 +201,7 @@ namespace BeatManager.ViewModels.BeatSaverModels
 
         public void OpenBigCover()
         {
-            using (FileStream stream = File.OpenRead(Beatmap.CoverImagePath))
-            {
-                BitmapImage image = new BitmapImage();
-                image.BeginInit();
-                image.StreamSource = stream;
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.EndInit();
-                mainWindow.ViewModel.OpenBigCover(image);
-            }
+            mainWindow.ViewModel.OpenBigCover(CoverImage);
         }
     }
 }

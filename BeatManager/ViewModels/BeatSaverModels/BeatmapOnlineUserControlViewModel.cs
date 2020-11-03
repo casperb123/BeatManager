@@ -383,7 +383,6 @@ namespace BeatManager.ViewModels.BeatSaverModels
 
         public void BeatmapDetails(string key, bool changePage = true)
         {
-            MainWindow.ViewModel.ShowOnlineBeatmapDetails = true;
             OnlineBeatmap beatmap = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
             MainWindow.ViewModel.BeatmapOnlineDetailsUserControl.ViewModel.Beatmap = beatmap;
             if (changePage)

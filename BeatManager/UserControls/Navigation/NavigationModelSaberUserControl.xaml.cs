@@ -1,4 +1,5 @@
 ﻿using BeatManager.ViewModels.Navigation;
+using ModelSaber.Entities;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -7,14 +8,14 @@ namespace BeatManager.UserControls.Navigation
     /// <summary>
     /// Interaction logic for NavigationSabersUserControl.xaml
     /// </summary>
-    public partial class NavigationSabersUserControl : UserControl
+    public partial class NavigationModelSaberUserControl : UserControl
     {
         public readonly NavigationSabersUserControlViewModel ViewModel;
 
-        public NavigationSabersUserControl()
+        public NavigationModelSaberUserControl(ModelType modelType)
         {
             InitializeComponent();
-            ViewModel = new NavigationSabersUserControlViewModel();
+            ViewModel = new NavigationSabersUserControlViewModel(modelType);
             DataContext = ViewModel;
         }
 

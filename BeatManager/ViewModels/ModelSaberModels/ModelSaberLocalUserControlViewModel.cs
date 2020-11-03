@@ -71,7 +71,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
             SelectedModels = new List<LocalModel>();
         }
 
-        public void GetSabers(LocalModels localModels = null)
+        public void GetModels(LocalModels localModels = null)
         {
             MainWindow.ToggleLoading(true, "Loading online sabers");
 
@@ -159,10 +159,24 @@ namespace BeatManager.ViewModels.ModelSaberModels
         public void DeleteModel(string name)
         {
             LocalModel localModel = LocalModels.Models.FirstOrDefault(x => x.Name == name);
-            OnlineModel onlineModel = MainWindow.ViewModel.SaberOnlineUserControl.ViewModel.GetModel(name);
+            OnlineModel onlineModel = MainWindow.ViewModel.SaberOnlineUserControl.ViewModel.OnlineModels?.Models.FirstOrDefault(x => x.Name == name);
 
             App.ModelSaberApi.DeleteModel(localModel);
             LocalModels.Models.Remove(localModel);
+            if (onlineModel is null)
+                TriggerChange();
+            else
+                onlineModel.IsDownloaded = false;
+
+            LocalModels = App.ModelSaberApi.RefreshLocalPages(LocalModels);
+        }
+
+        public void DeleteModel(LocalModel model)
+        {
+            OnlineModel onlineModel = MainWindow.ViewModel.SaberOnlineUserControl.ViewModel.OnlineModels?.Models.FirstOrDefault(x => x.Name == model.Name);
+
+            App.ModelSaberApi.DeleteModel(model);
+            LocalModels.Models.Remove(model);
             if (onlineModel is null)
                 TriggerChange();
             else
@@ -180,7 +194,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
                 LocalModels.Models.Remove(model);
                 App.ModelSaberApi.DeleteModel(model);
 
-                OnlineModel onlineModel = MainWindow.ViewModel.SaberOnlineUserControl.ViewModel.GetModel(model.Name);
+                OnlineModel onlineModel = MainWindow.ViewModel.SaberOnlineUserControl.ViewModel.OnlineModels?.Models.FirstOrDefault(x => x.Name == model.Name);
                 if (onlineModel != null)
                     onlineModels.Add(onlineModel);
             }
@@ -214,6 +228,16 @@ namespace BeatManager.ViewModels.ModelSaberModels
                 default:
                     break;
             }
+        }
+
+        public void ModelDetails(string name, bool changePage = true)
+        {
+            LocalModel model = LocalModels.Models.FirstOrDefault(x => x.Name == name);
+            MainWindow.ViewModel.ModelSaberLocalDetailsUserControl.ViewModel.Model = model;
+            if (changePage)
+                MainWindow.userControlMain.Content = MainWindow.ViewModel.ModelSaberLocalDetailsUserControl;
+
+            userControl.dataGridModels.UnselectAll();
         }
 
         public void OpenBigCover(string name)

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="BeatManager.UserControls.Navigation.NavigationSabersUserControl"
+﻿<UserControl x:Class="BeatManager.UserControls.Navigation.NavigationModelSaberUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -19,11 +19,13 @@
             <RadioButton x:Name="radioButtonLocal"
                          Width="40"
                          Height="40"
-                         ToolTip="Local Beatmaps"
                          Style="{DynamicResource CircleToggleButton}"
                          GroupName="NavigationButtonsBeatmaps"
                          IsChecked="{Binding Path=LocalPage, Mode=OneWay}"
                          Click="RadioButtonLocal_Click">
+                <RadioButton.ToolTip>
+                    <TextBlock Text="{Binding Path=ModelType, StringFormat='{}Local {0}s'}" />
+                </RadioButton.ToolTip>
                 <icons:PackIconFontAwesome Kind="LaptopSolid"
                                            Width="20"
                                            Height="20"
@@ -34,11 +36,13 @@
             <RadioButton x:Name="radioButtonOnline"
                          Width="40"
                          Height="40"
-                         ToolTip="Online Beatmaps"
                          Style="{DynamicResource CircleToggleButton}"
                          GroupName="NavigationButtonsBeatmaps"
                          IsChecked="{Binding Path=OnlinePage, Mode=OneWay}"
                          Click="RadioButtonOnline_Click">
+                <RadioButton.ToolTip>
+                    <TextBlock Text="{Binding Path=ModelType, StringFormat='{}Online {0}s'}" />
+                </RadioButton.ToolTip>
                 <icons:PackIconFontAwesome Kind="GlobeSolid"
                                            Width="20"
                                            Height="20"

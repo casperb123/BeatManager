@@ -49,11 +49,12 @@ namespace BeatManager.UserControls.ModelSaber
         private void Model_Details(object sender, RoutedEventArgs e)
         {
             string name = ((Button)sender).Tag.ToString();
+            ViewModel.ModelDetails(name);
         }
 
         private void ButtonReloadData_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.GetSabers(ViewModel.LocalModels);
+            ViewModel.GetModels(ViewModel.LocalModels);
         }
 
         private void ButtonFirstPage_Click(object sender, RoutedEventArgs e)

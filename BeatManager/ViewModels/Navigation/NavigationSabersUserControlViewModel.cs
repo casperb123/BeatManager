@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelSaber.Entities;
+using System;
 using System.ComponentModel;
 
 namespace BeatManager.ViewModels.Navigation
@@ -7,6 +8,8 @@ namespace BeatManager.ViewModels.Navigation
     {
         private bool onlinePage;
         private bool localPage;
+
+        public ModelType ModelType { get; set; }
 
         public event EventHandler LocalEvent;
         public event EventHandler OnlineEvent;
@@ -36,6 +39,11 @@ namespace BeatManager.ViewModels.Navigation
         {
             if (!string.IsNullOrWhiteSpace(prop))
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
+
+        public NavigationSabersUserControlViewModel(ModelType modelType)
+        {
+            ModelType = modelType;
         }
 
         public void Local()

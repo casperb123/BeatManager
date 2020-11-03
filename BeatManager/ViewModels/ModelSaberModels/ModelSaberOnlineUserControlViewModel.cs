@@ -8,8 +8,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace BeatManager.ViewModels.ModelSaberModels
@@ -25,8 +23,6 @@ namespace BeatManager.ViewModels.ModelSaberModels
         private bool sortDescending;
         private FilterType currentFilterType;
 
-        public readonly ModelSaberBaseOnlineUserControl BaseUserControl;
-
         public ModelType ModelType { get; private set; }
         public List<Sort> SortTypes { get; private set; }
         public List<Filter> Filters { get; private set; }
@@ -34,6 +30,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
 
         public MainWindow MainWindow { get; private set; }
         public bool ModelChanged { get; private set; }
+        public bool IsLoaded { get; set; }
 
         public FilterType CurrentFilterType
         {
@@ -104,11 +101,10 @@ namespace BeatManager.ViewModels.ModelSaberModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
-        public ModelSaberOnlineUserControlViewModel(MainWindow mainWindow, ModelSaberOnlineUserControl userControl, ModelSaberBaseOnlineUserControl baseUserControl, ModelType modelType)
+        public ModelSaberOnlineUserControlViewModel(MainWindow mainWindow, ModelSaberOnlineUserControl userControl, ModelType modelType)
         {
             MainWindow = mainWindow;
             this.userControl = userControl;
-            BaseUserControl = baseUserControl;
             ModelType = modelType;
 
             SelectedModels = new List<OnlineModel>();
@@ -150,7 +146,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
             {
                 try
                 {
-                    OnlineModels = await App.ModelSaberApi.GetOnlineModels(ModelType.Saber, CurrentSort, SortDescending, Filters, onlineModels);
+                    OnlineModels = await App.ModelSaberApi.GetOnlineModels(ModelType, CurrentSort, SortDescending, Filters, onlineModels);
                 }
                 catch (Exception e)
                 {
@@ -261,7 +257,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
                 if (e.InnerException != null && !e.Message.Contains(e.InnerException.Message))
                     errorMessage += $" ({e.InnerException.Message})";
 
-                await MainWindow.ShowMessageAsync("Downloading failed", "Downloading the song failed with the following error\n\n" +
+                await MainWindow.ShowMessageAsync("Downloading failed", "Downloading the model failed with the following error\n\n" +
                                                                         "Error:\n" +
                                                                         $"{errorMessage}");
             }
@@ -272,7 +268,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
                 if (e.InnerException != null && !e.Message.Contains(e.InnerException.Message))
                     errorMessage += $" ({e.InnerException.Message})";
 
-                MessageDialogResult result = await MainWindow.ShowMessageAsync("Downloading failed", "Downloading the song failed, would you like to try again?\n\n" +
+                MessageDialogResult result = await MainWindow.ShowMessageAsync("Downloading failed", "Downloading the model failed, would you like to try again?\n\n" +
                                                                                                      "Error:\n" +
                                                                                                      $"{errorMessage}", MessageDialogStyle.AffirmativeAndNegative);
 
@@ -298,7 +294,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
                     if (e.InnerException != null && !e.Message.Contains(e.InnerException.Message))
                         errorMessage += $" ({e.InnerException.Message})";
 
-                    await MainWindow.ShowMessageAsync("Downloading failed", "Downloading the song failed with the following error\n\n" +
+                    await MainWindow.ShowMessageAsync("Downloading failed", "Downloading the model failed with the following error\n\n" +
                                                                             "Error:\n" +
                                                                             $"{errorMessage}");
                 }
@@ -309,7 +305,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
                     if (e.InnerException != null && !e.Message.Contains(e.InnerException.Message))
                         errorMessage += $" ({e.InnerException.Message})";
 
-                    MessageDialogResult result = await MainWindow.ShowMessageAsync("Downloading failed", "Downloading the song failed, would you like to try again?\n\n" +
+                    MessageDialogResult result = await MainWindow.ShowMessageAsync("Downloading failed", "Downloading the model failed, would you like to try again?\n\n" +
                                                                                                          "Error:\n" +
                                                                                                          $"{errorMessage}", MessageDialogStyle.AffirmativeAndNegative);
 
@@ -322,10 +318,10 @@ namespace BeatManager.ViewModels.ModelSaberModels
         public void DeleteModel(int id)
         {
             OnlineModel onlineModel = OnlineModels.Models.FirstOrDefault(x => x.Id == id);
-            LocalModel localModel = MainWindow.ViewModel.SaberLocalUserControl.ViewModel.GetModel(onlineModel.Name);
+            LocalModel localModel = MainWindow.ViewModel.SaberLocalUserControl.ViewModel.LocalModels?.Models.FirstOrDefault(x => x.Name == onlineModel.Name);
 
             if (localModel != null)
-                MainWindow.ViewModel.SaberLocalUserControl.ViewModel.RemoveModel(localModel);
+                MainWindow.ViewModel.SaberLocalUserControl.ViewModel.DeleteModel(localModel);
 
             App.ModelSaberApi.DeleteModel(onlineModel);
             TriggerChange();
@@ -335,10 +331,10 @@ namespace BeatManager.ViewModels.ModelSaberModels
         {
             foreach (OnlineModel model in models)
             {
-                LocalModel localModel = MainWindow.ViewModel.SaberLocalUserControl.ViewModel.GetModel(model.Name);
+                LocalModel localModel = MainWindow.ViewModel.SaberLocalUserControl.ViewModel.LocalModels?.Models.FirstOrDefault(x => x.Name == model.Name);
 
                 if (localModel != null)
-                    MainWindow.ViewModel.SaberLocalUserControl.ViewModel.RemoveModel(localModel);
+                    MainWindow.ViewModel.SaberLocalUserControl.ViewModel.DeleteModel(localModel);
 
                 App.ModelSaberApi.DeleteModel(model);
             }
@@ -368,6 +364,16 @@ namespace BeatManager.ViewModels.ModelSaberModels
                 default:
                     break;
             }
+        }
+
+        public void ModelDetails(int id, bool changePage = true)
+        {
+            OnlineModel model = OnlineModels.Models.FirstOrDefault(x => x.Id == id);
+            MainWindow.ViewModel.ModelSaberOnlineDetailsUserControl.ViewModel.Model = model;
+            if (changePage)
+                MainWindow.userControlMain.Content = MainWindow.ViewModel.ModelSaberOnlineDetailsUserControl;
+
+            userControl.dataGridModels.UnselectAll();
         }
 
         public void OpenBigCover(int id)

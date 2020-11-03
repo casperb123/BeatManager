@@ -192,7 +192,6 @@ namespace BeatManager.ViewModels.BeatSaverModels
 
         public void BeatmapDetails(LocalIdentifier identifier, bool changePage = true)
         {
-            MainWindow.ViewModel.ShowLocalBeatmapDetails = true;
             LocalBeatmap beatmap = LocalBeatmaps.Maps.FirstOrDefault(x => x.Identifier.Value == identifier.Value);
             MainWindow.ViewModel.BeatmapLocalDetailsUserControl.ViewModel.Beatmap = beatmap;
 

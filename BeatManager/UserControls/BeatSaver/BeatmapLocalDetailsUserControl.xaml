@@ -15,7 +15,7 @@
                   Height="300">
                 <Rectangle Margin="0,-5,0,10">
                     <Rectangle.Fill>
-                        <ImageBrush ImageSource="{Binding Path=Beatmap.CoverImagePath, Converter={StaticResource ImageSourceToBitmapConverter}}"
+                        <ImageBrush ImageSource="{Binding Path=CoverImage}"
                                     Stretch="UniformToFill" />
                     </Rectangle.Fill>
                     <Rectangle.Effect>
@@ -91,7 +91,7 @@
                               Height="200"
                               Margin="0,0,25,0">
                             <Image x:Name="imageCover"
-                                   Source="{Binding Path=Beatmap.CoverImagePath, Converter={StaticResource ImageSourceToBitmapConverter}}" />
+                                   Source="{Binding Path=CoverImage}" />
                             <Button x:Name="buttonBigCover"
                                     Style="{DynamicResource CustomButtonCover}"
                                     Click="ButtonBigCover_Click">

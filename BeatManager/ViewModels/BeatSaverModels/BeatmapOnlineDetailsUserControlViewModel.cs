@@ -17,6 +17,17 @@ namespace BeatManager.ViewModels.BeatSaverModels
         private OnlineBeatmap beatmap;
         private Characteristic characteristic;
         private IDifficulty difficulty;
+        private BitmapImage coverImage;
+
+        public BitmapImage CoverImage
+        {
+            get { return coverImage; }
+            set
+            {
+                coverImage = value;
+                OnPropertyChanged(nameof(CoverImage));
+            }
+        }
 
         public IDifficulty Difficulty
         {
@@ -46,6 +57,7 @@ namespace BeatManager.ViewModels.BeatSaverModels
                 beatmap = value;
                 OnPropertyChanged(nameof(Beatmap));
                 CreateDifficultySets();
+                CoverImage = new BitmapImage(new Uri(Beatmap.RealCoverURL));
             }
         }
 
@@ -65,7 +77,6 @@ namespace BeatManager.ViewModels.BeatSaverModels
 
         public void Back()
         {
-            mainWindow.ViewModel.ShowOnlineBeatmapDetails = false;
             mainWindow.userControlMain.Content = mainWindow.ViewModel.BeatmapOnlineUserControl;
         }
 
@@ -144,8 +155,7 @@ namespace BeatManager.ViewModels.BeatSaverModels
 
         public void OpenBigCover()
         {
-            BitmapImage image = new BitmapImage(new Uri(Beatmap.RealCoverURL));
-            mainWindow.ViewModel.OpenBigCover(image);
+            mainWindow.ViewModel.OpenBigCover(CoverImage);
         }
     }
 }

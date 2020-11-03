@@ -8,13 +8,24 @@
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
-    <Grid>
+    <Grid Margin="30,5"
+          MaxWidth="1350">
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
+        <Label FontSize="45"
+               Grid.ColumnSpan="2"
+               Margin="0,0,0,30">
+            <Label.Content>
+                <TextBlock Text="{Binding Path=ModelType, FallbackValue='Model Local', StringFormat='{}{0} Local'}" />
+            </Label.Content>
+        </Label>
+        
         <DataGrid x:Name="dataGridModels"
+                  Grid.Row="1"
                   ItemsSource="{Binding Path=LocalModels.Models, NotifyOnTargetUpdated=True}"
                   AutoGenerateColumns="False"
                   SelectionMode="Extended"
@@ -214,7 +225,7 @@
         <StackPanel x:Name="stackPanelNavigation"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"
-                    Grid.Row="1">
+                    Grid.Row="2">
             <Button x:Name="buttonReloadData"
                     Style="{DynamicResource TransparentCircleButton}"
                     Width="30"

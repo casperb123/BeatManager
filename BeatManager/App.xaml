@@ -51,6 +51,8 @@
                         Value="0" />
                 <Setter Property="FontSize"
                         Value="15" />
+                <Setter Property="TextWrapping"
+                        Value="WrapWithOverflow" />
             </Style>
             <Style x:Key="LabelDetails"
                    TargetType="Label"

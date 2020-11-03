@@ -129,10 +129,14 @@
                                         ToolTipService.BetweenShowDelay="0"
                                         Margin="0,0,4,0"
                                         Visibility="{Binding Path=Beatmap.Easy, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                    <Label Content="Easy"
-                                           Foreground="White"
-                                           Margin="5,0"
-                                           Style="{DynamicResource LabelDetails}" />
+                                    <Grid>
+                                        <Label Content="Easy"
+                                               Foreground="White"
+                                               Margin="5,0"
+                                               Style="{DynamicResource LabelDetails}" />
+                                        <Border Style="{DynamicResource BorderDetails}"
+                                                CornerRadius="15" />
+                                    </Grid>
                                 </Border>
                                 <Border CornerRadius="15"
                                         Background="#59b0f4"
@@ -141,10 +145,14 @@
                                         ToolTipService.BetweenShowDelay="0"
                                         Margin="4,0,4,0"
                                         Visibility="{Binding Path=Beatmap.Normal, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                    <Label Content="Normal"
-                                           Foreground="White"
-                                           Margin="5,0"
-                                           Style="{DynamicResource LabelDetails}" />
+                                    <Grid>
+                                        <Label Content="Normal"
+                                               Foreground="White"
+                                               Margin="5,0"
+                                               Style="{DynamicResource LabelDetails}" />
+                                        <Border Style="{DynamicResource BorderDetails}"
+                                                CornerRadius="15" />
+                                    </Grid>
                                 </Border>
                                 <Border CornerRadius="15"
                                         Background="Tomato"
@@ -153,10 +161,14 @@
                                         ToolTipService.BetweenShowDelay="0"
                                         Margin="4,0,4,0"
                                         Visibility="{Binding Path=Beatmap.Hard, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                    <Label Content="Hard"
-                                           Foreground="White"
-                                           Margin="5,0"
-                                           Style="{DynamicResource LabelDetails}" />
+                                    <Grid>
+                                        <Label Content="Hard"
+                                               Foreground="White"
+                                               Margin="5,0"
+                                               Style="{DynamicResource LabelDetails}" />
+                                        <Border Style="{DynamicResource BorderDetails}"
+                                                CornerRadius="15" />
+                                    </Grid>
                                 </Border>
                                 <Border CornerRadius="15"
                                         Background="#bf2a42"
@@ -165,10 +177,14 @@
                                         ToolTipService.BetweenShowDelay="0"
                                         Margin="4,0,4,0"
                                         Visibility="{Binding Path=Beatmap.Expert, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                    <Label Content="Expert"
-                                           Foreground="White"
-                                           Margin="5,0"
-                                           Style="{DynamicResource LabelDetails}" />
+                                    <Grid>
+                                        <Label Content="Expert"
+                                               Foreground="White"
+                                               Margin="5,0"
+                                               Style="{DynamicResource LabelDetails}" />
+                                        <Border Style="{DynamicResource BorderDetails}"
+                                                CornerRadius="15" />
+                                    </Grid>
                                 </Border>
                                 <Border CornerRadius="15"
                                         Background="#8f48db"
@@ -177,10 +193,14 @@
                                         ToolTipService.BetweenShowDelay="0"
                                         Margin="4,0,0,0"
                                         Visibility="{Binding Path=Beatmap.ExpertPlus, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                    <Label Content="Expert+"
-                                           Foreground="White"
-                                           Margin="5,0"
-                                           Style="{DynamicResource LabelDetails}" />
+                                    <Grid>
+                                        <Label Content="Expert+"
+                                               Foreground="White"
+                                               Margin="5,0"
+                                               Style="{DynamicResource LabelDetails}" />
+                                        <Border Style="{DynamicResource BorderDetails}"
+                                                CornerRadius="15" />
+                                    </Grid>
                                 </Border>
                             </StackPanel>
                         </st:AutoGrid>

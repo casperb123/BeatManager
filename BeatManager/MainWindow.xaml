@@ -135,6 +135,7 @@
 
         <UserControl x:Name="userControlMain"
                      Grid.Column="1" />
+
         <Grid x:Name="gridCoverImage"
               Visibility="Hidden"
               Opacity="0"
@@ -154,7 +155,7 @@
             </Grid.Triggers>
 
             <Grid.Background>
-                <SolidColorBrush Color="Black"
+                <SolidColorBrush Color="{DynamicResource MahApps.Colors.ThemeBackground}"
                                  Opacity=".7" />
             </Grid.Background>
 
@@ -168,8 +169,7 @@
                         HorizontalAlignment="Center"
                         Width="42"
                         Height="42"
-                        Style="{DynamicResource TransparentCircleButton}"
-                        Foreground="White">
+                        Style="{DynamicResource TransparentCircleButton}">
                     <Button.Triggers>
                         <EventTrigger RoutedEvent="Button.Click">
                             <BeginStoryboard>

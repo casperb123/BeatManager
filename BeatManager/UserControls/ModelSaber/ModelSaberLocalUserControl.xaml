@@ -136,11 +136,15 @@
                                         ToolTipService.BetweenShowDelay="0"
                                         ToolTipService.InitialShowDelay="0"
                                         Visibility="{Binding Path=OnlineModel.StatusBool, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                    <icons:PackIconMaterial Kind="Check"
-                                                            Width="15"
-                                                            Height="15"
-                                                            HorizontalAlignment="Center"
-                                                            VerticalAlignment="Center" />
+                                    <Grid>
+                                        <icons:PackIconMaterial Kind="Check"
+                                                                Width="15"
+                                                                Height="15"
+                                                                HorizontalAlignment="Center"
+                                                                VerticalAlignment="Center" />
+                                        <Border Style="{DynamicResource BorderDetails}"
+                                                CornerRadius="15" />
+                                    </Grid>
                                 </Border>
                                 <Border Width="25"
                                         Height="25"
@@ -150,11 +154,15 @@
                                         ToolTipService.BetweenShowDelay="0"
                                         ToolTipService.InitialShowDelay="0"
                                         Visibility="{Binding Path=OnlineModel.StatusBool, IsAsync=True, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
-                                    <icons:PackIconMaterial Kind="Close"
-                                                            Width="15"
-                                                            Height="15"
-                                                            HorizontalAlignment="Center"
-                                                            VerticalAlignment="Center" />
+                                    <Grid>
+                                        <icons:PackIconMaterial Kind="Close"
+                                                                Width="15"
+                                                                Height="15"
+                                                                HorizontalAlignment="Center"
+                                                                VerticalAlignment="Center" />
+                                        <Border Style="{DynamicResource BorderDetails}"
+                                                CornerRadius="15" />
+                                    </Grid>
                                 </Border>
                             </Grid>
                         </DataTemplate>

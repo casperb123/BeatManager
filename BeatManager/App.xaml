@@ -58,6 +58,21 @@
                 <Setter Property="FontSize"
                         Value="15" />
             </Style>
+            <Style x:Key="BorderDetails"
+                   TargetType="Border">
+                <Setter Property="Background"
+                        Value="White" />
+                <Setter Property="Opacity"
+                        Value="0" />
+
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver"
+                             Value="True">
+                        <Setter Property="Opacity"
+                                Value=".2" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
             <Style x:Key="CustomButton"
                    TargetType="Button"
                    BasedOn="{StaticResource MahApps.Styles.Button}">

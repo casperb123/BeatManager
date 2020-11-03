@@ -167,7 +167,10 @@
                                             ToolTip="Easy"
                                             ToolTipService.InitialShowDelay="0"
                                             ToolTipService.BetweenShowDelay="0"
-                                            Visibility="{Binding Path=Easy, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                            Visibility="{Binding Path=Easy, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <Border Style="{DynamicResource BorderDetails}"
+                                                CornerRadius="100" />
+                                    </Border>
                                     <Border Width="25"
                                             Height="25"
                                             CornerRadius="100"
@@ -175,7 +178,10 @@
                                             ToolTip="Normal"
                                             ToolTipService.InitialShowDelay="0"
                                             ToolTipService.BetweenShowDelay="0"
-                                            Visibility="{Binding Path=Normal, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                            Visibility="{Binding Path=Normal, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <Border Style="{DynamicResource BorderDetails}"
+                                                CornerRadius="100" />
+                                    </Border>
                                     <Border Width="25"
                                             Height="25"
                                             CornerRadius="100"
@@ -183,7 +189,10 @@
                                             ToolTip="Hard"
                                             ToolTipService.InitialShowDelay="0"
                                             ToolTipService.BetweenShowDelay="0"
-                                            Visibility="{Binding Path=Hard, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                            Visibility="{Binding Path=Hard, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <Border Style="{DynamicResource BorderDetails}"
+                                                CornerRadius="100" />
+                                    </Border>
                                     <Border Width="25"
                                             Height="25"
                                             CornerRadius="100"
@@ -191,7 +200,10 @@
                                             ToolTip="Expert"
                                             ToolTipService.InitialShowDelay="0"
                                             ToolTipService.BetweenShowDelay="0"
-                                            Visibility="{Binding Path=Expert, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                            Visibility="{Binding Path=Expert, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <Border Style="{DynamicResource BorderDetails}"
+                                                CornerRadius="100" />
+                                    </Border>
                                     <Border Width="25"
                                             Height="25"
                                             CornerRadius="100"
@@ -199,7 +211,10 @@
                                             ToolTip="Expert+"
                                             ToolTipService.InitialShowDelay="0"
                                             ToolTipService.BetweenShowDelay="0"
-                                            Visibility="{Binding Path=ExpertPlus, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                            Visibility="{Binding Path=ExpertPlus, IsAsync=True, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <Border Style="{DynamicResource BorderDetails}"
+                                                CornerRadius="100" />
+                                    </Border>
                                 </st:StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

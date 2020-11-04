@@ -24,12 +24,12 @@ namespace BeatManager.UserControls.BeatSaver
             ViewModel.Back();
         }
 
-        private void ButtonDownloadBeatmap_Click(object sender, RoutedEventArgs e)
+        private async void ButtonDownload_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.DownloadSong();
+            await ViewModel.DownloadSong();
         }
 
-        private void ButtonDeleteBeatmap_Click(object sender, RoutedEventArgs e)
+        private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.DeleteSong();
         }
@@ -39,7 +39,7 @@ namespace BeatManager.UserControls.BeatSaver
             ViewModel.OpenFolder();
         }
 
-        private void ButtonOpenOnBeatsaver_Click(object sender, RoutedEventArgs e)
+        private void ButtonOpenBeatsaver_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.OpenBeatSaver();
         }

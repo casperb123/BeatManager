@@ -153,13 +153,13 @@ namespace BeatManager.ViewModels.BeatSaverModels
 
         public void DeleteSong()
         {
-            mainWindow.ViewModel.BeatmapLocalUserControl.ViewModel.DeleteSong(Beatmap.Identifier);
+            mainWindow.ViewModel.BeatmapLocalUserControl.ViewModel.DeleteSong(Beatmap);
             mainWindow.userControlMain.Content = mainWindow.ViewModel.BeatmapLocalUserControl;
         }
 
         public void RefreshData()
         {
-            mainWindow.ViewModel.BeatmapLocalUserControl.ViewModel.BeatmapDetails(Beatmap.Identifier, false);
+            mainWindow.ViewModel.BeatmapLocalUserControl.ViewModel.BeatmapDetails(Beatmap, false);
         }
 
         public void OpenFolder()

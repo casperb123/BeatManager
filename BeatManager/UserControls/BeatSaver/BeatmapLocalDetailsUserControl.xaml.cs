@@ -29,7 +29,7 @@ namespace BeatManager.UserControls.BeatSaver
             ViewModel.Back();
         }
 
-        private void ButtonDeleteBeatmap_Click(object sender, RoutedEventArgs e)
+        private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.DeleteSong();
         }
@@ -49,7 +49,7 @@ namespace BeatManager.UserControls.BeatSaver
             ViewModel.PreviewBeatmap();
         }
 
-        private void ButtonOpenOnBeatsaver_Click(object sender, RoutedEventArgs e)
+        private void ButtonOpenBeatsaver_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.OpenBeatSaver();
         }

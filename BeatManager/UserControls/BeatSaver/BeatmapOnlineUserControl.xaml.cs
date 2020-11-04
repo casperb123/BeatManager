@@ -24,27 +24,27 @@ namespace BeatManager.UserControls.BeatSaver
 
         private void ButtonBigCover_Click(object sender, RoutedEventArgs e)
         {
-            string key = ((Button)sender).Tag.ToString();
-            ViewModel.OpenBigCover(key);
+            OnlineBeatmap beatmap = ((Button)sender).Tag as OnlineBeatmap;
+            ViewModel.OpenBigCover(beatmap);
         }
 
-        private void Map_Download(object sender, RoutedEventArgs e)
+        private async void Map_Download(object sender, RoutedEventArgs e)
         {
-            string songKey = ((Button)sender).Tag.ToString();
-            ViewModel.DownloadSong(songKey);
+            OnlineBeatmap beatmap = ((Button)sender).Tag as OnlineBeatmap;
+            await ViewModel.DownloadSong(beatmap);
             ViewModel.UpdatePageButtons();
         }
 
         private void Map_Delete(object sender, RoutedEventArgs e)
         {
-            string songKey = ((Button)sender).Tag.ToString();
-            ViewModel.DeleteSong(songKey);
+            OnlineBeatmap beatmap = ((Button)sender).Tag as OnlineBeatmap;
+            ViewModel.DeleteSong(beatmap);
         }
 
         private void Map_Details(object sender, RoutedEventArgs e)
         {
-            string songKey = ((Button)sender).Tag.ToString();
-            ViewModel.BeatmapDetails(songKey);
+            OnlineBeatmap beatmap = ((Button)sender).Tag as OnlineBeatmap;
+            ViewModel.BeatmapDetails(beatmap);
         }
 
         private void RadioButtonSearch_Checked(object sender, RoutedEventArgs e)

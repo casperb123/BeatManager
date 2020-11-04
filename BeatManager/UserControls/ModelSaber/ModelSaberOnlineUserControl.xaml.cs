@@ -70,26 +70,26 @@ namespace BeatManager.UserControls.ModelSaber
 
         private void ButtonBigCover_Click(object sender, RoutedEventArgs e)
         {
-            int id = int.Parse(((Button)sender).Tag.ToString());
-            ViewModel.OpenBigCover(id);
+            OnlineModel model = ((Button)sender).Tag as OnlineModel;
+            ViewModel.OpenBigCover(model);
         }
 
         private async void Saber_Download(object sender, RoutedEventArgs e)
         {
-            int id = int.Parse(((Button)sender).Tag.ToString());
-            await ViewModel.DownloadModel(id);
+            OnlineModel model = ((Button)sender).Tag as OnlineModel;
+            await ViewModel.DownloadModel(model);
         }
 
         private void Saber_Delete(object sender, RoutedEventArgs e)
         {
-            int id = int.Parse(((Button)sender).Tag.ToString());
-            ViewModel.DeleteModel(id);
+            OnlineModel model = ((Button)sender).Tag as OnlineModel;
+            ViewModel.DeleteModel(model);
         }
 
         private void Saber_Details(object sender, RoutedEventArgs e)
         {
-            int id = int.Parse(((Button)sender).Tag.ToString());
-            ViewModel.ModelDetails(id);
+            OnlineModel model = ((Button)sender).Tag as OnlineModel;
+            ViewModel.ModelDetails(model);
         }
 
         private void ButtonReloadData_Click(object sender, RoutedEventArgs e)

@@ -29,20 +29,20 @@ namespace BeatManager.UserControls.BeatSaver
 
         private void ButtonBigCover_Click(object sender, RoutedEventArgs e)
         {
-            LocalIdentifier identifier = ((Button)sender).Tag as LocalIdentifier;
-            ViewModel.OpenBigCover(identifier);
+            LocalBeatmap beatmap = ((Button)sender).Tag as LocalBeatmap;
+            ViewModel.OpenBigCover(beatmap);
         }
 
         private void Map_Delete(object sender, RoutedEventArgs e)
         {
-            LocalIdentifier identifier = ((Button)sender).Tag as LocalIdentifier;
-            ViewModel.DeleteSong(identifier);
+            LocalBeatmap beatmap = ((Button)sender).Tag as LocalBeatmap;
+            ViewModel.DeleteSong(beatmap);
         }
 
         private void Map_Details(object sender, RoutedEventArgs e)
         {
-            LocalIdentifier identifier = ((Button)sender).Tag as LocalIdentifier;
-            ViewModel.BeatmapDetails(identifier);
+            LocalBeatmap beatmap = ((Button)sender).Tag as LocalBeatmap;
+            ViewModel.BeatmapDetails(beatmap);
         }
 
         private void ButtonFirstPage_Click(object sender, RoutedEventArgs e)

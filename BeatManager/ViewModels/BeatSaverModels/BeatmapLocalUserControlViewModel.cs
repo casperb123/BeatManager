@@ -142,17 +142,16 @@ namespace BeatManager.ViewModels.BeatSaverModels
             UpdatePageButtons();
         }
 
-        public void DeleteSong(LocalIdentifier identifier)
+        public void DeleteSong(LocalBeatmap beatmap)
         {
-            LocalBeatmap localBeatmap = LocalBeatmaps.Maps.FirstOrDefault(x => x.Identifier.Value == identifier.Value);
             OnlineBeatmap onlineBeatmap;
-            if (identifier.IsKey)
-                onlineBeatmap = MainWindow.ViewModel.BeatmapOnlineUserControl.ViewModel.OnlineBeatmaps?.Maps.FirstOrDefault(x => x.Key == identifier.Value);
+            if (beatmap.Identifier.IsKey)
+                onlineBeatmap = MainWindow.ViewModel.BeatmapOnlineUserControl.ViewModel.OnlineBeatmaps?.Maps.FirstOrDefault(x => x.Key == beatmap.Identifier.Value);
             else
-                onlineBeatmap = MainWindow.ViewModel.BeatmapOnlineUserControl.ViewModel.OnlineBeatmaps?.Maps.FirstOrDefault(x => x.Hash == identifier.Value);
+                onlineBeatmap = MainWindow.ViewModel.BeatmapOnlineUserControl.ViewModel.OnlineBeatmaps?.Maps.FirstOrDefault(x => x.Hash == beatmap.Identifier.Value);
 
-            App.BeatSaverApi.DeleteSong(localBeatmap);
-            LocalBeatmaps.Maps.Remove(localBeatmap);
+            App.BeatSaverApi.DeleteSong(beatmap);
+            LocalBeatmaps.Maps.Remove(beatmap);
             if (onlineBeatmap is null)
                 MainWindow.ViewModel.LocalBeatmapChanged = true;
             else
@@ -190,9 +189,8 @@ namespace BeatManager.ViewModels.BeatSaverModels
             LocalBeatmaps = App.BeatSaverApi.RefreshLocalPages(LocalBeatmaps);
         }
 
-        public void BeatmapDetails(LocalIdentifier identifier, bool changePage = true)
+        public void BeatmapDetails(LocalBeatmap beatmap, bool changePage = true)
         {
-            LocalBeatmap beatmap = LocalBeatmaps.Maps.FirstOrDefault(x => x.Identifier.Value == identifier.Value);
             MainWindow.ViewModel.BeatmapLocalDetailsUserControl.ViewModel.Beatmap = beatmap;
 
             if (changePage)
@@ -201,9 +199,8 @@ namespace BeatManager.ViewModels.BeatSaverModels
             MainWindow.ViewModel.BeatmapLocalUserControl.dataGridMaps.UnselectAll();
         }
 
-        public void OpenBigCover(LocalIdentifier identifier)
+        public void OpenBigCover(LocalBeatmap beatmap)
         {
-            LocalBeatmap beatmap = LocalBeatmaps.Maps.FirstOrDefault(x => x.Identifier == identifier);
             using (FileStream stream = File.OpenRead(beatmap.CoverImagePath))
             {
                 BitmapImage image = new BitmapImage();

@@ -113,16 +113,16 @@ namespace BeatManager.ViewModels.ModelSaberModels
                 case ModelType.None:
                     break;
                 case ModelType.Saber:
-                    mainWindow.ViewModel.SaberLocalUserControl.ViewModel.ModelDetails(Model.Name, false);
+                    mainWindow.ViewModel.SaberLocalUserControl.ViewModel.ModelDetails(Model, false);
                     break;
                 case ModelType.Avatar:
-                    mainWindow.ViewModel.AvatarLocalUserControl.ViewModel.ModelDetails(Model.Name, false);
+                    mainWindow.ViewModel.AvatarLocalUserControl.ViewModel.ModelDetails(Model, false);
                     break;
                 case ModelType.Platform:
-                    mainWindow.ViewModel.PlatformLocalUserControl.ViewModel.ModelDetails(Model.Name, false);
+                    mainWindow.ViewModel.PlatformLocalUserControl.ViewModel.ModelDetails(Model, false);
                     break;
                 case ModelType.Bloq:
-                    mainWindow.ViewModel.BloqLocalUserControl.ViewModel.ModelDetails(Model.Name, false);
+                    mainWindow.ViewModel.BloqLocalUserControl.ViewModel.ModelDetails(Model, false);
                     break;
                 default:
                     break;

@@ -242,13 +242,12 @@ namespace BeatManager.ViewModels.ModelSaberModels
             GetModels();
         }
 
-        public async Task DownloadModel(int id)
+        public async Task DownloadModel(OnlineModel model)
         {
             try
             {
                 MainWindow.radioButtonSettings.IsEnabled = false;
-                OnlineModel onlineModel = OnlineModels.Models.FirstOrDefault(x => x.Id == id);
-                await App.ModelSaberApi.DownloadModel(onlineModel);
+                await App.ModelSaberApi.DownloadModel(model);
             }
             catch (InvalidOperationException e)
             {
@@ -273,7 +272,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
                                                                                                      $"{errorMessage}", MessageDialogStyle.AffirmativeAndNegative);
 
                 if (result == MessageDialogResult.Affirmative)
-                    await DownloadModel(id);
+                    await DownloadModel(model);
             }
         }
 
@@ -310,20 +309,19 @@ namespace BeatManager.ViewModels.ModelSaberModels
                                                                                                          $"{errorMessage}", MessageDialogStyle.AffirmativeAndNegative);
 
                     if (result == MessageDialogResult.Affirmative)
-                        await DownloadModel(model.Id);
+                        await DownloadModel(model);
                 }
             }
         }
 
-        public void DeleteModel(int id)
+        public void DeleteModel(OnlineModel model)
         {
-            OnlineModel onlineModel = OnlineModels.Models.FirstOrDefault(x => x.Id == id);
-            LocalModel localModel = MainWindow.ViewModel.SaberLocalUserControl.ViewModel.LocalModels?.Models.FirstOrDefault(x => x.Name == onlineModel.Name);
+            LocalModel localModel = MainWindow.ViewModel.SaberLocalUserControl.ViewModel.LocalModels?.Models.FirstOrDefault(x => x.Name == model.Name);
 
             if (localModel != null)
                 MainWindow.ViewModel.SaberLocalUserControl.ViewModel.DeleteModel(localModel);
 
-            App.ModelSaberApi.DeleteModel(onlineModel);
+            App.ModelSaberApi.DeleteModel(model);
             TriggerChange();
         }
 
@@ -366,9 +364,8 @@ namespace BeatManager.ViewModels.ModelSaberModels
             }
         }
 
-        public void ModelDetails(int id, bool changePage = true)
+        public void ModelDetails(OnlineModel model, bool changePage = true)
         {
-            OnlineModel model = OnlineModels.Models.FirstOrDefault(x => x.Id == id);
             MainWindow.ViewModel.ModelSaberOnlineDetailsUserControl.ViewModel.Model = model;
             if (changePage)
                 MainWindow.userControlMain.Content = MainWindow.ViewModel.ModelSaberOnlineDetailsUserControl;
@@ -376,9 +373,8 @@ namespace BeatManager.ViewModels.ModelSaberModels
             userControl.dataGridModels.UnselectAll();
         }
 
-        public void OpenBigCover(int id)
+        public void OpenBigCover(OnlineModel model)
         {
-            OnlineModel model = OnlineModels.Models.FirstOrDefault(x => x.Id == id);
             BitmapImage image = new BitmapImage(new Uri(model.RealThumbnail));
             MainWindow.ViewModel.OpenBigCover(image);
         }

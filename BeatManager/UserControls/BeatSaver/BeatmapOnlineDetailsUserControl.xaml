@@ -193,8 +193,7 @@
                                    MarginBetweenChildren="2">
                         <Grid>
                             <Grid Visibility="{Binding Path=Beatmap.IsDownloading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
-                                <Button x:Name="buttonDownloadBeatmap"
-                                        Tag="{Binding Path=Beatmap.Key}"
+                                <Button x:Name="buttonDownload"
                                         ToolTip="Download song"
                                         Width="35"
                                         Height="35"
@@ -202,13 +201,12 @@
                                         Style="{DynamicResource TransparentCircleButton}"
                                         Visibility="{Binding Path=Beatmap.IsDownloaded, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
                                         IsEnabled="{Binding Path=Beatmap.IsDownloaded, Converter={StaticResource InverseBooleanConverter}}"
-                                        Click="ButtonDownloadBeatmap_Click">
+                                        Click="ButtonDownload_Click">
                                     <icons:PackIconMaterial Kind="Download"
                                                             Width="18"
                                                             Height="18" />
                                 </Button>
-                                <Button x:Name="buttonDeleteBeatmap"
-                                        Tag="{Binding Path=Beatmap.Key}"
+                                <Button x:Name="buttonDelete"
                                         ToolTip="Delete song"
                                         Width="35"
                                         Height="35"
@@ -216,7 +214,7 @@
                                         Style="{DynamicResource TransparentCircleButton}"
                                         Visibility="{Binding Path=Beatmap.IsDownloaded, Converter={StaticResource BooleanToVisibilityConverter}}"
                                         IsEnabled="{Binding Path=Beatmap.IsDownloaded}"
-                                        Click="ButtonDeleteBeatmap_Click">
+                                        Click="ButtonDelete_Click">
                                     <icons:PackIconMaterial Kind="DeleteForever"
                                                             Width="18"
                                                             Height="18" />
@@ -261,12 +259,12 @@
                                                     Width="18"
                                                     Height="18" />
                         </Button>
-                        <Button x:Name="buttonOpenOnBeatsaver"
+                        <Button x:Name="buttonOpenBeatsaver"
                                 Width="35"
                                 Height="35"
                                 ToolTip="Open on beatsaver"
                                 Style="{DynamicResource TransparentCircleButton}"
-                                Click="ButtonOpenOnBeatsaver_Click">
+                                Click="ButtonOpenBeatsaver_Click">
                             <icons:PackIconMaterial Kind="Link"
                                                     Width="18"
                                                     Height="18" />

@@ -214,7 +214,7 @@
                                             <ImageBrush ImageSource="{Binding Path=RealCoverURL, Mode=OneWay, IsAsync=True}" />
                                         </Border.Background>
                                         <Button x:Name="buttonBigCover"
-                                                Tag="{Binding Path=Key}"
+                                                Tag="{Binding}"
                                                 Style="{DynamicResource CustomButtonCover}"
                                                 Click="ButtonBigCover_Click">
                                             <Button.Resources>
@@ -394,7 +394,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Grid Visibility="{Binding Path=IsDownloading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
-                                        <Button Tag="{Binding Path=Key}"
+                                        <Button Tag="{Binding}"
                                                 ToolTip="Download song"
                                                 Style="{DynamicResource TransparentCircleButton}"
                                                 Width="30"
@@ -407,7 +407,7 @@
                                                                     Width="13"
                                                                     Height="13" />
                                         </Button>
-                                        <Button Tag="{Binding Path=Key}"
+                                        <Button Tag="{Binding}"
                                                 ToolTip="Delete song"
                                                 Style="{DynamicResource TransparentCircleButton}"
                                                 Width="30"
@@ -429,7 +429,7 @@
                                                           IsEnabled="{Binding Path=IsDownloading}" />
                                     </Grid>
 
-                                    <Button Tag="{Binding Path=Key}"
+                                    <Button Tag="{Binding}"
                                             Grid.Column="1"
                                             ToolTip="Song details"
                                             Style="{DynamicResource TransparentCircleButton}"

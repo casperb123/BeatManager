@@ -162,7 +162,6 @@
                                Margin="0,0,0,20"
                                MarginBetweenChildren="2">
                     <Button x:Name="buttonDelete"
-                            Tag="{Binding Path=Model.Id}"
                             Width="35"
                             Height="35"
                             Foreground="#ff4040"

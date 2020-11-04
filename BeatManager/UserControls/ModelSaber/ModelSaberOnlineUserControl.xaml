@@ -167,7 +167,7 @@
                                         <ImageBrush ImageSource="{Binding Path=RealThumbnail, Mode=OneWay, IsAsync=True}" />
                                     </Border.Background>
                                     <Button x:Name="buttonBigCover"
-                                            Tag="{Binding Path=Id}"
+                                            Tag="{Binding}"
                                             Style="{DynamicResource CustomButtonCover}"
                                             Click="ButtonBigCover_Click">
                                         <Button.Resources>
@@ -281,7 +281,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Grid Visibility="{Binding Path=IsDownloading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
-                                    <Button Tag="{Binding Path=Id}"
+                                    <Button Tag="{Binding}"
                                             Style="{DynamicResource TransparentCircleButton}"
                                             Width="30"
                                             Height="30"
@@ -296,7 +296,7 @@
                                         <icons:PackIconMaterial Kind="Download"
                                                                 Style="{DynamicResource CustomIconMaterial}" />
                                     </Button>
-                                    <Button Tag="{Binding Path=Id}"
+                                    <Button Tag="{Binding}"
                                             Style="{DynamicResource TransparentCircleButton}"
                                             Width="30"
                                             Height="30"
@@ -325,7 +325,7 @@
                                     </mah:ProgressRing>
                                 </Grid>
 
-                                <Button Tag="{Binding Path=Id}"
+                                <Button Tag="{Binding}"
                                         Grid.Column="1"
                                         Style="{DynamicResource TransparentCircleButton}"
                                         Width="30"

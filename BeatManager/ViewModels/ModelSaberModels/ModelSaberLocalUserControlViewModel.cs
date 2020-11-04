@@ -230,9 +230,8 @@ namespace BeatManager.ViewModels.ModelSaberModels
             }
         }
 
-        public void ModelDetails(string name, bool changePage = true)
+        public void ModelDetails(LocalModel model, bool changePage = true)
         {
-            LocalModel model = LocalModels.Models.FirstOrDefault(x => x.Name == name);
             MainWindow.ViewModel.ModelSaberLocalDetailsUserControl.ViewModel.Model = model;
             if (changePage)
                 MainWindow.userControlMain.Content = MainWindow.ViewModel.ModelSaberLocalDetailsUserControl;
@@ -240,9 +239,8 @@ namespace BeatManager.ViewModels.ModelSaberModels
             userControl.dataGridModels.UnselectAll();
         }
 
-        public void OpenBigCover(string name)
+        public void OpenBigCover(LocalModel model)
         {
-            LocalModel model = LocalModels.Models.FirstOrDefault(x => x.Name == name);
             if (model.OnlineModel is null)
                 return;
 

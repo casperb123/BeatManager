@@ -3,6 +3,7 @@ using BeatSaver.Entities;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
@@ -108,19 +109,19 @@ namespace BeatManager.ViewModels.BeatSaverModels
             }
         }
 
-        public void DownloadSong()
+        public async Task DownloadSong()
         {
-            mainWindow.ViewModel.BeatmapOnlineUserControl.ViewModel.DownloadSong(Beatmap.Key);
+            await mainWindow.ViewModel.BeatmapOnlineUserControl.ViewModel.DownloadSong(Beatmap);
         }
 
         public void DeleteSong()
         {
-            mainWindow.ViewModel.BeatmapOnlineUserControl.ViewModel.DeleteSong(Beatmap.Key);
+            mainWindow.ViewModel.BeatmapOnlineUserControl.ViewModel.DeleteSong(Beatmap);
         }
 
         public void RefreshData()
         {
-            mainWindow.ViewModel.BeatmapOnlineUserControl.ViewModel.BeatmapDetails(Beatmap.Key, false);
+            mainWindow.ViewModel.BeatmapOnlineUserControl.ViewModel.BeatmapDetails(Beatmap, false);
         }
 
         public void OpenFolder()

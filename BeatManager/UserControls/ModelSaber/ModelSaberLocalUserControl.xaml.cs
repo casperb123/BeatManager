@@ -36,20 +36,20 @@ namespace BeatManager.UserControls.ModelSaber
 
         private void ButtonBigCover_Click(object sender, RoutedEventArgs e)
         {
-            string name = ((Button)sender).Tag.ToString();
-            ViewModel.OpenBigCover(name);
+            LocalModel model = ((Button)sender).Tag as LocalModel;
+            ViewModel.OpenBigCover(model);
         }
 
         private void Model_Delete(object sender, RoutedEventArgs e)
         {
-            string name = ((Button)sender).Tag.ToString();
-            ViewModel.DeleteModel(name);
+            LocalModel model = ((Button)sender).Tag as LocalModel;
+            ViewModel.DeleteModel(model);
         }
 
         private void Model_Details(object sender, RoutedEventArgs e)
         {
-            string name = ((Button)sender).Tag.ToString();
-            ViewModel.ModelDetails(name);
+            LocalModel model = ((Button)sender).Tag as LocalModel;
+            ViewModel.ModelDetails(model);
         }
 
         private void ButtonReloadData_Click(object sender, RoutedEventArgs e)

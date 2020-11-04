@@ -88,16 +88,16 @@ namespace BeatManager.ViewModels.ModelSaberModels
                 case ModelType.None:
                     break;
                 case ModelType.Saber:
-                    await mainWindow.ViewModel.SaberOnlineUserControl.ViewModel.DownloadModel(Model.Id);
+                    await mainWindow.ViewModel.SaberOnlineUserControl.ViewModel.DownloadModel(Model);
                     break;
                 case ModelType.Avatar:
-                    await mainWindow.ViewModel.AvatarOnlineUserControl.ViewModel.DownloadModel(Model.Id);
+                    await mainWindow.ViewModel.AvatarOnlineUserControl.ViewModel.DownloadModel(Model);
                     break;
                 case ModelType.Platform:
-                    await mainWindow.ViewModel.PlatformOnlineUserControl.ViewModel.DownloadModel(Model.Id);
+                    await mainWindow.ViewModel.PlatformOnlineUserControl.ViewModel.DownloadModel(Model);
                     break;
                 case ModelType.Bloq:
-                    await mainWindow.ViewModel.BloqOnlineUserControl.ViewModel.DownloadModel(Model.Id);
+                    await mainWindow.ViewModel.BloqOnlineUserControl.ViewModel.DownloadModel(Model);
                     break;
                 default:
                     break;
@@ -111,16 +111,16 @@ namespace BeatManager.ViewModels.ModelSaberModels
                 case ModelType.None:
                     break;
                 case ModelType.Saber:
-                    mainWindow.ViewModel.SaberOnlineUserControl.ViewModel.DeleteModel(Model.Id);
+                    mainWindow.ViewModel.SaberOnlineUserControl.ViewModel.DeleteModel(Model);
                     break;
                 case ModelType.Avatar:
-                    mainWindow.ViewModel.AvatarOnlineUserControl.ViewModel.DeleteModel(Model.Id);
+                    mainWindow.ViewModel.AvatarOnlineUserControl.ViewModel.DeleteModel(Model);
                     break;
                 case ModelType.Platform:
-                    mainWindow.ViewModel.PlatformOnlineUserControl.ViewModel.DeleteModel(Model.Id);
+                    mainWindow.ViewModel.PlatformOnlineUserControl.ViewModel.DeleteModel(Model);
                     break;
                 case ModelType.Bloq:
-                    mainWindow.ViewModel.BloqOnlineUserControl.ViewModel.DeleteModel(Model.Id);
+                    mainWindow.ViewModel.BloqOnlineUserControl.ViewModel.DeleteModel(Model);
                     break;
                 default:
                     break;
@@ -134,16 +134,16 @@ namespace BeatManager.ViewModels.ModelSaberModels
                 case ModelType.None:
                     break;
                 case ModelType.Saber:
-                    mainWindow.ViewModel.SaberOnlineUserControl.ViewModel.ModelDetails(Model.Id, false);
+                    mainWindow.ViewModel.SaberOnlineUserControl.ViewModel.ModelDetails(Model, false);
                     break;
                 case ModelType.Avatar:
-                    mainWindow.ViewModel.AvatarOnlineUserControl.ViewModel.ModelDetails(Model.Id, false);
+                    mainWindow.ViewModel.AvatarOnlineUserControl.ViewModel.ModelDetails(Model, false);
                     break;
                 case ModelType.Platform:
-                    mainWindow.ViewModel.PlatformOnlineUserControl.ViewModel.ModelDetails(Model.Id, false);
+                    mainWindow.ViewModel.PlatformOnlineUserControl.ViewModel.ModelDetails(Model, false);
                     break;
                 case ModelType.Bloq:
-                    mainWindow.ViewModel.BloqOnlineUserControl.ViewModel.ModelDetails(Model.Id, false);
+                    mainWindow.ViewModel.BloqOnlineUserControl.ViewModel.ModelDetails(Model, false);
                     break;
                 default:
                     break;

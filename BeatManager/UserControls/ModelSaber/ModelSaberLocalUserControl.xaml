@@ -189,7 +189,7 @@
                                     <ColumnDefinition Width="1*" />
                                 </Grid.ColumnDefinitions>
 
-                                <Button Tag="{Binding Path=Name}"
+                                <Button Tag="{Binding}"
                                         Style="{DynamicResource TransparentCircleButton}"
                                         Width="30"
                                         Height="30"
@@ -202,7 +202,7 @@
                                     <icons:PackIconMaterial Kind="DeleteForever"
                                                             Style="{DynamicResource CustomIconMaterial}" />
                                 </Button>
-                                <Button Tag="{Binding Path=Name}"
+                                <Button Tag="{Binding}"
                                         Grid.Column="1"
                                         Style="{DynamicResource TransparentCircleButton}"
                                         Width="30"

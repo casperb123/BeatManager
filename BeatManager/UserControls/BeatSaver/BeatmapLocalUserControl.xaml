@@ -74,7 +74,7 @@
                                             <ImageBrush ImageSource="{Binding Path=CoverImagePath, Mode=OneWay, IsAsync=True, Converter={StaticResource ImageSourceToBitmapConverter}}" />
                                         </Border.Background>
                                         <Button x:Name="buttonBigCover"
-                                                Tag="{Binding Path=Identifier}"
+                                                Tag="{Binding}"
                                                 Style="{DynamicResource CustomButtonCover}"
                                                 Click="ButtonBigCover_Click">
                                             <Button.Resources>
@@ -249,7 +249,7 @@
                                         <ColumnDefinition Width="1*" />
                                     </Grid.ColumnDefinitions>
 
-                                    <Button Tag="{Binding Path=Identifier}"
+                                    <Button Tag="{Binding}"
                                             ToolTip="Delete song"
                                             Style="{DynamicResource TransparentCircleButton}"
                                             Width="30"
@@ -261,7 +261,7 @@
                                                                 Height="13" />
                                     </Button>
 
-                                    <Button Tag="{Binding Path=Identifier}"
+                                    <Button Tag="{Binding}"
                                             Grid.Column="1"
                                             ToolTip="Song details"
                                             Style="{DynamicResource TransparentCircleButton}"

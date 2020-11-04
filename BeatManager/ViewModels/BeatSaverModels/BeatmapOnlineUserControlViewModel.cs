@@ -280,13 +280,12 @@ namespace BeatManager.ViewModels.BeatSaverModels
                 GetBeatmaps(query, OnlineBeatmaps.LastPage);
         }
 
-        public async void DownloadSong(string key)
+        public async Task DownloadSong(OnlineBeatmap beatmap)
         {
             try
             {
                 MainWindow.radioButtonSettings.IsEnabled = false;
-                OnlineBeatmap song = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
-                await App.BeatSaverApi.DownloadSong(song);
+                await App.BeatSaverApi.DownloadSong(beatmap);
             }
             catch (InvalidOperationException e)
             {
@@ -311,11 +310,11 @@ namespace BeatManager.ViewModels.BeatSaverModels
                                                                                                      $"{errorMessage}", MessageDialogStyle.AffirmativeAndNegative);
 
                 if (result == MessageDialogResult.Affirmative)
-                    DownloadSong(key);
+                    await DownloadSong(beatmap);
             }
         }
 
-        public async void DownloadSongs(List<OnlineBeatmap> songs)
+        public async Task DownloadSongs(List<OnlineBeatmap> songs)
         {
             MainWindow.radioButtonSettings.IsEnabled = false;
 
@@ -348,20 +347,19 @@ namespace BeatManager.ViewModels.BeatSaverModels
                                                                                                          $"{errorMessage}", MessageDialogStyle.AffirmativeAndNegative);
 
                     if (result == MessageDialogResult.Affirmative)
-                        DownloadSong(beatmap.Key);
+                        await DownloadSong(beatmap);
                 }
             }
         }
 
-        public void DeleteSong(string key)
+        public void DeleteSong(OnlineBeatmap beatmap)
         {
-            OnlineBeatmap onlineBeatmap = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
-            LocalBeatmap localBeatmap = MainWindow.ViewModel.BeatmapLocalUserControl.ViewModel.LocalBeatmaps?.Maps.FirstOrDefault(x => x.Identifier.Value == onlineBeatmap.Key || x.Identifier.Value == onlineBeatmap.Hash);
+            LocalBeatmap localBeatmap = MainWindow.ViewModel.BeatmapLocalUserControl.ViewModel.LocalBeatmaps?.Maps.FirstOrDefault(x => x.Identifier.Value == beatmap.Key || x.Identifier.Value == beatmap.Hash);
 
             if (localBeatmap != null)
                 MainWindow.ViewModel.BeatmapLocalUserControl.ViewModel.LocalBeatmaps.Maps.Remove(localBeatmap);
 
-            App.BeatSaverApi.DeleteSong(onlineBeatmap);
+            App.BeatSaverApi.DeleteSong(beatmap);
             MainWindow.ViewModel.OnlineBeatmapChanged = true;
         }
 
@@ -381,9 +379,8 @@ namespace BeatManager.ViewModels.BeatSaverModels
                 MainWindow.ViewModel.OnlineBeatmapChanged = true;
         }
 
-        public void BeatmapDetails(string key, bool changePage = true)
+        public void BeatmapDetails(OnlineBeatmap beatmap, bool changePage = true)
         {
-            OnlineBeatmap beatmap = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
             MainWindow.ViewModel.BeatmapOnlineDetailsUserControl.ViewModel.Beatmap = beatmap;
             if (changePage)
                 MainWindow.userControlMain.Content = MainWindow.ViewModel.BeatmapOnlineDetailsUserControl;
@@ -391,9 +388,8 @@ namespace BeatManager.ViewModels.BeatSaverModels
             MainWindow.ViewModel.BeatmapOnlineUserControl.dataGridMaps.UnselectAll();
         }
 
-        public void OpenBigCover(string key)
+        public void OpenBigCover(OnlineBeatmap beatmap)
         {
-            OnlineBeatmap beatmap = OnlineBeatmaps.Maps.FirstOrDefault(x => x.Key == key);
             BitmapImage image = new BitmapImage(new Uri(beatmap.RealCoverURL));
             MainWindow.ViewModel.OpenBigCover(image);
         }

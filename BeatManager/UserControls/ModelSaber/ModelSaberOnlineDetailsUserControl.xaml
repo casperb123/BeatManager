@@ -163,7 +163,6 @@
                     <Grid>
                         <Grid Visibility="{Binding Path=Model.IsDownloading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
                             <Button x:Name="buttonDownload"
-                                    Tag="{Binding Path=Model.Id}"
                                     Width="35"
                                     Height="35"
                                     Foreground="#2ec92e"
@@ -179,7 +178,6 @@
                                                         Height="18" />
                             </Button>
                             <Button x:Name="buttonDelete"
-                                    Tag="{Binding Path=Model.Id}"
                                     Width="35"
                                     Height="35"
                                     Foreground="#ff4040"

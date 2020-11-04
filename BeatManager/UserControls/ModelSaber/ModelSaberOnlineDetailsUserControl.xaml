@@ -123,7 +123,7 @@
                                 </Border>
                             </Grid>
                         </Grid>
-                        <st:AutoGrid Rows="auto,auto"
+                        <st:AutoGrid Rows="auto,auto,auto"
                                      Columns="1*"
                                      VerticalAlignment="Center"
                                      Grid.Column="1">
@@ -141,8 +141,18 @@
                             </TextBlock>
 
                             <TextBlock Text="{Binding Path=Model.Bsaber, FallbackValue='BeastSaber author', StringFormat='{}BeastSaber: {0}'}"
+                                       Visibility="{Binding Path=Model.Bsaber, Converter={StaticResource NullToVisibilityConverter}}"
                                        FontSize="25"
-                                       Margin="0,0,0,10" />
+                                       TextWrapping="WrapWithOverflow" />
+
+                            <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                                          VerticalScrollBarVisibility="Auto"
+                                          MaxHeight="90"
+                                          Margin="-2.5,10,0,0"
+                                          Visibility="{Binding Path=Model.OnlineModel, Converter={StaticResource NullToVisibilityConverter}}">
+                                <WrapPanel x:Name="wrapPanelTags"
+                                           Orientation="Horizontal" />
+                            </ScrollViewer>
                         </st:AutoGrid>
                     </Grid>
                 </st:AutoGrid>

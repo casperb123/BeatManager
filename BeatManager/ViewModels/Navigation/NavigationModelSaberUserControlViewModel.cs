@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace BeatManager.ViewModels.Navigation
 {
-    public class NavigationSabersUserControlViewModel : INotifyPropertyChanged
+    public class NavigationModelSaberUserControlViewModel : INotifyPropertyChanged
     {
         private bool onlinePage;
         private bool localPage;
@@ -41,7 +41,7 @@ namespace BeatManager.ViewModels.Navigation
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
-        public NavigationSabersUserControlViewModel(ModelType modelType)
+        public NavigationModelSaberUserControlViewModel(ModelType modelType)
         {
             ModelType = modelType;
         }

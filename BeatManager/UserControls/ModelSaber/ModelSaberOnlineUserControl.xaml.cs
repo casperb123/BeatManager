@@ -30,15 +30,15 @@ namespace BeatManager.UserControls.ModelSaber
 
         private void ComboBoxSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!ViewModel.MainWindow.ViewModel.SaberOnlineUserControl.ViewModel.IsLoaded)
+            if (!ViewModel.IsLoaded)
                 return;
 
-            ViewModel.GetSabers();
+            ViewModel.GetModels();
         }
 
         private void ButtonSortDirection_Click(object sender, RoutedEventArgs e)
         {
-            if (!ViewModel.MainWindow.ViewModel.SaberOnlineUserControl.ViewModel.IsLoaded)
+            if (!ViewModel.IsLoaded)
                 return;
 
             ViewModel.ChangeSortDirection();
@@ -94,7 +94,7 @@ namespace BeatManager.UserControls.ModelSaber
 
         private void ButtonReloadData_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.GetSabers(ViewModel.OnlineModels);
+            ViewModel.GetModels(ViewModel.OnlineModels);
         }
 
         private void ButtonFirstPage_Click(object sender, RoutedEventArgs e)

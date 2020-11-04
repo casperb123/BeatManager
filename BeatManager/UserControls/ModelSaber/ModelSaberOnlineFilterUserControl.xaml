@@ -33,7 +33,7 @@
             <TextBlock VerticalAlignment="Center">
                 <TextBlock.Text>
                     <MultiBinding StringFormat="{}{0}: {1}"
-                                  FallbackValue="filter: text">
+                                  FallbackValue="Filter: text">
                         <Binding Path="Filter.Type" />
                         <Binding Path="Filter.Text" />
                     </MultiBinding>

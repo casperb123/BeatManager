@@ -33,7 +33,10 @@ namespace BeatManager.ViewModels.ModelSaberModels
                 model = value;
                 OnPropertyChanged(nameof(Model));
                 if (Model.OnlineModel != null)
+                {
                     CoverImage = new BitmapImage(new Uri(Model.OnlineModel.RealThumbnail));
+                    CreateTags();
+                }
             }
         }
 
@@ -51,6 +54,12 @@ namespace BeatManager.ViewModels.ModelSaberModels
             this.mainWindow = mainWindow;
         }
 
+        private void CreateTags()
+        {
+            userControl.wrapPanelTags.Children.Clear();
+            Model.OnlineModel.Tags.ForEach(x => userControl.wrapPanelTags.Children.Add(new ModelSaberTagUserControl(x)));
+        }
+
         public void Back()
         {
             switch (Model.ModelType)
@@ -58,13 +67,16 @@ namespace BeatManager.ViewModels.ModelSaberModels
                 case ModelType.None:
                     break;
                 case ModelType.Saber:
-                    mainWindow.userControlMain.Content = mainWindow.ViewModel.SaberOnlineUserControl;
+                    mainWindow.userControlMain.Content = mainWindow.ViewModel.SaberLocalUserControl;
                     break;
                 case ModelType.Avatar:
+                    mainWindow.userControlMain.Content = mainWindow.ViewModel.AvatarLocalUserControl;
                     break;
                 case ModelType.Platform:
+                    mainWindow.userControlMain.Content = mainWindow.ViewModel.PlatformLocalUserControl;
                     break;
                 case ModelType.Bloq:
+                    mainWindow.userControlMain.Content = mainWindow.ViewModel.BloqLocalUserControl;
                     break;
                 default:
                     break;
@@ -81,10 +93,13 @@ namespace BeatManager.ViewModels.ModelSaberModels
                     mainWindow.ViewModel.SaberLocalUserControl.ViewModel.DeleteModel(Model.Name);
                     break;
                 case ModelType.Avatar:
+                    mainWindow.ViewModel.AvatarLocalUserControl.ViewModel.DeleteModel(Model.Name);
                     break;
                 case ModelType.Platform:
+                    mainWindow.ViewModel.PlatformLocalUserControl.ViewModel.DeleteModel(Model.Name);
                     break;
                 case ModelType.Bloq:
+                    mainWindow.ViewModel.BloqLocalUserControl.ViewModel.DeleteModel(Model.Name);
                     break;
                 default:
                     break;
@@ -101,10 +116,13 @@ namespace BeatManager.ViewModels.ModelSaberModels
                     mainWindow.ViewModel.SaberLocalUserControl.ViewModel.ModelDetails(Model.Name, false);
                     break;
                 case ModelType.Avatar:
+                    mainWindow.ViewModel.AvatarLocalUserControl.ViewModel.ModelDetails(Model.Name, false);
                     break;
                 case ModelType.Platform:
+                    mainWindow.ViewModel.PlatformLocalUserControl.ViewModel.ModelDetails(Model.Name, false);
                     break;
                 case ModelType.Bloq:
+                    mainWindow.ViewModel.BloqLocalUserControl.ViewModel.ModelDetails(Model.Name, false);
                     break;
                 default:
                     break;

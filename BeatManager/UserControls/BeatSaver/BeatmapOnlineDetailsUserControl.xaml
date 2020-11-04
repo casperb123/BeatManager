@@ -100,6 +100,7 @@
 
                             <TextBlock Text="{Binding Path=Beatmap.Metadata.LevelAuthorName}"
                                        FontSize="25"
+                                       TextWrapping="WrapWithOverflow"
                                        Margin="0,0,0,10" />
 
                             <StackPanel Orientation="Horizontal">

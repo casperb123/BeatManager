@@ -2,6 +2,7 @@
 using BeatManager.ViewModels;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using ModelSaber.Entities;
 using System;
 using System.ComponentModel;
 using System.IO;
@@ -94,13 +95,58 @@ namespace BeatManager
             userControlNavigation.Content = ViewModel.NavigationSabersUserControl;
 
             if (ViewModel.NavigationSabersUserControl.ViewModel.LocalPage)
-                ViewModel.ShowLocalSabersPage();
+                ViewModel.ShowLocalModelSaberPage(ModelType.Saber);
             else if (ViewModel.NavigationSabersUserControl.ViewModel.OnlinePage)
-                ViewModel.ShowOnlineSabersPage();
+                ViewModel.ShowOnlineModelSaberPage(ModelType.Saber);
             else
             {
                 ViewModel.NavigationSabersUserControl.ViewModel.LocalPage = true;
-                ViewModel.ShowLocalSabersPage();
+                ViewModel.ShowLocalModelSaberPage(ModelType.Saber);
+            }
+        }
+
+        private void RadioButtonAvatars_Checked(object sender, RoutedEventArgs e)
+        {
+            userControlNavigation.Content = ViewModel.NavigationAvatarsUserControl;
+
+            if (ViewModel.NavigationAvatarsUserControl.ViewModel.LocalPage)
+                ViewModel.ShowLocalModelSaberPage(ModelType.Avatar);
+            else if (ViewModel.NavigationAvatarsUserControl.ViewModel.OnlinePage)
+                ViewModel.ShowOnlineModelSaberPage(ModelType.Avatar);
+            else
+            {
+                ViewModel.NavigationAvatarsUserControl.ViewModel.LocalPage = true;
+                ViewModel.ShowLocalModelSaberPage(ModelType.Avatar);
+            }
+        }
+
+        private void RadioButtonPlatforms_Checked(object sender, RoutedEventArgs e)
+        {
+            userControlNavigation.Content = ViewModel.NavigationPlatformsUserControl;
+
+            if (ViewModel.NavigationPlatformsUserControl.ViewModel.LocalPage)
+                ViewModel.ShowLocalModelSaberPage(ModelType.Platform);
+            else if (ViewModel.NavigationPlatformsUserControl.ViewModel.OnlinePage)
+                ViewModel.ShowOnlineModelSaberPage(ModelType.Platform);
+            else
+            {
+                ViewModel.NavigationPlatformsUserControl.ViewModel.LocalPage = true;
+                ViewModel.ShowLocalModelSaberPage(ModelType.Platform);
+            }
+        }
+
+        private void RadioButtonBloqs_Checked(object sender, RoutedEventArgs e)
+        {
+            userControlNavigation.Content = ViewModel.NavigationBloqsUserControl;
+
+            if (ViewModel.NavigationBloqsUserControl.ViewModel.LocalPage)
+                ViewModel.ShowLocalModelSaberPage(ModelType.Bloq);
+            else if (ViewModel.NavigationBloqsUserControl.ViewModel.OnlinePage)
+                ViewModel.ShowOnlineModelSaberPage(ModelType.Bloq);
+            else
+            {
+                ViewModel.NavigationBloqsUserControl.ViewModel.LocalPage = true;
+                ViewModel.ShowLocalModelSaberPage(ModelType.Bloq);
             }
         }
 

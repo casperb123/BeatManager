@@ -73,7 +73,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
 
         public void GetModels(LocalModels localModels = null)
         {
-            MainWindow.ToggleLoading(true, "Loading online sabers");
+            MainWindow.ToggleLoading(true, $"Loading local {ModelType.ToString().ToLower()}s");
 
             _ = Task.Run(async () =>
             {

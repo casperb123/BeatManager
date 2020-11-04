@@ -33,10 +33,19 @@ namespace BeatManager.ViewModels
         public readonly BeatmapOnlineDetailsUserControl BeatmapOnlineDetailsUserControl;
         public readonly ModelSaberOnlineUserControl SaberOnlineUserControl;
         public readonly ModelSaberLocalUserControl SaberLocalUserControl;
+        public readonly ModelSaberOnlineUserControl AvatarOnlineUserControl;
+        public readonly ModelSaberLocalUserControl AvatarLocalUserControl;
+        public readonly ModelSaberOnlineUserControl PlatformOnlineUserControl;
+        public readonly ModelSaberLocalUserControl PlatformLocalUserControl;
+        public readonly ModelSaberOnlineUserControl BloqOnlineUserControl;
+        public readonly ModelSaberLocalUserControl BloqLocalUserControl;
         public readonly ModelSaberOnlineDetailsUserControl ModelSaberOnlineDetailsUserControl;
         public readonly ModelSaberLocalDetailsUserControl ModelSaberLocalDetailsUserControl;
         public readonly NavigationBeatmapsUserControl NavigationBeatmapsUserControl;
         public readonly NavigationModelSaberUserControl NavigationSabersUserControl;
+        public readonly NavigationModelSaberUserControl NavigationAvatarsUserControl;
+        public readonly NavigationModelSaberUserControl NavigationPlatformsUserControl;
+        public readonly NavigationModelSaberUserControl NavigationBloqsUserControl;
         public readonly SettingsUserControl SettingsUserControl;
         public readonly DownloadsUserControl DownloadsUserControl;
 
@@ -83,10 +92,19 @@ namespace BeatManager.ViewModels
             BeatmapOnlineDetailsUserControl = new BeatmapOnlineDetailsUserControl(mainWindow);
             SaberOnlineUserControl = new ModelSaberOnlineUserControl(mainWindow, ModelType.Saber);
             SaberLocalUserControl = new ModelSaberLocalUserControl(mainWindow, ModelType.Saber);
+            AvatarOnlineUserControl = new ModelSaberOnlineUserControl(mainWindow, ModelType.Avatar);
+            AvatarLocalUserControl = new ModelSaberLocalUserControl(mainWindow, ModelType.Avatar);
+            PlatformOnlineUserControl = new ModelSaberOnlineUserControl(mainWindow, ModelType.Platform);
+            PlatformLocalUserControl = new ModelSaberLocalUserControl(mainWindow, ModelType.Platform);
+            BloqOnlineUserControl = new ModelSaberOnlineUserControl(mainWindow, ModelType.Bloq);
+            BloqLocalUserControl = new ModelSaberLocalUserControl(mainWindow, ModelType.Bloq);
             ModelSaberOnlineDetailsUserControl = new ModelSaberOnlineDetailsUserControl(mainWindow);
             ModelSaberLocalDetailsUserControl = new ModelSaberLocalDetailsUserControl(mainWindow);
             NavigationBeatmapsUserControl = new NavigationBeatmapsUserControl();
             NavigationSabersUserControl = new NavigationModelSaberUserControl(ModelType.Saber);
+            NavigationAvatarsUserControl = new NavigationModelSaberUserControl(ModelType.Avatar);
+            NavigationPlatformsUserControl = new NavigationModelSaberUserControl(ModelType.Platform);
+            NavigationBloqsUserControl = new NavigationModelSaberUserControl(ModelType.Bloq);
 
             DownloadsUserControl = new DownloadsUserControl();
 
@@ -94,6 +112,12 @@ namespace BeatManager.ViewModels
             NavigationBeatmapsUserControl.ViewModel.OnlineEvent += NavigationBeatmaps_OnlineEvent;
             NavigationSabersUserControl.ViewModel.LocalEvent += NavigationSabers_LocalEvent;
             NavigationSabersUserControl.ViewModel.OnlineEvent += NavigationSabers_OnlineEvent;
+            NavigationAvatarsUserControl.ViewModel.LocalEvent += NavigationAvatars_LocalEvent;
+            NavigationAvatarsUserControl.ViewModel.OnlineEvent += NavigationAvatars_OnlineEvent;
+            NavigationPlatformsUserControl.ViewModel.LocalEvent += NavigationPlatforms_LocalEvent;
+            NavigationPlatformsUserControl.ViewModel.OnlineEvent += NavigationPlatforms_OnlineEvent;
+            NavigationBloqsUserControl.ViewModel.LocalEvent += NavigationBloqs_LocalEvent;
+            NavigationBloqsUserControl.ViewModel.OnlineEvent += NavigationBloqs_OnlineEvent;
 
             App.BeatSaverApi.DownloadStarted += BeatSaverApi_DownloadStarted;
             App.BeatSaverApi.DownloadFailed += BeatSaverApi_DownloadFailed;
@@ -148,12 +172,42 @@ namespace BeatManager.ViewModels
 
         private void NavigationSabers_OnlineEvent(object sender, EventArgs e)
         {
-            ShowOnlineSabersPage();
+            ShowOnlineModelSaberPage(ModelType.Saber);
         }
 
         private void NavigationSabers_LocalEvent(object sender, EventArgs e)
         {
-            ShowLocalSabersPage();
+            ShowLocalModelSaberPage(ModelType.Saber);
+        }
+
+        private void NavigationAvatars_OnlineEvent(object sender, EventArgs e)
+        {
+            ShowOnlineModelSaberPage(ModelType.Avatar);
+        }
+
+        private void NavigationAvatars_LocalEvent(object sender, EventArgs e)
+        {
+            ShowLocalModelSaberPage(ModelType.Avatar);
+        }
+
+        private void NavigationPlatforms_OnlineEvent(object sender, EventArgs e)
+        {
+            ShowOnlineModelSaberPage(ModelType.Platform);
+        }
+
+        private void NavigationPlatforms_LocalEvent(object sender, EventArgs e)
+        {
+            ShowLocalModelSaberPage(ModelType.Platform);
+        }
+
+        private void NavigationBloqs_OnlineEvent(object sender, EventArgs e)
+        {
+            ShowOnlineModelSaberPage(ModelType.Bloq);
+        }
+
+        private void NavigationBloqs_LocalEvent(object sender, EventArgs e)
+        {
+            ShowLocalModelSaberPage(ModelType.Bloq);
         }
 
         private async void CheckForUpdates()
@@ -360,42 +414,165 @@ namespace BeatManager.ViewModels
             MainWindow.userControlMain.Content = BeatmapOnlineUserControl;
         }
 
-        public void ShowOnlineSabersPage()
+        public void ShowOnlineModelSaberPage(ModelType modelType)
         {
-            NavigationSabersUserControl.radioButtonOnline.IsChecked = true;
-
-            if (!SaberOnlineUserControl.ViewModel.IsLoaded)
+            switch (modelType)
             {
-                SaberOnlineUserControl.ViewModel.GetSabers();
-                SaberOnlineUserControl.ViewModel.IsLoaded = true;
-            }
-            else if (LocalSaberChanged)
-            {
-                SaberOnlineUserControl.ViewModel.GetSabers();
-                LocalSaberChanged = false;
-            }
+                case ModelType.None:
+                    break;
+                case ModelType.Saber:
+                    NavigationSabersUserControl.radioButtonOnline.IsChecked = true;
 
-            MainWindow.userControlMain.Content = SaberOnlineUserControl;
+                    if (!SaberOnlineUserControl.ViewModel.IsLoaded)
+                    {
+                        SaberOnlineUserControl.ViewModel.GetModels();
+                        SaberOnlineUserControl.ViewModel.IsLoaded = true;
+                    }
+                    else if (LocalSaberChanged)
+                    {
+                        SaberOnlineUserControl.ViewModel.GetModels();
+                        LocalSaberChanged = false;
+                    }
+
+                    MainWindow.userControlMain.Content = SaberOnlineUserControl;
+                    break;
+                case ModelType.Avatar:
+                    NavigationAvatarsUserControl.radioButtonOnline.IsChecked = true;
+
+                    if (!AvatarOnlineUserControl.ViewModel.IsLoaded)
+                    {
+                        AvatarOnlineUserControl.ViewModel.GetModels();
+                        AvatarOnlineUserControl.ViewModel.IsLoaded = true;
+                    }
+                    else if (LocalAvatarChanged)
+                    {
+                        AvatarOnlineUserControl.ViewModel.GetModels();
+                        LocalAvatarChanged = false;
+                    }
+
+                    MainWindow.userControlMain.Content = AvatarOnlineUserControl;
+                    break;
+                case ModelType.Platform:
+                    NavigationPlatformsUserControl.radioButtonOnline.IsChecked = true;
+
+                    if (!PlatformOnlineUserControl.ViewModel.IsLoaded)
+                    {
+                        PlatformOnlineUserControl.ViewModel.GetModels();
+                        PlatformOnlineUserControl.ViewModel.IsLoaded = true;
+                    }
+                    else if (LocalPlatformChanged)
+                    {
+                        PlatformOnlineUserControl.ViewModel.GetModels();
+                        LocalPlatformChanged = false;
+                    }
+
+                    MainWindow.userControlMain.Content = PlatformOnlineUserControl;
+                    break;
+                case ModelType.Bloq:
+                    NavigationBloqsUserControl.radioButtonOnline.IsChecked = true;
+
+                    if (!BloqOnlineUserControl.ViewModel.IsLoaded)
+                    {
+                        BloqOnlineUserControl.ViewModel.GetModels();
+                        BloqOnlineUserControl.ViewModel.IsLoaded = true;
+                    }
+                    else if (LocalBloqChanged)
+                    {
+                        BloqOnlineUserControl.ViewModel.GetModels();
+                        LocalBloqChanged = false;
+                    }
+
+                    MainWindow.userControlMain.Content = BloqOnlineUserControl;
+                    break;
+                default:
+                    break;
+            }
         }
 
-        public void ShowLocalSabersPage()
+        public void ShowLocalModelSaberPage(ModelType modelType)
         {
-            NavigationSabersUserControl.radioButtonLocal.IsChecked = true;
-            MainWindow.userControlMain.Content = SaberLocalUserControl;
-
-            if (!SaberLocalUserControl.ViewModel.IsLoaded ||
-                OnlineSaberChanged ||
-                SettingsUserControl.ViewModel.SongsPathChanged)
+            switch (modelType)
             {
-                SaberLocalUserControl.ViewModel.IsLoaded = true;
-                OnlineSaberChanged = false;
+                case ModelType.None:
+                    break;
+                case ModelType.Saber:
+                    NavigationSabersUserControl.radioButtonLocal.IsChecked = true;
+                    MainWindow.userControlMain.Content = SaberLocalUserControl;
 
-                if (SaberLocalUserControl.ViewModel.LocalModels is null || SettingsUserControl.ViewModel.SongsPathChanged)
-                    SaberLocalUserControl.ViewModel.GetModels();
-                else
-                    SaberLocalUserControl.ViewModel.GetModels(SaberLocalUserControl.ViewModel.LocalModels);
+                    if (!SaberLocalUserControl.ViewModel.IsLoaded ||
+                        OnlineSaberChanged ||
+                        SettingsUserControl.ViewModel.SongsPathChanged)
+                    {
+                        SaberLocalUserControl.ViewModel.IsLoaded = true;
+                        OnlineSaberChanged = false;
 
-                SettingsUserControl.ViewModel.SongsPathChanged = false;
+                        if (SaberLocalUserControl.ViewModel.LocalModels is null || SettingsUserControl.ViewModel.SongsPathChanged)
+                            SaberLocalUserControl.ViewModel.GetModels();
+                        else
+                            SaberLocalUserControl.ViewModel.GetModels(SaberLocalUserControl.ViewModel.LocalModels);
+
+                        SettingsUserControl.ViewModel.SongsPathChanged = false;
+                    }
+                    break;
+                case ModelType.Avatar:
+                    NavigationAvatarsUserControl.radioButtonLocal.IsChecked = true;
+                    MainWindow.userControlMain.Content = AvatarLocalUserControl;
+
+                    if (!AvatarLocalUserControl.ViewModel.IsLoaded ||
+                        OnlineAvatarChanged ||
+                        SettingsUserControl.ViewModel.SongsPathChanged)
+                    {
+                        AvatarLocalUserControl.ViewModel.IsLoaded = true;
+                        OnlineAvatarChanged = false;
+
+                        if (AvatarLocalUserControl.ViewModel.LocalModels is null || SettingsUserControl.ViewModel.SongsPathChanged)
+                            AvatarLocalUserControl.ViewModel.GetModels();
+                        else
+                            AvatarLocalUserControl.ViewModel.GetModels(AvatarLocalUserControl.ViewModel.LocalModels);
+
+                        SettingsUserControl.ViewModel.SongsPathChanged = false;
+                    }
+                    break;
+                case ModelType.Platform:
+                    NavigationPlatformsUserControl.radioButtonLocal.IsChecked = true;
+                    MainWindow.userControlMain.Content = PlatformLocalUserControl;
+
+                    if (!PlatformLocalUserControl.ViewModel.IsLoaded ||
+                        OnlinePlatformChanged ||
+                        SettingsUserControl.ViewModel.SongsPathChanged)
+                    {
+                        PlatformLocalUserControl.ViewModel.IsLoaded = true;
+                        OnlinePlatformChanged = false;
+
+                        if (PlatformLocalUserControl.ViewModel.LocalModels is null || SettingsUserControl.ViewModel.SongsPathChanged)
+                            PlatformLocalUserControl.ViewModel.GetModels();
+                        else
+                            PlatformLocalUserControl.ViewModel.GetModels(PlatformLocalUserControl.ViewModel.LocalModels);
+
+                        SettingsUserControl.ViewModel.SongsPathChanged = false;
+                    }
+                    break;
+                case ModelType.Bloq:
+                    NavigationBloqsUserControl.radioButtonLocal.IsChecked = true;
+                    MainWindow.userControlMain.Content = BloqLocalUserControl;
+
+                    if (!BloqLocalUserControl.ViewModel.IsLoaded ||
+                        OnlineBloqChanged ||
+                        SettingsUserControl.ViewModel.SongsPathChanged)
+                    {
+                        BloqLocalUserControl.ViewModel.IsLoaded = true;
+                        OnlineBloqChanged = false;
+
+                        if (BloqLocalUserControl.ViewModel.LocalModels is null || SettingsUserControl.ViewModel.SongsPathChanged)
+                            BloqLocalUserControl.ViewModel.GetModels();
+                        else
+                            BloqLocalUserControl.ViewModel.GetModels(BloqLocalUserControl.ViewModel.LocalModels);
+
+                        SettingsUserControl.ViewModel.SongsPathChanged = false;
+                    }
+                    break;
+                default:
+                    break;
             }
         }
 

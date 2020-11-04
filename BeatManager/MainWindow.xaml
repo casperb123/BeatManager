@@ -94,6 +94,42 @@
                                                 Width="20"
                                                 Height="20" />
                     </RadioButton>
+
+                    <RadioButton x:Name="radioButtonAvatars"
+                                 Width="40"
+                                 Height="40"
+                                 ToolTip="Avatars"
+                                 GroupName="NavigationButtons"
+                                 Style="{DynamicResource CircleToggleButton}"
+                                 Checked="RadioButtonAvatars_Checked">
+                        <icons:PackIconMaterial Kind="WizardHat"
+                                                Width="20"
+                                                Height="20" />
+                    </RadioButton>
+
+                    <RadioButton x:Name="radioButtonPlatforms"
+                                 Width="40"
+                                 Height="40"
+                                 ToolTip="Platforms"
+                                 GroupName="NavigationButtons"
+                                 Style="{DynamicResource CircleToggleButton}"
+                                 Checked="RadioButtonPlatforms_Checked">
+                        <icons:PackIconMaterial Kind="GarageOpenVariant"
+                                                Width="20"
+                                                Height="20" />
+                    </RadioButton>
+
+                    <RadioButton x:Name="radioButtonBloqs"
+                                 Width="40"
+                                 Height="40"
+                                 ToolTip="Bloqs"
+                                 GroupName="NavigationButtons"
+                                 Style="{DynamicResource CircleToggleButton}"
+                                 Checked="RadioButtonBloqs_Checked">
+                        <icons:PackIconMaterial Kind="Rectangle"
+                                                Width="20"
+                                                Height="20" />
+                    </RadioButton>
                 </st:StackPanel>
 
                 <st:StackPanel VerticalAlignment="Bottom"

@@ -10,12 +10,12 @@ namespace BeatManager.UserControls.Navigation
     /// </summary>
     public partial class NavigationModelSaberUserControl : UserControl
     {
-        public readonly NavigationSabersUserControlViewModel ViewModel;
+        public readonly NavigationModelSaberUserControlViewModel ViewModel;
 
         public NavigationModelSaberUserControl(ModelType modelType)
         {
             InitializeComponent();
-            ViewModel = new NavigationSabersUserControlViewModel(modelType);
+            ViewModel = new NavigationModelSaberUserControlViewModel(modelType);
             DataContext = ViewModel;
         }
 

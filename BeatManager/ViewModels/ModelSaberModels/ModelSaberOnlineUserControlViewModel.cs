@@ -137,10 +137,10 @@ namespace BeatManager.ViewModels.ModelSaberModels
             UpdatePageButtons();
         }
 
-        public void GetSabers(OnlineModels onlineModels = null)
+        public void GetModels(OnlineModels onlineModels = null)
         {
             string sortDirection = SortDescending ? "Descending" : "Ascending";
-            MainWindow.ToggleLoading(true, "Loading online sabers", $"Sorting by: {CurrentSort} - {sortDirection}");
+            MainWindow.ToggleLoading(true, $"Loading online {ModelType.ToString().ToLower()}s", $"Sorting by: {CurrentSort} - {sortDirection}");
 
             _ = Task.Run(async () =>
             {
@@ -154,7 +154,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
                     if (e.InnerException != null && !e.Message.Contains(e.InnerException.Message))
                         description += $" ({e.InnerException.Message})";
 
-                    await MainWindow.ShowMessageAsync("Online Sabers", description);
+                    await MainWindow.ShowMessageAsync($"Online {ModelType}s", description);
                 }
             });
         }
@@ -195,32 +195,32 @@ namespace BeatManager.ViewModels.ModelSaberModels
         public void NextPage()
         {
             App.ModelSaberApi.ChangeOnlinePage(OnlineModels, OnlineModels.NextPage.Value);
-            GetSabers(OnlineModels);
+            GetModels(OnlineModels);
         }
 
         public void PreviousPage()
         {
             App.ModelSaberApi.ChangeOnlinePage(OnlineModels, OnlineModels.PrevPage.Value);
-            GetSabers(OnlineModels);
+            GetModels(OnlineModels);
         }
 
         public void FirstPage()
         {
             App.ModelSaberApi.ChangeOnlinePage(OnlineModels, 0);
-            GetSabers(OnlineModels);
+            GetModels(OnlineModels);
         }
 
         public void LastPage()
         {
 
             App.ModelSaberApi.ChangeOnlinePage(OnlineModels, OnlineModels.LastPage);
-            GetSabers(OnlineModels);
+            GetModels(OnlineModels);
         }
 
         public void ChangeSortDirection()
         {
             SortDescending = !SortDescending;
-            GetSabers();
+            GetModels();
         }
 
         public void AddFilter(Filter filter)
@@ -231,7 +231,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
             userControl.wrapPanelFilters.Children.Add(filterUserControl);
             userControl.textBoxFilterSearch.Clear();
 
-            GetSabers();
+            GetModels();
         }
 
         public void RemoveFilter(ModelSaberOnlineFilterUserControl filterUserControl)
@@ -239,7 +239,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
             Filters.Remove(filterUserControl.Filter);
             userControl.wrapPanelFilters.Children.Remove(filterUserControl);
 
-            GetSabers();
+            GetModels();
         }
 
         public async Task DownloadModel(int id)

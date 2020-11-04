@@ -63,14 +63,6 @@ namespace BeatManager.Entities
             {
                 rootPath = value;
                 OnPropertyChanged(nameof(RootPath));
-
-                if (!string.IsNullOrWhiteSpace(value) && Directory.Exists(value))
-                {
-                    Directory.CreateDirectory(CustomLevelsPath);
-                    Directory.CreateDirectory(CustomSabersPath);
-                    Directory.CreateDirectory(CustomPlatformsPath);
-                    Directory.CreateDirectory(CustomNotesPath);
-                }
             }
         }
 
@@ -100,6 +92,12 @@ namespace BeatManager.Entities
         public string CustomSabersPath
         {
             get { return Path.Combine(RootPath, "CustomSabers"); }
+        }
+
+        [JsonIgnore]
+        public string CustomAvatarsPath
+        {
+            get { return Path.Combine(RootPath, "CustomAvatars"); }
         }
 
         [JsonIgnore]

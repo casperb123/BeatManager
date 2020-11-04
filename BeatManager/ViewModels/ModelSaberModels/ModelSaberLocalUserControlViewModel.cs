@@ -173,7 +173,11 @@ namespace BeatManager.ViewModels.ModelSaberModels
 
         public void DeleteModel(LocalModel model)
         {
-            OnlineModel onlineModel = MainWindow.ViewModel.SaberOnlineUserControl.ViewModel.OnlineModels?.Models.FirstOrDefault(x => x.Name == model.Name);
+            OnlineModel onlineModel = null;
+            if (model.Id == -1)
+                onlineModel = MainWindow.ViewModel.SaberOnlineUserControl.ViewModel.OnlineModels?.Models.FirstOrDefault(x => x.Name == model.Name);
+            else
+                onlineModel = MainWindow.ViewModel.SaberOnlineUserControl.ViewModel.OnlineModels?.Models.FirstOrDefault(x => x.Id == model.Id);
 
             App.ModelSaberApi.DeleteModel(model);
             LocalModels.Models.Remove(model);
@@ -194,7 +198,12 @@ namespace BeatManager.ViewModels.ModelSaberModels
                 LocalModels.Models.Remove(model);
                 App.ModelSaberApi.DeleteModel(model);
 
-                OnlineModel onlineModel = MainWindow.ViewModel.SaberOnlineUserControl.ViewModel.OnlineModels?.Models.FirstOrDefault(x => x.Name == model.Name);
+                OnlineModel onlineModel = null;
+                if (model.Id == -1)
+                    onlineModel = MainWindow.ViewModel.SaberOnlineUserControl.ViewModel.OnlineModels?.Models.FirstOrDefault(x => x.Name == model.Name);
+                else
+                    onlineModel = MainWindow.ViewModel.SaberOnlineUserControl.ViewModel.OnlineModels?.Models.FirstOrDefault(x => x.Id == model.Id);
+
                 if (onlineModel != null)
                     onlineModels.Add(onlineModel);
             }

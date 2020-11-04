@@ -76,7 +76,7 @@
                                         <ImageBrush ImageSource="{Binding Path=OnlineModel.RealThumbnail, Mode=OneWay, TargetNullValue={x:Null}, IsAsync=True}" />
                                     </Border.Background>
                                     <Button x:Name="buttonBigCover"
-                                            Tag="{Binding Path=Name}"
+                                            Tag="{Binding}"
                                             Style="{DynamicResource CustomButtonCover}"
                                             Click="ButtonBigCover_Click">
                                         <Button.Resources>
@@ -117,7 +117,7 @@
                 <DataGridTextColumn Header="Author"
                                     Width=".7*"
                                     IsReadOnly="True"
-                                    Binding="{Binding Path=OnlineModel.Author, IsAsync=True, FallbackValue='...', TargetNullValue='-'}">
+                                    Binding="{Binding Path=OnlineModel.Author, IsAsync=True, FallbackValue='-', TargetNullValue='-'}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock"
                                BasedOn="{StaticResource MahApps.Styles.TextBlock}">
@@ -138,7 +138,8 @@
                                         IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Grid Margin="10,0,0,0">
+                            <Grid Margin="10,0,0,0"
+                                  Visibility="{Binding Path=OnlineModel, Converter={StaticResource NullToVisibilityConverter}}">
                                 <Border Width="25"
                                         Height="25"
                                         Background="#2ec92e"

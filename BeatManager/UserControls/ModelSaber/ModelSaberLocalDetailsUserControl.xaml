@@ -228,19 +228,19 @@
                         <Label Content="Author"
                                HorizontalContentAlignment="Right"
                                Style="{DynamicResource LabelDetails}" />
-                        <TextBox Text="{Binding Path=Model.OnlineModel.Author, FallbackValue='Model author', TargetNullValue='-'}"
+                        <TextBox Text="{Binding Path=Model.OnlineModel.Author, FallbackValue='-', TargetNullValue='-'}"
                                  Style="{DynamicResource TextBoxDetails}" />
 
                         <Label Content="BeastSaber Author"
                                HorizontalContentAlignment="Right"
                                Style="{DynamicResource LabelDetails}" />
-                        <TextBox Text="{Binding Path=Model.OnlineModel.Bsaber, FallbackValue='BeatSaber author', TargetNullValue='-'}"
+                        <TextBox Text="{Binding Path=Model.OnlineModel.Bsaber, FallbackValue='-', TargetNullValue='-'}"
                                  Style="{DynamicResource TextBoxDetails}" />
 
                         <Label Content="Discord Id"
                                HorizontalContentAlignment="Right"
                                Style="{DynamicResource LabelDetails}" />
-                        <TextBox Text="{Binding Path=Model.OnlineModel.Discordid, FallbackValue='Discord Id', TargetNullValue='-'}"
+                        <TextBox Text="{Binding Path=Model.OnlineModel.Discordid, FallbackValue='-', TargetNullValue='-'}"
                                  Style="{DynamicResource TextBoxDetails}" />
                     </st:AutoGrid>
 
@@ -254,20 +254,20 @@
                                Style="{DynamicResource LabelDetails}" />
                         <Label Style="{DynamicResource LabelDetails}">
                             <Label.Content>
-                                <TextBlock Text="{Binding Path=Model.OnlineModel.Status, FallbackValue='Status', TargetNullValue='-', Converter={StaticResource StringTitleCaseConverter}}" />
+                                <TextBlock Text="{Binding Path=Model.OnlineModel.Status, FallbackValue='-', TargetNullValue='-', Converter={StaticResource StringTitleCaseConverter}}" />
                             </Label.Content>
                         </Label>
 
                         <Label Content="Id"
                                HorizontalContentAlignment="Right"
                                Style="{DynamicResource LabelDetails}" />
-                        <TextBox Text="{Binding Path=Model.OnlineModel.Id, FallbackValue='Model id', TargetNullValue='-'}"
+                        <TextBox Text="{Binding Path=Model.OnlineModel.Id, FallbackValue='-', TargetNullValue='-'}"
                                  Style="{DynamicResource TextBoxDetails}" />
 
                         <Label Content="Hash"
                                HorizontalContentAlignment="Right"
                                Style="{DynamicResource LabelDetails}" />
-                        <TextBox Text="{Binding Path=Model.OnlineModel.Hash, FallbackValue='Model hash', TargetNullValue='-'}"
+                        <TextBox Text="{Binding Path=Model.OnlineModel.Hash, FallbackValue='-', TargetNullValue='-'}"
                                  Style="{DynamicResource TextBoxDetails}" />
 
                         <Label Content="Date"
@@ -275,7 +275,7 @@
                                Style="{DynamicResource LabelDetails}" />
                         <Label Style="{DynamicResource LabelDetails}">
                             <Label.Content>
-                                <TextBlock Text="{Binding Path=Model.OnlineModel.Date, FallbackValue='Date uploaded', TargetNullValue='-'}" />
+                                <TextBlock Text="{Binding Path=Model.OnlineModel.Date, FallbackValue='-', TargetNullValue='-'}" />
                             </Label.Content>
                         </Label>
                     </st:AutoGrid>

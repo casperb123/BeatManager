@@ -94,26 +94,30 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Name"
-                                    Width="1*"
-                                    IsReadOnly="True"
-                                    Binding="{Binding Path=Name, IsAsync=True, FallbackValue='...'}">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock"
-                               BasedOn="{StaticResource MahApps.Styles.TextBlock}">
-                            <Setter Property="TextTrimming"
-                                    Value="CharacterEllipsis" />
-                            <Setter Property="Margin"
-                                    Value="10,0,0,0" />
-                            <Setter Property="ToolTip"
-                                    Value="{Binding Path=Name, IsAsync=True}" />
-                            <Setter Property="ToolTipService.BetweenShowDelay"
-                                    Value="0" />
-                            <Setter Property="ToolTipService.InitialShowDelay"
-                                    Value="0" />
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
+                <DataGridTemplateColumn Header="Name"
+                                        Width="1*"
+                                        IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=OnlineModel.Name, IsAsync=True}">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock"
+                                           BasedOn="{StaticResource MahApps.Styles.TextBlock}">
+                                        <Setter Property="Text"
+                                                Value="{Binding Path=OnlineModel.Name, IsAsync=True}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=OnlineModel.Name}"
+                                                         Value="{x:Null}">
+                                                <Setter Property="Text"
+                                                        Value="{Binding Path=Name, IsAsync=True}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Author"
                                     Width=".7*"
                                     IsReadOnly="True"

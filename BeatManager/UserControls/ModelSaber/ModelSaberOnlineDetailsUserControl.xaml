@@ -140,7 +140,7 @@
                                     </Run>
                             </TextBlock>
 
-                            <TextBlock Text="{Binding Path=Model.Bsaber, FallbackValue='BeastSaber author', StringFormat='{}BeastSaber: {0}'}"
+                            <TextBlock Text="{Binding Path=Model.Bsaber, StringFormat='{}BeastSaber: {0}'}"
                                        Visibility="{Binding Path=Model.Bsaber, Converter={StaticResource NullToVisibilityConverter}}"
                                        FontSize="25"
                                        TextWrapping="WrapWithOverflow" />
@@ -247,25 +247,25 @@
                         <Label Content="Name"
                                HorizontalContentAlignment="Right"
                                Style="{DynamicResource LabelDetails}" />
-                        <TextBox Text="{Binding Path=Model.Name, FallbackValue='Model name'}"
+                        <TextBox Text="{Binding Path=Model.Name, FallbackValue='-'}"
                                  Style="{DynamicResource TextBoxDetails}" />
 
                         <Label Content="Author"
                                HorizontalContentAlignment="Right"
                                Style="{DynamicResource LabelDetails}" />
-                        <TextBox Text="{Binding Path=Model.Author, FallbackValue='Model author'}"
+                        <TextBox Text="{Binding Path=Model.Author, FallbackValue='-'}"
                                  Style="{DynamicResource TextBoxDetails}" />
 
                         <Label Content="BeastSaber Author"
                                HorizontalContentAlignment="Right"
                                Style="{DynamicResource LabelDetails}" />
-                        <TextBox Text="{Binding Path=Model.Bsaber, FallbackValue='BeatSaber author'}"
+                        <TextBox Text="{Binding Path=Model.Bsaber, FallbackValue='-', TargetNullValue='-'}"
                                  Style="{DynamicResource TextBoxDetails}" />
 
                         <Label Content="Discord Id"
                                HorizontalContentAlignment="Right"
                                Style="{DynamicResource LabelDetails}" />
-                        <TextBox Text="{Binding Path=Model.Discordid, FallbackValue='Discord Id'}"
+                        <TextBox Text="{Binding Path=Model.Discordid, FallbackValue='-'}"
                                  Style="{DynamicResource TextBoxDetails}" />
                     </st:AutoGrid>
 
@@ -279,20 +279,20 @@
                                Style="{DynamicResource LabelDetails}" />
                         <Label Style="{DynamicResource LabelDetails}">
                             <Label.Content>
-                                <TextBlock Text="{Binding Path=Model.Status, FallbackValue='Status', Converter={StaticResource StringTitleCaseConverter}}" />
+                                <TextBlock Text="{Binding Path=Model.Status, FallbackValue='-', Converter={StaticResource StringTitleCaseConverter}}" />
                             </Label.Content>
                         </Label>
 
                         <Label Content="Id"
                                HorizontalContentAlignment="Right"
                                Style="{DynamicResource LabelDetails}" />
-                        <TextBox Text="{Binding Path=Model.Id, FallbackValue='Model id'}"
+                        <TextBox Text="{Binding Path=Model.Id, FallbackValue='-'}"
                                  Style="{DynamicResource TextBoxDetails}" />
 
                         <Label Content="Hash"
                                HorizontalContentAlignment="Right"
                                Style="{DynamicResource LabelDetails}" />
-                        <TextBox Text="{Binding Path=Model.Hash, FallbackValue='Model hash'}"
+                        <TextBox Text="{Binding Path=Model.Hash, FallbackValue='-'}"
                                  Style="{DynamicResource TextBoxDetails}" />
 
                         <Label Content="Date"
@@ -300,7 +300,7 @@
                                Style="{DynamicResource LabelDetails}" />
                         <Label Style="{DynamicResource LabelDetails}">
                             <Label.Content>
-                                <TextBlock Text="{Binding Path=Model.Date, FallbackValue='Date uploaded'}" />
+                                <TextBlock Text="{Binding Path=Model.Date, FallbackValue='-'}" />
                             </Label.Content>
                         </Label>
                     </st:AutoGrid>

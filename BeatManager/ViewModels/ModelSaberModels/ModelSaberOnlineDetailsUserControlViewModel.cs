@@ -60,94 +60,26 @@ namespace BeatManager.ViewModels.ModelSaberModels
 
         public void Back()
         {
-            switch (Model.ModelType)
-            {
-                case ModelType.None:
-                    break;
-                case ModelType.Saber:
-                    mainWindow.userControlMain.Content = mainWindow.ViewModel.SaberOnlineUserControl;
-                    break;
-                case ModelType.Avatar:
-                    mainWindow.userControlMain.Content = mainWindow.ViewModel.AvatarOnlineUserControl;
-                    break;
-                case ModelType.Platform:
-                    mainWindow.userControlMain.Content = mainWindow.ViewModel.PlatformOnlineUserControl;
-                    break;
-                case ModelType.Bloq:
-                    mainWindow.userControlMain.Content = mainWindow.ViewModel.BloqOnlineUserControl;
-                    break;
-                default:
-                    break;
-            }
+            ModelSaberOnlineUserControl onlineUserControl = PropertyHelper.GetPropValue<ModelSaberOnlineUserControl>(mainWindow.ViewModel, $"{Model.ModelType}OnlineUserControl");
+            mainWindow.userControlMain.Content = onlineUserControl;
         }
 
         public async Task DownloadModel()
         {
-            switch (Model.ModelType)
-            {
-                case ModelType.None:
-                    break;
-                case ModelType.Saber:
-                    await mainWindow.ViewModel.SaberOnlineUserControl.ViewModel.DownloadModel(Model);
-                    break;
-                case ModelType.Avatar:
-                    await mainWindow.ViewModel.AvatarOnlineUserControl.ViewModel.DownloadModel(Model);
-                    break;
-                case ModelType.Platform:
-                    await mainWindow.ViewModel.PlatformOnlineUserControl.ViewModel.DownloadModel(Model);
-                    break;
-                case ModelType.Bloq:
-                    await mainWindow.ViewModel.BloqOnlineUserControl.ViewModel.DownloadModel(Model);
-                    break;
-                default:
-                    break;
-            }
+            ModelSaberOnlineUserControl onlineUserControl = PropertyHelper.GetPropValue<ModelSaberOnlineUserControl>(mainWindow.ViewModel, $"{Model.ModelType}OnlineUserControl");
+            await onlineUserControl.ViewModel.DownloadModel(Model);
         }
 
         public void DeleteModel()
         {
-            switch (Model.ModelType)
-            {
-                case ModelType.None:
-                    break;
-                case ModelType.Saber:
-                    mainWindow.ViewModel.SaberOnlineUserControl.ViewModel.DeleteModel(Model);
-                    break;
-                case ModelType.Avatar:
-                    mainWindow.ViewModel.AvatarOnlineUserControl.ViewModel.DeleteModel(Model);
-                    break;
-                case ModelType.Platform:
-                    mainWindow.ViewModel.PlatformOnlineUserControl.ViewModel.DeleteModel(Model);
-                    break;
-                case ModelType.Bloq:
-                    mainWindow.ViewModel.BloqOnlineUserControl.ViewModel.DeleteModel(Model);
-                    break;
-                default:
-                    break;
-            }
+            ModelSaberOnlineUserControl onlineUserControl = PropertyHelper.GetPropValue<ModelSaberOnlineUserControl>(mainWindow.ViewModel, $"{Model.ModelType}OnlineUserControl");
+            onlineUserControl.ViewModel.DeleteModel(Model);
         }
 
         public void RefreshData()
         {
-            switch (Model.ModelType)
-            {
-                case ModelType.None:
-                    break;
-                case ModelType.Saber:
-                    mainWindow.ViewModel.SaberOnlineUserControl.ViewModel.ModelDetails(Model, false);
-                    break;
-                case ModelType.Avatar:
-                    mainWindow.ViewModel.AvatarOnlineUserControl.ViewModel.ModelDetails(Model, false);
-                    break;
-                case ModelType.Platform:
-                    mainWindow.ViewModel.PlatformOnlineUserControl.ViewModel.ModelDetails(Model, false);
-                    break;
-                case ModelType.Bloq:
-                    mainWindow.ViewModel.BloqOnlineUserControl.ViewModel.ModelDetails(Model, false);
-                    break;
-                default:
-                    break;
-            }
+            ModelSaberOnlineUserControl onlineUserControl = PropertyHelper.GetPropValue<ModelSaberOnlineUserControl>(mainWindow.ViewModel, $"{Model.ModelType}OnlineUserControl");
+            onlineUserControl.ViewModel.ModelDetails(Model, false);
         }
 
         public void OpenFolder()

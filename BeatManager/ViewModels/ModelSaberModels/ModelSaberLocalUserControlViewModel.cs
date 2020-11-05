@@ -4,7 +4,6 @@ using ModelSaber.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
@@ -20,7 +19,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
         private int selectedModelsToDelete;
 
         public MainWindow MainWindow { get; private set; }
-        public bool ModelChanged { get; private set; }
+        public bool ModelChanged { get; set; }
         public bool IsLoaded { get; set; }
         public ModelType ModelType { get; private set; }
 
@@ -156,33 +155,15 @@ namespace BeatManager.ViewModels.ModelSaberModels
             UpdatePageButtons();
         }
 
-        public void DeleteModel(string name)
-        {
-            LocalModel localModel = LocalModels.Models.FirstOrDefault(x => x.Name == name);
-            OnlineModel onlineModel = MainWindow.ViewModel.SaberOnlineUserControl.ViewModel.OnlineModels?.Models.FirstOrDefault(x => x.Name == name);
-
-            App.ModelSaberApi.DeleteModel(localModel);
-            LocalModels.Models.Remove(localModel);
-            if (onlineModel is null)
-                TriggerChange();
-            else
-                onlineModel.IsDownloaded = false;
-
-            LocalModels = App.ModelSaberApi.RefreshLocalPages(LocalModels);
-        }
-
         public void DeleteModel(LocalModel model)
         {
-            OnlineModel onlineModel = null;
-            if (model.Id == -1)
-                onlineModel = MainWindow.ViewModel.SaberOnlineUserControl.ViewModel.OnlineModels?.Models.FirstOrDefault(x => x.Name == model.Name);
-            else
-                onlineModel = MainWindow.ViewModel.SaberOnlineUserControl.ViewModel.OnlineModels?.Models.FirstOrDefault(x => x.Id == model.Id);
+            ModelSaberOnlineUserControl onlineUserControl = PropertyHelper.GetPropValue<ModelSaberOnlineUserControl>(MainWindow.ViewModel, $"{ModelType}OnlineUserControl");
+            OnlineModel onlineModel = onlineUserControl.ViewModel.OnlineModels?.Models.FirstOrDefault(x => x.Id == model.Id || x.Name == model.Name && model.Id == -1);
 
             App.ModelSaberApi.DeleteModel(model);
             LocalModels.Models.Remove(model);
             if (onlineModel is null)
-                TriggerChange();
+                ModelChanged = true;
             else
                 onlineModel.IsDownloaded = false;
 
@@ -191,6 +172,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
 
         public void DeleteModels(List<LocalModel> models)
         {
+            ModelSaberOnlineUserControl onlineUserControl = PropertyHelper.GetPropValue<ModelSaberOnlineUserControl>(MainWindow.ViewModel, $"{ModelType}OnlineUserControl");
             List<OnlineModel> onlineModels = new List<OnlineModel>();
 
             foreach (LocalModel model in models)
@@ -198,11 +180,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
                 LocalModels.Models.Remove(model);
                 App.ModelSaberApi.DeleteModel(model);
 
-                OnlineModel onlineModel = null;
-                if (model.Id == -1)
-                    onlineModel = MainWindow.ViewModel.SaberOnlineUserControl.ViewModel.OnlineModels?.Models.FirstOrDefault(x => x.Name == model.Name);
-                else
-                    onlineModel = MainWindow.ViewModel.SaberOnlineUserControl.ViewModel.OnlineModels?.Models.FirstOrDefault(x => x.Id == model.Id);
+                OnlineModel onlineModel = onlineUserControl.ViewModel.OnlineModels?.Models.FirstOrDefault(x => x.Id == model.Id || x.Name == model.Name && model.Id == -1);
 
                 if (onlineModel != null)
                     onlineModels.Add(onlineModel);
@@ -211,32 +189,9 @@ namespace BeatManager.ViewModels.ModelSaberModels
             if (onlineModels.Count == models.Count)
                 onlineModels.ForEach(x => x.IsDownloaded = false);
             else
-                TriggerChange();
+                ModelChanged = true;
 
             LocalModels = App.ModelSaberApi.RefreshLocalPages(LocalModels);
-        }
-
-        private void TriggerChange()
-        {
-            switch (ModelType)
-            {
-                case ModelType.None:
-                    break;
-                case ModelType.Saber:
-                    MainWindow.ViewModel.LocalSaberChanged = true;
-                    break;
-                case ModelType.Avatar:
-                    MainWindow.ViewModel.LocalAvatarChanged = true;
-                    break;
-                case ModelType.Platform:
-                    MainWindow.ViewModel.LocalPlatformChanged = true;
-                    break;
-                case ModelType.Bloq:
-                    MainWindow.ViewModel.LocalBloqChanged = true;
-                    break;
-                default:
-                    break;
-            }
         }
 
         public void ModelDetails(LocalModel model, bool changePage = true)

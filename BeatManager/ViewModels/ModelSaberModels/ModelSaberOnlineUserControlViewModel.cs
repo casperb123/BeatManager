@@ -1,5 +1,4 @@
 ﻿using BeatManager.UserControls.ModelSaber;
-using BeatSaver.Entities;
 using MahApps.Metro.Controls.Dialogs;
 using ModelSaber.Entities;
 using ModelSaber.Events;
@@ -29,7 +28,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
         public List<FilterType> FilterTypes { get; private set; }
 
         public MainWindow MainWindow { get; private set; }
-        public bool ModelChanged { get; private set; }
+        public bool ModelChanged { get; set; }
         public bool IsLoaded { get; set; }
 
         public FilterType CurrentFilterType
@@ -117,7 +116,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
 
         private void ModelSaberApi_DownloadCompleted(object sender, DownloadCompletedEventArgs e)
         {
-            if (OnlineModels is null)
+            if (OnlineModels is null || e.Model.ModelType != ModelType)
                 return;
 
             if (!OnlineModels.Models.Contains(e.Model))
@@ -133,7 +132,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
             if (!OnlineModels.Models.Any(x => x.IsDownloading) && !App.ModelSaberApi.Downloading.Any())
                 MainWindow.radioButtonSettings.IsEnabled = true;
 
-            MainWindow.ViewModel.OnlineSaberChanged = true;
+            ModelChanged = true;
             UpdatePageButtons();
         }
 
@@ -316,52 +315,32 @@ namespace BeatManager.ViewModels.ModelSaberModels
 
         public void DeleteModel(OnlineModel model)
         {
-            LocalModel localModel = MainWindow.ViewModel.SaberLocalUserControl.ViewModel.LocalModels?.Models.FirstOrDefault(x => x.Name == model.Name);
+            ModelSaberLocalUserControl localUserControl = PropertyHelper.GetPropValue<ModelSaberLocalUserControl>(MainWindow.ViewModel, $"{ModelType}LocalUserControl");
+            LocalModel localModel = localUserControl.ViewModel.LocalModels?.Models.FirstOrDefault(x => x.Id == model.Id || x.Name == model.Name && x.Id == -1);
 
             if (localModel != null)
-                MainWindow.ViewModel.SaberLocalUserControl.ViewModel.DeleteModel(localModel);
+                localUserControl.ViewModel.DeleteModel(localModel);
 
             App.ModelSaberApi.DeleteModel(model);
-            TriggerChange();
+            ModelChanged = true;
         }
 
         public void DeleteModels(List<OnlineModel> models)
         {
+            ModelSaberLocalUserControl localUserControl = PropertyHelper.GetPropValue<ModelSaberLocalUserControl>(MainWindow.ViewModel, $"{ModelType}LocalUserControl");
+
             foreach (OnlineModel model in models)
             {
-                LocalModel localModel = MainWindow.ViewModel.SaberLocalUserControl.ViewModel.LocalModels?.Models.FirstOrDefault(x => x.Name == model.Name);
+                LocalModel localModel = localUserControl.ViewModel.LocalModels?.Models.FirstOrDefault(x => x.Id == model.Id || x.Name == model.Name && x.Id == -1);
 
                 if (localModel != null)
-                    MainWindow.ViewModel.SaberLocalUserControl.ViewModel.DeleteModel(localModel);
+                    localUserControl.ViewModel.DeleteModel(localModel);
 
                 App.ModelSaberApi.DeleteModel(model);
             }
 
             if (models.Count > 0)
-                TriggerChange();
-        }
-
-        private void TriggerChange()
-        {
-            switch (ModelType)
-            {
-                case ModelType.None:
-                    break;
-                case ModelType.Saber:
-                    MainWindow.ViewModel.OnlineSaberChanged = true;
-                    break;
-                case ModelType.Avatar:
-                    MainWindow.ViewModel.OnlineAvatarChanged = true;
-                    break;
-                case ModelType.Platform:
-                    MainWindow.ViewModel.OnlinePlatformChanged = true;
-                    break;
-                case ModelType.Bloq:
-                    MainWindow.ViewModel.OnlineBloqChanged = true;
-                    break;
-                default:
-                    break;
-            }
+                ModelChanged = true;
         }
 
         public void ModelDetails(OnlineModel model, bool changePage = true)

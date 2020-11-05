@@ -62,71 +62,20 @@ namespace BeatManager.ViewModels.ModelSaberModels
 
         public void Back()
         {
-            switch (Model.ModelType)
-            {
-                case ModelType.None:
-                    break;
-                case ModelType.Saber:
-                    mainWindow.userControlMain.Content = mainWindow.ViewModel.SaberLocalUserControl;
-                    break;
-                case ModelType.Avatar:
-                    mainWindow.userControlMain.Content = mainWindow.ViewModel.AvatarLocalUserControl;
-                    break;
-                case ModelType.Platform:
-                    mainWindow.userControlMain.Content = mainWindow.ViewModel.PlatformLocalUserControl;
-                    break;
-                case ModelType.Bloq:
-                    mainWindow.userControlMain.Content = mainWindow.ViewModel.BloqLocalUserControl;
-                    break;
-                default:
-                    break;
-            }
+            ModelSaberLocalUserControl localUserControl = PropertyHelper.GetPropValue<ModelSaberLocalUserControl>(mainWindow.ViewModel, $"{Model.ModelType}LocalUserControl");
+            mainWindow.userControlMain.Content = localUserControl;
         }
 
         public void DeleteModel()
         {
-            switch (Model.ModelType)
-            {
-                case ModelType.None:
-                    break;
-                case ModelType.Saber:
-                    mainWindow.ViewModel.SaberLocalUserControl.ViewModel.DeleteModel(Model.Name);
-                    break;
-                case ModelType.Avatar:
-                    mainWindow.ViewModel.AvatarLocalUserControl.ViewModel.DeleteModel(Model.Name);
-                    break;
-                case ModelType.Platform:
-                    mainWindow.ViewModel.PlatformLocalUserControl.ViewModel.DeleteModel(Model.Name);
-                    break;
-                case ModelType.Bloq:
-                    mainWindow.ViewModel.BloqLocalUserControl.ViewModel.DeleteModel(Model.Name);
-                    break;
-                default:
-                    break;
-            }
+            ModelSaberLocalUserControl localUserControl = PropertyHelper.GetPropValue<ModelSaberLocalUserControl>(mainWindow.ViewModel, $"{Model.ModelType}LocalUserControl");
+            localUserControl.ViewModel.DeleteModel(Model);
         }
 
         public void RefreshData()
         {
-            switch (Model.ModelType)
-            {
-                case ModelType.None:
-                    break;
-                case ModelType.Saber:
-                    mainWindow.ViewModel.SaberLocalUserControl.ViewModel.ModelDetails(Model, false);
-                    break;
-                case ModelType.Avatar:
-                    mainWindow.ViewModel.AvatarLocalUserControl.ViewModel.ModelDetails(Model, false);
-                    break;
-                case ModelType.Platform:
-                    mainWindow.ViewModel.PlatformLocalUserControl.ViewModel.ModelDetails(Model, false);
-                    break;
-                case ModelType.Bloq:
-                    mainWindow.ViewModel.BloqLocalUserControl.ViewModel.ModelDetails(Model, false);
-                    break;
-                default:
-                    break;
-            }
+            ModelSaberLocalUserControl localUserControl = PropertyHelper.GetPropValue<ModelSaberLocalUserControl>(mainWindow.ViewModel, $"{Model.ModelType}LocalUserControl");
+            localUserControl.ViewModel.ModelDetails(Model, false);
         }
 
         public void OpenFolder()

@@ -68,7 +68,7 @@
                 <DataGridTemplateColumn Header="Cover">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Grid>
+                            <Grid Visibility="{Binding Path=OnlineModel, Converter={StaticResource NullToVisibilityConverter}}">
                                 <Border Width="25"
                                         Height="25"
                                         CornerRadius="100">
@@ -99,7 +99,7 @@
                                         IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Path=OnlineModel.Name, IsAsync=True}">
+                            <TextBlock>
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock"
                                            BasedOn="{StaticResource MahApps.Styles.TextBlock}">

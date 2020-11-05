@@ -1,9 +1,12 @@
 ﻿using BeatManager.UserControls.ModelSaber;
+using MahApps.Metro.Controls.Dialogs;
 using ModelSaber.Entities;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
 namespace BeatManager.ViewModels.ModelSaberModels
@@ -64,6 +67,13 @@ namespace BeatManager.ViewModels.ModelSaberModels
         {
             ModelSaberLocalUserControl localUserControl = PropertyHelper.GetPropValue<ModelSaberLocalUserControl>(mainWindow.ViewModel, $"{Model.ModelType}LocalUserControl");
             mainWindow.userControlMain.Content = localUserControl;
+        }
+
+        public async Task ShowErrors()
+        {
+            string errorsText = string.Join("\n", Model.Errors.Select(x => $"- {x}"));
+            await mainWindow.ShowMessageAsync($"{Model.ModelType} Invalid", $"The {Model.ModelType.ToString().ToLower()} has the following errors:\n" +
+                                                                 $"{errorsText}");
         }
 
         public void DeleteModel()

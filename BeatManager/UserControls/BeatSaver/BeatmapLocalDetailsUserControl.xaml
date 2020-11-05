@@ -279,43 +279,43 @@
                             <Label Content="Name"
                                    HorizontalContentAlignment="Right"
                                    Style="{DynamicResource LabelDetails}" />
-                            <TextBox Text="{Binding Path=Beatmap.SongName, FallbackValue='...', TargetNullValue='-'}"
+                            <TextBox Text="{Binding Path=Beatmap.SongName, FallbackValue='-', TargetNullValue='-'}"
                                      Style="{DynamicResource TextBoxDetails}" />
 
                             <Label Content="Subname"
                                    HorizontalContentAlignment="Right"
                                    Style="{DynamicResource LabelDetails}" />
-                            <TextBox Text="{Binding Path=Beatmap.SongSubName, FallbackValue='...', TargetNullValue='-'}"
+                            <TextBox Text="{Binding Path=Beatmap.SongSubName, FallbackValue='-', TargetNullValue='-'}"
                                      Style="{DynamicResource TextBoxDetails}" />
 
                             <Label Content="Artist"
                                    HorizontalContentAlignment="Right"
                                    Style="{DynamicResource LabelDetails}" />
-                            <TextBox Text="{Binding Path=Beatmap.SongAuthorName, FallbackValue='...', TargetNullValue='-'}"
+                            <TextBox Text="{Binding Path=Beatmap.SongAuthorName, FallbackValue='-', TargetNullValue='-'}"
                                      Style="{DynamicResource TextBoxDetails}" />
 
                             <Label Content="Mapper"
                                    HorizontalContentAlignment="Right"
                                    Style="{DynamicResource LabelDetails}" />
-                            <TextBox Text="{Binding Path=Beatmap.LevelAuthorName, FallbackValue='...', TargetNullValue='-'}"
+                            <TextBox Text="{Binding Path=Beatmap.LevelAuthorName, FallbackValue='-', TargetNullValue='-'}"
                                      Style="{DynamicResource TextBoxDetails}" />
 
                             <Label Content="Duration"
                                    HorizontalContentAlignment="Right"
                                    Style="{DynamicResource LabelDetails}" />
-                            <Label Content="{Binding Path=Beatmap.Duration, FallbackValue='...', TargetNullValue='-', Converter={StaticResource TimeSpanToStringConverter}}"
+                            <Label Content="{Binding Path=Beatmap.Duration, FallbackValue='-', TargetNullValue='-', Converter={StaticResource TimeSpanToStringConverter}}"
                                    Style="{DynamicResource LabelDetails}" />
 
                             <Label Content="BPM"
                                    HorizontalContentAlignment="Right"
                                    Style="{DynamicResource LabelDetails}" />
-                            <Label Content="{Binding Path=Beatmap.BeatsPerMinute, FallbackValue='...'}"
+                            <Label Content="{Binding Path=Beatmap.BeatsPerMinute, FallbackValue='-'}"
                                    Style="{DynamicResource LabelDetails}" />
 
                             <Label Content="Key"
                                    HorizontalContentAlignment="Right"
                                    Style="{DynamicResource LabelDetails}" />
-                            <TextBox Text="{Binding Path=Beatmap.OnlineBeatmap.Key, FallbackValue='...', TargetNullValue='-'}"
+                            <TextBox Text="{Binding Path=Beatmap.OnlineBeatmap.Key, FallbackValue='-', TargetNullValue='-'}"
                                      Style="{DynamicResource TextBoxDetails}" />
                         </st:AutoGrid>
 

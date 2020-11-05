@@ -54,9 +54,9 @@ namespace BeatManager.UserControls.BeatSaver
             ViewModel.OpenBeatSaver();
         }
 
-        private void ButtonInvalid_Click(object sender, RoutedEventArgs e)
+        private async void ButtonInvalid_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.ShowErrors();
+            await ViewModel.ShowErrors();
         }
 
         private void DataGridDifficultyRequirements_LoadingRow(object sender, DataGridRowEventArgs e)

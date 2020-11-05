@@ -33,6 +33,11 @@ namespace BeatManager.UserControls.ModelSaber
             ViewModel.Back();
         }
 
+        private async void ButtonInvalid_Click(object sender, RoutedEventArgs e)
+        {
+            await ViewModel.ShowErrors();
+        }
+
         private void ButtonBigCover_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.OpenBigCover();

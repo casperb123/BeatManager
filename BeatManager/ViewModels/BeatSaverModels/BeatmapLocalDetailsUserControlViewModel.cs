@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
@@ -192,7 +193,7 @@ namespace BeatManager.ViewModels.BeatSaverModels
             });
         }
 
-        public async void ShowErrors()
+        public async Task ShowErrors()
         {
             string errorsText = string.Join("\n", Beatmap.Errors.Select(x => $"- {x}"));
             await mainWindow.ShowMessageAsync("Beatmap Invalid", $"The current beatmap has the following errors:\n" +

@@ -13,7 +13,8 @@
                   VerticalScrollBarVisibility="Auto">
         <Grid>
             <Grid VerticalAlignment="Top"
-                  Height="300">
+                  Height="300"
+                  Visibility="{Binding Path=Model.OnlineModel, Converter={StaticResource NullToVisibilityConverter}}">
                 <Rectangle Margin="0,-5,0,10">
                     <Rectangle.Fill>
                         <ImageBrush ImageSource="{Binding Path=CoverImage}"
@@ -59,6 +60,27 @@
                             <TextBlock Text="{Binding Path=Model.ModelType, FallbackValue='Model Information', StringFormat='{}{0} Details'}" />
                         </Label.Content>
                     </Label>
+
+                    <Button x:Name="buttonInvalid"
+                            BorderThickness="0"
+                            Width="35"
+                            Height="35"
+                            Margin="10,10,0,0"
+                            Style="{DynamicResource TransparentCircleButton}"
+                            Visibility="{Binding Path=Model.Errors, Converter={StaticResource NullToVisibilityConverter}}"
+                            Click="ButtonInvalid_Click">
+                        <Button.Background>
+                            <SolidColorBrush Color="Red"
+                                             Opacity=".2" />
+                        </Button.Background>
+                        <Button.ToolTip>
+                            <TextBlock Text="{Binding Path=Model.ModelType, StringFormat='{}{0} invalid'}" />
+                        </Button.ToolTip>
+                        <icons:PackIconMaterial Kind="ExclamationThick"
+                                                Width="18"
+                                                Height="18"
+                                                Foreground="Red" />
+                    </Button>
                 </StackPanel>
 
                 <st:AutoGrid x:Name="gridMain"
@@ -72,7 +94,8 @@
 
                         <Grid Width="200"
                               Height="200"
-                              Margin="0,0,25,0">
+                              Margin="0,0,25,0"
+                              Visibility="{Binding Path=Model.OnlineModel, Converter={StaticResource NullToVisibilityConverter}}">
                             <Image x:Name="imageCover"
                                    Source="{Binding Path=CoverImage}" />
                             <Button x:Name="buttonBigCover"
@@ -84,8 +107,7 @@
                             </Button>
                             <Grid HorizontalAlignment="Right"
                                   VerticalAlignment="Top"
-                                  Margin="0,-15,-15,0"
-                                  Visibility="{Binding Path=Model.OnlineModel, Converter={StaticResource NullToVisibilityConverter}}">
+                                  Margin="0,-15,-15,0">
                                 <Border Width="30"
                                         Height="30"
                                         Background="#2ec92e"
@@ -129,17 +151,16 @@
                                      VerticalAlignment="Center"
                                      Grid.Column="1">
                             <TextBlock TextWrapping="WrapWithOverflow">
-                                    <Run Text="{Binding Path=Model.OnlineModel.Name}"
-                                         FontSize="35">
+                                    <Run FontSize="35">
                                         <Run.Style>
                                             <Style TargetType="Run">
                                                 <Setter Property="Text"
-                                                        Value="{Binding Path=OnlineModel.Name, IsAsync=True}" />
+                                                        Value="{Binding Path=Model.OnlineModel.Name, IsAsync=True}" />
                                                 <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Path=OnlineModel.Name}"
+                                                    <DataTrigger Binding="{Binding Path=Model.OnlineModel.Name}"
                                                                  Value="{x:Null}">
                                                         <Setter Property="Text"
-                                                                Value="{Binding Path=Name, IsAsync=True}" />
+                                                                Value="{Binding Path=Model.Name, IsAsync=True}" />
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -155,7 +176,7 @@
                                     </Run>
                             </TextBlock>
 
-                            <TextBlock Text="{Binding Path=Model.OnlineModel.Bsaber, FallbackValue='BeastSaber author', StringFormat='{}BeastSaber: {0}'}"
+                            <TextBlock Text="{Binding Path=Model.OnlineModel.Bsaber, StringFormat='{}BeastSaber: {0}'}"
                                        Visibility="{Binding Path=Model.OnlineModel.Bsaber, Converter={StaticResource NullToVisibilityConverter}}"
                                        FontSize="25"
                                        TextWrapping="WrapWithOverflow" />
@@ -236,7 +257,7 @@
                         <Label Content="Name"
                                HorizontalContentAlignment="Right"
                                Style="{DynamicResource LabelDetails}" />
-                        <TextBox Text="{Binding Path=Model.OnlineModel.Name, FallbackValue='-'}">
+                        <TextBox>
                             <TextBox.Style>
                                 <Style TargetType="TextBox"
                                        BasedOn="{StaticResource TextBoxDetails}">

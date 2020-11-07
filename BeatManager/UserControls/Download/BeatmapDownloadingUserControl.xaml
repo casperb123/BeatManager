@@ -32,7 +32,7 @@
             <TextBlock TextWrapping="Wrap"
                        FontSize="12"
                        FontWeight="Bold">
-                <Run Text="{Binding Path=Beatmap.Metadata.SongName}" />
+                <Run Text="{Binding Path=Beatmap.Metadata.SongName, FallbackValue='Song name'}" />
                 <Run Text="{Binding Path=Beatmap.Metadata.SongSubName}">
                     <Run.Foreground>
                         <SolidColorBrush Color="{DynamicResource MahApps.Colors.ThemeForeground}"
@@ -41,9 +41,9 @@
                 </Run>
             </TextBlock>
 
-            <TextBlock Text="{Binding Path=DownloadTimeLeft, FallbackValue='Estimated time left: 0 sec (0 kB of 0 kB downloaded)'}"
+            <TextBlock Text="{Binding Path=DownloadTimeLeft, FallbackValue='Estimated time left: 0 sec (0 kB of 0 kB downloaded)', TargetNullValue='Estimated time left: 0 sec (0 kB of 0 kB downloaded)'}"
                        FontSize="12" />
-            <TextBlock Text="{Binding Path=DownloadTimeSpent, FallbackValue='Time spent: 0 sec'}"
+            <TextBlock Text="{Binding Path=DownloadTimeSpent, FallbackValue='Time spent: 0 sec', TargetNullValue='Time spent: 0 sec'}"
                        FontSize="12" />
 
             <ProgressBar Value="{Binding Path=ProgressPercent}" />

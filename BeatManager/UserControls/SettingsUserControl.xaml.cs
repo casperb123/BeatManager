@@ -72,11 +72,9 @@ namespace BeatManager.UserControls
             await ViewModel.ToggleOneClick(OneClickType.ModelSaber, Settings.CurrentSettings.ModelSaber.OneClickInstaller);
         }
 
-        private async void ButtonRestartAsAdmin_Click(object sender, RoutedEventArgs e)
+        private void ButtonRestartAsAdmin_Click(object sender, RoutedEventArgs e)
         {
-            MessageDialogResult result = await ViewModel.MainWindow.ShowMessageAsync("OneClick installer", "To enable OneClick installer you need to run the application as administrator. Would you like to restart the application as administrator?", MessageDialogStyle.AffirmativeAndNegative);
-            if (result == MessageDialogResult.Affirmative)
-                ViewModel.RestartAsAdmin();
+            ViewModel.RestartAsAdmin();
         }
     }
 }

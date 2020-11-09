@@ -146,7 +146,7 @@
                                 </Border>
                             </Grid>
                         </Grid>
-                        <st:AutoGrid Rows="auto,auto,auto"
+                        <st:AutoGrid Rows="auto,auto"
                                      Columns="1*"
                                      VerticalAlignment="Center"
                                      Grid.Column="1">
@@ -175,11 +175,6 @@
                                         </Run.Foreground>   
                                     </Run>
                             </TextBlock>
-
-                            <TextBlock Text="{Binding Path=Model.OnlineModel.Bsaber, StringFormat='{}BeastSaber: {0}'}"
-                                       Visibility="{Binding Path=Model.OnlineModel.Bsaber, Converter={StaticResource NullToVisibilityConverter}}"
-                                       FontSize="25"
-                                       TextWrapping="WrapWithOverflow" />
 
                             <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                                           VerticalScrollBarVisibility="Auto"
@@ -281,8 +276,16 @@
                         <Label Content="BeastSaber"
                                HorizontalContentAlignment="Right"
                                Style="{DynamicResource LabelDetails}" />
-                        <TextBox Text="{Binding Path=Model.OnlineModel.Bsaber, FallbackValue='-', TargetNullValue='-'}"
-                                 Style="{DynamicResource TextBoxDetails}" />
+                        <Label Style="{DynamicResource LabelDetails}">
+                            <TextBlock>
+                                <Hyperlink x:Name="HyperlinkBsaber"
+                                           IsEnabled="{Binding Path=Model.OnlineModel.BsaberLink, Converter={StaticResource NullToBooleanConverter}}"
+                                           NavigateUri="{Binding Path=Model.OnlineModel.BsaberLink, FallbackValue='', TargetNullValue=''}"
+                                           RequestNavigate="HyperlinkBsaber_RequestNavigate">
+                                    <TextBlock Text="{Binding Path=Model.OnlineModel.Bsaber, FallbackValue='-', TargetNullValue='-'}" />
+                                </Hyperlink>
+                            </TextBlock>
+                        </Label>
 
                         <Label Content="Discord Id"
                                HorizontalContentAlignment="Right"

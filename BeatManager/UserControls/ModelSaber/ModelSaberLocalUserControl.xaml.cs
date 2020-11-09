@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace BeatManager.UserControls.ModelSaber
 {
@@ -36,8 +37,8 @@ namespace BeatManager.UserControls.ModelSaber
 
         private void ButtonBigCover_Click(object sender, RoutedEventArgs e)
         {
-            LocalModel model = ((Button)sender).Tag as LocalModel;
-            ViewModel.OpenBigCover(model);
+            ImageSource image = ((Button)sender).Tag as ImageSource;
+            ViewModel.OpenBigCover(image);
         }
 
         private void Model_Delete(object sender, RoutedEventArgs e)

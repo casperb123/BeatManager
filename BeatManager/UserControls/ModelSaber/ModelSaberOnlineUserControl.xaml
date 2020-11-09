@@ -163,10 +163,11 @@
                                         Height="25"
                                         CornerRadius="100">
                                     <Border.Background>
-                                        <ImageBrush ImageSource="{Binding Path=RealThumbnail, Mode=OneWay, IsAsync=True}" />
+                                        <ImageBrush x:Name="imageBrushCover"
+                                                    ImageSource="{Binding Path=RealThumbnail, Mode=OneWay, IsAsync=True}" />
                                     </Border.Background>
                                     <Button x:Name="buttonBigCover"
-                                            Tag="{Binding}"
+                                            Tag="{Binding ElementName=imageBrushCover, Path=ImageSource}"
                                             Style="{DynamicResource CustomButtonCover}"
                                             Click="ButtonBigCover_Click">
                                         <Button.Resources>

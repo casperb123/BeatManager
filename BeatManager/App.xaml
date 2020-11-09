@@ -60,6 +60,12 @@
                 <Setter Property="FontSize"
                         Value="15" />
             </Style>
+            <Style x:Key="HyperlinkDetails"
+                   TargetType="Hyperlink"
+                   BasedOn="{StaticResource MahApps.Styles.Hyperlink}">
+                <Setter Property="FontSize"
+                        Value="15" />
+            </Style>
             <Style x:Key="BorderDetails"
                    TargetType="Border">
                 <Setter Property="Background"

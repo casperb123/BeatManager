@@ -33,7 +33,6 @@ namespace BeatManager.ViewModels.ModelSaberModels
             {
                 model = value;
                 OnPropertyChanged(nameof(Model));
-                CoverImage = new BitmapImage(new Uri(Model.RealThumbnail));
                 CreateTags();
             }
         }
@@ -97,6 +96,16 @@ namespace BeatManager.ViewModels.ModelSaberModels
             Process.Start(new ProcessStartInfo
             {
                 FileName = $"https://modelsaber.com/{Model.ModelType}s/?id={Model.Id}",
+                UseShellExecute = true,
+                Verb = "open"
+            });
+        }
+
+        public void OpenBeatSaberAuthor(string link)
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = link,
                 UseShellExecute = true,
                 Verb = "open"
             });

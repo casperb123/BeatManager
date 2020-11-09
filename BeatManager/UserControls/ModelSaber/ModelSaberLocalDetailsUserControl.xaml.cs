@@ -62,5 +62,10 @@ namespace BeatManager.UserControls.ModelSaber
         {
             ViewModel.OpenModelSaber();
         }
+
+        private void HyperlinkBsaber_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            ViewModel.OpenBeastSaberAuthor(e.Uri.ToString());
+        }
     }
 }

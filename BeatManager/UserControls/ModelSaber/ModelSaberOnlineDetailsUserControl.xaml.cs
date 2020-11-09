@@ -1,6 +1,7 @@
 ﻿using BeatManager.ViewModels.ModelSaberModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -61,6 +62,11 @@ namespace BeatManager.UserControls.ModelSaber
         private void ButtonOpenModelSaber_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.OpenModelSaber();
+        }
+
+        private void HyperlinkBsaber_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            ViewModel.OpenBeatSaberAuthor(e.Uri.ToString());
         }
     }
 }

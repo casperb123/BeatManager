@@ -23,7 +23,7 @@
                 <TextBlock Text="{Binding Path=ModelType, FallbackValue='Model Local', StringFormat='{}{0} Local'}" />
             </Label.Content>
         </Label>
-        
+
         <DataGrid x:Name="dataGridModels"
                   Grid.Row="1"
                   ItemsSource="{Binding Path=LocalModels.Models, NotifyOnTargetUpdated=True}"
@@ -62,7 +62,7 @@
                     </MenuItem>
                 </ContextMenu>
             </DataGrid.ContextMenu>
-            
+
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Cover">
                     <DataGridTemplateColumn.CellTemplate>
@@ -72,10 +72,11 @@
                                         Height="25"
                                         CornerRadius="100">
                                     <Border.Background>
-                                        <ImageBrush ImageSource="{Binding Path=OnlineModel.RealThumbnail, Mode=OneWay, TargetNullValue={x:Null}, IsAsync=True}" />
+                                        <ImageBrush x:Name="imageBrushCover"
+                                                    ImageSource="{Binding Path=OnlineModel.RealThumbnail, Mode=OneWay, TargetNullValue={x:Null}, IsAsync=True}" />
                                     </Border.Background>
                                     <Button x:Name="buttonBigCover"
-                                            Tag="{Binding}"
+                                            Tag="{Binding ElementName=imageBrushCover, Path=ImageSource}"
                                             Style="{DynamicResource CustomButtonCover}"
                                             Click="ButtonBigCover_Click">
                                         <Button.Resources>

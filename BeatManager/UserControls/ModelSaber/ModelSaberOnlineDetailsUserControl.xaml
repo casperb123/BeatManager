@@ -123,7 +123,7 @@
                                 </Border>
                             </Grid>
                         </Grid>
-                        <st:AutoGrid Rows="auto,auto,auto"
+                        <st:AutoGrid Rows="auto,auto"
                                      Columns="1*"
                                      VerticalAlignment="Center"
                                      Grid.Column="1">
@@ -139,11 +139,6 @@
                                         </Run.Foreground>   
                                     </Run>
                             </TextBlock>
-
-                            <TextBlock Text="{Binding Path=Model.Bsaber, StringFormat='{}BeastSaber: {0}'}"
-                                       Visibility="{Binding Path=Model.Bsaber, Converter={StaticResource NullToVisibilityConverter}}"
-                                       FontSize="25"
-                                       TextWrapping="WrapWithOverflow" />
 
                             <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                                           VerticalScrollBarVisibility="Auto"
@@ -259,12 +254,18 @@
                         <Label Content="BeastSaber"
                                HorizontalContentAlignment="Right"
                                Style="{DynamicResource LabelDetails}" />
-                        <TextBox Text="{Binding Path=Model.Bsaber, FallbackValue='-', TargetNullValue='-'}"
-                                 Style="{DynamicResource TextBoxDetails}" />
+                        <Label Style="{DynamicResource LabelDetails}">
+                            <Hyperlink x:Name="HyperlinkBsaber"
+                                       IsEnabled="{Binding Path=Model.BsaberLink, Converter={StaticResource NullToBooleanConverter}}"
+                                       NavigateUri="{Binding Path=Model.BsaberLink}"
+                                       RequestNavigate="HyperlinkBsaber_RequestNavigate">
+                                <TextBlock Text="{Binding Path=Model.Bsaber, FallbackValue='-', TargetNullValue='-'}" />
+                            </Hyperlink>
+                        </Label>
 
                         <Label Content="Discord Id"
-                               HorizontalContentAlignment="Right"
-                               Style="{DynamicResource LabelDetails}" />
+                                HorizontalContentAlignment="Right"
+                                Style="{DynamicResource LabelDetails}" />
                         <TextBox Text="{Binding Path=Model.Discordid, FallbackValue='-'}"
                                  Style="{DynamicResource TextBoxDetails}" />
                     </st:AutoGrid>

@@ -35,11 +35,8 @@ namespace BeatManager.ViewModels.ModelSaberModels
             {
                 model = value;
                 OnPropertyChanged(nameof(Model));
-                if (Model.OnlineModel != null)
-                {
-                    CoverImage = new BitmapImage(new Uri(Model.OnlineModel.RealThumbnail));
+                if (value.OnlineModel != null)
                     CreateTags();
-                }
             }
         }
 
@@ -103,6 +100,16 @@ namespace BeatManager.ViewModels.ModelSaberModels
             Process.Start(new ProcessStartInfo
             {
                 FileName = $"https://modelsaber.com/{Model.ModelType}s/?id={Model.OnlineModel.Id}",
+                UseShellExecute = true,
+                Verb = "open"
+            });
+        }
+
+        public void OpenBeastSaberAuthor(string link)
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = link,
                 UseShellExecute = true,
                 Verb = "open"
             });

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace BeatManager.ViewModels.ModelSaberModels
@@ -66,7 +67,6 @@ namespace BeatManager.ViewModels.ModelSaberModels
             MainWindow = mainWindow;
             this.userControl = userControl;
             ModelType = modelType;
-
             SelectedModels = new List<LocalModel>();
         }
 
@@ -203,12 +203,8 @@ namespace BeatManager.ViewModels.ModelSaberModels
             userControl.dataGridModels.UnselectAll();
         }
 
-        public void OpenBigCover(LocalModel model)
+        public void OpenBigCover(ImageSource image)
         {
-            if (model.OnlineModel is null)
-                return;
-
-            BitmapImage image = new BitmapImage(new Uri(model.OnlineModel.RealThumbnail));
             MainWindow.ViewModel.OpenBigCover(image);
         }
     }

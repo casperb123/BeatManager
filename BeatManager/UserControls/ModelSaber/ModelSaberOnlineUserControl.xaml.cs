@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace BeatManager.UserControls.ModelSaber
 {
@@ -70,8 +71,8 @@ namespace BeatManager.UserControls.ModelSaber
 
         private void ButtonBigCover_Click(object sender, RoutedEventArgs e)
         {
-            OnlineModel model = ((Button)sender).Tag as OnlineModel;
-            ViewModel.OpenBigCover(model);
+            ImageSource image = ((Button)sender).Tag as ImageSource;
+            ViewModel.OpenBigCover(image);
         }
 
         private async void Saber_Download(object sender, RoutedEventArgs e)

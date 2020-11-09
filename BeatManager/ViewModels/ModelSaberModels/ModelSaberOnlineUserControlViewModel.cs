@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace BeatManager.ViewModels.ModelSaberModels
@@ -352,9 +353,8 @@ namespace BeatManager.ViewModels.ModelSaberModels
             userControl.dataGridModels.UnselectAll();
         }
 
-        public void OpenBigCover(OnlineModel model)
+        public void OpenBigCover(ImageSource image)
         {
-            BitmapImage image = new BitmapImage(new Uri(model.RealThumbnail));
             MainWindow.ViewModel.OpenBigCover(image);
         }
     }

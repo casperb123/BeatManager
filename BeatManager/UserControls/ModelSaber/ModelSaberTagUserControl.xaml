@@ -21,6 +21,7 @@
 
         <TextBlock Text="{Binding Path=ModelTag, FallbackValue='Tag'}"
                    VerticalAlignment="Center"
-                   Margin="10,5" />
+                   Margin="10,5"
+                   Style="{DynamicResource TextBlockDetails}" />
     </Border>
 </UserControl>

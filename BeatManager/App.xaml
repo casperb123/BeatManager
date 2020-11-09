@@ -66,6 +66,12 @@
                 <Setter Property="FontSize"
                         Value="15" />
             </Style>
+            <Style x:Key="TextBlockDetails"
+                   TargetType="TextBlock"
+                   BasedOn="{StaticResource MahApps.Styles.TextBlock}">
+                <Setter Property="FontSize"
+                        Value="15" />
+            </Style>
             <Style x:Key="BorderDetails"
                    TargetType="Border">
                 <Setter Property="Background"

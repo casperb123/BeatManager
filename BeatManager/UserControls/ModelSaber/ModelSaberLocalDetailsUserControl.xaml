@@ -178,7 +178,7 @@
 
                             <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                                           VerticalScrollBarVisibility="Auto"
-                                          MaxHeight="90"
+                                          MaxHeight="103"
                                           Margin="-2.5,10,0,0"
                                           Visibility="{Binding Path=Model.OnlineModel, Converter={StaticResource NullToVisibilityConverter}}">
                                 <WrapPanel x:Name="wrapPanelTags"

@@ -55,7 +55,11 @@ namespace BeatManager.ViewModels.ModelSaberModels
         private void CreateTags()
         {
             userControl.wrapPanelTags.Children.Clear();
-            Model.Tags.ForEach(x => userControl.wrapPanelTags.Children.Add(new ModelSaberTagUserControl(x)));
+            //Model.Tags.ForEach(x => userControl.wrapPanelTags.Children.Add(new ModelSaberTagUserControl(x)));
+            for (int i = 0; i < 50; i++)
+            {
+                userControl.wrapPanelTags.Children.Add(new ModelSaberTagUserControl($"Test{i}"));
+            }
         }
 
         public void Back()

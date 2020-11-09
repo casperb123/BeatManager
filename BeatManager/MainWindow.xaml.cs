@@ -194,12 +194,12 @@ namespace BeatManager
             string beatSaverArg = args.FirstOrDefault(x => x.Contains("beatsaver://"));
             string modelSaberArg = args.FirstOrDefault(x => x.Contains("modelsaber://"));
 
-            if (!string.IsNullOrEmpty(beatSaverArg))
+            if (Settings.CurrentSettings.BeatSaver.OneClickInstaller && !string.IsNullOrEmpty(beatSaverArg))
             {
                 string beatSaverKey = beatSaverArg.Substring(12).Replace("/", "");
                 ViewModel.DownloadSong(beatSaverKey).ConfigureAwait(false);
             }
-            if (!string.IsNullOrEmpty(modelSaberArg))
+            if (Settings.CurrentSettings.ModelSaber.OneClickInstaller && !string.IsNullOrEmpty(modelSaberArg))
             {
                 string modelSaberArgs = modelSaberArg.Substring(13);
                 int typeSlash = modelSaberArgs.IndexOf("/");

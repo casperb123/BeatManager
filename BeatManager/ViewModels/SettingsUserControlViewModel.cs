@@ -398,13 +398,7 @@ namespace BeatManager.ViewModels
                     IsBeatSaverOneClick = true;
                 }
                 else
-                {
-                    RegistryKey beatSaverKey = Registry.ClassesRoot.OpenSubKey("beatsaver");
-                    if (beatSaverKey != null)
-                        Registry.ClassesRoot.DeleteSubKeyTree("beatsaver");
-
                     IsBeatSaverOneClick = false;
-                }
             }
             else if (oneClickType == OneClickType.ModelSaber)
             {
@@ -430,15 +424,10 @@ namespace BeatManager.ViewModels
                     IsModelSaberOneClick = true;
                 }
                 else
-                {
-                    RegistryKey beatSaverKey = Registry.ClassesRoot.OpenSubKey("modelsaber");
-                    if (beatSaverKey != null)
-                        Registry.ClassesRoot.DeleteSubKeyTree("modelsaber");
-
                     IsModelSaberOneClick = false;
-                }
             }
 
+            Settings.CurrentSettings.Save();
             return true;
         }
 

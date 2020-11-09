@@ -24,6 +24,16 @@ namespace BeatManager
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string mainProjectName = Assembly.GetEntryAssembly().GetName().Name;
+            string appDataPath = $@"{appData}\{mainProjectName}";
+
+            Settings.SettingsFilePath = $@"{appDataPath}\Settings.json";
+            if (!Directory.Exists(appDataPath))
+                Directory.CreateDirectory(appDataPath);
+
+            Settings.CurrentSettings = Settings.GetSettings();
+
             if (Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length > 1)
             {
                 string[] args = Environment.GetCommandLineArgs();
@@ -32,47 +42,63 @@ namespace BeatManager
 
                 if (!string.IsNullOrEmpty(beatSaverArg))
                 {
-                    try
+                    if (Settings.CurrentSettings.BeatSaver.OneClickInstaller)
                     {
-                        string beatSaverKey = beatSaverArg.Substring(12).Replace("/", "");
-                        NamedPipe<string>.Send(NamedPipe<string>.NameTypes.BeatSaver, beatSaverKey);
-                        Environment.Exit(0);
-                    }
-                    catch (UnauthorizedAccessException)
-                    {
-                        string processFilePath = Process.GetCurrentProcess().MainModule.FileName;
-
-                        ProcessStartInfo elevated = new ProcessStartInfo(processFilePath)
+                        try
                         {
-                            UseShellExecute = true,
-                            Verb = "runas",
-                            Arguments = beatSaverArg
-                        };
+                            string beatSaverKey = beatSaverArg.Substring(12).Replace("/", "");
+                            NamedPipe<string>.Send(NamedPipe<string>.NameTypes.BeatSaver, beatSaverKey);
+                            Environment.Exit(0);
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            string processFilePath = Process.GetCurrentProcess().MainModule.FileName;
 
-                        Process.Start(elevated);
+                            ProcessStartInfo elevated = new ProcessStartInfo(processFilePath)
+                            {
+                                UseShellExecute = true,
+                                Verb = "runas",
+                                Arguments = beatSaverArg
+                            };
+
+                            Process.Start(elevated);
+                            Environment.Exit(0);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("OneClick installer is disabled", "BeatSaver OneClick", MessageBoxButton.OK, MessageBoxImage.Error);
                         Environment.Exit(0);
                     }
                 }
                 if (!string.IsNullOrEmpty(modelSaberArg))
                 {
-                    try
+                    if (Settings.CurrentSettings.ModelSaber.OneClickInstaller)
                     {
-                        string modelSaberArgs = modelSaberArg.Substring(13);
-                        NamedPipe<string>.Send(NamedPipe<string>.NameTypes.ModelSaber, modelSaberArgs);
-                        Environment.Exit(0);
-                    }
-                    catch (UnauthorizedAccessException)
-                    {
-                        string processFilePath = Process.GetCurrentProcess().MainModule.FileName;
-
-                        ProcessStartInfo elevated = new ProcessStartInfo(processFilePath)
+                        try
                         {
-                            UseShellExecute = true,
-                            Verb = "runas",
-                            Arguments = modelSaberArg
-                        };
+                            string modelSaberArgs = modelSaberArg.Substring(13);
+                            NamedPipe<string>.Send(NamedPipe<string>.NameTypes.ModelSaber, modelSaberArgs);
+                            Environment.Exit(0);
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            string processFilePath = Process.GetCurrentProcess().MainModule.FileName;
 
-                        Process.Start(elevated);
+                            ProcessStartInfo elevated = new ProcessStartInfo(processFilePath)
+                            {
+                                UseShellExecute = true,
+                                Verb = "runas",
+                                Arguments = modelSaberArg
+                            };
+
+                            Process.Start(elevated);
+                            Environment.Exit(0);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("OneClick installer is disabled", "ModelSaber OneClick", MessageBoxButton.OK, MessageBoxImage.Error);
                         Environment.Exit(0);
                     }
                 }
@@ -81,16 +107,6 @@ namespace BeatManager
             Instance = this;
             SupportedMods = new List<SupportedMod>();
 
-            string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string mainProjectName = Assembly.GetEntryAssembly().GetName().Name;
-            string appDataPath = $@"{appData}\{mainProjectName}";
-
-            Settings.SettingsFilePath = $@"{appDataPath}\Settings.json";
-
-            if (!Directory.Exists(appDataPath))
-                Directory.CreateDirectory(appDataPath);
-
-            Settings.CurrentSettings = Settings.GetSettings();
             BeatSaverApi = new BeatSaverApi(Settings.CurrentSettings.CustomLevelsPath);
             ModelSaberApi = new ModelSaberApi(Settings.CurrentSettings.RootPath);
             GetSupportedMods();

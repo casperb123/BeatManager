@@ -36,7 +36,10 @@ namespace BeatManager.ViewModels.ModelSaberModels
                 model = value;
                 OnPropertyChanged(nameof(Model));
                 if (value.OnlineModel != null)
+                {
+                    CoverImage = new BitmapImage(new Uri(value.OnlineModel.RealThumbnail));
                     CreateTags();
+                }
             }
         }
 

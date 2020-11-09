@@ -187,7 +187,6 @@ namespace BeatManager.ViewModels.BeatSaverModels
         public void BeatmapDetails(LocalBeatmap beatmap, bool changePage = true)
         {
             MainWindow.ViewModel.BeatmapLocalDetailsUserControl.ViewModel.Beatmap = beatmap;
-
             if (changePage)
                 MainWindow.userControlMain.Content = MainWindow.ViewModel.BeatmapLocalDetailsUserControl;
 

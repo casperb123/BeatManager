@@ -33,6 +33,7 @@ namespace BeatManager.ViewModels.ModelSaberModels
             {
                 model = value;
                 OnPropertyChanged(nameof(Model));
+                CoverImage = new BitmapImage(new Uri(value.RealThumbnail));
                 CreateTags();
             }
         }

@@ -16,6 +16,7 @@ namespace BeatManager.Entities
         private bool beatSaberCopy;
         private bool checkForUpdates;
         private BeatSaver beatSaver;
+        private ModelSaber modelSaber;
 
         public static Settings CurrentSettings;
         public static string SettingsFilePath;
@@ -73,6 +74,16 @@ namespace BeatManager.Entities
             {
                 beatSaver = value;
                 OnPropertyChanged(nameof(BeatSaver));
+            }
+        }
+
+        public ModelSaber ModelSaber
+        {
+            get { return modelSaber; }
+            set
+            {
+                modelSaber = value;
+                OnPropertyChanged(nameof(ModelSaber));
             }
         }
 
@@ -145,6 +156,7 @@ namespace BeatManager.Entities
             CheckForUpdates = true;
             NotifyUpdates = true;
             BeatSaver = new BeatSaver();
+            ModelSaber = new ModelSaber();
         }
 
         public void Save()
@@ -178,6 +190,29 @@ namespace BeatManager.Entities
     }
 
     public class BeatSaver : INotifyPropertyChanged
+    {
+        private bool oneClickInstaller;
+
+        public bool OneClickInstaller
+        {
+            get { return oneClickInstaller; }
+            set
+            {
+                oneClickInstaller = value;
+                OnPropertyChanged(nameof(OneClickInstaller));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(string prop)
+        {
+            if (!string.IsNullOrWhiteSpace(prop))
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
+    }
+
+    public class ModelSaber : INotifyPropertyChanged
     {
         private bool oneClickInstaller;
 

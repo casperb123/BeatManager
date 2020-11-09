@@ -19,6 +19,7 @@ namespace BeatManager.ViewModels
     {
         private bool isRunningAsAdmin;
         private bool isBeatSaverOneClick;
+        private bool isModelSaberOneClick;
 
         public readonly MainWindow MainWindow;
         public bool SongsPathChanged = false;
@@ -31,6 +32,16 @@ namespace BeatManager.ViewModels
             {
                 isBeatSaverOneClick = value;
                 OnPropertyChanged(nameof(IsBeatSaverOneClick));
+            }
+        }
+
+        public bool IsModelSaberOneClick
+        {
+            get { return isModelSaberOneClick; }
+            set
+            {
+                isModelSaberOneClick = value;
+                OnPropertyChanged(nameof(IsModelSaberOneClick));
             }
         }
 
@@ -283,45 +294,80 @@ namespace BeatManager.ViewModels
         {
             string applicationPath = Process.GetCurrentProcess().MainModule.FileName;
 
-            switch (oneClickType)
+            if (oneClickType == OneClickType.BeatSaver)
             {
-                case OneClickType.BeatSaver:
-                    RegistryKey beatSaverKey = Registry.ClassesRoot.OpenSubKey("beatsaver");
-                    if (beatSaverKey is null ||
-                        beatSaverKey.GetValue("") is null ||
-                        beatSaverKey.GetValue("").ToString() != "URL:beatsaver" ||
-                        beatSaverKey.GetValue("URL Protocol") is null)
-                    {
-                        return (OneClickReturn.KeyError, null);
-                    }
+                RegistryKey beatSaverKey = Registry.ClassesRoot.OpenSubKey("beatsaver");
+                if (beatSaverKey is null ||
+                    beatSaverKey.GetValue("") is null ||
+                    beatSaverKey.GetValue("").ToString() != "URL:beatsaver" ||
+                    beatSaverKey.GetValue("URL Protocol") is null)
+                {
+                    return (OneClickReturn.KeyError, null);
+                }
 
-                    RegistryKey commandKey = beatSaverKey.OpenSubKey(@"shell\open\command");
-                    if (commandKey is null)
-                        return (OneClickReturn.KeyError, null);
+                RegistryKey commandKey = beatSaverKey.OpenSubKey(@"shell\open\command");
+                if (commandKey is null)
+                    return (OneClickReturn.KeyError, null);
 
-                    string[] commandKeyValues = commandKey.GetValue("").ToString().Replace("\"", "").Split(" ");
-                    if (commandKeyValues.Length != 2 || commandKeyValues[1] != "%1")
-                        return (OneClickReturn.KeyError, null);
+                string[] commandKeyValues = commandKey.GetValue("").ToString().Replace("\"", "").Split(" ");
+                if (commandKeyValues.Length != 2 || commandKeyValues[1] != "%1")
+                    return (OneClickReturn.KeyError, null);
 
-                    if (beatSaverKey.GetValue("OneClick-Provider") != null)
-                    {
-                        string provider = beatSaverKey.GetValue("OneClick-Provider").ToString();
-                        if (provider != "BeatManager")
-                            return (OneClickReturn.OtherProvider, provider);
-                    }
-                    if (commandKeyValues[0] != applicationPath)
-                    {
-                        string provider = Path.GetFileNameWithoutExtension(commandKeyValues[0]);
-                        if (provider == "BeatManager")
-                            return (OneClickReturn.WrongPath, commandKeyValues[0]);
-                        else
-                            return (OneClickReturn.OtherProvider, provider);
-                    }
+                if (beatSaverKey.GetValue("OneClick-Provider") != null)
+                {
+                    string provider = beatSaverKey.GetValue("OneClick-Provider").ToString();
+                    if (provider != "BeatManager")
+                        return (OneClickReturn.OtherProvider, provider);
+                }
+                if (commandKeyValues[0] != applicationPath)
+                {
+                    string provider = Path.GetFileNameWithoutExtension(commandKeyValues[0]);
+                    if (provider == "BeatManager")
+                        return (OneClickReturn.WrongPath, commandKeyValues[0]);
+                    else
+                        return (OneClickReturn.OtherProvider, provider);
+                }
 
-                    return (OneClickReturn.BeatManager, null);
-                default:
-                    return (OneClickReturn.Null, null);
+                return (OneClickReturn.BeatManager, null);
             }
+            else if (oneClickType == OneClickType.ModelSaber)
+            {
+                RegistryKey modelSaberKey = Registry.ClassesRoot.OpenSubKey("modelsaber");
+                if (modelSaberKey is null ||
+                    modelSaberKey.GetValue("") is null ||
+                    modelSaberKey.GetValue("").ToString() != "URL:modelsaber" ||
+                    modelSaberKey.GetValue("URL Protocol") is null)
+                {
+                    return (OneClickReturn.KeyError, null);
+                }
+
+                RegistryKey commandKey = modelSaberKey.OpenSubKey(@"shell\open\command");
+                if (commandKey is null)
+                    return (OneClickReturn.KeyError, null);
+
+                string[] commandKeyValues = commandKey.GetValue("").ToString().Replace("\"", "").Split(" ");
+                if (commandKeyValues.Length != 2 || commandKeyValues[1] != "%1")
+                    return (OneClickReturn.KeyError, null);
+
+                if (modelSaberKey.GetValue("OneClick-Provider") != null)
+                {
+                    string provider = modelSaberKey.GetValue("OneClick-Provider").ToString();
+                    if (provider != "BeatManager")
+                        return (OneClickReturn.OtherProvider, provider);
+                }
+                if (commandKeyValues[0] != applicationPath)
+                {
+                    string provider = Path.GetFileNameWithoutExtension(commandKeyValues[0]);
+                    if (provider == "BeatManager")
+                        return (OneClickReturn.WrongPath, commandKeyValues[0]);
+                    else
+                        return (OneClickReturn.OtherProvider, provider);
+                }
+
+                return (OneClickReturn.BeatManager, null);
+            }
+
+            return (OneClickReturn.Null, null);
         }
 
         public async Task<bool> ToggleOneClick(OneClickType oneClickType, bool enable)
@@ -358,6 +404,38 @@ namespace BeatManager.ViewModels
                         Registry.ClassesRoot.DeleteSubKeyTree("beatsaver");
 
                     IsBeatSaverOneClick = false;
+                }
+            }
+            else if (oneClickType == OneClickType.ModelSaber)
+            {
+                if (enable)
+                {
+                    var (callback, message) = CheckOneClick(oneClickType);
+
+                    if (callback == OneClickReturn.OtherProvider)
+                    {
+                        MessageDialogResult result = await MainWindow.ShowMessageAsync("ModelSaber OneClick", $"The OneClick provider for ModelSaber is currently {message}. Would you like to enable it anyways?", MessageDialogStyle.AffirmativeAndNegative);
+                        if (result != MessageDialogResult.Affirmative)
+                            return false;
+                    }
+
+                    RegistryKey beatSaverKey = Registry.ClassesRoot.CreateSubKey("modelsaber", true);
+                    beatSaverKey.SetValue("", "URL:modelsaber");
+                    beatSaverKey.SetValue("URL Protocol", string.Empty);
+                    beatSaverKey.SetValue("OneClick-Provider", "BeatManager");
+
+                    RegistryKey commandKey = beatSaverKey.CreateSubKey(@"shell\open\command", true);
+                    commandKey.SetValue("", $"\"{applicationPath}\" \"%1\"");
+
+                    IsModelSaberOneClick = true;
+                }
+                else
+                {
+                    RegistryKey beatSaverKey = Registry.ClassesRoot.OpenSubKey("modelsaber");
+                    if (beatSaverKey != null)
+                        Registry.ClassesRoot.DeleteSubKeyTree("modelsaber");
+
+                    IsModelSaberOneClick = false;
                 }
             }
 

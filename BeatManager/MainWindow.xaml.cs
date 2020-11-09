@@ -5,6 +5,7 @@ using MahApps.Metro.Controls.Dialogs;
 using ModelSaber.Entities;
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -32,11 +33,26 @@ namespace BeatManager
             NamedPipe<string> beatSaverPipe = new NamedPipe<string>(NamedPipe<string>.NameTypes.BeatSaver);
             beatSaverPipe.OnRequest += new NamedPipe<string>.Request(BeatSaverPipe_OnRequest);
             beatSaverPipe.Start();
+
+            NamedPipe<string> modelSaberPipe = new NamedPipe<string>(NamedPipe<string>.NameTypes.ModelSaber);
+            modelSaberPipe.OnRequest += new NamedPipe<string>.Request(ModelSaberPipe_OnRequest);
+            modelSaberPipe.Start();
         }
 
         private async void BeatSaverPipe_OnRequest(string key)
         {
             await ViewModel.DownloadSong(key);
+        }
+
+        private async void ModelSaberPipe_OnRequest(string args)
+        {
+            int typeSlash = args.IndexOf("/");
+            int idSlash = args.IndexOf("/", typeSlash + 1);
+            TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
+
+            ModelType modelType = Enum.Parse<ModelType>(textInfo.ToTitleCase(args.Substring(0, typeSlash)));
+            int id = int.Parse(args.Substring(typeSlash + 1, idSlash - (typeSlash + 1)));
+            await ViewModel.DownloadModel(id, modelType);
         }
 
         public static void ToggleLoading(bool enabled, string title = null, string description = null)
@@ -176,11 +192,23 @@ namespace BeatManager
         {
             string[] args = Environment.GetCommandLineArgs();
             string beatSaverArg = args.FirstOrDefault(x => x.Contains("beatsaver://"));
+            string modelSaberArg = args.FirstOrDefault(x => x.Contains("modelsaber://"));
 
             if (!string.IsNullOrEmpty(beatSaverArg))
             {
                 string beatSaverKey = beatSaverArg.Substring(12).Replace("/", "");
                 ViewModel.DownloadSong(beatSaverKey).ConfigureAwait(false);
+            }
+            if (!string.IsNullOrEmpty(modelSaberArg))
+            {
+                string modelSaberArgs = modelSaberArg.Substring(13);
+                int typeSlash = modelSaberArgs.IndexOf("/");
+                int idSlash = modelSaberArgs.IndexOf("/", typeSlash + 1);
+                TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
+
+                ModelType modelType = Enum.Parse<ModelType>(textInfo.ToTitleCase(modelSaberArgs.Substring(0, typeSlash)));
+                int id = int.Parse(modelSaberArgs.Substring(typeSlash + 1, idSlash - (typeSlash + 1)));
+                ViewModel.DownloadModel(id, modelType).ConfigureAwait(false);
             }
 
             ViewModel.IsLoaded = true;

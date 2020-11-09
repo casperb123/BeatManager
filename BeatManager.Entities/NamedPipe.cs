@@ -19,7 +19,8 @@ namespace BeatManager.Entities
 
         public enum NameTypes
         {
-            BeatSaver
+            BeatSaver,
+            ModelSaber
         }
 
         public NamedPipe(NameTypes pipeType)

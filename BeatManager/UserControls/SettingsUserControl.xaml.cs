@@ -64,22 +64,12 @@ namespace BeatManager.UserControls
             await ViewModel.ToggleOneClick(OneClickType.BeatSaver, Settings.CurrentSettings.BeatSaver.OneClickInstaller);
         }
 
-        private async void ButtonRunAsAdmin_Click(object sender, RoutedEventArgs e)
+        private async void ToggleSwitchModelSaberOneClick_Toggled(object sender, RoutedEventArgs e)
         {
-            MessageDialogResult result = await ViewModel.MainWindow.ShowMessageAsync("Restart as administrator", "Are you sure that you want to restart the application as administrator?", MessageDialogStyle.AffirmativeAndNegative);
-            if (result != MessageDialogResult.Affirmative)
+            if (!IsLoaded || !ViewModel.IsRunningAsAdmin)
                 return;
 
-            ViewModel.RestartAsAdmin();
-        }
-
-        private async void ToggleSwitchOneClick_Toggled(object sender, RoutedEventArgs e)
-        {
-            if (!IsLoaded)
-                return;
-
-            if (Settings.CurrentSettings.BeatSaver.OneClickInstaller)
-                await ViewModel.ToggleOneClick(OneClickType.BeatSaver, true);
+            await ViewModel.ToggleOneClick(OneClickType.ModelSaber, Settings.CurrentSettings.ModelSaber.OneClickInstaller);
         }
 
         private async void ButtonRestartAsAdmin_Click(object sender, RoutedEventArgs e)

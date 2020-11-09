@@ -28,6 +28,7 @@ namespace BeatManager
             {
                 string[] args = Environment.GetCommandLineArgs();
                 string beatSaverArg = args.FirstOrDefault(x => x.StartsWith("beatsaver://"));
+                string modelSaberArg = args.FirstOrDefault(x => x.StartsWith("modelsaber://"));
 
                 if (!string.IsNullOrEmpty(beatSaverArg))
                 {
@@ -46,6 +47,29 @@ namespace BeatManager
                             UseShellExecute = true,
                             Verb = "runas",
                             Arguments = beatSaverArg
+                        };
+
+                        Process.Start(elevated);
+                        Environment.Exit(0);
+                    }
+                }
+                if (!string.IsNullOrEmpty(modelSaberArg))
+                {
+                    try
+                    {
+                        string modelSaberArgs = modelSaberArg.Substring(13);
+                        NamedPipe<string>.Send(NamedPipe<string>.NameTypes.ModelSaber, modelSaberArgs);
+                        Environment.Exit(0);
+                    }
+                    catch (UnauthorizedAccessException)
+                    {
+                        string processFilePath = Process.GetCurrentProcess().MainModule.FileName;
+
+                        ProcessStartInfo elevated = new ProcessStartInfo(processFilePath)
+                        {
+                            UseShellExecute = true,
+                            Verb = "runas",
+                            Arguments = modelSaberArg
                         };
 
                         Process.Start(elevated);

@@ -509,6 +509,57 @@ namespace BeatManager.ViewModels
             });
         }
 
+        public async Task DownloadModel(int id, ModelType modelType)
+        {
+            await MainWindow.Dispatcher.Invoke(async () =>
+            {
+                try
+                {
+                    OnlineModel model = await App.ModelSaberApi.GetModel(id, modelType);
+                    bool isValid = await App.ModelSaberApi.DownloadModel(model);
+
+                    if (isValid)
+                    {
+                        ModelSaberOnlineUserControl onlineUserControl = PropertyHelper.GetPropValue<ModelSaberOnlineUserControl>(this, $"{modelType}OnlineUserControl");
+                        ModelSaberLocalUserControl localUserControl = PropertyHelper.GetPropValue<ModelSaberLocalUserControl>(this, $"{modelType}LocalUserControl");
+
+                        onlineUserControl.ViewModel.ModelChanged = true;
+                        if (onlineUserControl.ViewModel.OnlineModels != null && onlineUserControl.ViewModel.OnlineModels.Models.Any(x => x.Id == id))
+                            localUserControl.ViewModel.ModelChanged = true;
+                        if (MainWindow.userControlMain.Content == localUserControl || MainWindow.userControlMain.Content == ModelSaberLocalDetailsUserControl && ModelSaberLocalDetailsUserControl.ViewModel.Model.ModelType == modelType)
+                            ShowLocalModelSaberPage(modelType);
+                        else if (MainWindow.userControlMain.Content == onlineUserControl || MainWindow.userControlMain.Content == ModelSaberOnlineDetailsUserControl && ModelSaberOnlineDetailsUserControl.ViewModel.Model.ModelType == modelType)
+                            ShowOnlineModelSaberPage(modelType);
+                    }
+                }
+                catch (InvalidOperationException e)
+                {
+                    MainWindow.ToggleLoading(false);
+                    string errorMessage = e.Message;
+                    if (e.InnerException != null && !e.Message.Contains(e.InnerException.Message))
+                        errorMessage += $" ({e.InnerException.Message})";
+
+                    await MainWindow.ShowMessageAsync("Downloading failed", $"Downloading the {modelType.ToString().ToLower()} failed with the following error\n\n" +
+                                                                            "Error:\n" +
+                                                                            $"{errorMessage}");
+                }
+                catch (Exception e)
+                {
+                    MainWindow.ToggleLoading(false);
+                    string errorMessage = e.Message;
+                    if (e.InnerException != null && !e.Message.Contains(e.InnerException.Message))
+                        errorMessage += $" ({e.InnerException.Message})";
+
+                    MessageDialogResult result = await MainWindow.ShowMessageAsync("Downloading failed", $"Downloading the {modelType.ToString().ToLower()} failed, would you like to try again?\n\n" +
+                                                                                                         "Error:\n" +
+                                                                                                         $"{errorMessage}", MessageDialogStyle.AffirmativeAndNegative);
+
+                    if (result == MessageDialogResult.Affirmative)
+                        await DownloadModel(id, modelType);
+                }
+            });
+        }
+
         public void OpenBigCover(ImageSource image)
         {
             MainWindow.imageCoverImage.Source = image;

@@ -22,7 +22,7 @@
                    FontSize="45"
                    Margin="0,0,0,30" />
 
-            <st:AutoGrid Rows="auto,auto"
+            <st:AutoGrid Rows="auto,auto,auto"
                          Columns="1*"
                          Grid.Row="1">
                 <GroupBox Header="Global">
@@ -108,8 +108,7 @@
                     </Grid>
                 </GroupBox>
 
-                <GroupBox Header="BeatSaver"
-                          Grid.Row="1">
+                <GroupBox Header="BeatSaver">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto" />
@@ -121,16 +120,44 @@
                                VerticalContentAlignment="Center"
                                Margin="0,0,5,0" />
 
-                        <mah:ToggleSwitch x:Name="toggleSwitchOneClick"
+                        <mah:ToggleSwitch x:Name="toggleSwitchBeatSaverOneClick"
                                           Grid.Column="1"
                                           Visibility="{Binding Path=IsRunningAsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"
                                           IsOn="{Binding Path=BeatSaver.OneClickInstaller, Source={x:Static entities:Settings.CurrentSettings}}"
                                           OnContent="Enabled"
                                           OffContent="Disabled"
                                           Style="{DynamicResource CustomToggleSwitch}"
-                                          Toggled="ToggleSwitchOneClick_Toggled" />
-                        <Button x:Name="buttonRestartAsAdmin"
-                                Grid.Column="1"
+                                          Toggled="ToggleSwitchBeatSaverOneClick_Toggled" />
+                        <Button Grid.Column="1"
+                                Content="Restart as administrator"
+                                HorizontalAlignment="Left"
+                                Style="{DynamicResource CustomButton}"
+                                Visibility="{Binding Path=IsRunningAsAdmin, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+                                Click="ButtonRestartAsAdmin_Click" />
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="ModelSaber">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="400" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Content="One click installer"
+                               VerticalContentAlignment="Center"
+                               Margin="0,0,5,0" />
+
+                        <mah:ToggleSwitch x:Name="toggleSwitchModelSaberOneClick"
+                                          Grid.Column="1"
+                                          Visibility="{Binding Path=IsRunningAsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                          IsOn="{Binding Path=ModelSaber.OneClickInstaller, Source={x:Static entities:Settings.CurrentSettings}}"
+                                          OnContent="Enabled"
+                                          OffContent="Disabled"
+                                          Style="{DynamicResource CustomToggleSwitch}"
+                                          Toggled="ToggleSwitchModelSaberOneClick_Toggled" />
+                        <Button Grid.Column="1"
                                 Content="Restart as administrator"
                                 HorizontalAlignment="Left"
                                 Style="{DynamicResource CustomButton}"

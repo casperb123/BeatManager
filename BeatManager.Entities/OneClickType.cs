@@ -2,6 +2,7 @@
 {
     public enum OneClickType
     {
-        BeatSaver
+        BeatSaver,
+        ModelSaber
     }
 }

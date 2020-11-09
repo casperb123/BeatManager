@@ -280,7 +280,7 @@
                         <TextBox Text="{Binding Path=Model.OnlineModel.Author, FallbackValue='-', TargetNullValue='-'}"
                                  Style="{DynamicResource TextBoxDetails}" />
 
-                        <Label Content="BeastSaber Author"
+                        <Label Content="BeastSaber"
                                HorizontalContentAlignment="Right"
                                Style="{DynamicResource LabelDetails}" />
                         <TextBox Text="{Binding Path=Model.OnlineModel.Bsaber, FallbackValue='-', TargetNullValue='-'}"

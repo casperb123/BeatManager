@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace BeatManager.UserControls.BeatSaver
 {
@@ -29,8 +30,8 @@ namespace BeatManager.UserControls.BeatSaver
 
         private void ButtonBigCover_Click(object sender, RoutedEventArgs e)
         {
-            LocalBeatmap beatmap = ((Button)sender).Tag as LocalBeatmap;
-            ViewModel.OpenBigCover(beatmap);
+            ImageSource image = ((Button)sender).Tag as ImageSource;
+            ViewModel.OpenBigCover(image);
         }
 
         private void Map_Delete(object sender, RoutedEventArgs e)

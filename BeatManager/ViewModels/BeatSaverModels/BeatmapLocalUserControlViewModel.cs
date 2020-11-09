@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace BeatManager.ViewModels.BeatSaverModels
@@ -193,17 +194,9 @@ namespace BeatManager.ViewModels.BeatSaverModels
             MainWindow.ViewModel.BeatmapLocalUserControl.dataGridMaps.UnselectAll();
         }
 
-        public void OpenBigCover(LocalBeatmap beatmap)
+        public void OpenBigCover(ImageSource image)
         {
-            using (FileStream stream = File.OpenRead(beatmap.CoverImagePath))
-            {
-                BitmapImage image = new BitmapImage();
-                image.BeginInit();
-                image.StreamSource = stream;
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.EndInit();
-                MainWindow.ViewModel.OpenBigCover(image);
-            }
+            MainWindow.ViewModel.OpenBigCover(image);
         }
     }
 }

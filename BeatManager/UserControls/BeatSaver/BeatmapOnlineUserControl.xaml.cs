@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace BeatManager.UserControls.BeatSaver
 {
@@ -24,8 +25,8 @@ namespace BeatManager.UserControls.BeatSaver
 
         private void ButtonBigCover_Click(object sender, RoutedEventArgs e)
         {
-            OnlineBeatmap beatmap = ((Button)sender).Tag as OnlineBeatmap;
-            ViewModel.OpenBigCover(beatmap);
+            ImageSource image = ((Button)sender).Tag as ImageSource;
+            ViewModel.OpenBigCover(image);
         }
 
         private async void Map_Download(object sender, RoutedEventArgs e)

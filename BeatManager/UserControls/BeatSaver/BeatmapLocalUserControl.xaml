@@ -71,10 +71,11 @@
                                             Height="25"
                                             CornerRadius="100">
                                         <Border.Background>
-                                            <ImageBrush ImageSource="{Binding Path=CoverImagePath, Mode=OneWay, IsAsync=True, Converter={StaticResource ImageSourceToBitmapConverter}}" />
+                                            <ImageBrush x:Name="imageBrushCover"
+                                                        ImageSource="{Binding Path=CoverImagePath, Mode=OneWay, IsAsync=True, Converter={StaticResource ImageSourceToBitmapConverter}}" />
                                         </Border.Background>
                                         <Button x:Name="buttonBigCover"
-                                                Tag="{Binding}"
+                                                Tag="{Binding ElementName=imageBrushCover, Path=ImageSource}"
                                                 Style="{DynamicResource CustomButtonCover}"
                                                 Click="ButtonBigCover_Click">
                                             <Button.Resources>

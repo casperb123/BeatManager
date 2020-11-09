@@ -27,6 +27,8 @@ namespace BeatManager.ViewModels.BeatSaverModels
         public bool SongChanged;
         public bool IsLoaded;
 
+        public bool BeatmapChanged { get; set; }
+
         public MapSort CurrentMapSort
         {
             get { return currentMapSort; }
@@ -121,7 +123,7 @@ namespace BeatManager.ViewModels.BeatSaverModels
             if (!OnlineBeatmaps.Maps.Any(x => x.IsDownloading) && !App.BeatSaverApi.Downloading.Any())
                 MainWindow.radioButtonSettings.IsEnabled = true;
 
-            MainWindow.ViewModel.OnlineBeatmapChanged = true;
+            BeatmapChanged = true;
             UpdatePageButtons();
         }
 
@@ -360,7 +362,7 @@ namespace BeatManager.ViewModels.BeatSaverModels
                 MainWindow.ViewModel.BeatmapLocalUserControl.ViewModel.LocalBeatmaps.Maps.Remove(localBeatmap);
 
             App.BeatSaverApi.DeleteSong(beatmap);
-            MainWindow.ViewModel.OnlineBeatmapChanged = true;
+            BeatmapChanged = true;
         }
 
         public void DeleteSongs(ICollection<OnlineBeatmap> songs)
@@ -376,7 +378,7 @@ namespace BeatManager.ViewModels.BeatSaverModels
             }
 
             if (songs.Count > 0)
-                MainWindow.ViewModel.OnlineBeatmapChanged = true;
+                BeatmapChanged = true;
         }
 
         public void BeatmapDetails(OnlineBeatmap beatmap, bool changePage = true)

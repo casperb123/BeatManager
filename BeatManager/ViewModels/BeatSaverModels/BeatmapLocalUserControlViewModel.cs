@@ -21,6 +21,8 @@ namespace BeatManager.ViewModels.BeatSaverModels
         public bool SongDeleted;
         public bool IsLoaded;
 
+        public bool BeatmapChanged { get; set; }
+
         public LocalBeatmap Beatmap
         {
             get { return beatmap; }
@@ -144,16 +146,12 @@ namespace BeatManager.ViewModels.BeatSaverModels
 
         public void DeleteSong(LocalBeatmap beatmap)
         {
-            OnlineBeatmap onlineBeatmap;
-            if (beatmap.Identifier.IsKey)
-                onlineBeatmap = MainWindow.ViewModel.BeatmapOnlineUserControl.ViewModel.OnlineBeatmaps?.Maps.FirstOrDefault(x => x.Key == beatmap.Identifier.Value);
-            else
-                onlineBeatmap = MainWindow.ViewModel.BeatmapOnlineUserControl.ViewModel.OnlineBeatmaps?.Maps.FirstOrDefault(x => x.Hash == beatmap.Identifier.Value);
+            OnlineBeatmap onlineBeatmap = MainWindow.ViewModel.BeatmapOnlineUserControl.ViewModel.OnlineBeatmaps?.Maps.FirstOrDefault(x => x.Key == beatmap.Identifier.Value || x.Hash == beatmap.Identifier.Value);
 
             App.BeatSaverApi.DeleteSong(beatmap);
             LocalBeatmaps.Maps.Remove(beatmap);
             if (onlineBeatmap is null)
-                MainWindow.ViewModel.LocalBeatmapChanged = true;
+                BeatmapChanged = true;
             else
                 onlineBeatmap.IsDownloaded = false;
 
@@ -171,11 +169,7 @@ namespace BeatManager.ViewModels.BeatSaverModels
             List<OnlineBeatmap> onlineBeatmaps = new List<OnlineBeatmap>();
             foreach (LocalBeatmap localBeatmap in songs)
             {
-                OnlineBeatmap onlineBeatmap;
-                if (localBeatmap.Identifier.IsKey)
-                    onlineBeatmap = MainWindow.ViewModel.BeatmapOnlineUserControl.ViewModel.OnlineBeatmaps?.Maps.FirstOrDefault(x => x.Key == localBeatmap.Identifier.Value);
-                else
-                    onlineBeatmap = MainWindow.ViewModel.BeatmapOnlineUserControl.ViewModel.OnlineBeatmaps?.Maps.FirstOrDefault(x => x.Hash == localBeatmap.Identifier.Value);
+                OnlineBeatmap onlineBeatmap = MainWindow.ViewModel.BeatmapOnlineUserControl.ViewModel.OnlineBeatmaps?.Maps.FirstOrDefault(x => x.Key == localBeatmap.Identifier.Value || x.Hash == localBeatmap.Identifier.Value);
 
                 if (onlineBeatmap != null)
                     onlineBeatmaps.Add(onlineBeatmap);
@@ -184,7 +178,7 @@ namespace BeatManager.ViewModels.BeatSaverModels
             if (onlineBeatmaps.Count == songs.Count)
                 onlineBeatmaps.ForEach(x => x.IsDownloaded = false);
             else
-                MainWindow.ViewModel.LocalBeatmapChanged = true;
+                BeatmapChanged = true;
 
             LocalBeatmaps = App.BeatSaverApi.RefreshLocalPages(LocalBeatmaps);
         }

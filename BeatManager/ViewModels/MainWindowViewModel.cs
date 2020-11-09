@@ -53,8 +53,6 @@ namespace BeatManager.ViewModels
         public bool UpdateDownloaded;
         public readonly Updater Updater;
         public bool IsLoaded;
-        public bool OnlineBeatmapChanged;
-        public bool LocalBeatmapChanged;
 
         public int Downloads
         {
@@ -365,11 +363,11 @@ namespace BeatManager.ViewModels
             MainWindow.userControlMain.Content = BeatmapLocalUserControl;
 
             if (!BeatmapLocalUserControl.ViewModel.IsLoaded ||
-                OnlineBeatmapChanged ||
+                BeatmapOnlineUserControl.ViewModel.BeatmapChanged ||
                 SettingsUserControl.ViewModel.SongsPathChanged)
             {
                 BeatmapLocalUserControl.ViewModel.IsLoaded = true;
-                OnlineBeatmapChanged = false;
+                BeatmapOnlineUserControl.ViewModel.BeatmapChanged = false;
 
                 if (BeatmapLocalUserControl.ViewModel.LocalBeatmaps is null || SettingsUserControl.ViewModel.SongsPathChanged)
                     BeatmapLocalUserControl.ViewModel.GetBeatmaps();
@@ -389,7 +387,7 @@ namespace BeatManager.ViewModels
                 BeatmapOnlineUserControl.radioButtonHot.IsChecked = true;
                 BeatmapOnlineUserControl.ViewModel.IsLoaded = true;
             }
-            else if (LocalBeatmapChanged)
+            else if (BeatmapLocalUserControl.ViewModel.BeatmapChanged)
             {
                 if (BeatmapOnlineUserControl.ViewModel.OnlineBeatmaps != null)
                 {
@@ -400,7 +398,7 @@ namespace BeatManager.ViewModels
                         BeatmapOnlineUserControl.ViewModel.GetBeatmaps(mapSort, BeatmapOnlineUserControl.ViewModel.OnlineBeatmaps.CurrentPage);
                 }
 
-                LocalBeatmapChanged = false;
+                BeatmapLocalUserControl.ViewModel.BeatmapChanged = false;
             }
 
             MainWindow.userControlMain.Content = BeatmapOnlineUserControl;
@@ -474,9 +472,9 @@ namespace BeatManager.ViewModels
 
                     if (isValid)
                     {
-                        OnlineBeatmapChanged = true;
+                        BeatmapOnlineUserControl.ViewModel.BeatmapChanged = true;
                         if (BeatmapOnlineUserControl.ViewModel.OnlineBeatmaps != null && BeatmapOnlineUserControl.ViewModel.OnlineBeatmaps.Maps.Any(x => x.Key == key))
-                            LocalBeatmapChanged = true;
+                            BeatmapLocalUserControl.ViewModel.BeatmapChanged = true;
                         if (MainWindow.userControlMain.Content == BeatmapLocalUserControl || MainWindow.userControlMain.Content == BeatmapLocalDetailsUserControl)
                             ShowLocalBeatmapsPage();
                         else if (MainWindow.userControlMain.Content == BeatmapOnlineUserControl || MainWindow.userControlMain.Content == BeatmapOnlineDetailsUserControl)

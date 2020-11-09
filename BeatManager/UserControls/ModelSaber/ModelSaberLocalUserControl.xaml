@@ -36,7 +36,6 @@
                   CanUserResizeColumns="False"
                   VerticalScrollBarVisibility="Disabled"
                   HorizontalScrollBarVisibility="Disabled"
-                  VirtualizingPanel.IsVirtualizing="True"
                   TargetUpdated="DataGridModels_TargetUpdated"
                   LoadingRow="DataGridModels_LoadingRow"
                   SelectionChanged="DataGridModels_SelectionChanged">

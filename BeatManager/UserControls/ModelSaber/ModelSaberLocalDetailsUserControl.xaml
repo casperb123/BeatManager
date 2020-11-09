@@ -201,8 +201,6 @@
                             Height="35"
                             Foreground="#ff4040"
                             Style="{DynamicResource TransparentCircleButton}"
-                            Visibility="{Binding Path=Model.IsDownloaded, Converter={StaticResource BooleanToVisibilityConverter}}"
-                            IsEnabled="{Binding Path=Model.IsDownloaded}"
                             Click="ButtonDelete_Click">
                         <Button.ToolTip>
                             <TextBlock Text="{Binding Path=Model.ModelType, StringFormat='{}Delete {0}'}" />

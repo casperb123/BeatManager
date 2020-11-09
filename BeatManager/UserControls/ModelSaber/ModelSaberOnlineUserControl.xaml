@@ -110,7 +110,6 @@
                   CanUserResizeColumns="False"
                   VerticalScrollBarVisibility="Disabled"
                   HorizontalScrollBarVisibility="Disabled"
-                  VirtualizingPanel.IsVirtualizing="True"
                   TargetUpdated="DataGridModels_TargetUpdated"
                   SelectionChanged="DataGridModels_SelectionChanged">
             <DataGrid.ContextMenu>
